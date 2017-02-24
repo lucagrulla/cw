@@ -1,0 +1,8 @@
+{
+    "dependencies": {
+        "github.com/aws/aws-sdk-go": {
+            "branch": "master"
+        },
+        "gopkg.in/alecthomas/kingpin.v2": {}
+    }
+}

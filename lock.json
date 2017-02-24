@@ -1,0 +1,55 @@
+{
+    "memo": "d991f10ebcdd4615f65ed1fe54a96b676e54aaa1a864f39ce6177a5a65125cac",
+    "projects": [
+        {
+            "name": "github.com/alecthomas/template",
+            "branch": "master",
+            "revision": "a0175ee3bccc567396460bf5acd36800cb10c49c",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/alecthomas/units",
+            "branch": "master",
+            "revision": "2efee857e7cfd4f3d0138cc3cbb1b4966962b93a",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/aws/aws-sdk-go",
+            "branch": "master",
+            "revision": "ab16e115479efb695e122bc4bb3e0ad52419d1ba",
+            "packages": [
+                "aws",
+                "aws/session",
+                "service/cloudwatchlogs"
+            ]
+        },
+        {
+            "name": "github.com/go-ini/ini",
+            "version": "v1.24.0",
+            "revision": "e3c2d47c61e5333f9aa2974695dd94396eb69c75",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/jmespath/go-jmespath",
+            "version": "0.2.2",
+            "revision": "3433f3ea46d9f8019119e7dd41274e112a2359a9",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "gopkg.in/alecthomas/kingpin.v2",
+            "version": "v2.2.3",
+            "revision": "e9044be3ab2a8e11d4e1f418d12f0790d57e8d70",
+            "packages": [
+                "."
+            ]
+        }
+    ]
+}
