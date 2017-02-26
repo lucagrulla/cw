@@ -13,6 +13,7 @@ import (
 
 var (
 	timeFormat   = "2006-01-02T15:04:05"
+	follow       = kingpin.Flag("follow", "don't stop when the end of stream is reached").Short('f').Default("false").Bool()
 	logGroupName = kingpin.Arg("group", "log group name").Required().String()
 	startTime    = kingpin.Arg("start", "start time").Default(time.Now().Format(timeFormat)).String()
 	streamName   = kingpin.Arg("stream", "Stream name").String()
@@ -60,7 +61,7 @@ func main() {
 		return true
 	}
 
-	for true {
+	for *follow {
 		logParam := params(*logGroupName, *streamName, lastTimestamp)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
 
