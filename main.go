@@ -12,11 +12,15 @@ import (
 )
 
 var (
-	timeFormat   = "2006-01-02T15:04:05"
-	follow       = kingpin.Flag("follow", "don't stop when the end of stream is reached").Short('f').Default("false").Bool()
-	logGroupName = kingpin.Arg("group", "log group name").Required().String()
-	startTime    = kingpin.Arg("start", "start time").Default(time.Now().Format(timeFormat)).String()
-	streamName   = kingpin.Arg("stream", "Stream name").String()
+	timeFormat = "2006-01-02T15:04:05"
+
+	tailCommand     = kingpin.Command("tail", "Tail a log group")
+	lsCommand       = kingpin.Command("ls", "show all log groups")
+	logGroupPattern = lsCommand.Arg("group", "the log group name").String()
+	follow          = tailCommand.Flag("follow", "don't stop when the end of stream is reached").Short('f').Default("false").Bool()
+	logGroupName    = tailCommand.Arg("group", "The log group name").Required().String()
+	startTime       = tailCommand.Arg("start", "The start time").Default(time.Now().Format(timeFormat)).String()
+	streamName      = tailCommand.Arg("stream", "Stream name").String()
 )
 
 func parseTime(timeStr string) time.Time {
@@ -43,15 +47,7 @@ func params(logGroupName string, streamName string, epochStartTime int64) *cloud
 	return params
 }
 
-func main() {
-	kingpin.Version("0.0.1")
-	kingpin.Parse()
-	sess, err := session.NewSession()
-	if err != nil {
-		panic(err)
-	}
-	cwl := cloudwatchlogs.New(sess, aws.NewConfig().WithRegion("eu-west-1"))
-
+func tail(cwl *cloudwatchlogs.CloudWatchLogs) {
 	lastTimestamp := parseTime(*startTime).Unix()
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
@@ -61,12 +57,48 @@ func main() {
 		return true
 	}
 
-	for *follow {
+	for *follow || (lastTimestamp == parseTime(*startTime).Unix()) {
 		logParam := params(*logGroupName, *streamName, lastTimestamp)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
 
 		if error != nil {
 			panic(error)
+
 		}
+	}
+}
+
+func ls(cwl *cloudwatchlogs.CloudWatchLogs) {
+	params := &cloudwatchlogs.DescribeLogGroupsInput{
+	//		LogGroupNamePrefix: aws.String("LogGroupName"),
+	}
+
+	handler := func(res *cloudwatchlogs.DescribeLogGroupsOutput, lastPage bool) bool {
+		for _, logGroup := range res.LogGroups {
+			fmt.Println(*logGroup.LogGroupName)
+		}
+		return true
+	}
+	err := cwl.DescribeLogGroupsPages(params, handler)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func main() {
+	kingpin.Version("0.0.1")
+	command := kingpin.Parse()
+
+	sess, err := session.NewSession()
+	if err != nil {
+		panic(err)
+	}
+	cwl := cloudwatchlogs.New(sess, aws.NewConfig().WithRegion("eu-west-1"))
+
+	switch command {
+	case "ls":
+		ls(cwl)
+	case "tail":
+		tail(cwl)
 	}
 }
