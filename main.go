@@ -12,22 +12,25 @@ import (
 )
 
 var (
+	timeFormat   = "2006-01-02T15:04:05"
 	logGroupName = kingpin.Arg("group", "log group name").Required().String()
-	startTime    = kingpin.Arg("start", "start time").Default(time.Now().Format("2006-01-02T15:04:05")).String()
+	startTime    = kingpin.Arg("start", "start time").Default(time.Now().Format(timeFormat)).String()
 	streamName   = kingpin.Arg("stream", "Stream name").String()
 )
 
 func parseTime(timeStr string) time.Time {
 	loc, _ := time.LoadLocation("UTC")
-	const timeFmt = "2006-01-02T15:04:05"
-
-	t, _ := time.ParseInLocation(timeFmt, timeStr, loc)
+	t, _ := time.ParseInLocation(timeFormat, timeStr, loc)
 
 	return t
 }
 
-func params(logGroupName string, streamName string, startTime string) *cloudwatchlogs.FilterLogEventsInput {
-	startTimeInt64 := parseTime(startTime).Unix() * 1000
+func formatTimestamp(ts int64) string {
+	return time.Unix(ts, 0).Format(timeFormat)
+}
+
+func params(logGroupName string, streamName string, epochStartTime int64) *cloudwatchlogs.FilterLogEventsInput {
+	startTimeInt64 := epochStartTime * 1000
 	params := &cloudwatchlogs.FilterLogEventsInput{
 		LogGroupName: &logGroupName,
 		Interleaved:  aws.Bool(true),
@@ -42,23 +45,27 @@ func params(logGroupName string, streamName string, startTime string) *cloudwatc
 func main() {
 	kingpin.Version("0.0.1")
 	kingpin.Parse()
-	fmt.Printf("Group name: %s |stream name: %s | start time: %s.", *logGroupName, *streamName, *startTime)
 	sess, err := session.NewSession()
 	if err != nil {
 		panic(err)
 	}
-	svc := cloudwatchlogs.New(sess, aws.NewConfig().WithRegion("eu-west-1"))
+	cwl := cloudwatchlogs.New(sess, aws.NewConfig().WithRegion("eu-west-1"))
 
+	lastTimestamp := parseTime(*startTime).Unix()
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
+			lastTimestamp = *event.Timestamp / 1000
 			fmt.Println(*event.Message)
 		}
 		return true
 	}
 
-	logParam := params(*logGroupName, *streamName, *startTime)
-	error := svc.FilterLogEventsPages(logParam, pageHandler)
-	if error != nil {
-		panic(error)
+	for true {
+		logParam := params(*logGroupName, *streamName, lastTimestamp)
+		error := cwl.FilterLogEventsPages(logParam, pageHandler)
+
+		if error != nil {
+			panic(error)
+		}
 	}
 }
