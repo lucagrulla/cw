@@ -1,5 +1,5 @@
 {
-    "memo": "d991f10ebcdd4615f65ed1fe54a96b676e54aaa1a864f39ce6177a5a65125cac",
+    "memo": "a33be850d9c3a86dbaeffcb264a5735b451d1c3a195fb6d08a7554ede46a942d",
     "projects": [
         {
             "name": "github.com/alecthomas/template",
@@ -28,6 +28,14 @@
             ]
         },
         {
+            "name": "github.com/fatih/color",
+            "version": "v1.4.0",
+            "revision": "7824417a424b65227be8ac9b14d545a7f3e6c3f0",
+            "packages": [
+                "."
+            ]
+        },
+        {
             "name": "github.com/go-ini/ini",
             "version": "v1.24.0",
             "revision": "e3c2d47c61e5333f9aa2974695dd94396eb69c75",
@@ -41,6 +49,30 @@
             "revision": "3433f3ea46d9f8019119e7dd41274e112a2359a9",
             "packages": [
                 "."
+            ]
+        },
+        {
+            "name": "github.com/mattn/go-colorable",
+            "version": "v0.0.7",
+            "revision": "d228849504861217f796da67fae4f6e347643f15",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/mattn/go-isatty",
+            "version": "v0.0.1",
+            "revision": "3a115632dcd687f9c8cd01679c83a06a0e21c1f3",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "golang.org/x/sys",
+            "branch": "master",
+            "revision": "e4594059fe4cde2daf423055a596c2cd1e6c9adf",
+            "packages": [
+                "unix"
             ]
         },
         {
