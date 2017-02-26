@@ -2,23 +2,39 @@ package main
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
+
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 var (
-	logGroupName = kingpin.Arg("group", "log group").Required().String()
+	logGroupName = kingpin.Arg("group", "log group name").Required().String()
+	startTime    = kingpin.Arg("start", "start time").Default(time.Now().Format("2006-01-02T15:04:05")).String()
+	streamName   = kingpin.Arg("stream", "Stream name").String()
 )
 
-func params(logGroupName *string, token ...*string) *cloudwatchlogs.FilterLogEventsInput {
-	params := &cloudwatchlogs.FilterLogEventsInput{
-		LogGroupName: aws.String(*logGroupName),
-		Interleaved:  aws.Bool(true)}
+func parseTime(timeStr string) time.Time {
+	loc, _ := time.LoadLocation("UTC")
+	const timeFmt = "2006-01-02T15:04:05"
 
-	if token != nil {
-		params.NextToken = aws.String(*token[0])
+	t, _ := time.ParseInLocation(timeFmt, timeStr, loc)
+
+	return t
+}
+
+func params(logGroupName string, streamName string, startTime string) *cloudwatchlogs.FilterLogEventsInput {
+	startTimeInt64 := parseTime(startTime).Unix() * 1000
+	params := &cloudwatchlogs.FilterLogEventsInput{
+		LogGroupName: &logGroupName,
+		Interleaved:  aws.Bool(true),
+		StartTime:    &startTimeInt64}
+
+	if streamName != "" {
+		params.LogStreamNames = []*string{aws.String(streamName)}
 	}
 	return params
 }
@@ -26,21 +42,23 @@ func params(logGroupName *string, token ...*string) *cloudwatchlogs.FilterLogEve
 func main() {
 	kingpin.Version("0.0.1")
 	kingpin.Parse()
-	fmt.Printf("Hello, tail. Tailing %s", *logGroupName)
+	fmt.Printf("Group name: %s |stream name: %s | start time: %s.", *logGroupName, *streamName, *startTime)
 	sess, err := session.NewSession()
 	if err != nil {
 		panic(err)
 	}
 	svc := cloudwatchlogs.New(sess, aws.NewConfig().WithRegion("eu-west-1"))
 
-	logParam := params(logGroupName)
-	for logParam != nil {
-		resp, _ := svc.FilterLogEvents(logParam)
-
-		for _, val := range resp.Events {
-			fmt.Println(*val.Message)
+	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
+		for _, event := range res.Events {
+			fmt.Println(*event.Message)
 		}
-		logParam = params(logGroupName, resp.NextToken)
+		return true
 	}
-	//fmt.Println("\n <<<<<<<<<<<<<<<<<NEXT PAGE>>>>>>>>>>>>>>>")
+
+	logParam := params(*logGroupName, *streamName, *startTime)
+	error := svc.FilterLogEventsPages(logParam, pageHandler)
+	if error != nil {
+		panic(error)
+	}
 }
