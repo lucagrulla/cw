@@ -2,15 +2,12 @@ package cloudwatch
 
 import (
 	"fmt"
-	"time"
+
+	"github.com/lucagrulla/cloudwatch-tail/timeutil"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-)
-
-var (
-	timeFormat = "2006-01-02T15:04:05"
 )
 
 func cwClient() *cloudwatchlogs.CloudWatchLogs {
@@ -19,13 +16,6 @@ func cwClient() *cloudwatchlogs.CloudWatchLogs {
 		panic(err)
 	}
 	return cloudwatchlogs.New(sess, aws.NewConfig().WithRegion("eu-west-1"))
-}
-
-func parseTime(timeStr string) time.Time {
-	loc, _ := time.LoadLocation("UTC")
-	t, _ := time.ParseInLocation(timeFormat, timeStr, loc)
-
-	return t
 }
 
 func params(logGroupName string, streamName string, epochStartTime int64) *cloudwatchlogs.FilterLogEventsInput {
@@ -43,16 +33,17 @@ func params(logGroupName string, streamName string, epochStartTime int64) *cloud
 
 func Tail(startTime *string, follow *bool, logGroupName *string, streamName *string) {
 	cwl := cwClient()
-	lastTimestamp := parseTime(*startTime).Unix()
+	lastTimestamp := timeutil.ParseTime(*startTime).Unix()
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
 			lastTimestamp = *event.Timestamp / 1000
-			fmt.Println(*event.Message)
+			d := timeutil.FormatTimestamp(lastTimestamp)
+			fmt.Printf("%s - %s\n", d, *event.Message)
 		}
 		return true
 	}
 
-	for *follow || (lastTimestamp == parseTime(*startTime).Unix()) {
+	for *follow || (lastTimestamp == timeutil.ParseTime(*startTime).Unix()) {
 		logParam := params(*logGroupName, *streamName, lastTimestamp)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
 
