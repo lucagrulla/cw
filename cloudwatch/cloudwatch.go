@@ -3,7 +3,7 @@ package cloudwatch
 import (
 	"fmt"
 
-	"github.com/lucagrulla/cloudwatch-tail/timeutil"
+	"github.com/lucagrulla/cw/timeutil"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -39,6 +39,7 @@ func Tail(startTime *string, follow *bool, logGroupName *string, streamName *str
 		for _, event := range res.Events {
 			lastTimestamp = *event.Timestamp / 1000
 			d := timeutil.FormatTimestamp(lastTimestamp)
+			//fmt.Printf("%s - %s - %s\n", d, *event.EventId, *event.Message)
 			fmt.Printf("%s - %s\n", d, *event.Message)
 		}
 		return true
