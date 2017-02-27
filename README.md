@@ -4,11 +4,11 @@ A CLI tool to interact with AWS Cloudwatch.
 
 It provides commands for:
 
-* tail a log group/stream
+* tail a given log group/stream
 * list of the available log groups
 
 
-cw uses the .aws/ default credentials profile to authenticate agansint AWS.
+`cw` uses the default credentials profile(stored in .aws) to authenticate against AWS.
  
 ##TODOs:
 ** fix bug for long polling once events are finished(currently we print again a last chunk of alerts)
