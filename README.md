@@ -11,4 +11,6 @@ It provides commands for:
 cw uses the .aws/ default credentials profile to authenticate agansint AWS.
  
 ##TODOs:
+** fix bug for long polling once events are finished(currently we print again a last chunk of alerts)
+** allow more flexible startTime format(no seconds means 00, no minutes means 00:00)
 ** add coloured output
