@@ -35,12 +35,21 @@ func params(logGroupName string, streamName string, epochStartTime int64) *cloud
 func Tail(startTime *string, follow *bool, logGroupName *string, streamName *string) {
 	cwl := cwClient()
 	lastTimestamp := timeutil.ParseTime(*startTime).Unix()
+	eventsCache := make(map[int64][]string)
+
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
 			lastTimestamp = *event.Timestamp / 1000
+			if eventsCache[lastTimestamp] == nil {
+				eventsCache[lastTimestamp] = [100]string{*event.EventId}
+			} else {
+				t := eventsCache[lastTimestamp]
+				eventsCache[lastTimestamp] = append(t, *event.EventId)
+			}
+
 			d := timeutil.FormatTimestamp(lastTimestamp)
 			//fmt.Printf("%s - %s - %s\n", d, *event.EventId, *event.Message)
-			fmt.Printf("%s - %s\n", d, *event.Message)
+			fmt.Printf("%s - %s =  %s\n", d, *event.EventId, *event.Message)
 		}
 		return true
 	}
@@ -48,7 +57,7 @@ func Tail(startTime *string, follow *bool, logGroupName *string, streamName *str
 	for *follow || (lastTimestamp == timeutil.ParseTime(*startTime).Unix()) {
 		logParam := params(*logGroupName, *streamName, lastTimestamp)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
-
+		fmt.Println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 		if error != nil {
 			panic(error)
 

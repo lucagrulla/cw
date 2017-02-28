@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	//	"strings"
 	"time"
 
 	"github.com/lucagrulla/cw/cloudwatch"
@@ -23,10 +25,14 @@ func main() {
 	kingpin.Version("0.0.1")
 	command := kingpin.Parse()
 
+	fmt.Println(*startTime)
+
 	switch command {
 	case "ls":
 		cloudwatch.Ls()
 	case "tail":
+		//		fmt.Println(strings.Split(*startTime, "T"))
+		//		fmt.Println(strings.SplitAfter(*startTime, "T"))
 		cloudwatch.Tail(startTime, follow, logGroupName, streamName)
 	}
 }
