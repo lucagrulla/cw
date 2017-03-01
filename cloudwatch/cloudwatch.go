@@ -2,6 +2,8 @@ package cloudwatch
 
 import (
 	"fmt"
+	"sort"
+	"time"
 
 	"github.com/lucagrulla/cw/timeutil"
 
@@ -35,21 +37,28 @@ func params(logGroupName string, streamName string, epochStartTime int64) *cloud
 func Tail(startTime *string, follow *bool, logGroupName *string, streamName *string) {
 	cwl := cwClient()
 	lastTimestamp := timeutil.ParseTime(*startTime).Unix()
-	eventsCache := make(map[int64][]string)
+	var ids []string
 
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
-		for _, event := range res.Events {
-			lastTimestamp = *event.Timestamp / 1000
-			if eventsCache[lastTimestamp] == nil {
-				eventsCache[lastTimestamp] = [100]string{*event.EventId}
-			} else {
-				t := eventsCache[lastTimestamp]
-				eventsCache[lastTimestamp] = append(t, *event.EventId)
-			}
+		if len(res.Events) == 0 {
+			time.Sleep(1 * time.Second)
+		} else {
+			for _, event := range res.Events {
+				eventTimestamp := *event.Timestamp / 1000
+				if eventTimestamp != lastTimestamp {
 
-			d := timeutil.FormatTimestamp(lastTimestamp)
-			//fmt.Printf("%s - %s - %s\n", d, *event.EventId, *event.Message)
-			fmt.Printf("%s - %s =  %s\n", d, *event.EventId, *event.Message)
+					ids = nil
+					lastTimestamp = eventTimestamp
+				} else {
+					sort.Strings(ids)
+				}
+				idx := sort.SearchStrings(ids, *event.EventId)
+				if ids == nil || (idx == len(ids) || ids[idx] != *event.EventId) {
+					d := timeutil.FormatTimestamp(eventTimestamp)
+					fmt.Printf("%s -  %s\n", d, *event.Message)
+				}
+				ids = append(ids, *event.EventId)
+			}
 		}
 		return true
 	}
@@ -57,10 +66,8 @@ func Tail(startTime *string, follow *bool, logGroupName *string, streamName *str
 	for *follow || (lastTimestamp == timeutil.ParseTime(*startTime).Unix()) {
 		logParam := params(*logGroupName, *streamName, lastTimestamp)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
-		fmt.Println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 		if error != nil {
 			panic(error)
-
 		}
 	}
 }
