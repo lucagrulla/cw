@@ -22,7 +22,7 @@ var (
 )
 
 func main() {
-	kingpin.Version("0.0.1")
+	kingpin.Version("0.1.0")
 	command := kingpin.Parse()
 
 	switch command {
