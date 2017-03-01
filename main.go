@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-	//	"strings"
+	//	"fmt"
 	"time"
 
 	"github.com/lucagrulla/cw/cloudwatch"
@@ -18,6 +17,7 @@ var (
 	follow       = tailCommand.Flag("follow", "Don't stop when the end of stream is reached").Short('f').Default("false").Bool()
 	logGroupName = tailCommand.Arg("group", "The log group name").Required().String()
 	startTime    = tailCommand.Arg("start", "The tailing start time in the format 2017-02-27T09:00:00").Default(time.Now().Add(-20 * time.Second).Format(timeutil.TimeFormat)).String()
+	endTime      = tailCommand.Arg("end", "The tailing end time in the format 2017-02-27T09:00:00").String()
 	streamName   = tailCommand.Arg("stream", "an opotional stream name").String()
 )
 
@@ -25,14 +25,12 @@ func main() {
 	kingpin.Version("0.0.1")
 	command := kingpin.Parse()
 
-	fmt.Println(*startTime)
-
 	switch command {
 	case "ls":
 		cloudwatch.Ls()
 	case "tail":
 		//		fmt.Println(strings.Split(*startTime, "T"))
 		//		fmt.Println(strings.SplitAfter(*startTime, "T"))
-		cloudwatch.Tail(startTime, follow, logGroupName, streamName)
+		cloudwatch.Tail(logGroupName, follow, startTime, endTime, streamName)
 	}
 }

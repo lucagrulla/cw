@@ -21,8 +21,9 @@ func cwClient() *cloudwatchlogs.CloudWatchLogs {
 	return cloudwatchlogs.New(sess, aws.NewConfig().WithRegion("eu-west-1"))
 }
 
-func params(logGroupName string, streamName string, epochStartTime int64) *cloudwatchlogs.FilterLogEventsInput {
+func params(logGroupName string, streamName string, epochStartTime int64, epochEndTime int64) *cloudwatchlogs.FilterLogEventsInput {
 	startTimeInt64 := epochStartTime * 1000
+	endTimeInt64 := epochEndTime * 1000
 	params := &cloudwatchlogs.FilterLogEventsInput{
 		LogGroupName: &logGroupName,
 		Interleaved:  aws.Bool(true),
@@ -31,12 +32,22 @@ func params(logGroupName string, streamName string, epochStartTime int64) *cloud
 	if streamName != "" {
 		params.LogStreamNames = []*string{aws.String(streamName)}
 	}
+	if endTimeInt64 != 0 {
+		params.EndTime = &endTimeInt64
+	}
 	return params
 }
 
-func Tail(startTime *string, follow *bool, logGroupName *string, streamName *string) {
+func Tail(logGroupName *string, follow *bool, startTime *string, endTime *string, streamName *string) {
 	cwl := cwClient()
-	lastTimestamp := timeutil.ParseTime(*startTime).Unix()
+	startTimeEpoch := timeutil.ParseTime(*startTime).Unix()
+	lastTimestamp := startTimeEpoch
+
+	var endTimeEpoch int64
+	if *endTime != "" {
+		endTimeEpoch = timeutil.ParseTime(*endTime).Unix()
+	}
+
 	var ids []string
 
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
@@ -46,7 +57,6 @@ func Tail(startTime *string, follow *bool, logGroupName *string, streamName *str
 			for _, event := range res.Events {
 				eventTimestamp := *event.Timestamp / 1000
 				if eventTimestamp != lastTimestamp {
-
 					ids = nil
 					lastTimestamp = eventTimestamp
 				} else {
@@ -63,8 +73,8 @@ func Tail(startTime *string, follow *bool, logGroupName *string, streamName *str
 		return true
 	}
 
-	for *follow || (lastTimestamp == timeutil.ParseTime(*startTime).Unix()) {
-		logParam := params(*logGroupName, *streamName, lastTimestamp)
+	for *follow || (lastTimestamp == startTimeEpoch) {
+		logParam := params(*logGroupName, *streamName, lastTimestamp, endTimeEpoch)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
 		if error != nil {
 			panic(error)
