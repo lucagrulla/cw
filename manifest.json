@@ -3,6 +3,11 @@
         "github.com/aws/aws-sdk-go": {
             "branch": "master"
         },
-        "gopkg.in/alecthomas/kingpin.v2": {}
+        "github.com/fatih/color": {
+            "branch": "master"
+        },
+        "gopkg.in/alecthomas/kingpin.v2": {
+            "version": "2"
+        }
     }
 }

@@ -18,7 +18,7 @@ func formatTwoColumns(w io.Writer, indent, padding, width int, rows [][2]string)
 	// Find size of first column.
 	s := 0
 	for _, row := range rows {
-		if c := len(row[0]); c > s && c < 30 {
+		if c := len(row[0]); c > s && c < 20 {
 			s = c
 		}
 	}
@@ -31,7 +31,7 @@ func formatTwoColumns(w io.Writer, indent, padding, width int, rows [][2]string)
 		doc.ToText(buf, row[1], "", preIndent, width-s-padding-indent)
 		lines := strings.Split(strings.TrimRight(buf.String(), "\n"), "\n")
 		fmt.Fprintf(w, "%s%-*s%*s", indentStr, s, row[0], padding, "")
-		if len(row[0]) >= 30 {
+		if len(row[0]) >= 20 {
 			fmt.Fprintf(w, "\n%s%s", indentStr, offsetStr)
 		}
 		fmt.Fprintf(w, "%s\n", lines[0])
@@ -43,10 +43,10 @@ func formatTwoColumns(w io.Writer, indent, padding, width int, rows [][2]string)
 
 // Usage writes application usage to w. It parses args to determine
 // appropriate help context, such as which command to show help for.
-func (a *Application) Usage(args []string) {
-	context, err := a.parseContext(true, args)
-	a.FatalIfError(err, "")
-	if err := a.UsageForContextWithTemplate(context, 2, a.usageTemplate); err != nil {
+func (a *Application) Usage(w io.Writer, args []string) {
+	context, err := a.ParseContext(args)
+	a.FatalIfError(w, err, "")
+	if err := a.UsageForContextWithTemplate(context, w, 2, a.usageTemplate); err != nil {
 		panic(err)
 	}
 }
@@ -73,25 +73,108 @@ func formatCmdUsage(app *ApplicationModel, cmd *CmdModel) string {
 	return strings.Join(s, " ")
 }
 
-func formatFlag(haveShort bool, flag *FlagModel) string {
+func formatFlag(flag *FlagModel) string {
 	flagString := ""
 	if flag.Short != 0 {
-		flagString += fmt.Sprintf("-%c, --%s", flag.Short, flag.Name)
-	} else {
-		if haveShort {
-			flagString += fmt.Sprintf("    --%s", flag.Name)
-		} else {
-			flagString += fmt.Sprintf("--%s", flag.Name)
-		}
+		flagString += fmt.Sprintf("-%c, ", flag.Short)
 	}
+	flagString += fmt.Sprintf("--%s", flag.Name)
 	if !flag.IsBoolFlag() {
 		flagString += fmt.Sprintf("=%s", flag.FormatPlaceHolder())
 	}
-	if v, ok := flag.Value.(repeatableFlag); ok && v.IsCumulative() {
-		flagString += " ..."
-	}
 	return flagString
 }
+
+// Default usage template.
+var UsageTemplate = `{{define "FormatCommand"}}\
+{{if .FlagSummary}} {{.FlagSummary}}{{end}}\
+{{range .Args}} {{if not .Required}}[{{end}}<{{.Name}}>{{if .Value|IsCumulative}}...{{end}}{{if not .Required}}]{{end}}{{end}}\
+{{end}}\
+
+{{define "FormatCommands"}}\
+{{range .FlattenedCommands}}\
+  {{.FullCommand}}{{template "FormatCommand" .}}
+{{.Help|Wrap 4}}
+{{end}}\
+{{end}}\
+
+{{define "FormatUsage"}}\
+{{template "FormatCommand" .}}{{if .Commands}} <command> [<args> ...]{{end}}
+{{if .Help}}
+{{.Help|Wrap 0}}\
+{{end}}\
+
+{{end}}\
+
+{{if .Context.SelectedCommand}}\
+usage: {{.App.Name}} {{.Context.SelectedCommand}}{{template "FormatUsage" .Context.SelectedCommand}}
+{{else}}\
+usage: {{.App.Name}}{{template "FormatUsage" .App}}
+{{end}}\
+{{if .Context.Flags}}\
+Flags:
+{{.Context.Flags|FlagsToTwoColumns|FormatTwoColumns}}
+{{end}}\
+{{if .Context.Args}}\
+Args:
+{{.Context.Args|ArgsToTwoColumns|FormatTwoColumns}}
+{{end}}\
+{{if .Context.SelectedCommand}}\
+Subcommands:
+{{if .Context.SelectedCommand.Commands}}\
+{{template "FormatCommands" .Context.SelectedCommand}}
+{{end}}\
+{{else if .App.Commands}}\
+Commands:
+{{template "FormatCommands" .App}}
+{{end}}\
+`
+
+// Usage template with compactly formatted commands.
+var CompactUsageTemplate = `{{define "FormatCommand"}}\
+{{if .FlagSummary}} {{.FlagSummary}}{{end}}\
+{{range .Args}} {{if not .Required}}[{{end}}<{{.Name}}>{{if .Value|IsCumulative}}...{{end}}{{if not .Required}}]{{end}}{{end}}\
+{{end}}\
+
+{{define "FormatCommandList"}}\
+{{range .}}\
+{{.Depth|Indent}}{{.Name}}{{template "FormatCommand" .}}
+{{template "FormatCommandList" .Commands}}\
+{{end}}\
+{{end}}\
+
+{{define "FormatUsage"}}\
+{{template "FormatCommand" .}}{{if .Commands}} <command> [<args> ...]{{end}}
+{{if .Help}}
+{{.Help|Wrap 0}}\
+{{end}}\
+
+{{end}}\
+
+{{if .Context.SelectedCommand}}\
+usage: {{.App.Name}} {{.Context.SelectedCommand}}{{template "FormatUsage" .Context.SelectedCommand}}
+{{else}}\
+usage: {{.App.Name}}{{template "FormatUsage" .App}}
+{{end}}\
+{{if .Context.Flags}}\
+Flags:
+{{.Context.Flags|FlagsToTwoColumns|FormatTwoColumns}}
+{{end}}\
+{{if .Context.Args}}\
+Args:
+{{.Context.Args|ArgsToTwoColumns|FormatTwoColumns}}
+{{end}}\
+{{if .Context.SelectedCommand}}\
+{{if .Context.SelectedCommand.Commands}}\
+Commands:
+  {{.Context.SelectedCommand}}
+{{template "FormatCommandList" .Context.SelectedCommand.Commands}}
+{{end}}\
+{{else if .App.Commands}}\
+Commands:
+{{template "FormatCommandList" .App.Commands}}
+{{end}}\
+`
 
 type templateParseContext struct {
 	SelectedCommand *CmdModel
@@ -107,13 +190,13 @@ type templateContext struct {
 
 // UsageForContext displays usage information from a ParseContext (obtained from
 // Application.ParseContext() or Action(f) callbacks).
-func (a *Application) UsageForContext(context *ParseContext) error {
-	return a.UsageForContextWithTemplate(context, 2, a.usageTemplate)
+func (a *Application) UsageForContext(w io.Writer, context *ParseContext) error {
+	return a.UsageForContextWithTemplate(context, w, 2, a.usageTemplate)
 }
 
 // UsageForContextWithTemplate is the base usage function. You generally don't need to use this.
-func (a *Application) UsageForContextWithTemplate(context *ParseContext, indent int, tmpl string) error {
-	width := guessWidth(a.usageWriter)
+func (a *Application) UsageForContextWithTemplate(context *ParseContext, w io.Writer, indent int, tmpl string) error {
+	width := guessWidth(w)
 	funcs := template.FuncMap{
 		"Indent": func(level int) string {
 			return strings.Repeat(" ", level*indent)
@@ -121,43 +204,18 @@ func (a *Application) UsageForContextWithTemplate(context *ParseContext, indent 
 		"Wrap": func(indent int, s string) string {
 			buf := bytes.NewBuffer(nil)
 			indentText := strings.Repeat(" ", indent)
-			doc.ToText(buf, s, indentText, "  "+indentText, width-indent)
+			doc.ToText(buf, s, indentText, indentText, width)
 			return buf.String()
 		},
 		"FormatFlag": formatFlag,
 		"FlagsToTwoColumns": func(f []*FlagModel) [][2]string {
 			rows := [][2]string{}
-			haveShort := false
-			for _, flag := range f {
-				if flag.Short != 0 {
-					haveShort = true
-					break
-				}
-			}
 			for _, flag := range f {
 				if !flag.Hidden {
-					rows = append(rows, [2]string{formatFlag(haveShort, flag), flag.Help})
+					rows = append(rows, [2]string{formatFlag(flag), flag.Help})
 				}
 			}
 			return rows
-		},
-		"RequiredFlags": func(f []*FlagModel) []*FlagModel {
-			requiredFlags := []*FlagModel{}
-			for _, flag := range f {
-				if flag.Required {
-					requiredFlags = append(requiredFlags, flag)
-				}
-			}
-			return requiredFlags
-		},
-		"OptionalFlags": func(f []*FlagModel) []*FlagModel {
-			optionalFlags := []*FlagModel{}
-			for _, flag := range f {
-				if !flag.Required {
-					optionalFlags = append(optionalFlags, flag)
-				}
-			}
-			return optionalFlags
 		},
 		"ArgsToTwoColumns": func(a []*ArgModel) [][2]string {
 			rows := [][2]string{}
@@ -175,19 +233,11 @@ func (a *Application) UsageForContextWithTemplate(context *ParseContext, indent 
 			formatTwoColumns(buf, indent, indent, width, rows)
 			return buf.String()
 		},
-		"FormatTwoColumnsWithIndent": func(rows [][2]string, indent, padding int) string {
-			buf := bytes.NewBuffer(nil)
-			formatTwoColumns(buf, indent, padding, width, rows)
-			return buf.String()
-		},
 		"FormatAppUsage":     formatAppUsage,
 		"FormatCommandUsage": formatCmdUsage,
 		"IsCumulative": func(value Value) bool {
-			r, ok := value.(remainderArg)
-			return ok && r.IsCumulative()
-		},
-		"Char": func(c rune) string {
-			return string(c)
+			_, ok := value.(remainderArg)
+			return ok
 		},
 	}
 	t, err := template.New("usage").Funcs(funcs).Parse(tmpl)
@@ -207,5 +257,5 @@ func (a *Application) UsageForContextWithTemplate(context *ParseContext, indent 
 			ArgGroupModel:   context.arguments.Model(),
 		},
 	}
-	return t.Execute(a.usageWriter, ctx)
+	return t.Execute(w, ctx)
 }

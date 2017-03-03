@@ -2,10 +2,11 @@ package kingpin
 
 import (
 	"bytes"
+	"fmt"
 	"strings"
 	"testing"
 
-	"github.com/alecthomas/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestFormatTwoColumns(t *testing.T) {
@@ -25,41 +26,14 @@ func TestFormatTwoColumns(t *testing.T) {
 
 func TestFormatTwoColumnsWide(t *testing.T) {
 	samples := [][2]string{
-		{strings.Repeat("x", 29), "29 chars"},
-		{strings.Repeat("x", 30), "30 chars"}}
+		{strings.Repeat("x", 19), "19 chars"},
+		{strings.Repeat("x", 20), "20 chars"}}
 	buf := bytes.NewBuffer(nil)
 	formatTwoColumns(buf, 0, 0, 200, samples)
-	expected := `xxxxxxxxxxxxxxxxxxxxxxxxxxxxx29 chars
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                             30 chars
+	fmt.Println(buf.String())
+	expected := `xxxxxxxxxxxxxxxxxxx19 chars
+xxxxxxxxxxxxxxxxxxxx
+                   20 chars
 `
 	assert.Equal(t, expected, buf.String())
-}
-
-func TestHiddenCommand(t *testing.T) {
-	templates := []struct{ name, template string }{
-		{"default", DefaultUsageTemplate},
-		{"Compact", CompactUsageTemplate},
-		{"Long", LongHelpTemplate},
-		{"Man", ManPageTemplate},
-	}
-
-	var buf bytes.Buffer
-	t.Log("1")
-
-	a := New("test", "Test").Writer(&buf).Terminate(nil)
-	a.Command("visible", "visible")
-	a.Command("hidden", "hidden").Hidden()
-
-	for _, tp := range templates {
-		buf.Reset()
-		a.UsageTemplate(tp.template)
-		a.Parse(nil)
-		// a.Parse([]string{"--help"})
-		usage := buf.String()
-		t.Logf("Usage for %s is:\n%s\n", tp.name, usage)
-
-		assert.NotContains(t, usage, "hidden")
-		assert.Contains(t, usage, "visible")
-	}
 }

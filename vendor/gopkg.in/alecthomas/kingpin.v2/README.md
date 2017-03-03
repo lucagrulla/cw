@@ -1,4 +1,4 @@
-# Kingpin - A Go (golang) command line and flag parser [![](https://godoc.org/github.com/alecthomas/kingpin?status.svg)](http://godoc.org/github.com/alecthomas/kingpin) [![Build Status](https://travis-ci.org/alecthomas/kingpin.svg?branch=master)](https://travis-ci.org/alecthomas/kingpin)
+# Kingpin - A Go (golang) command line and flag parser [![Build Status](https://travis-ci.org/alecthomas/kingpin.png)](https://travis-ci.org/alecthomas/kingpin)
 
 <!-- MarkdownTOC -->
 
@@ -19,13 +19,9 @@
   - [Displaying errors and usage information](#displaying-errors-and-usage-information)
   - [Sub-commands](#sub-commands)
   - [Custom Parsers](#custom-parsers)
-  - [Repeatable flags](#repeatable-flags)
-  - [Boolean Values](#boolean-values)
   - [Default Values](#default-values)
   - [Place-holders in Help](#place-holders-in-help)
   - [Consuming all remaining arguments](#consuming-all-remaining-arguments)
-  - [Bash/ZSH Shell Completion](#bashzsh-shell-completion)
-  - [Supporting -h for help](#supporting--h-for-help)
   - [Custom help](#custom-help)
 
 <!-- /MarkdownTOC -->
@@ -54,7 +50,7 @@ func main() {
 }
 ```
 
-More [examples](https://github.com/alecthomas/kingpin/tree/master/_examples) are available.
+More [examples](https://github.com/alecthomas/kingpin/tree/master/examples) are available.
 
 Second to parsing, providing the user with useful help is probably the most
 important thing a command-line parser does. Kingpin tries to provide detailed
@@ -67,14 +63,11 @@ contextual help if `--help` is encountered at any point in the command line
 - Fully [customisable help](#custom-help), via Go templates.
 - Parsed, type-safe flags (`kingpin.Flag("f", "help").Int()`)
 - Parsed, type-safe positional arguments (`kingpin.Arg("a", "help").Int()`).
-- Parsed, type-safe, arbitrarily deep commands (`kingpin.Command("c", "help")`).
 - Support for required flags and required positional arguments (`kingpin.Flag("f", "").Required().Int()`).
-- Support for arbitrarily nested default commands (`command.Default()`).
 - Callbacks per command, flag and argument (`kingpin.Command("c", "").Action(myAction)`).
 - POSIX-style short flag combining (`-a -b` -> `-ab`).
 - Short-flag+parameter combining (`-a parm` -> `-aparm`).
 - Read command-line from files (`@<file>`).
-- Automatically generate man pages (`--help-man`).
 
 ## User-visible changes between v1 and v2
 
@@ -108,7 +101,7 @@ be separated by a space. That is no longer the case.
 - Added `Terminate()` function to override the termination function.
 - Added `UsageForContextWithTemplate()` for printing usage via a custom template.
 - Added `UsageTemplate()` for overriding the default template to use. Two templates are included:
-    1. `DefaultUsageTemplate` - default template.
+    1. `UsageTemplate` - default template.
     2. `CompactUsageTemplate` - compact command template for larger applications.
 
 ## Versions
@@ -134,19 +127,6 @@ $ go get gopkg.in/alecthomas/kingpin.v1
 ```
 
 ## Change History
-
-- *2015-09-19* -- Stable v2.1.0 release.
-    - Added `command.Default()` to specify a default command to use if no other
-      command matches. This allows for convenient user shortcuts.
-    - Exposed `HelpFlag` and `VersionFlag` for further customisation.
-    - `Action()` and `PreAction()` added and both now support an arbitrary
-      number of callbacks.
-    - `kingpin.SeparateOptionalFlagsUsageTemplate`.
-    - `--help-long` and `--help-man` (hidden by default) flags.
-    - Flags are "interspersed" by default, but can be disabled with `app.Interspersed(false)`.
-    - Added flags for all simple builtin types (int8, uint16, etc.) and slice variants.
-    - Use `app.Writer(os.Writer)` to specify the default writer for all output functions.
-    - Dropped `os.Writer` prefix from all printf-like functions.
 
 - *2015-05-22* -- Stable v2.0.0 release.
     - Initial stable release of v2.0.0.
@@ -346,11 +326,11 @@ The functions on `Application` are:
 
 Function | Purpose
 ---------|--------------
-`Errorf(format, args)` | Display a printf formatted error to the user.
-`Fatalf(format, args)` | As with Errorf, but also call the termination handler.
-`FatalUsage(format, args)` | As with Fatalf, but also print contextual usage information.
-`FatalUsageContext(context, format, args)` | As with Fatalf, but also print contextual usage information from a `ParseContext`.
-`FatalIfError(err, format, args)` | Conditionally print an error prefixed with format+args, then call the termination handler
+`Errorf(w, format, args)` | Display a printf formatted error to the user.
+`Fatalf(w, format, args)` | As with Errorf, but also call the termination handler.
+`FatalUsage(w, format, args)` | As with Fatalf, but also print contextual usage information.
+`FatalUsageContext(w, context, format, args)` | As with Fatalf, but also print contextual usage information from a `ParseContext`.
+`FatalIfError(w, err, format, args)` | Conditionally print an error prefixed with format+args, then call the termination handler
 
 There are equivalent global functions in the kingpin namespace for the default
 `kingpin.CommandLine` instance.
@@ -424,26 +404,12 @@ You would use it like so:
 headers = HTTPHeader(kingpin.Flag("header", "Add a HTTP header to the request.").Short('H'))
 ```
 
-### Repeatable flags
-
-Depending on the `Value` they hold, some flags may be repeated. The
-`IsCumulative() bool` function on `Value` tells if it's safe to call `Set()`
-multiple times or if an error should be raised if several values are passed.
-
-The built-in `Value`s returning slices and maps, as well as `Counter` are
-examples of `Value`s that make a flag repeatable.
-
-### Boolean values
-
-Boolean values are uniquely managed by Kingpin. Each boolean flag will have a negative complement:
-`--<name>` and `--no-<name>`.
-
 ### Default Values
 
 The default value is the zero value for a type. This can be overridden with
-the `Default(value...)` function on flags and arguments. This function accepts
-one or several strings, which are parsed by the value itself, so they *must*
-be compliant with the format expected.
+the `Default(value)` function on flags and arguments. This function accepts a
+string, which is parsed by the value itself, so it *must* be compliant with
+the format expected.
 
 ### Place-holders in Help
 
@@ -468,13 +434,13 @@ IP addresses as positional arguments:
 
     ./cmd ping 10.1.1.1 192.168.1.1
 
-Such arguments are similar to [repeatable flags](#repeatable-flags), but for
-arguments. Therefore they use the same `IsCumulative() bool` function on the
-underlying `Value`, so the built-in `Value`s for which the `Set()` function
-can be called several times will consume multiple arguments.
+Kingpin supports this by having `Value` provide a `IsCumulative() bool`
+function. If this function exists and returns true, the value parser will be
+called repeatedly for every remaining argument.
 
-To implement the above example with a custom `Value`, we might do something
-like this:
+Examples of this are the `Strings()` and `StringMap()` values.
+
+To implement the above example we might do something like this:
 
 ```go
 type ipList []net.IP
@@ -509,163 +475,57 @@ And use it like so:
 ips := IPList(kingpin.Arg("ips", "IP addresses to ping."))
 ```
 
-### Bash/ZSH Shell Completion
-
-By default, all flags and commands/subcommands generate completions 
-internally.
-
-Out of the box, CLI tools using kingpin should be able to take advantage 
-of completion hinting for flags and commands. By specifying 
-`--completion-bash` as the first argument, your CLI tool will show 
-possible subcommands. By ending your argv with `--`, hints for flags 
-will be shown.
-
-To allow your end users to take advantage you must package a 
-`/etc/bash_completion.d` script with your distribution (or the equivalent 
-for your target platform/shell). An alternative is to instruct your end 
-user to source a script from their `bash_profile` (or equivalent).
-
-Fortunately Kingpin makes it easy to generate or source a script for use
-with end users shells. `./yourtool --completion-script-bash` and 
-`./yourtool --completion-script-zsh` will generate these scripts for you.
-
-**Installation by Package**
-
-For the best user experience, you should bundle your pre-created 
-completion script with your CLI tool and install it inside 
-`/etc/bash_completion.d` (or equivalent). A good suggestion is to add 
-this as an automated step to your build pipeline, in the implementation 
-is improved for bug fixed.
-
-**Installation by `bash_profile`**
-
-Alternatively, instruct your users to add an additional statement to 
-their `bash_profile` (or equivalent):
-
-```
-eval "$(your-cli-tool --completion-script-bash)"
-```
-
-Or for ZSH
-
-```
-eval "$(your-cli-tool --completion-script-zsh)"
-```
-
-#### Additional API
-To provide more flexibility, a completion option API has been
-exposed for flags to allow user defined completion options, to extend
-completions further than just EnumVar/Enum. 
-
-
-**Provide Static Options**
-
-When using an `Enum` or `EnumVar`, users are limited to only the options 
-given. Maybe we wish to hint possible options to the user, but also 
-allow them to provide their own custom option. `HintOptions` gives
-this functionality to flags.
-
-```
-app := kingpin.New("completion", "My application with bash completion.")
-app.Flag("port", "Provide a port to connect to").
-    Required().
-    HintOptions("80", "443", "8080").
-    IntVar(&c.port)
-```
-
-**Provide Dynamic Options**
-Consider the case that you needed to read a local database or a file to 
-provide suggestions. You can dynamically generate the options
-
-```
-func listHosts(args []string) []string {
-  // Provide a dynamic list of hosts from a hosts file or otherwise
-  // for bash completion. In this example we simply return static slice.
-
-  // You could use this functionality to reach into a hosts file to provide
-  // completion for a list of known hosts.
-  return []string{"sshhost.example", "webhost.example", "ftphost.example"}
-}
-
-app := kingpin.New("completion", "My application with bash completion.")
-app.Flag("flag-1", "").HintAction(listHosts).String()
-```
-
-**EnumVar/Enum**
-When using `Enum` or `EnumVar`, any provided options will be automatically
-used for bash autocompletion. However, if you wish to provide a subset or 
-different options, you can use `HintOptions` or `HintAction` which will override
-the default completion options for `Enum`/`EnumVar`.
-
-
-**Examples**
-You can see an in depth example of the completion API within 
-`examples/completion/main.go`
-
-
-### Supporting -h for help
-
-`kingpin.CommandLine.HelpFlag.Short('h')`
-
 ### Custom help
 
 Kingpin v2 supports templatised help using the text/template library (actually, [a fork](https://github.com/alecthomas/template)).
 
 You can specify the template to use with the [Application.UsageTemplate()](http://godoc.org/gopkg.in/alecthomas/kingpin.v2#Application.UsageTemplate) function.
 
-There are four included templates: `kingpin.DefaultUsageTemplate` is the default,
-`kingpin.CompactUsageTemplate` provides a more compact representation for more complex command-line structures,
-`kingpin.SeparateOptionalFlagsUsageTemplate` looks like the default template, but splits required
-and optional command flags into separate lists, and `kingpin.ManPageTemplate` is used to generate man pages.
+There are two included templates: [kingpin.UsageTemplate](https://github.com/alecthomas/kingpin/blob/master/usage.go#L88) is the default, and
+[kingpin.CompactUsageTemplate](https://github.com/alecthomas/kingpin/blob/master/usage.go#L133) provides a more compact representation for
+commands, for more complex command line structures.
+
+This is the default template as of 22 May 2015:
+
+```
+{{define "FormatCommand"}}\
+{{if .FlagSummary}} {{.FlagSummary}}{{end}}\
+{{range .Args}} {{if not .Required}}[{{end}}<{{.Name}}>{{if .Value|IsCumulative}}...{{end}}{{if not .Required}}]{{end}}{{end}}\
+{{end}}\
+{{define "FormatCommands"}}\
+{{range .FlattenedCommands}}\
+  {{.FullCommand}}{{template "FormatCommand" .}}
+{{.Help|Wrap 4}}
+{{end}}\
+{{end}}\
+{{define "FormatUsage"}}\
+{{template "FormatCommand" .}}{{if .Commands}} <command> [<args> ...]{{end}}
+{{if .Help}}
+{{.Help|Wrap 0}}\
+{{end}}\
+{{end}}\
+{{if .Context.SelectedCommand}}\
+usage: {{.App.Name}} {{.Context.SelectedCommand}}{{template "FormatUsage" .Context.SelectedCommand}}
+{{else}}\
+usage: {{.App.Name}}{{template "FormatUsage" .App}}
+{{end}}\
+{{if .Context.Flags}}\
+Flags:
+{{.Context.Flags|FlagsToTwoColumns|FormatTwoColumns}}
+{{end}}\
+{{if .Context.Args}}\
+Args:
+{{.Context.Args|ArgsToTwoColumns|FormatTwoColumns}}
+{{end}}\
+{{if .Context.SelectedCommand}}\
+Subcommands:
+{{if .Context.SelectedCommand.Commands}}\
+{{template "FormatCommands" .Context.SelectedCommand}}
+{{end}}\
+{{else if .App.Commands}}\
+Commands:
+{{template "FormatCommands" .App}}
+{{end}}\
+```
 
 See the above templates for examples of usage, and the the function [UsageForContextWithTemplate()](https://github.com/alecthomas/kingpin/blob/master/usage.go#L198) method for details on the context.
-
-#### Default help template
-
-```
-$ go run ./examples/curl/curl.go --help
-usage: curl [<flags>] <command> [<args> ...]
-
-An example implementation of curl.
-
-Flags:
-  --help            Show help.
-  -t, --timeout=5s  Set connection timeout.
-  -H, --headers=HEADER=VALUE
-                    Add HTTP headers to the request.
-
-Commands:
-  help [<command>...]
-    Show help.
-
-  get url <url>
-    Retrieve a URL.
-
-  get file <file>
-    Retrieve a file.
-
-  post [<flags>] <url>
-    POST a resource.
-```
-
-#### Compact help template
-
-```
-$ go run ./examples/curl/curl.go --help
-usage: curl [<flags>] <command> [<args> ...]
-
-An example implementation of curl.
-
-Flags:
-  --help            Show help.
-  -t, --timeout=5s  Set connection timeout.
-  -H, --headers=HEADER=VALUE
-                    Add HTTP headers to the request.
-
-Commands:
-  help [<command>...]
-  get [<flags>]
-    url <url>
-    file <file>
-  post [<flags>] <url>
-```

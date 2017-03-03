@@ -1,5 +1,5 @@
 {
-    "memo": "a33be850d9c3a86dbaeffcb264a5735b451d1c3a195fb6d08a7554ede46a942d",
+    "memo": "4c6dadf36a8afd6bbcf9a79c3971a18d9bd33879cea686e64caa1d35c80b9b7d",
     "projects": [
         {
             "name": "github.com/alecthomas/template",
@@ -20,7 +20,7 @@
         {
             "name": "github.com/aws/aws-sdk-go",
             "branch": "master",
-            "revision": "ab16e115479efb695e122bc4bb3e0ad52419d1ba",
+            "revision": "78568b07950e5e7948496878fe99b9436add41d4",
             "packages": [
                 "aws",
                 "aws/session",
@@ -37,8 +37,8 @@
         },
         {
             "name": "github.com/go-ini/ini",
-            "version": "v1.24.0",
-            "revision": "e3c2d47c61e5333f9aa2974695dd94396eb69c75",
+            "version": "v1.25.2",
+            "revision": "74bdc99692c3408cb103221e38675ce8fda0a718",
             "packages": [
                 "."
             ]
@@ -61,8 +61,8 @@
         },
         {
             "name": "github.com/mattn/go-isatty",
-            "version": "v0.0.1",
-            "revision": "3a115632dcd687f9c8cd01679c83a06a0e21c1f3",
+            "branch": "master",
+            "revision": "dda3de49cbfcec471bd7a70e6cc01fcc3ff90109",
             "packages": [
                 "."
             ]
@@ -70,15 +70,15 @@
         {
             "name": "golang.org/x/sys",
             "branch": "master",
-            "revision": "e4594059fe4cde2daf423055a596c2cd1e6c9adf",
+            "revision": "76cc09b634294339fa19ec41b5f2a0b3932cea8b",
             "packages": [
                 "unix"
             ]
         },
         {
             "name": "gopkg.in/alecthomas/kingpin.v2",
-            "version": "v2.2.3",
-            "revision": "e9044be3ab2a8e11d4e1f418d12f0790d57e8d70",
+            "version": "v2.0.0",
+            "revision": "ec97771e49d7b6a53739abb87bec6ffe1ea29074",
             "packages": [
                 "."
             ]

@@ -10,7 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-	//	"github.com/fatih/color"
+	"github.com/fatih/color"
 )
 
 func cwClient() *cloudwatchlogs.CloudWatchLogs {
@@ -65,7 +65,7 @@ func Tail(logGroupName *string, follow *bool, startTime *string, endTime *string
 				idx := sort.SearchStrings(ids, *event.EventId)
 				if ids == nil || (idx == len(ids) || ids[idx] != *event.EventId) {
 					d := timeutil.FormatTimestamp(eventTimestamp)
-					fmt.Printf("%s -  %s\n", d, *event.Message)
+					fmt.Printf("%s -  %s\n", color.GreenString(d), *event.Message)
 				}
 				ids = append(ids, *event.EventId)
 			}

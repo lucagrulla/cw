@@ -1,4 +1,4 @@
-// +build !appengine,linux freebsd darwin dragonfly netbsd openbsd
+// +build linux freebsd darwin dragonfly netbsd openbsd
 
 package kingpin
 
