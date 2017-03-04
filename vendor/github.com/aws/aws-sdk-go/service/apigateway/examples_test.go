@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleAPIGateway_CreateApiKey() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -49,7 +53,11 @@ func ExampleAPIGateway_CreateApiKey() {
 }
 
 func ExampleAPIGateway_CreateAuthorizer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -82,7 +90,11 @@ func ExampleAPIGateway_CreateAuthorizer() {
 }
 
 func ExampleAPIGateway_CreateBasePathMapping() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -106,7 +118,11 @@ func ExampleAPIGateway_CreateBasePathMapping() {
 }
 
 func ExampleAPIGateway_CreateDeployment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -136,7 +152,11 @@ func ExampleAPIGateway_CreateDeployment() {
 }
 
 func ExampleAPIGateway_CreateDocumentationPart() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -165,7 +185,11 @@ func ExampleAPIGateway_CreateDocumentationPart() {
 }
 
 func ExampleAPIGateway_CreateDocumentationVersion() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -189,7 +213,11 @@ func ExampleAPIGateway_CreateDocumentationVersion() {
 }
 
 func ExampleAPIGateway_CreateDomainName() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -214,7 +242,11 @@ func ExampleAPIGateway_CreateDomainName() {
 }
 
 func ExampleAPIGateway_CreateModel() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -239,7 +271,11 @@ func ExampleAPIGateway_CreateModel() {
 }
 
 func ExampleAPIGateway_CreateResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -262,7 +298,11 @@ func ExampleAPIGateway_CreateResource() {
 }
 
 func ExampleAPIGateway_CreateRestApi() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -290,7 +330,11 @@ func ExampleAPIGateway_CreateRestApi() {
 }
 
 func ExampleAPIGateway_CreateStage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -321,7 +365,11 @@ func ExampleAPIGateway_CreateStage() {
 }
 
 func ExampleAPIGateway_CreateUsagePlan() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -359,7 +407,11 @@ func ExampleAPIGateway_CreateUsagePlan() {
 }
 
 func ExampleAPIGateway_CreateUsagePlanKey() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -382,7 +434,11 @@ func ExampleAPIGateway_CreateUsagePlanKey() {
 }
 
 func ExampleAPIGateway_DeleteApiKey() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -403,7 +459,11 @@ func ExampleAPIGateway_DeleteApiKey() {
 }
 
 func ExampleAPIGateway_DeleteAuthorizer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -425,7 +485,11 @@ func ExampleAPIGateway_DeleteAuthorizer() {
 }
 
 func ExampleAPIGateway_DeleteBasePathMapping() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -447,7 +511,11 @@ func ExampleAPIGateway_DeleteBasePathMapping() {
 }
 
 func ExampleAPIGateway_DeleteClientCertificate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -468,7 +536,11 @@ func ExampleAPIGateway_DeleteClientCertificate() {
 }
 
 func ExampleAPIGateway_DeleteDeployment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -490,7 +562,11 @@ func ExampleAPIGateway_DeleteDeployment() {
 }
 
 func ExampleAPIGateway_DeleteDocumentationPart() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -512,7 +588,11 @@ func ExampleAPIGateway_DeleteDocumentationPart() {
 }
 
 func ExampleAPIGateway_DeleteDocumentationVersion() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -534,7 +614,11 @@ func ExampleAPIGateway_DeleteDocumentationVersion() {
 }
 
 func ExampleAPIGateway_DeleteDomainName() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -555,7 +639,11 @@ func ExampleAPIGateway_DeleteDomainName() {
 }
 
 func ExampleAPIGateway_DeleteIntegration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -578,7 +666,11 @@ func ExampleAPIGateway_DeleteIntegration() {
 }
 
 func ExampleAPIGateway_DeleteIntegrationResponse() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -602,7 +694,11 @@ func ExampleAPIGateway_DeleteIntegrationResponse() {
 }
 
 func ExampleAPIGateway_DeleteMethod() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -625,7 +721,11 @@ func ExampleAPIGateway_DeleteMethod() {
 }
 
 func ExampleAPIGateway_DeleteMethodResponse() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -649,7 +749,11 @@ func ExampleAPIGateway_DeleteMethodResponse() {
 }
 
 func ExampleAPIGateway_DeleteModel() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -671,7 +775,11 @@ func ExampleAPIGateway_DeleteModel() {
 }
 
 func ExampleAPIGateway_DeleteResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -693,7 +801,11 @@ func ExampleAPIGateway_DeleteResource() {
 }
 
 func ExampleAPIGateway_DeleteRestApi() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -714,7 +826,11 @@ func ExampleAPIGateway_DeleteRestApi() {
 }
 
 func ExampleAPIGateway_DeleteStage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -736,7 +852,11 @@ func ExampleAPIGateway_DeleteStage() {
 }
 
 func ExampleAPIGateway_DeleteUsagePlan() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -757,7 +877,11 @@ func ExampleAPIGateway_DeleteUsagePlan() {
 }
 
 func ExampleAPIGateway_DeleteUsagePlanKey() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -779,7 +903,11 @@ func ExampleAPIGateway_DeleteUsagePlanKey() {
 }
 
 func ExampleAPIGateway_FlushStageAuthorizersCache() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -801,7 +929,11 @@ func ExampleAPIGateway_FlushStageAuthorizersCache() {
 }
 
 func ExampleAPIGateway_FlushStageCache() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -823,7 +955,11 @@ func ExampleAPIGateway_FlushStageCache() {
 }
 
 func ExampleAPIGateway_GenerateClientCertificate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -844,7 +980,11 @@ func ExampleAPIGateway_GenerateClientCertificate() {
 }
 
 func ExampleAPIGateway_GetAccount() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -863,7 +1003,11 @@ func ExampleAPIGateway_GetAccount() {
 }
 
 func ExampleAPIGateway_GetApiKey() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -885,7 +1029,11 @@ func ExampleAPIGateway_GetApiKey() {
 }
 
 func ExampleAPIGateway_GetApiKeys() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -910,7 +1058,11 @@ func ExampleAPIGateway_GetApiKeys() {
 }
 
 func ExampleAPIGateway_GetAuthorizer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -932,7 +1084,11 @@ func ExampleAPIGateway_GetAuthorizer() {
 }
 
 func ExampleAPIGateway_GetAuthorizers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -955,7 +1111,11 @@ func ExampleAPIGateway_GetAuthorizers() {
 }
 
 func ExampleAPIGateway_GetBasePathMapping() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -977,7 +1137,11 @@ func ExampleAPIGateway_GetBasePathMapping() {
 }
 
 func ExampleAPIGateway_GetBasePathMappings() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1000,7 +1164,11 @@ func ExampleAPIGateway_GetBasePathMappings() {
 }
 
 func ExampleAPIGateway_GetClientCertificate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1021,7 +1189,11 @@ func ExampleAPIGateway_GetClientCertificate() {
 }
 
 func ExampleAPIGateway_GetClientCertificates() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1043,7 +1215,11 @@ func ExampleAPIGateway_GetClientCertificates() {
 }
 
 func ExampleAPIGateway_GetDeployment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1065,7 +1241,11 @@ func ExampleAPIGateway_GetDeployment() {
 }
 
 func ExampleAPIGateway_GetDeployments() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1088,7 +1268,11 @@ func ExampleAPIGateway_GetDeployments() {
 }
 
 func ExampleAPIGateway_GetDocumentationPart() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1110,7 +1294,11 @@ func ExampleAPIGateway_GetDocumentationPart() {
 }
 
 func ExampleAPIGateway_GetDocumentationParts() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1136,7 +1324,11 @@ func ExampleAPIGateway_GetDocumentationParts() {
 }
 
 func ExampleAPIGateway_GetDocumentationVersion() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1158,7 +1350,11 @@ func ExampleAPIGateway_GetDocumentationVersion() {
 }
 
 func ExampleAPIGateway_GetDocumentationVersions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1181,7 +1377,11 @@ func ExampleAPIGateway_GetDocumentationVersions() {
 }
 
 func ExampleAPIGateway_GetDomainName() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1202,7 +1402,11 @@ func ExampleAPIGateway_GetDomainName() {
 }
 
 func ExampleAPIGateway_GetDomainNames() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1224,7 +1428,11 @@ func ExampleAPIGateway_GetDomainNames() {
 }
 
 func ExampleAPIGateway_GetExport() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1252,7 +1460,11 @@ func ExampleAPIGateway_GetExport() {
 }
 
 func ExampleAPIGateway_GetIntegration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1275,7 +1487,11 @@ func ExampleAPIGateway_GetIntegration() {
 }
 
 func ExampleAPIGateway_GetIntegrationResponse() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1299,7 +1515,11 @@ func ExampleAPIGateway_GetIntegrationResponse() {
 }
 
 func ExampleAPIGateway_GetMethod() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1322,7 +1542,11 @@ func ExampleAPIGateway_GetMethod() {
 }
 
 func ExampleAPIGateway_GetMethodResponse() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1346,7 +1570,11 @@ func ExampleAPIGateway_GetMethodResponse() {
 }
 
 func ExampleAPIGateway_GetModel() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1369,7 +1597,11 @@ func ExampleAPIGateway_GetModel() {
 }
 
 func ExampleAPIGateway_GetModelTemplate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1391,7 +1623,11 @@ func ExampleAPIGateway_GetModelTemplate() {
 }
 
 func ExampleAPIGateway_GetModels() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1414,7 +1650,11 @@ func ExampleAPIGateway_GetModels() {
 }
 
 func ExampleAPIGateway_GetResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1436,7 +1676,11 @@ func ExampleAPIGateway_GetResource() {
 }
 
 func ExampleAPIGateway_GetResources() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1459,7 +1703,11 @@ func ExampleAPIGateway_GetResources() {
 }
 
 func ExampleAPIGateway_GetRestApi() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1480,7 +1728,11 @@ func ExampleAPIGateway_GetRestApi() {
 }
 
 func ExampleAPIGateway_GetRestApis() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1502,7 +1754,11 @@ func ExampleAPIGateway_GetRestApis() {
 }
 
 func ExampleAPIGateway_GetSdk() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1529,7 +1785,11 @@ func ExampleAPIGateway_GetSdk() {
 }
 
 func ExampleAPIGateway_GetSdkType() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1550,7 +1810,11 @@ func ExampleAPIGateway_GetSdkType() {
 }
 
 func ExampleAPIGateway_GetSdkTypes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1572,7 +1836,11 @@ func ExampleAPIGateway_GetSdkTypes() {
 }
 
 func ExampleAPIGateway_GetStage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1594,7 +1862,11 @@ func ExampleAPIGateway_GetStage() {
 }
 
 func ExampleAPIGateway_GetStages() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1616,7 +1888,11 @@ func ExampleAPIGateway_GetStages() {
 }
 
 func ExampleAPIGateway_GetUsage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1642,7 +1918,11 @@ func ExampleAPIGateway_GetUsage() {
 }
 
 func ExampleAPIGateway_GetUsagePlan() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1663,7 +1943,11 @@ func ExampleAPIGateway_GetUsagePlan() {
 }
 
 func ExampleAPIGateway_GetUsagePlanKey() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1685,7 +1969,11 @@ func ExampleAPIGateway_GetUsagePlanKey() {
 }
 
 func ExampleAPIGateway_GetUsagePlanKeys() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1709,7 +1997,11 @@ func ExampleAPIGateway_GetUsagePlanKeys() {
 }
 
 func ExampleAPIGateway_GetUsagePlans() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1732,7 +2024,11 @@ func ExampleAPIGateway_GetUsagePlans() {
 }
 
 func ExampleAPIGateway_ImportApiKeys() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1755,7 +2051,11 @@ func ExampleAPIGateway_ImportApiKeys() {
 }
 
 func ExampleAPIGateway_ImportDocumentationParts() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1779,7 +2079,11 @@ func ExampleAPIGateway_ImportDocumentationParts() {
 }
 
 func ExampleAPIGateway_ImportRestApi() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1805,7 +2109,11 @@ func ExampleAPIGateway_ImportRestApi() {
 }
 
 func ExampleAPIGateway_PutIntegration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1847,7 +2155,11 @@ func ExampleAPIGateway_PutIntegration() {
 }
 
 func ExampleAPIGateway_PutIntegrationResponse() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1881,7 +2193,11 @@ func ExampleAPIGateway_PutIntegrationResponse() {
 }
 
 func ExampleAPIGateway_PutMethod() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1916,7 +2232,11 @@ func ExampleAPIGateway_PutMethod() {
 }
 
 func ExampleAPIGateway_PutMethodResponse() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1948,7 +2268,11 @@ func ExampleAPIGateway_PutMethodResponse() {
 }
 
 func ExampleAPIGateway_PutRestApi() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -1976,7 +2300,11 @@ func ExampleAPIGateway_PutRestApi() {
 }
 
 func ExampleAPIGateway_TestInvokeAuthorizer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2012,7 +2340,11 @@ func ExampleAPIGateway_TestInvokeAuthorizer() {
 }
 
 func ExampleAPIGateway_TestInvokeMethod() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2046,7 +2378,11 @@ func ExampleAPIGateway_TestInvokeMethod() {
 }
 
 func ExampleAPIGateway_UpdateAccount() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2075,7 +2411,11 @@ func ExampleAPIGateway_UpdateAccount() {
 }
 
 func ExampleAPIGateway_UpdateApiKey() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2105,7 +2445,11 @@ func ExampleAPIGateway_UpdateApiKey() {
 }
 
 func ExampleAPIGateway_UpdateAuthorizer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2136,7 +2480,11 @@ func ExampleAPIGateway_UpdateAuthorizer() {
 }
 
 func ExampleAPIGateway_UpdateBasePathMapping() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2167,7 +2515,11 @@ func ExampleAPIGateway_UpdateBasePathMapping() {
 }
 
 func ExampleAPIGateway_UpdateClientCertificate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2197,7 +2549,11 @@ func ExampleAPIGateway_UpdateClientCertificate() {
 }
 
 func ExampleAPIGateway_UpdateDeployment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2228,7 +2584,11 @@ func ExampleAPIGateway_UpdateDeployment() {
 }
 
 func ExampleAPIGateway_UpdateDocumentationPart() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2259,7 +2619,11 @@ func ExampleAPIGateway_UpdateDocumentationPart() {
 }
 
 func ExampleAPIGateway_UpdateDocumentationVersion() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2290,7 +2654,11 @@ func ExampleAPIGateway_UpdateDocumentationVersion() {
 }
 
 func ExampleAPIGateway_UpdateDomainName() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2320,7 +2688,11 @@ func ExampleAPIGateway_UpdateDomainName() {
 }
 
 func ExampleAPIGateway_UpdateIntegration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2352,7 +2724,11 @@ func ExampleAPIGateway_UpdateIntegration() {
 }
 
 func ExampleAPIGateway_UpdateIntegrationResponse() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2385,7 +2761,11 @@ func ExampleAPIGateway_UpdateIntegrationResponse() {
 }
 
 func ExampleAPIGateway_UpdateMethod() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2417,7 +2797,11 @@ func ExampleAPIGateway_UpdateMethod() {
 }
 
 func ExampleAPIGateway_UpdateMethodResponse() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2450,7 +2834,11 @@ func ExampleAPIGateway_UpdateMethodResponse() {
 }
 
 func ExampleAPIGateway_UpdateModel() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2481,7 +2869,11 @@ func ExampleAPIGateway_UpdateModel() {
 }
 
 func ExampleAPIGateway_UpdateResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2512,7 +2904,11 @@ func ExampleAPIGateway_UpdateResource() {
 }
 
 func ExampleAPIGateway_UpdateRestApi() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2542,7 +2938,11 @@ func ExampleAPIGateway_UpdateRestApi() {
 }
 
 func ExampleAPIGateway_UpdateStage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2573,7 +2973,11 @@ func ExampleAPIGateway_UpdateStage() {
 }
 
 func ExampleAPIGateway_UpdateUsage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 
@@ -2604,7 +3008,11 @@ func ExampleAPIGateway_UpdateUsage() {
 }
 
 func ExampleAPIGateway_UpdateUsagePlan() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := apigateway.New(sess)
 

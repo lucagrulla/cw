@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleSQS_AddPermission() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -46,7 +50,11 @@ func ExampleSQS_AddPermission() {
 }
 
 func ExampleSQS_ChangeMessageVisibility() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -69,7 +77,11 @@ func ExampleSQS_ChangeMessageVisibility() {
 }
 
 func ExampleSQS_ChangeMessageVisibilityBatch() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -98,7 +110,11 @@ func ExampleSQS_ChangeMessageVisibilityBatch() {
 }
 
 func ExampleSQS_CreateQueue() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -123,7 +139,11 @@ func ExampleSQS_CreateQueue() {
 }
 
 func ExampleSQS_DeleteMessage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -145,7 +165,11 @@ func ExampleSQS_DeleteMessage() {
 }
 
 func ExampleSQS_DeleteMessageBatch() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -173,7 +197,11 @@ func ExampleSQS_DeleteMessageBatch() {
 }
 
 func ExampleSQS_DeleteQueue() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -194,7 +222,11 @@ func ExampleSQS_DeleteQueue() {
 }
 
 func ExampleSQS_GetQueueAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -219,7 +251,11 @@ func ExampleSQS_GetQueueAttributes() {
 }
 
 func ExampleSQS_GetQueueUrl() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -241,7 +277,11 @@ func ExampleSQS_GetQueueUrl() {
 }
 
 func ExampleSQS_ListDeadLetterSourceQueues() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -262,7 +302,11 @@ func ExampleSQS_ListDeadLetterSourceQueues() {
 }
 
 func ExampleSQS_ListQueues() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -283,7 +327,11 @@ func ExampleSQS_ListQueues() {
 }
 
 func ExampleSQS_PurgeQueue() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -304,7 +352,11 @@ func ExampleSQS_PurgeQueue() {
 }
 
 func ExampleSQS_ReceiveMessage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -337,7 +389,11 @@ func ExampleSQS_ReceiveMessage() {
 }
 
 func ExampleSQS_RemovePermission() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -359,7 +415,11 @@ func ExampleSQS_RemovePermission() {
 }
 
 func ExampleSQS_SendMessage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -400,7 +460,11 @@ func ExampleSQS_SendMessage() {
 }
 
 func ExampleSQS_SendMessageBatch() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 
@@ -447,7 +511,11 @@ func ExampleSQS_SendMessageBatch() {
 }
 
 func ExampleSQS_SetQueueAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := sqs.New(sess)
 

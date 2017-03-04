@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleELB_AddTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -47,7 +51,11 @@ func ExampleELB_AddTags() {
 }
 
 func ExampleELB_ApplySecurityGroupsToLoadBalancer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -72,7 +80,11 @@ func ExampleELB_ApplySecurityGroupsToLoadBalancer() {
 }
 
 func ExampleELB_AttachLoadBalancerToSubnets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -97,7 +109,11 @@ func ExampleELB_AttachLoadBalancerToSubnets() {
 }
 
 func ExampleELB_ConfigureHealthCheck() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -125,7 +141,11 @@ func ExampleELB_ConfigureHealthCheck() {
 }
 
 func ExampleELB_CreateAppCookieStickinessPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -148,7 +168,11 @@ func ExampleELB_CreateAppCookieStickinessPolicy() {
 }
 
 func ExampleELB_CreateLBCookieStickinessPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -171,7 +195,11 @@ func ExampleELB_CreateLBCookieStickinessPolicy() {
 }
 
 func ExampleELB_CreateLoadBalancer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -222,7 +250,11 @@ func ExampleELB_CreateLoadBalancer() {
 }
 
 func ExampleELB_CreateLoadBalancerListeners() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -253,7 +285,11 @@ func ExampleELB_CreateLoadBalancerListeners() {
 }
 
 func ExampleELB_CreateLoadBalancerPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -283,7 +319,11 @@ func ExampleELB_CreateLoadBalancerPolicy() {
 }
 
 func ExampleELB_DeleteLoadBalancer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -304,7 +344,11 @@ func ExampleELB_DeleteLoadBalancer() {
 }
 
 func ExampleELB_DeleteLoadBalancerListeners() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -329,7 +373,11 @@ func ExampleELB_DeleteLoadBalancerListeners() {
 }
 
 func ExampleELB_DeleteLoadBalancerPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -351,7 +399,11 @@ func ExampleELB_DeleteLoadBalancerPolicy() {
 }
 
 func ExampleELB_DeregisterInstancesFromLoadBalancer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -378,7 +430,11 @@ func ExampleELB_DeregisterInstancesFromLoadBalancer() {
 }
 
 func ExampleELB_DescribeInstanceHealth() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -405,7 +461,11 @@ func ExampleELB_DescribeInstanceHealth() {
 }
 
 func ExampleELB_DescribeLoadBalancerAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -426,7 +486,11 @@ func ExampleELB_DescribeLoadBalancerAttributes() {
 }
 
 func ExampleELB_DescribeLoadBalancerPolicies() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -451,7 +515,11 @@ func ExampleELB_DescribeLoadBalancerPolicies() {
 }
 
 func ExampleELB_DescribeLoadBalancerPolicyTypes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -475,7 +543,11 @@ func ExampleELB_DescribeLoadBalancerPolicyTypes() {
 }
 
 func ExampleELB_DescribeLoadBalancers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -501,7 +573,11 @@ func ExampleELB_DescribeLoadBalancers() {
 }
 
 func ExampleELB_DescribeTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -525,7 +601,11 @@ func ExampleELB_DescribeTags() {
 }
 
 func ExampleELB_DetachLoadBalancerFromSubnets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -550,7 +630,11 @@ func ExampleELB_DetachLoadBalancerFromSubnets() {
 }
 
 func ExampleELB_DisableAvailabilityZonesForLoadBalancer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -575,7 +659,11 @@ func ExampleELB_DisableAvailabilityZonesForLoadBalancer() {
 }
 
 func ExampleELB_EnableAvailabilityZonesForLoadBalancer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -600,7 +688,11 @@ func ExampleELB_EnableAvailabilityZonesForLoadBalancer() {
 }
 
 func ExampleELB_ModifyLoadBalancerAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -646,7 +738,11 @@ func ExampleELB_ModifyLoadBalancerAttributes() {
 }
 
 func ExampleELB_RegisterInstancesWithLoadBalancer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -673,7 +769,11 @@ func ExampleELB_RegisterInstancesWithLoadBalancer() {
 }
 
 func ExampleELB_RemoveTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -703,7 +803,11 @@ func ExampleELB_RemoveTags() {
 }
 
 func ExampleELB_SetLoadBalancerListenerSSLCertificate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -726,7 +830,11 @@ func ExampleELB_SetLoadBalancerListenerSSLCertificate() {
 }
 
 func ExampleELB_SetLoadBalancerPoliciesForBackendServer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 
@@ -752,7 +860,11 @@ func ExampleELB_SetLoadBalancerPoliciesForBackendServer() {
 }
 
 func ExampleELB_SetLoadBalancerPoliciesOfListener() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elb.New(sess)
 

@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleDeviceFarm_CreateDevicePool() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -47,7 +51,11 @@ func ExampleDeviceFarm_CreateDevicePool() {
 }
 
 func ExampleDeviceFarm_CreateProject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -68,7 +76,11 @@ func ExampleDeviceFarm_CreateProject() {
 }
 
 func ExampleDeviceFarm_CreateRemoteAccessSession() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -94,7 +106,11 @@ func ExampleDeviceFarm_CreateRemoteAccessSession() {
 }
 
 func ExampleDeviceFarm_CreateUpload() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -118,7 +134,11 @@ func ExampleDeviceFarm_CreateUpload() {
 }
 
 func ExampleDeviceFarm_DeleteDevicePool() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -139,7 +159,11 @@ func ExampleDeviceFarm_DeleteDevicePool() {
 }
 
 func ExampleDeviceFarm_DeleteProject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -160,7 +184,11 @@ func ExampleDeviceFarm_DeleteProject() {
 }
 
 func ExampleDeviceFarm_DeleteRemoteAccessSession() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -181,7 +209,11 @@ func ExampleDeviceFarm_DeleteRemoteAccessSession() {
 }
 
 func ExampleDeviceFarm_DeleteRun() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -202,7 +234,11 @@ func ExampleDeviceFarm_DeleteRun() {
 }
 
 func ExampleDeviceFarm_DeleteUpload() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -223,7 +259,11 @@ func ExampleDeviceFarm_DeleteUpload() {
 }
 
 func ExampleDeviceFarm_GetAccountSettings() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -242,7 +282,11 @@ func ExampleDeviceFarm_GetAccountSettings() {
 }
 
 func ExampleDeviceFarm_GetDevice() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -263,7 +307,11 @@ func ExampleDeviceFarm_GetDevice() {
 }
 
 func ExampleDeviceFarm_GetDevicePool() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -284,7 +332,11 @@ func ExampleDeviceFarm_GetDevicePool() {
 }
 
 func ExampleDeviceFarm_GetDevicePoolCompatibility() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -307,7 +359,11 @@ func ExampleDeviceFarm_GetDevicePoolCompatibility() {
 }
 
 func ExampleDeviceFarm_GetJob() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -328,7 +384,11 @@ func ExampleDeviceFarm_GetJob() {
 }
 
 func ExampleDeviceFarm_GetOfferingStatus() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -349,7 +409,11 @@ func ExampleDeviceFarm_GetOfferingStatus() {
 }
 
 func ExampleDeviceFarm_GetProject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -370,7 +434,11 @@ func ExampleDeviceFarm_GetProject() {
 }
 
 func ExampleDeviceFarm_GetRemoteAccessSession() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -391,7 +459,11 @@ func ExampleDeviceFarm_GetRemoteAccessSession() {
 }
 
 func ExampleDeviceFarm_GetRun() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -412,7 +484,11 @@ func ExampleDeviceFarm_GetRun() {
 }
 
 func ExampleDeviceFarm_GetSuite() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -433,7 +509,11 @@ func ExampleDeviceFarm_GetSuite() {
 }
 
 func ExampleDeviceFarm_GetTest() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -454,7 +534,11 @@ func ExampleDeviceFarm_GetTest() {
 }
 
 func ExampleDeviceFarm_GetUpload() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -475,7 +559,11 @@ func ExampleDeviceFarm_GetUpload() {
 }
 
 func ExampleDeviceFarm_InstallToRemoteAccessSession() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -497,7 +585,11 @@ func ExampleDeviceFarm_InstallToRemoteAccessSession() {
 }
 
 func ExampleDeviceFarm_ListArtifacts() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -520,7 +612,11 @@ func ExampleDeviceFarm_ListArtifacts() {
 }
 
 func ExampleDeviceFarm_ListDevicePools() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -543,7 +639,11 @@ func ExampleDeviceFarm_ListDevicePools() {
 }
 
 func ExampleDeviceFarm_ListDevices() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -565,7 +665,11 @@ func ExampleDeviceFarm_ListDevices() {
 }
 
 func ExampleDeviceFarm_ListJobs() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -587,7 +691,11 @@ func ExampleDeviceFarm_ListJobs() {
 }
 
 func ExampleDeviceFarm_ListOfferingTransactions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -608,7 +716,11 @@ func ExampleDeviceFarm_ListOfferingTransactions() {
 }
 
 func ExampleDeviceFarm_ListOfferings() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -629,7 +741,11 @@ func ExampleDeviceFarm_ListOfferings() {
 }
 
 func ExampleDeviceFarm_ListProjects() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -651,7 +767,11 @@ func ExampleDeviceFarm_ListProjects() {
 }
 
 func ExampleDeviceFarm_ListRemoteAccessSessions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -673,7 +793,11 @@ func ExampleDeviceFarm_ListRemoteAccessSessions() {
 }
 
 func ExampleDeviceFarm_ListRuns() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -695,7 +819,11 @@ func ExampleDeviceFarm_ListRuns() {
 }
 
 func ExampleDeviceFarm_ListSamples() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -717,7 +845,11 @@ func ExampleDeviceFarm_ListSamples() {
 }
 
 func ExampleDeviceFarm_ListSuites() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -739,7 +871,11 @@ func ExampleDeviceFarm_ListSuites() {
 }
 
 func ExampleDeviceFarm_ListTests() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -761,7 +897,11 @@ func ExampleDeviceFarm_ListTests() {
 }
 
 func ExampleDeviceFarm_ListUniqueProblems() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -783,7 +923,11 @@ func ExampleDeviceFarm_ListUniqueProblems() {
 }
 
 func ExampleDeviceFarm_ListUploads() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -805,7 +949,11 @@ func ExampleDeviceFarm_ListUploads() {
 }
 
 func ExampleDeviceFarm_PurchaseOffering() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -827,7 +975,11 @@ func ExampleDeviceFarm_PurchaseOffering() {
 }
 
 func ExampleDeviceFarm_RenewOffering() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -849,7 +1001,11 @@ func ExampleDeviceFarm_RenewOffering() {
 }
 
 func ExampleDeviceFarm_ScheduleRun() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -902,7 +1058,11 @@ func ExampleDeviceFarm_ScheduleRun() {
 }
 
 func ExampleDeviceFarm_StopRemoteAccessSession() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -923,7 +1083,11 @@ func ExampleDeviceFarm_StopRemoteAccessSession() {
 }
 
 func ExampleDeviceFarm_StopRun() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -944,7 +1108,11 @@ func ExampleDeviceFarm_StopRun() {
 }
 
 func ExampleDeviceFarm_UpdateDevicePool() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 
@@ -975,7 +1143,11 @@ func ExampleDeviceFarm_UpdateDevicePool() {
 }
 
 func ExampleDeviceFarm_UpdateProject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := devicefarm.New(sess)
 

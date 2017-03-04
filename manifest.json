@@ -7,7 +7,7 @@
             "branch": "master"
         },
         "gopkg.in/alecthomas/kingpin.v2": {
-            "version": "2"
+            "branch": "master"
         }
     }
 }

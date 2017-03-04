@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleCognitoSync_BulkPublish() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -37,7 +41,11 @@ func ExampleCognitoSync_BulkPublish() {
 }
 
 func ExampleCognitoSync_DeleteDataset() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -60,7 +68,11 @@ func ExampleCognitoSync_DeleteDataset() {
 }
 
 func ExampleCognitoSync_DescribeDataset() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -83,7 +95,11 @@ func ExampleCognitoSync_DescribeDataset() {
 }
 
 func ExampleCognitoSync_DescribeIdentityPoolUsage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -104,7 +120,11 @@ func ExampleCognitoSync_DescribeIdentityPoolUsage() {
 }
 
 func ExampleCognitoSync_DescribeIdentityUsage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -126,7 +146,11 @@ func ExampleCognitoSync_DescribeIdentityUsage() {
 }
 
 func ExampleCognitoSync_GetBulkPublishDetails() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -147,7 +171,11 @@ func ExampleCognitoSync_GetBulkPublishDetails() {
 }
 
 func ExampleCognitoSync_GetCognitoEvents() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -168,7 +196,11 @@ func ExampleCognitoSync_GetCognitoEvents() {
 }
 
 func ExampleCognitoSync_GetIdentityPoolConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -189,7 +221,11 @@ func ExampleCognitoSync_GetIdentityPoolConfiguration() {
 }
 
 func ExampleCognitoSync_ListDatasets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -213,7 +249,11 @@ func ExampleCognitoSync_ListDatasets() {
 }
 
 func ExampleCognitoSync_ListIdentityPoolUsage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -235,7 +275,11 @@ func ExampleCognitoSync_ListIdentityPoolUsage() {
 }
 
 func ExampleCognitoSync_ListRecords() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -262,7 +306,11 @@ func ExampleCognitoSync_ListRecords() {
 }
 
 func ExampleCognitoSync_RegisterDevice() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -286,7 +334,11 @@ func ExampleCognitoSync_RegisterDevice() {
 }
 
 func ExampleCognitoSync_SetCognitoEvents() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -311,7 +363,11 @@ func ExampleCognitoSync_SetCognitoEvents() {
 }
 
 func ExampleCognitoSync_SetIdentityPoolConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -344,7 +400,11 @@ func ExampleCognitoSync_SetIdentityPoolConfiguration() {
 }
 
 func ExampleCognitoSync_SubscribeToDataset() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -368,7 +428,11 @@ func ExampleCognitoSync_SubscribeToDataset() {
 }
 
 func ExampleCognitoSync_UnsubscribeFromDataset() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 
@@ -392,7 +456,11 @@ func ExampleCognitoSync_UnsubscribeFromDataset() {
 }
 
 func ExampleCognitoSync_UpdateRecords() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cognitosync.New(sess)
 

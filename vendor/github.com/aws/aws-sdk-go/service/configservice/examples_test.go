@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleConfigService_DeleteConfigRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -37,7 +41,11 @@ func ExampleConfigService_DeleteConfigRule() {
 }
 
 func ExampleConfigService_DeleteConfigurationRecorder() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -58,7 +66,11 @@ func ExampleConfigService_DeleteConfigurationRecorder() {
 }
 
 func ExampleConfigService_DeleteDeliveryChannel() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -79,7 +91,11 @@ func ExampleConfigService_DeleteDeliveryChannel() {
 }
 
 func ExampleConfigService_DeleteEvaluationResults() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -100,7 +116,11 @@ func ExampleConfigService_DeleteEvaluationResults() {
 }
 
 func ExampleConfigService_DeliverConfigSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -121,7 +141,11 @@ func ExampleConfigService_DeliverConfigSnapshot() {
 }
 
 func ExampleConfigService_DescribeComplianceByConfigRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -150,7 +174,11 @@ func ExampleConfigService_DescribeComplianceByConfigRule() {
 }
 
 func ExampleConfigService_DescribeComplianceByResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -178,7 +206,11 @@ func ExampleConfigService_DescribeComplianceByResource() {
 }
 
 func ExampleConfigService_DescribeConfigRuleEvaluationStatus() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -204,7 +236,11 @@ func ExampleConfigService_DescribeConfigRuleEvaluationStatus() {
 }
 
 func ExampleConfigService_DescribeConfigRules() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -229,7 +265,11 @@ func ExampleConfigService_DescribeConfigRules() {
 }
 
 func ExampleConfigService_DescribeConfigurationRecorderStatus() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -253,7 +293,11 @@ func ExampleConfigService_DescribeConfigurationRecorderStatus() {
 }
 
 func ExampleConfigService_DescribeConfigurationRecorders() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -277,7 +321,11 @@ func ExampleConfigService_DescribeConfigurationRecorders() {
 }
 
 func ExampleConfigService_DescribeDeliveryChannelStatus() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -301,7 +349,11 @@ func ExampleConfigService_DescribeDeliveryChannelStatus() {
 }
 
 func ExampleConfigService_DescribeDeliveryChannels() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -325,7 +377,11 @@ func ExampleConfigService_DescribeDeliveryChannels() {
 }
 
 func ExampleConfigService_GetComplianceDetailsByConfigRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -352,7 +408,11 @@ func ExampleConfigService_GetComplianceDetailsByConfigRule() {
 }
 
 func ExampleConfigService_GetComplianceDetailsByResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -379,7 +439,11 @@ func ExampleConfigService_GetComplianceDetailsByResource() {
 }
 
 func ExampleConfigService_GetComplianceSummaryByConfigRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -398,7 +462,11 @@ func ExampleConfigService_GetComplianceSummaryByConfigRule() {
 }
 
 func ExampleConfigService_GetComplianceSummaryByResourceType() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -422,7 +490,11 @@ func ExampleConfigService_GetComplianceSummaryByResourceType() {
 }
 
 func ExampleConfigService_GetResourceConfigHistory() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -449,7 +521,11 @@ func ExampleConfigService_GetResourceConfigHistory() {
 }
 
 func ExampleConfigService_ListDiscoveredResources() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -478,7 +554,11 @@ func ExampleConfigService_ListDiscoveredResources() {
 }
 
 func ExampleConfigService_PutConfigRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -528,7 +608,11 @@ func ExampleConfigService_PutConfigRule() {
 }
 
 func ExampleConfigService_PutConfigurationRecorder() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -560,7 +644,11 @@ func ExampleConfigService_PutConfigurationRecorder() {
 }
 
 func ExampleConfigService_PutDeliveryChannel() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -589,7 +677,11 @@ func ExampleConfigService_PutDeliveryChannel() {
 }
 
 func ExampleConfigService_PutEvaluations() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -621,7 +713,11 @@ func ExampleConfigService_PutEvaluations() {
 }
 
 func ExampleConfigService_StartConfigRulesEvaluation() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -645,7 +741,11 @@ func ExampleConfigService_StartConfigRulesEvaluation() {
 }
 
 func ExampleConfigService_StartConfigurationRecorder() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 
@@ -666,7 +766,11 @@ func ExampleConfigService_StartConfigurationRecorder() {
 }
 
 func ExampleConfigService_StopConfigurationRecorder() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := configservice.New(sess)
 

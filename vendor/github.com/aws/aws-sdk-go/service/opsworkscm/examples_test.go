@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleOpsWorksCM_AssociateNode() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -45,7 +49,11 @@ func ExampleOpsWorksCM_AssociateNode() {
 }
 
 func ExampleOpsWorksCM_CreateBackup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -67,7 +75,11 @@ func ExampleOpsWorksCM_CreateBackup() {
 }
 
 func ExampleOpsWorksCM_CreateServer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -115,7 +127,11 @@ func ExampleOpsWorksCM_CreateServer() {
 }
 
 func ExampleOpsWorksCM_DeleteBackup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -136,7 +152,11 @@ func ExampleOpsWorksCM_DeleteBackup() {
 }
 
 func ExampleOpsWorksCM_DeleteServer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -157,7 +177,11 @@ func ExampleOpsWorksCM_DeleteServer() {
 }
 
 func ExampleOpsWorksCM_DescribeAccountAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -176,7 +200,11 @@ func ExampleOpsWorksCM_DescribeAccountAttributes() {
 }
 
 func ExampleOpsWorksCM_DescribeBackups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -200,7 +228,11 @@ func ExampleOpsWorksCM_DescribeBackups() {
 }
 
 func ExampleOpsWorksCM_DescribeEvents() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -223,7 +255,11 @@ func ExampleOpsWorksCM_DescribeEvents() {
 }
 
 func ExampleOpsWorksCM_DescribeNodeAssociationStatus() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -245,7 +281,11 @@ func ExampleOpsWorksCM_DescribeNodeAssociationStatus() {
 }
 
 func ExampleOpsWorksCM_DescribeServers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -268,7 +308,11 @@ func ExampleOpsWorksCM_DescribeServers() {
 }
 
 func ExampleOpsWorksCM_DisassociateNode() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -297,7 +341,11 @@ func ExampleOpsWorksCM_DisassociateNode() {
 }
 
 func ExampleOpsWorksCM_RestoreServer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -321,7 +369,11 @@ func ExampleOpsWorksCM_RestoreServer() {
 }
 
 func ExampleOpsWorksCM_StartMaintenance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -342,7 +394,11 @@ func ExampleOpsWorksCM_StartMaintenance() {
 }
 
 func ExampleOpsWorksCM_UpdateServer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 
@@ -367,7 +423,11 @@ func ExampleOpsWorksCM_UpdateServer() {
 }
 
 func ExampleOpsWorksCM_UpdateServerEngineAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworkscm.New(sess)
 

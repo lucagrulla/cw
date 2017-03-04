@@ -3412,7 +3412,10 @@ func (c *CloudDirectory) ListObjectAttributesRequest(input *ListObjectAttributes
 
 // ListObjectAttributes API operation for Amazon CloudDirectory.
 //
-// Lists all attributes associated with an object.
+// Lists all attributes associated with an object. This also supports common
+// namespace prefix (key) listing. For example, if you want to retrieve all
+// attributes associated with facet1, key can be facet1. If key is empty, all
+// attributes are returned in a paginated list.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about

@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleAppStream_AssociateFleet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -38,7 +42,11 @@ func ExampleAppStream_AssociateFleet() {
 }
 
 func ExampleAppStream_CreateFleet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -74,7 +82,11 @@ func ExampleAppStream_CreateFleet() {
 }
 
 func ExampleAppStream_CreateStack() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -97,7 +109,11 @@ func ExampleAppStream_CreateStack() {
 }
 
 func ExampleAppStream_CreateStreamingURL() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -123,7 +139,11 @@ func ExampleAppStream_CreateStreamingURL() {
 }
 
 func ExampleAppStream_DeleteFleet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -144,7 +164,11 @@ func ExampleAppStream_DeleteFleet() {
 }
 
 func ExampleAppStream_DeleteStack() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -165,7 +189,11 @@ func ExampleAppStream_DeleteStack() {
 }
 
 func ExampleAppStream_DescribeFleets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -190,7 +218,11 @@ func ExampleAppStream_DescribeFleets() {
 }
 
 func ExampleAppStream_DescribeImages() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -214,7 +246,11 @@ func ExampleAppStream_DescribeImages() {
 }
 
 func ExampleAppStream_DescribeSessions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -239,7 +275,11 @@ func ExampleAppStream_DescribeSessions() {
 }
 
 func ExampleAppStream_DescribeStacks() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -264,7 +304,11 @@ func ExampleAppStream_DescribeStacks() {
 }
 
 func ExampleAppStream_DisassociateFleet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -286,7 +330,11 @@ func ExampleAppStream_DisassociateFleet() {
 }
 
 func ExampleAppStream_ExpireSession() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -307,7 +355,11 @@ func ExampleAppStream_ExpireSession() {
 }
 
 func ExampleAppStream_ListAssociatedFleets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -329,7 +381,11 @@ func ExampleAppStream_ListAssociatedFleets() {
 }
 
 func ExampleAppStream_ListAssociatedStacks() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -351,7 +407,11 @@ func ExampleAppStream_ListAssociatedStacks() {
 }
 
 func ExampleAppStream_StartFleet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -372,7 +432,11 @@ func ExampleAppStream_StartFleet() {
 }
 
 func ExampleAppStream_StopFleet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -393,7 +457,11 @@ func ExampleAppStream_StopFleet() {
 }
 
 func ExampleAppStream_UpdateFleet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 
@@ -430,7 +498,11 @@ func ExampleAppStream_UpdateFleet() {
 }
 
 func ExampleAppStream_UpdateStack() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := appstream.New(sess)
 

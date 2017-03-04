@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleECS_CreateCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -37,7 +41,11 @@ func ExampleECS_CreateCluster() {
 }
 
 func ExampleECS_CreateService() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -90,7 +98,11 @@ func ExampleECS_CreateService() {
 }
 
 func ExampleECS_DeleteAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -120,7 +132,11 @@ func ExampleECS_DeleteAttributes() {
 }
 
 func ExampleECS_DeleteCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -141,7 +157,11 @@ func ExampleECS_DeleteCluster() {
 }
 
 func ExampleECS_DeleteService() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -163,7 +183,11 @@ func ExampleECS_DeleteService() {
 }
 
 func ExampleECS_DeregisterContainerInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -186,7 +210,11 @@ func ExampleECS_DeregisterContainerInstance() {
 }
 
 func ExampleECS_DeregisterTaskDefinition() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -207,7 +235,11 @@ func ExampleECS_DeregisterTaskDefinition() {
 }
 
 func ExampleECS_DescribeClusters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -231,7 +263,11 @@ func ExampleECS_DescribeClusters() {
 }
 
 func ExampleECS_DescribeContainerInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -256,7 +292,11 @@ func ExampleECS_DescribeContainerInstances() {
 }
 
 func ExampleECS_DescribeServices() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -281,7 +321,11 @@ func ExampleECS_DescribeServices() {
 }
 
 func ExampleECS_DescribeTaskDefinition() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -302,7 +346,11 @@ func ExampleECS_DescribeTaskDefinition() {
 }
 
 func ExampleECS_DescribeTasks() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -327,7 +375,11 @@ func ExampleECS_DescribeTasks() {
 }
 
 func ExampleECS_DiscoverPollEndpoint() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -349,7 +401,11 @@ func ExampleECS_DiscoverPollEndpoint() {
 }
 
 func ExampleECS_ListAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -375,7 +431,11 @@ func ExampleECS_ListAttributes() {
 }
 
 func ExampleECS_ListClusters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -397,7 +457,11 @@ func ExampleECS_ListClusters() {
 }
 
 func ExampleECS_ListContainerInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -422,7 +486,11 @@ func ExampleECS_ListContainerInstances() {
 }
 
 func ExampleECS_ListServices() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -445,7 +513,11 @@ func ExampleECS_ListServices() {
 }
 
 func ExampleECS_ListTaskDefinitionFamilies() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -469,7 +541,11 @@ func ExampleECS_ListTaskDefinitionFamilies() {
 }
 
 func ExampleECS_ListTaskDefinitions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -494,7 +570,11 @@ func ExampleECS_ListTaskDefinitions() {
 }
 
 func ExampleECS_ListTasks() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -522,7 +602,11 @@ func ExampleECS_ListTasks() {
 }
 
 func ExampleECS_PutAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -552,7 +636,11 @@ func ExampleECS_PutAttributes() {
 }
 
 func ExampleECS_RegisterContainerInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -604,7 +692,11 @@ func ExampleECS_RegisterContainerInstance() {
 }
 
 func ExampleECS_RegisterTaskDefinition() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -740,7 +832,11 @@ func ExampleECS_RegisterTaskDefinition() {
 }
 
 func ExampleECS_RunTask() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -799,7 +895,11 @@ func ExampleECS_RunTask() {
 }
 
 func ExampleECS_StartTask() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -847,7 +947,11 @@ func ExampleECS_StartTask() {
 }
 
 func ExampleECS_StopTask() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -870,7 +974,11 @@ func ExampleECS_StopTask() {
 }
 
 func ExampleECS_SubmitContainerStateChange() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -905,7 +1013,11 @@ func ExampleECS_SubmitContainerStateChange() {
 }
 
 func ExampleECS_SubmitTaskStateChange() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -929,7 +1041,11 @@ func ExampleECS_SubmitTaskStateChange() {
 }
 
 func ExampleECS_UpdateContainerAgent() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -951,7 +1067,11 @@ func ExampleECS_UpdateContainerAgent() {
 }
 
 func ExampleECS_UpdateContainerInstancesState() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 
@@ -977,7 +1097,11 @@ func ExampleECS_UpdateContainerInstancesState() {
 }
 
 func ExampleECS_UpdateService() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecs.New(sess)
 

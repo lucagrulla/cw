@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleECR_BatchCheckLayerAvailability() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -42,7 +46,11 @@ func ExampleECR_BatchCheckLayerAvailability() {
 }
 
 func ExampleECR_BatchDeleteImage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -71,7 +79,11 @@ func ExampleECR_BatchDeleteImage() {
 }
 
 func ExampleECR_BatchGetImage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -104,7 +116,11 @@ func ExampleECR_BatchGetImage() {
 }
 
 func ExampleECR_CompleteLayerUpload() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -131,7 +147,11 @@ func ExampleECR_CompleteLayerUpload() {
 }
 
 func ExampleECR_CreateRepository() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -152,7 +172,11 @@ func ExampleECR_CreateRepository() {
 }
 
 func ExampleECR_DeleteRepository() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -175,7 +199,11 @@ func ExampleECR_DeleteRepository() {
 }
 
 func ExampleECR_DeleteRepositoryPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -197,7 +225,11 @@ func ExampleECR_DeleteRepositoryPolicy() {
 }
 
 func ExampleECR_DescribeImages() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -231,7 +263,11 @@ func ExampleECR_DescribeImages() {
 }
 
 func ExampleECR_DescribeRepositories() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -258,7 +294,11 @@ func ExampleECR_DescribeRepositories() {
 }
 
 func ExampleECR_GetAuthorizationToken() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -282,7 +322,11 @@ func ExampleECR_GetAuthorizationToken() {
 }
 
 func ExampleECR_GetDownloadUrlForLayer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -305,7 +349,11 @@ func ExampleECR_GetDownloadUrlForLayer() {
 }
 
 func ExampleECR_GetRepositoryPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -327,7 +375,11 @@ func ExampleECR_GetRepositoryPolicy() {
 }
 
 func ExampleECR_InitiateLayerUpload() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -349,7 +401,11 @@ func ExampleECR_InitiateLayerUpload() {
 }
 
 func ExampleECR_ListImages() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -376,7 +432,11 @@ func ExampleECR_ListImages() {
 }
 
 func ExampleECR_PutImage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -400,7 +460,11 @@ func ExampleECR_PutImage() {
 }
 
 func ExampleECR_SetRepositoryPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 
@@ -424,7 +488,11 @@ func ExampleECR_SetRepositoryPolicy() {
 }
 
 func ExampleECR_UploadLayerPart() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := ecr.New(sess)
 

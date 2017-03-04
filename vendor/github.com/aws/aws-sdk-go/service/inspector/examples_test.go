@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleInspector_AddAttributesToFindings() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -47,7 +51,11 @@ func ExampleInspector_AddAttributesToFindings() {
 }
 
 func ExampleInspector_CreateAssessmentTarget() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -69,7 +77,11 @@ func ExampleInspector_CreateAssessmentTarget() {
 }
 
 func ExampleInspector_CreateAssessmentTemplate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -103,7 +115,11 @@ func ExampleInspector_CreateAssessmentTemplate() {
 }
 
 func ExampleInspector_CreateResourceGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -130,7 +146,11 @@ func ExampleInspector_CreateResourceGroup() {
 }
 
 func ExampleInspector_DeleteAssessmentRun() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -151,7 +171,11 @@ func ExampleInspector_DeleteAssessmentRun() {
 }
 
 func ExampleInspector_DeleteAssessmentTarget() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -172,7 +196,11 @@ func ExampleInspector_DeleteAssessmentTarget() {
 }
 
 func ExampleInspector_DeleteAssessmentTemplate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -193,7 +221,11 @@ func ExampleInspector_DeleteAssessmentTemplate() {
 }
 
 func ExampleInspector_DescribeAssessmentRuns() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -217,7 +249,11 @@ func ExampleInspector_DescribeAssessmentRuns() {
 }
 
 func ExampleInspector_DescribeAssessmentTargets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -241,7 +277,11 @@ func ExampleInspector_DescribeAssessmentTargets() {
 }
 
 func ExampleInspector_DescribeAssessmentTemplates() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -265,7 +305,11 @@ func ExampleInspector_DescribeAssessmentTemplates() {
 }
 
 func ExampleInspector_DescribeCrossAccountAccessRole() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -284,7 +328,11 @@ func ExampleInspector_DescribeCrossAccountAccessRole() {
 }
 
 func ExampleInspector_DescribeFindings() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -309,7 +357,11 @@ func ExampleInspector_DescribeFindings() {
 }
 
 func ExampleInspector_DescribeResourceGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -333,7 +385,11 @@ func ExampleInspector_DescribeResourceGroups() {
 }
 
 func ExampleInspector_DescribeRulesPackages() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -358,7 +414,11 @@ func ExampleInspector_DescribeRulesPackages() {
 }
 
 func ExampleInspector_GetTelemetryMetadata() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -379,7 +439,11 @@ func ExampleInspector_GetTelemetryMetadata() {
 }
 
 func ExampleInspector_ListAssessmentRunAgents() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -412,7 +476,11 @@ func ExampleInspector_ListAssessmentRunAgents() {
 }
 
 func ExampleInspector_ListAssessmentRuns() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -465,7 +533,11 @@ func ExampleInspector_ListAssessmentRuns() {
 }
 
 func ExampleInspector_ListAssessmentTargets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -490,7 +562,11 @@ func ExampleInspector_ListAssessmentTargets() {
 }
 
 func ExampleInspector_ListAssessmentTemplates() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -527,7 +603,11 @@ func ExampleInspector_ListAssessmentTemplates() {
 }
 
 func ExampleInspector_ListEventSubscriptions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -550,7 +630,11 @@ func ExampleInspector_ListEventSubscriptions() {
 }
 
 func ExampleInspector_ListFindings() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -616,7 +700,11 @@ func ExampleInspector_ListFindings() {
 }
 
 func ExampleInspector_ListRulesPackages() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -638,7 +726,11 @@ func ExampleInspector_ListRulesPackages() {
 }
 
 func ExampleInspector_ListTagsForResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -659,7 +751,11 @@ func ExampleInspector_ListTagsForResource() {
 }
 
 func ExampleInspector_PreviewAgents() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -682,7 +778,11 @@ func ExampleInspector_PreviewAgents() {
 }
 
 func ExampleInspector_RegisterCrossAccountAccessRole() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -703,7 +803,11 @@ func ExampleInspector_RegisterCrossAccountAccessRole() {
 }
 
 func ExampleInspector_RemoveAttributesFromFindings() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -731,7 +835,11 @@ func ExampleInspector_RemoveAttributesFromFindings() {
 }
 
 func ExampleInspector_SetTagsForResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -759,7 +867,11 @@ func ExampleInspector_SetTagsForResource() {
 }
 
 func ExampleInspector_StartAssessmentRun() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -781,7 +893,11 @@ func ExampleInspector_StartAssessmentRun() {
 }
 
 func ExampleInspector_StopAssessmentRun() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -802,7 +918,11 @@ func ExampleInspector_StopAssessmentRun() {
 }
 
 func ExampleInspector_SubscribeToEvent() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -825,7 +945,11 @@ func ExampleInspector_SubscribeToEvent() {
 }
 
 func ExampleInspector_UnsubscribeFromEvent() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 
@@ -848,7 +972,11 @@ func ExampleInspector_UnsubscribeFromEvent() {
 }
 
 func ExampleInspector_UpdateAssessmentTarget() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := inspector.New(sess)
 

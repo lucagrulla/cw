@@ -1,5 +1,5 @@
 {
-    "memo": "4c6dadf36a8afd6bbcf9a79c3971a18d9bd33879cea686e64caa1d35c80b9b7d",
+    "memo": "40211cb11c2e3a876d2e6b617cf5ff378e33f3ebad187d4c4b4eba1682da7ea3",
     "projects": [
         {
             "name": "github.com/alecthomas/template",
@@ -20,7 +20,7 @@
         {
             "name": "github.com/aws/aws-sdk-go",
             "branch": "master",
-            "revision": "78568b07950e5e7948496878fe99b9436add41d4",
+            "revision": "ab16e115479efb695e122bc4bb3e0ad52419d1ba",
             "packages": [
                 "aws",
                 "aws/session",
@@ -29,7 +29,7 @@
         },
         {
             "name": "github.com/fatih/color",
-            "version": "v1.4.0",
+            "branch": "master",
             "revision": "7824417a424b65227be8ac9b14d545a7f3e6c3f0",
             "packages": [
                 "."
@@ -70,15 +70,15 @@
         {
             "name": "golang.org/x/sys",
             "branch": "master",
-            "revision": "76cc09b634294339fa19ec41b5f2a0b3932cea8b",
+            "revision": "e48874b42435b4347fc52bdee0424a52abc974d7",
             "packages": [
                 "unix"
             ]
         },
         {
             "name": "gopkg.in/alecthomas/kingpin.v2",
-            "version": "v2.0.0",
-            "revision": "ec97771e49d7b6a53739abb87bec6ffe1ea29074",
+            "branch": "master",
+            "revision": "e9044be3ab2a8e11d4e1f418d12f0790d57e8d70",
             "packages": [
                 "."
             ]

@@ -18,7 +18,10 @@ import (
 // Usage:
 // filter_ec2_by_tag <name_filter>
 func main() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		log.Fatalf("failed to create session %v\n", err)
+	}
 
 	nameFilter := os.Args[1]
 	awsRegion := "us-east-1"

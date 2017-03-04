@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleCodeDeploy_AddTagsToOnPremisesInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -47,7 +51,11 @@ func ExampleCodeDeploy_AddTagsToOnPremisesInstances() {
 }
 
 func ExampleCodeDeploy_BatchGetApplicationRevisions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -85,7 +93,11 @@ func ExampleCodeDeploy_BatchGetApplicationRevisions() {
 }
 
 func ExampleCodeDeploy_BatchGetApplications() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -109,7 +121,11 @@ func ExampleCodeDeploy_BatchGetApplications() {
 }
 
 func ExampleCodeDeploy_BatchGetDeploymentGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -134,7 +150,11 @@ func ExampleCodeDeploy_BatchGetDeploymentGroups() {
 }
 
 func ExampleCodeDeploy_BatchGetDeploymentInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -159,7 +179,11 @@ func ExampleCodeDeploy_BatchGetDeploymentInstances() {
 }
 
 func ExampleCodeDeploy_BatchGetDeployments() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -183,7 +207,11 @@ func ExampleCodeDeploy_BatchGetDeployments() {
 }
 
 func ExampleCodeDeploy_BatchGetOnPremisesInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -207,7 +235,11 @@ func ExampleCodeDeploy_BatchGetOnPremisesInstances() {
 }
 
 func ExampleCodeDeploy_ContinueDeployment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -228,7 +260,11 @@ func ExampleCodeDeploy_ContinueDeployment() {
 }
 
 func ExampleCodeDeploy_CreateApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -249,7 +285,11 @@ func ExampleCodeDeploy_CreateApplication() {
 }
 
 func ExampleCodeDeploy_CreateDeployment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -310,7 +350,11 @@ func ExampleCodeDeploy_CreateDeployment() {
 }
 
 func ExampleCodeDeploy_CreateDeploymentConfig() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -335,7 +379,11 @@ func ExampleCodeDeploy_CreateDeploymentConfig() {
 }
 
 func ExampleCodeDeploy_CreateDeploymentGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -432,7 +480,11 @@ func ExampleCodeDeploy_CreateDeploymentGroup() {
 }
 
 func ExampleCodeDeploy_DeleteApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -453,7 +505,11 @@ func ExampleCodeDeploy_DeleteApplication() {
 }
 
 func ExampleCodeDeploy_DeleteDeploymentConfig() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -474,7 +530,11 @@ func ExampleCodeDeploy_DeleteDeploymentConfig() {
 }
 
 func ExampleCodeDeploy_DeleteDeploymentGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -496,7 +556,11 @@ func ExampleCodeDeploy_DeleteDeploymentGroup() {
 }
 
 func ExampleCodeDeploy_DeregisterOnPremisesInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -517,7 +581,11 @@ func ExampleCodeDeploy_DeregisterOnPremisesInstance() {
 }
 
 func ExampleCodeDeploy_GetApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -538,7 +606,11 @@ func ExampleCodeDeploy_GetApplication() {
 }
 
 func ExampleCodeDeploy_GetApplicationRevision() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -573,7 +645,11 @@ func ExampleCodeDeploy_GetApplicationRevision() {
 }
 
 func ExampleCodeDeploy_GetDeployment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -594,7 +670,11 @@ func ExampleCodeDeploy_GetDeployment() {
 }
 
 func ExampleCodeDeploy_GetDeploymentConfig() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -615,7 +695,11 @@ func ExampleCodeDeploy_GetDeploymentConfig() {
 }
 
 func ExampleCodeDeploy_GetDeploymentGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -637,7 +721,11 @@ func ExampleCodeDeploy_GetDeploymentGroup() {
 }
 
 func ExampleCodeDeploy_GetDeploymentInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -659,7 +747,11 @@ func ExampleCodeDeploy_GetDeploymentInstance() {
 }
 
 func ExampleCodeDeploy_GetOnPremisesInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -680,7 +772,11 @@ func ExampleCodeDeploy_GetOnPremisesInstance() {
 }
 
 func ExampleCodeDeploy_ListApplicationRevisions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -707,7 +803,11 @@ func ExampleCodeDeploy_ListApplicationRevisions() {
 }
 
 func ExampleCodeDeploy_ListApplications() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -728,7 +828,11 @@ func ExampleCodeDeploy_ListApplications() {
 }
 
 func ExampleCodeDeploy_ListDeploymentConfigs() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -749,7 +853,11 @@ func ExampleCodeDeploy_ListDeploymentConfigs() {
 }
 
 func ExampleCodeDeploy_ListDeploymentGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -771,7 +879,11 @@ func ExampleCodeDeploy_ListDeploymentGroups() {
 }
 
 func ExampleCodeDeploy_ListDeploymentInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -801,7 +913,11 @@ func ExampleCodeDeploy_ListDeploymentInstances() {
 }
 
 func ExampleCodeDeploy_ListDeployments() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -832,7 +948,11 @@ func ExampleCodeDeploy_ListDeployments() {
 }
 
 func ExampleCodeDeploy_ListOnPremisesInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -862,7 +982,11 @@ func ExampleCodeDeploy_ListOnPremisesInstances() {
 }
 
 func ExampleCodeDeploy_RegisterApplicationRevision() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -898,7 +1022,11 @@ func ExampleCodeDeploy_RegisterApplicationRevision() {
 }
 
 func ExampleCodeDeploy_RegisterOnPremisesInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -921,7 +1049,11 @@ func ExampleCodeDeploy_RegisterOnPremisesInstance() {
 }
 
 func ExampleCodeDeploy_RemoveTagsFromOnPremisesInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -952,7 +1084,11 @@ func ExampleCodeDeploy_RemoveTagsFromOnPremisesInstances() {
 }
 
 func ExampleCodeDeploy_SkipWaitTimeForInstanceTermination() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -973,7 +1109,11 @@ func ExampleCodeDeploy_SkipWaitTimeForInstanceTermination() {
 }
 
 func ExampleCodeDeploy_StopDeployment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -995,7 +1135,11 @@ func ExampleCodeDeploy_StopDeployment() {
 }
 
 func ExampleCodeDeploy_UpdateApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 
@@ -1017,7 +1161,11 @@ func ExampleCodeDeploy_UpdateApplication() {
 }
 
 func ExampleCodeDeploy_UpdateDeploymentGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codedeploy.New(sess)
 

@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleServiceCatalog_AcceptPortfolioShare() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -38,7 +42,11 @@ func ExampleServiceCatalog_AcceptPortfolioShare() {
 }
 
 func ExampleServiceCatalog_AssociatePrincipalWithPortfolio() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -62,7 +70,11 @@ func ExampleServiceCatalog_AssociatePrincipalWithPortfolio() {
 }
 
 func ExampleServiceCatalog_AssociateProductWithPortfolio() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -86,7 +98,11 @@ func ExampleServiceCatalog_AssociateProductWithPortfolio() {
 }
 
 func ExampleServiceCatalog_CreateConstraint() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -113,7 +129,11 @@ func ExampleServiceCatalog_CreateConstraint() {
 }
 
 func ExampleServiceCatalog_CreatePortfolio() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -145,7 +165,11 @@ func ExampleServiceCatalog_CreatePortfolio() {
 }
 
 func ExampleServiceCatalog_CreatePortfolioShare() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -168,7 +192,11 @@ func ExampleServiceCatalog_CreatePortfolioShare() {
 }
 
 func ExampleServiceCatalog_CreateProduct() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -214,7 +242,11 @@ func ExampleServiceCatalog_CreateProduct() {
 }
 
 func ExampleServiceCatalog_CreateProvisioningArtifact() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -246,7 +278,11 @@ func ExampleServiceCatalog_CreateProvisioningArtifact() {
 }
 
 func ExampleServiceCatalog_DeleteConstraint() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -268,7 +304,11 @@ func ExampleServiceCatalog_DeleteConstraint() {
 }
 
 func ExampleServiceCatalog_DeletePortfolio() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -290,7 +330,11 @@ func ExampleServiceCatalog_DeletePortfolio() {
 }
 
 func ExampleServiceCatalog_DeletePortfolioShare() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -313,7 +357,11 @@ func ExampleServiceCatalog_DeletePortfolioShare() {
 }
 
 func ExampleServiceCatalog_DeleteProduct() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -335,7 +383,11 @@ func ExampleServiceCatalog_DeleteProduct() {
 }
 
 func ExampleServiceCatalog_DeleteProvisioningArtifact() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -358,7 +410,11 @@ func ExampleServiceCatalog_DeleteProvisioningArtifact() {
 }
 
 func ExampleServiceCatalog_DescribeConstraint() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -380,7 +436,11 @@ func ExampleServiceCatalog_DescribeConstraint() {
 }
 
 func ExampleServiceCatalog_DescribePortfolio() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -402,7 +462,11 @@ func ExampleServiceCatalog_DescribePortfolio() {
 }
 
 func ExampleServiceCatalog_DescribeProduct() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -424,7 +488,11 @@ func ExampleServiceCatalog_DescribeProduct() {
 }
 
 func ExampleServiceCatalog_DescribeProductAsAdmin() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -446,7 +514,11 @@ func ExampleServiceCatalog_DescribeProductAsAdmin() {
 }
 
 func ExampleServiceCatalog_DescribeProductView() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -468,7 +540,11 @@ func ExampleServiceCatalog_DescribeProductView() {
 }
 
 func ExampleServiceCatalog_DescribeProvisioningArtifact() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -491,7 +567,11 @@ func ExampleServiceCatalog_DescribeProvisioningArtifact() {
 }
 
 func ExampleServiceCatalog_DescribeProvisioningParameters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -515,7 +595,11 @@ func ExampleServiceCatalog_DescribeProvisioningParameters() {
 }
 
 func ExampleServiceCatalog_DescribeRecord() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -539,7 +623,11 @@ func ExampleServiceCatalog_DescribeRecord() {
 }
 
 func ExampleServiceCatalog_DisassociatePrincipalFromPortfolio() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -562,7 +650,11 @@ func ExampleServiceCatalog_DisassociatePrincipalFromPortfolio() {
 }
 
 func ExampleServiceCatalog_DisassociateProductFromPortfolio() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -585,7 +677,11 @@ func ExampleServiceCatalog_DisassociateProductFromPortfolio() {
 }
 
 func ExampleServiceCatalog_ListAcceptedPortfolioShares() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -608,7 +704,11 @@ func ExampleServiceCatalog_ListAcceptedPortfolioShares() {
 }
 
 func ExampleServiceCatalog_ListConstraintsForPortfolio() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -633,7 +733,11 @@ func ExampleServiceCatalog_ListConstraintsForPortfolio() {
 }
 
 func ExampleServiceCatalog_ListLaunchPaths() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -657,7 +761,11 @@ func ExampleServiceCatalog_ListLaunchPaths() {
 }
 
 func ExampleServiceCatalog_ListPortfolioAccess() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -679,7 +787,11 @@ func ExampleServiceCatalog_ListPortfolioAccess() {
 }
 
 func ExampleServiceCatalog_ListPortfolios() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -702,7 +814,11 @@ func ExampleServiceCatalog_ListPortfolios() {
 }
 
 func ExampleServiceCatalog_ListPortfoliosForProduct() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -726,7 +842,11 @@ func ExampleServiceCatalog_ListPortfoliosForProduct() {
 }
 
 func ExampleServiceCatalog_ListPrincipalsForPortfolio() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -750,7 +870,11 @@ func ExampleServiceCatalog_ListPrincipalsForPortfolio() {
 }
 
 func ExampleServiceCatalog_ListProvisioningArtifacts() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -772,7 +896,11 @@ func ExampleServiceCatalog_ListProvisioningArtifacts() {
 }
 
 func ExampleServiceCatalog_ListRecordHistory() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -803,7 +931,11 @@ func ExampleServiceCatalog_ListRecordHistory() {
 }
 
 func ExampleServiceCatalog_ProvisionProduct() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -847,7 +979,11 @@ func ExampleServiceCatalog_ProvisionProduct() {
 }
 
 func ExampleServiceCatalog_RejectPortfolioShare() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -869,7 +1005,11 @@ func ExampleServiceCatalog_RejectPortfolioShare() {
 }
 
 func ExampleServiceCatalog_ScanProvisionedProducts() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -896,7 +1036,11 @@ func ExampleServiceCatalog_ScanProvisionedProducts() {
 }
 
 func ExampleServiceCatalog_SearchProducts() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -928,7 +1072,11 @@ func ExampleServiceCatalog_SearchProducts() {
 }
 
 func ExampleServiceCatalog_SearchProductsAsAdmin() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -962,7 +1110,11 @@ func ExampleServiceCatalog_SearchProductsAsAdmin() {
 }
 
 func ExampleServiceCatalog_TerminateProvisionedProduct() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -987,7 +1139,11 @@ func ExampleServiceCatalog_TerminateProvisionedProduct() {
 }
 
 func ExampleServiceCatalog_UpdateConstraint() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -1010,7 +1166,11 @@ func ExampleServiceCatalog_UpdateConstraint() {
 }
 
 func ExampleServiceCatalog_UpdatePortfolio() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -1046,7 +1206,11 @@ func ExampleServiceCatalog_UpdatePortfolio() {
 }
 
 func ExampleServiceCatalog_UpdateProduct() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -1086,7 +1250,11 @@ func ExampleServiceCatalog_UpdateProduct() {
 }
 
 func ExampleServiceCatalog_UpdateProvisionedProduct() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 
@@ -1121,7 +1289,11 @@ func ExampleServiceCatalog_UpdateProvisionedProduct() {
 }
 
 func ExampleServiceCatalog_UpdateProvisioningArtifact() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := servicecatalog.New(sess)
 

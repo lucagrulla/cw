@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleAutoScaling_AttachInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -41,7 +45,11 @@ func ExampleAutoScaling_AttachInstances() {
 }
 
 func ExampleAutoScaling_AttachLoadBalancerTargetGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -66,7 +74,11 @@ func ExampleAutoScaling_AttachLoadBalancerTargetGroups() {
 }
 
 func ExampleAutoScaling_AttachLoadBalancers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -91,7 +103,11 @@ func ExampleAutoScaling_AttachLoadBalancers() {
 }
 
 func ExampleAutoScaling_CompleteLifecycleAction() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -116,7 +132,11 @@ func ExampleAutoScaling_CompleteLifecycleAction() {
 }
 
 func ExampleAutoScaling_CreateAutoScalingGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -174,7 +194,11 @@ func ExampleAutoScaling_CreateAutoScalingGroup() {
 }
 
 func ExampleAutoScaling_CreateLaunchConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -235,7 +259,11 @@ func ExampleAutoScaling_CreateLaunchConfiguration() {
 }
 
 func ExampleAutoScaling_CreateOrUpdateTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -265,7 +293,11 @@ func ExampleAutoScaling_CreateOrUpdateTags() {
 }
 
 func ExampleAutoScaling_DeleteAutoScalingGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -287,7 +319,11 @@ func ExampleAutoScaling_DeleteAutoScalingGroup() {
 }
 
 func ExampleAutoScaling_DeleteLaunchConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -308,7 +344,11 @@ func ExampleAutoScaling_DeleteLaunchConfiguration() {
 }
 
 func ExampleAutoScaling_DeleteLifecycleHook() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -330,7 +370,11 @@ func ExampleAutoScaling_DeleteLifecycleHook() {
 }
 
 func ExampleAutoScaling_DeleteNotificationConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -352,7 +396,11 @@ func ExampleAutoScaling_DeleteNotificationConfiguration() {
 }
 
 func ExampleAutoScaling_DeletePolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -374,7 +422,11 @@ func ExampleAutoScaling_DeletePolicy() {
 }
 
 func ExampleAutoScaling_DeleteScheduledAction() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -396,7 +448,11 @@ func ExampleAutoScaling_DeleteScheduledAction() {
 }
 
 func ExampleAutoScaling_DeleteTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -426,7 +482,11 @@ func ExampleAutoScaling_DeleteTags() {
 }
 
 func ExampleAutoScaling_DescribeAccountLimits() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -445,7 +505,11 @@ func ExampleAutoScaling_DescribeAccountLimits() {
 }
 
 func ExampleAutoScaling_DescribeAdjustmentTypes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -464,7 +528,11 @@ func ExampleAutoScaling_DescribeAdjustmentTypes() {
 }
 
 func ExampleAutoScaling_DescribeAutoScalingGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -490,7 +558,11 @@ func ExampleAutoScaling_DescribeAutoScalingGroups() {
 }
 
 func ExampleAutoScaling_DescribeAutoScalingInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -516,7 +588,11 @@ func ExampleAutoScaling_DescribeAutoScalingInstances() {
 }
 
 func ExampleAutoScaling_DescribeAutoScalingNotificationTypes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -535,7 +611,11 @@ func ExampleAutoScaling_DescribeAutoScalingNotificationTypes() {
 }
 
 func ExampleAutoScaling_DescribeLaunchConfigurations() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -561,7 +641,11 @@ func ExampleAutoScaling_DescribeLaunchConfigurations() {
 }
 
 func ExampleAutoScaling_DescribeLifecycleHookTypes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -580,7 +664,11 @@ func ExampleAutoScaling_DescribeLifecycleHookTypes() {
 }
 
 func ExampleAutoScaling_DescribeLifecycleHooks() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -605,7 +693,11 @@ func ExampleAutoScaling_DescribeLifecycleHooks() {
 }
 
 func ExampleAutoScaling_DescribeLoadBalancerTargetGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -628,7 +720,11 @@ func ExampleAutoScaling_DescribeLoadBalancerTargetGroups() {
 }
 
 func ExampleAutoScaling_DescribeLoadBalancers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -651,7 +747,11 @@ func ExampleAutoScaling_DescribeLoadBalancers() {
 }
 
 func ExampleAutoScaling_DescribeMetricCollectionTypes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -670,7 +770,11 @@ func ExampleAutoScaling_DescribeMetricCollectionTypes() {
 }
 
 func ExampleAutoScaling_DescribeNotificationConfigurations() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -696,7 +800,11 @@ func ExampleAutoScaling_DescribeNotificationConfigurations() {
 }
 
 func ExampleAutoScaling_DescribePolicies() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -727,7 +835,11 @@ func ExampleAutoScaling_DescribePolicies() {
 }
 
 func ExampleAutoScaling_DescribeScalingActivities() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -754,7 +866,11 @@ func ExampleAutoScaling_DescribeScalingActivities() {
 }
 
 func ExampleAutoScaling_DescribeScalingProcessTypes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -773,7 +889,11 @@ func ExampleAutoScaling_DescribeScalingProcessTypes() {
 }
 
 func ExampleAutoScaling_DescribeScheduledActions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -802,7 +922,11 @@ func ExampleAutoScaling_DescribeScheduledActions() {
 }
 
 func ExampleAutoScaling_DescribeTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -834,7 +958,11 @@ func ExampleAutoScaling_DescribeTags() {
 }
 
 func ExampleAutoScaling_DescribeTerminationPolicyTypes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -853,7 +981,11 @@ func ExampleAutoScaling_DescribeTerminationPolicyTypes() {
 }
 
 func ExampleAutoScaling_DetachInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -879,7 +1011,11 @@ func ExampleAutoScaling_DetachInstances() {
 }
 
 func ExampleAutoScaling_DetachLoadBalancerTargetGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -904,7 +1040,11 @@ func ExampleAutoScaling_DetachLoadBalancerTargetGroups() {
 }
 
 func ExampleAutoScaling_DetachLoadBalancers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -929,7 +1069,11 @@ func ExampleAutoScaling_DetachLoadBalancers() {
 }
 
 func ExampleAutoScaling_DisableMetricsCollection() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -954,7 +1098,11 @@ func ExampleAutoScaling_DisableMetricsCollection() {
 }
 
 func ExampleAutoScaling_EnableMetricsCollection() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -980,7 +1128,11 @@ func ExampleAutoScaling_EnableMetricsCollection() {
 }
 
 func ExampleAutoScaling_EnterStandby() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1006,7 +1158,11 @@ func ExampleAutoScaling_EnterStandby() {
 }
 
 func ExampleAutoScaling_ExecutePolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1031,7 +1187,11 @@ func ExampleAutoScaling_ExecutePolicy() {
 }
 
 func ExampleAutoScaling_ExitStandby() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1056,7 +1216,11 @@ func ExampleAutoScaling_ExitStandby() {
 }
 
 func ExampleAutoScaling_PutLifecycleHook() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1084,7 +1248,11 @@ func ExampleAutoScaling_PutLifecycleHook() {
 }
 
 func ExampleAutoScaling_PutNotificationConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1110,7 +1278,11 @@ func ExampleAutoScaling_PutNotificationConfiguration() {
 }
 
 func ExampleAutoScaling_PutScalingPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1148,7 +1320,11 @@ func ExampleAutoScaling_PutScalingPolicy() {
 }
 
 func ExampleAutoScaling_PutScheduledUpdateGroupAction() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1177,7 +1353,11 @@ func ExampleAutoScaling_PutScheduledUpdateGroupAction() {
 }
 
 func ExampleAutoScaling_RecordLifecycleActionHeartbeat() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1201,7 +1381,11 @@ func ExampleAutoScaling_RecordLifecycleActionHeartbeat() {
 }
 
 func ExampleAutoScaling_ResumeProcesses() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1226,7 +1410,11 @@ func ExampleAutoScaling_ResumeProcesses() {
 }
 
 func ExampleAutoScaling_SetDesiredCapacity() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1249,7 +1437,11 @@ func ExampleAutoScaling_SetDesiredCapacity() {
 }
 
 func ExampleAutoScaling_SetInstanceHealth() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1272,7 +1464,11 @@ func ExampleAutoScaling_SetInstanceHealth() {
 }
 
 func ExampleAutoScaling_SetInstanceProtection() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1298,7 +1494,11 @@ func ExampleAutoScaling_SetInstanceProtection() {
 }
 
 func ExampleAutoScaling_SuspendProcesses() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1323,7 +1523,11 @@ func ExampleAutoScaling_SuspendProcesses() {
 }
 
 func ExampleAutoScaling_TerminateInstanceInAutoScalingGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 
@@ -1345,7 +1549,11 @@ func ExampleAutoScaling_TerminateInstanceInAutoScalingGroup() {
 }
 
 func ExampleAutoScaling_UpdateAutoScalingGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := autoscaling.New(sess)
 

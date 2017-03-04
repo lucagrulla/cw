@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleS3_AbortMultipartUpload() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -40,7 +44,11 @@ func ExampleS3_AbortMultipartUpload() {
 }
 
 func ExampleS3_CompleteMultipartUpload() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -73,7 +81,11 @@ func ExampleS3_CompleteMultipartUpload() {
 }
 
 func ExampleS3_CopyObject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -129,7 +141,11 @@ func ExampleS3_CopyObject() {
 }
 
 func ExampleS3_CreateBucket() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -159,7 +175,11 @@ func ExampleS3_CreateBucket() {
 }
 
 func ExampleS3_CreateMultipartUpload() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -204,7 +224,11 @@ func ExampleS3_CreateMultipartUpload() {
 }
 
 func ExampleS3_DeleteBucket() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -225,7 +249,11 @@ func ExampleS3_DeleteBucket() {
 }
 
 func ExampleS3_DeleteBucketAnalyticsConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -247,7 +275,11 @@ func ExampleS3_DeleteBucketAnalyticsConfiguration() {
 }
 
 func ExampleS3_DeleteBucketCors() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -268,7 +300,11 @@ func ExampleS3_DeleteBucketCors() {
 }
 
 func ExampleS3_DeleteBucketInventoryConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -290,7 +326,11 @@ func ExampleS3_DeleteBucketInventoryConfiguration() {
 }
 
 func ExampleS3_DeleteBucketLifecycle() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -311,7 +351,11 @@ func ExampleS3_DeleteBucketLifecycle() {
 }
 
 func ExampleS3_DeleteBucketMetricsConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -333,7 +377,11 @@ func ExampleS3_DeleteBucketMetricsConfiguration() {
 }
 
 func ExampleS3_DeleteBucketPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -354,7 +402,11 @@ func ExampleS3_DeleteBucketPolicy() {
 }
 
 func ExampleS3_DeleteBucketReplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -375,7 +427,11 @@ func ExampleS3_DeleteBucketReplication() {
 }
 
 func ExampleS3_DeleteBucketTagging() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -396,7 +452,11 @@ func ExampleS3_DeleteBucketTagging() {
 }
 
 func ExampleS3_DeleteBucketWebsite() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -417,7 +477,11 @@ func ExampleS3_DeleteBucketWebsite() {
 }
 
 func ExampleS3_DeleteObject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -442,7 +506,11 @@ func ExampleS3_DeleteObject() {
 }
 
 func ExampleS3_DeleteObjectTagging() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -465,7 +533,11 @@ func ExampleS3_DeleteObjectTagging() {
 }
 
 func ExampleS3_DeleteObjects() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -498,7 +570,11 @@ func ExampleS3_DeleteObjects() {
 }
 
 func ExampleS3_GetBucketAccelerateConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -519,7 +595,11 @@ func ExampleS3_GetBucketAccelerateConfiguration() {
 }
 
 func ExampleS3_GetBucketAcl() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -540,7 +620,11 @@ func ExampleS3_GetBucketAcl() {
 }
 
 func ExampleS3_GetBucketAnalyticsConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -562,7 +646,11 @@ func ExampleS3_GetBucketAnalyticsConfiguration() {
 }
 
 func ExampleS3_GetBucketCors() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -583,7 +671,11 @@ func ExampleS3_GetBucketCors() {
 }
 
 func ExampleS3_GetBucketInventoryConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -605,7 +697,11 @@ func ExampleS3_GetBucketInventoryConfiguration() {
 }
 
 func ExampleS3_GetBucketLifecycle() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -626,7 +722,11 @@ func ExampleS3_GetBucketLifecycle() {
 }
 
 func ExampleS3_GetBucketLifecycleConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -647,7 +747,11 @@ func ExampleS3_GetBucketLifecycleConfiguration() {
 }
 
 func ExampleS3_GetBucketLocation() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -668,7 +772,11 @@ func ExampleS3_GetBucketLocation() {
 }
 
 func ExampleS3_GetBucketLogging() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -689,7 +797,11 @@ func ExampleS3_GetBucketLogging() {
 }
 
 func ExampleS3_GetBucketMetricsConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -711,7 +823,11 @@ func ExampleS3_GetBucketMetricsConfiguration() {
 }
 
 func ExampleS3_GetBucketNotification() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -732,7 +848,11 @@ func ExampleS3_GetBucketNotification() {
 }
 
 func ExampleS3_GetBucketNotificationConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -753,7 +873,11 @@ func ExampleS3_GetBucketNotificationConfiguration() {
 }
 
 func ExampleS3_GetBucketPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -774,7 +898,11 @@ func ExampleS3_GetBucketPolicy() {
 }
 
 func ExampleS3_GetBucketReplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -795,7 +923,11 @@ func ExampleS3_GetBucketReplication() {
 }
 
 func ExampleS3_GetBucketRequestPayment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -816,7 +948,11 @@ func ExampleS3_GetBucketRequestPayment() {
 }
 
 func ExampleS3_GetBucketTagging() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -837,7 +973,11 @@ func ExampleS3_GetBucketTagging() {
 }
 
 func ExampleS3_GetBucketVersioning() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -858,7 +998,11 @@ func ExampleS3_GetBucketVersioning() {
 }
 
 func ExampleS3_GetBucketWebsite() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -879,7 +1023,11 @@ func ExampleS3_GetBucketWebsite() {
 }
 
 func ExampleS3_GetObject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -918,7 +1066,11 @@ func ExampleS3_GetObject() {
 }
 
 func ExampleS3_GetObjectAcl() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -942,7 +1094,11 @@ func ExampleS3_GetObjectAcl() {
 }
 
 func ExampleS3_GetObjectTagging() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -965,7 +1121,11 @@ func ExampleS3_GetObjectTagging() {
 }
 
 func ExampleS3_GetObjectTorrent() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -988,7 +1148,11 @@ func ExampleS3_GetObjectTorrent() {
 }
 
 func ExampleS3_HeadBucket() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1009,7 +1173,11 @@ func ExampleS3_HeadBucket() {
 }
 
 func ExampleS3_HeadObject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1042,7 +1210,11 @@ func ExampleS3_HeadObject() {
 }
 
 func ExampleS3_ListBucketAnalyticsConfigurations() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1064,7 +1236,11 @@ func ExampleS3_ListBucketAnalyticsConfigurations() {
 }
 
 func ExampleS3_ListBucketInventoryConfigurations() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1086,7 +1262,11 @@ func ExampleS3_ListBucketInventoryConfigurations() {
 }
 
 func ExampleS3_ListBucketMetricsConfigurations() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1108,7 +1288,11 @@ func ExampleS3_ListBucketMetricsConfigurations() {
 }
 
 func ExampleS3_ListBuckets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1127,7 +1311,11 @@ func ExampleS3_ListBuckets() {
 }
 
 func ExampleS3_ListMultipartUploads() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1154,7 +1342,11 @@ func ExampleS3_ListMultipartUploads() {
 }
 
 func ExampleS3_ListObjectVersions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1181,7 +1373,11 @@ func ExampleS3_ListObjectVersions() {
 }
 
 func ExampleS3_ListObjects() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1208,7 +1404,11 @@ func ExampleS3_ListObjects() {
 }
 
 func ExampleS3_ListObjectsV2() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1237,7 +1437,11 @@ func ExampleS3_ListObjectsV2() {
 }
 
 func ExampleS3_ListParts() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1263,7 +1467,11 @@ func ExampleS3_ListParts() {
 }
 
 func ExampleS3_PutBucketAccelerateConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1287,7 +1495,11 @@ func ExampleS3_PutBucketAccelerateConfiguration() {
 }
 
 func ExampleS3_PutBucketAcl() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1333,7 +1545,11 @@ func ExampleS3_PutBucketAcl() {
 }
 
 func ExampleS3_PutBucketAnalyticsConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1388,7 +1604,11 @@ func ExampleS3_PutBucketAnalyticsConfiguration() {
 }
 
 func ExampleS3_PutBucketCors() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1433,7 +1653,11 @@ func ExampleS3_PutBucketCors() {
 }
 
 func ExampleS3_PutBucketInventoryConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1478,7 +1702,11 @@ func ExampleS3_PutBucketInventoryConfiguration() {
 }
 
 func ExampleS3_PutBucketLifecycle() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1529,7 +1757,11 @@ func ExampleS3_PutBucketLifecycle() {
 }
 
 func ExampleS3_PutBucketLifecycleConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1603,7 +1835,11 @@ func ExampleS3_PutBucketLifecycleConfiguration() {
 }
 
 func ExampleS3_PutBucketLogging() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1643,7 +1879,11 @@ func ExampleS3_PutBucketLogging() {
 }
 
 func ExampleS3_PutBucketMetricsConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1685,7 +1925,11 @@ func ExampleS3_PutBucketMetricsConfiguration() {
 }
 
 func ExampleS3_PutBucketNotification() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1736,7 +1980,11 @@ func ExampleS3_PutBucketNotification() {
 }
 
 func ExampleS3_PutBucketNotificationConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1825,7 +2073,11 @@ func ExampleS3_PutBucketNotificationConfiguration() {
 }
 
 func ExampleS3_PutBucketPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1847,7 +2099,11 @@ func ExampleS3_PutBucketPolicy() {
 }
 
 func ExampleS3_PutBucketReplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1883,7 +2139,11 @@ func ExampleS3_PutBucketReplication() {
 }
 
 func ExampleS3_PutBucketRequestPayment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1907,7 +2167,11 @@ func ExampleS3_PutBucketRequestPayment() {
 }
 
 func ExampleS3_PutBucketTagging() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1937,7 +2201,11 @@ func ExampleS3_PutBucketTagging() {
 }
 
 func ExampleS3_PutBucketVersioning() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -1963,7 +2231,11 @@ func ExampleS3_PutBucketVersioning() {
 }
 
 func ExampleS3_PutBucketWebsite() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -2012,7 +2284,11 @@ func ExampleS3_PutBucketWebsite() {
 }
 
 func ExampleS3_PutObject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -2060,7 +2336,11 @@ func ExampleS3_PutObject() {
 }
 
 func ExampleS3_PutObjectAcl() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -2109,7 +2389,11 @@ func ExampleS3_PutObjectAcl() {
 }
 
 func ExampleS3_PutObjectTagging() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -2141,7 +2425,11 @@ func ExampleS3_PutObjectTagging() {
 }
 
 func ExampleS3_RestoreObject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -2171,7 +2459,11 @@ func ExampleS3_RestoreObject() {
 }
 
 func ExampleS3_UploadPart() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 
@@ -2201,7 +2493,11 @@ func ExampleS3_UploadPart() {
 }
 
 func ExampleS3_UploadPartCopy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := s3.New(sess)
 

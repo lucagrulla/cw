@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleEMR_AddInstanceGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -115,7 +119,11 @@ func ExampleEMR_AddInstanceGroups() {
 }
 
 func ExampleEMR_AddJobFlowSteps() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -158,7 +166,11 @@ func ExampleEMR_AddJobFlowSteps() {
 }
 
 func ExampleEMR_AddTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -186,7 +198,11 @@ func ExampleEMR_AddTags() {
 }
 
 func ExampleEMR_CancelSteps() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -211,7 +227,11 @@ func ExampleEMR_CancelSteps() {
 }
 
 func ExampleEMR_CreateSecurityConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -233,7 +253,11 @@ func ExampleEMR_CreateSecurityConfiguration() {
 }
 
 func ExampleEMR_DeleteSecurityConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -254,7 +278,11 @@ func ExampleEMR_DeleteSecurityConfiguration() {
 }
 
 func ExampleEMR_DescribeCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -275,7 +303,11 @@ func ExampleEMR_DescribeCluster() {
 }
 
 func ExampleEMR_DescribeJobFlows() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -305,7 +337,11 @@ func ExampleEMR_DescribeJobFlows() {
 }
 
 func ExampleEMR_DescribeSecurityConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -326,7 +362,11 @@ func ExampleEMR_DescribeSecurityConfiguration() {
 }
 
 func ExampleEMR_DescribeStep() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -348,7 +388,11 @@ func ExampleEMR_DescribeStep() {
 }
 
 func ExampleEMR_ListBootstrapActions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -370,7 +414,11 @@ func ExampleEMR_ListBootstrapActions() {
 }
 
 func ExampleEMR_ListClusters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -397,7 +445,11 @@ func ExampleEMR_ListClusters() {
 }
 
 func ExampleEMR_ListInstanceGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -419,7 +471,11 @@ func ExampleEMR_ListInstanceGroups() {
 }
 
 func ExampleEMR_ListInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -450,7 +506,11 @@ func ExampleEMR_ListInstances() {
 }
 
 func ExampleEMR_ListSecurityConfigurations() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -471,7 +531,11 @@ func ExampleEMR_ListSecurityConfigurations() {
 }
 
 func ExampleEMR_ListSteps() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -501,7 +565,11 @@ func ExampleEMR_ListSteps() {
 }
 
 func ExampleEMR_ModifyInstanceGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -547,7 +615,11 @@ func ExampleEMR_ModifyInstanceGroups() {
 }
 
 func ExampleEMR_PutAutoScalingPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -609,7 +681,11 @@ func ExampleEMR_PutAutoScalingPolicy() {
 }
 
 func ExampleEMR_RemoveAutoScalingPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -631,7 +707,11 @@ func ExampleEMR_RemoveAutoScalingPolicy() {
 }
 
 func ExampleEMR_RemoveTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -656,7 +736,11 @@ func ExampleEMR_RemoveTags() {
 }
 
 func ExampleEMR_RunJobFlow() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -873,7 +957,11 @@ func ExampleEMR_RunJobFlow() {
 }
 
 func ExampleEMR_SetTerminationProtection() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -898,7 +986,11 @@ func ExampleEMR_SetTerminationProtection() {
 }
 
 func ExampleEMR_SetVisibleToAllUsers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 
@@ -923,7 +1015,11 @@ func ExampleEMR_SetVisibleToAllUsers() {
 }
 
 func ExampleEMR_TerminateJobFlows() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := emr.New(sess)
 

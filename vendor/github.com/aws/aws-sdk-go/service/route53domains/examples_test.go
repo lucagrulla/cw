@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleRoute53Domains_CheckDomainAvailability() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -38,7 +42,11 @@ func ExampleRoute53Domains_CheckDomainAvailability() {
 }
 
 func ExampleRoute53Domains_DeleteTagsForDomain() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -63,7 +71,11 @@ func ExampleRoute53Domains_DeleteTagsForDomain() {
 }
 
 func ExampleRoute53Domains_DisableDomainAutoRenew() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -84,7 +96,11 @@ func ExampleRoute53Domains_DisableDomainAutoRenew() {
 }
 
 func ExampleRoute53Domains_DisableDomainTransferLock() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -105,7 +121,11 @@ func ExampleRoute53Domains_DisableDomainTransferLock() {
 }
 
 func ExampleRoute53Domains_EnableDomainAutoRenew() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -126,7 +146,11 @@ func ExampleRoute53Domains_EnableDomainAutoRenew() {
 }
 
 func ExampleRoute53Domains_EnableDomainTransferLock() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -147,7 +171,11 @@ func ExampleRoute53Domains_EnableDomainTransferLock() {
 }
 
 func ExampleRoute53Domains_GetContactReachabilityStatus() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -168,7 +196,11 @@ func ExampleRoute53Domains_GetContactReachabilityStatus() {
 }
 
 func ExampleRoute53Domains_GetDomainDetail() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -189,7 +221,11 @@ func ExampleRoute53Domains_GetDomainDetail() {
 }
 
 func ExampleRoute53Domains_GetDomainSuggestions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -212,7 +248,11 @@ func ExampleRoute53Domains_GetDomainSuggestions() {
 }
 
 func ExampleRoute53Domains_GetOperationDetail() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -233,7 +273,11 @@ func ExampleRoute53Domains_GetOperationDetail() {
 }
 
 func ExampleRoute53Domains_ListDomains() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -255,7 +299,11 @@ func ExampleRoute53Domains_ListDomains() {
 }
 
 func ExampleRoute53Domains_ListOperations() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -277,7 +325,11 @@ func ExampleRoute53Domains_ListOperations() {
 }
 
 func ExampleRoute53Domains_ListTagsForDomain() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -298,7 +350,11 @@ func ExampleRoute53Domains_ListTagsForDomain() {
 }
 
 func ExampleRoute53Domains_RegisterDomain() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -391,7 +447,11 @@ func ExampleRoute53Domains_RegisterDomain() {
 }
 
 func ExampleRoute53Domains_RenewDomain() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -414,7 +474,11 @@ func ExampleRoute53Domains_RenewDomain() {
 }
 
 func ExampleRoute53Domains_ResendContactReachabilityEmail() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -435,7 +499,11 @@ func ExampleRoute53Domains_ResendContactReachabilityEmail() {
 }
 
 func ExampleRoute53Domains_RetrieveDomainAuthCode() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -456,7 +524,11 @@ func ExampleRoute53Domains_RetrieveDomainAuthCode() {
 }
 
 func ExampleRoute53Domains_TransferDomain() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -560,7 +632,11 @@ func ExampleRoute53Domains_TransferDomain() {
 }
 
 func ExampleRoute53Domains_UpdateDomainContact() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -647,7 +723,11 @@ func ExampleRoute53Domains_UpdateDomainContact() {
 }
 
 func ExampleRoute53Domains_UpdateDomainContactPrivacy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -671,7 +751,11 @@ func ExampleRoute53Domains_UpdateDomainContactPrivacy() {
 }
 
 func ExampleRoute53Domains_UpdateDomainNameservers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -703,7 +787,11 @@ func ExampleRoute53Domains_UpdateDomainNameservers() {
 }
 
 func ExampleRoute53Domains_UpdateTagsForDomain() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 
@@ -731,7 +819,11 @@ func ExampleRoute53Domains_UpdateTagsForDomain() {
 }
 
 func ExampleRoute53Domains_ViewBilling() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := route53domains.New(sess)
 

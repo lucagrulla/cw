@@ -45,7 +45,7 @@ import (
 //        // mock response/functionality
 //    }
 //
-//    func TestMyFunc(t *testing.T) {
+//    TestMyFunc(t *testing.T) {
 //        // Setup Test
 //        mockSvc := &mockDynamoDBClient{}
 //
@@ -88,10 +88,6 @@ type DynamoDBAPI interface {
 	DescribeTableRequest(*dynamodb.DescribeTableInput) (*request.Request, *dynamodb.DescribeTableOutput)
 
 	DescribeTable(*dynamodb.DescribeTableInput) (*dynamodb.DescribeTableOutput, error)
-
-	DescribeTimeToLiveRequest(*dynamodb.DescribeTimeToLiveInput) (*request.Request, *dynamodb.DescribeTimeToLiveOutput)
-
-	DescribeTimeToLive(*dynamodb.DescribeTimeToLiveInput) (*dynamodb.DescribeTimeToLiveOutput, error)
 
 	GetItemRequest(*dynamodb.GetItemInput) (*request.Request, *dynamodb.GetItemOutput)
 
@@ -138,10 +134,6 @@ type DynamoDBAPI interface {
 	UpdateTableRequest(*dynamodb.UpdateTableInput) (*request.Request, *dynamodb.UpdateTableOutput)
 
 	UpdateTable(*dynamodb.UpdateTableInput) (*dynamodb.UpdateTableOutput, error)
-
-	UpdateTimeToLiveRequest(*dynamodb.UpdateTimeToLiveInput) (*request.Request, *dynamodb.UpdateTimeToLiveOutput)
-
-	UpdateTimeToLive(*dynamodb.UpdateTimeToLiveInput) (*dynamodb.UpdateTimeToLiveOutput, error)
 
 	WaitUntilTableExists(*dynamodb.DescribeTableInput) error
 

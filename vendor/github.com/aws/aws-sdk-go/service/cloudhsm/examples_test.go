@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleCloudHSM_AddTagsToResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -44,7 +48,11 @@ func ExampleCloudHSM_AddTagsToResource() {
 }
 
 func ExampleCloudHSM_CreateHapg() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -65,7 +73,11 @@ func ExampleCloudHSM_CreateHapg() {
 }
 
 func ExampleCloudHSM_CreateHsm() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -93,7 +105,11 @@ func ExampleCloudHSM_CreateHsm() {
 }
 
 func ExampleCloudHSM_CreateLunaClient() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -115,7 +131,11 @@ func ExampleCloudHSM_CreateLunaClient() {
 }
 
 func ExampleCloudHSM_DeleteHapg() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -136,7 +156,11 @@ func ExampleCloudHSM_DeleteHapg() {
 }
 
 func ExampleCloudHSM_DeleteHsm() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -157,7 +181,11 @@ func ExampleCloudHSM_DeleteHsm() {
 }
 
 func ExampleCloudHSM_DeleteLunaClient() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -178,7 +206,11 @@ func ExampleCloudHSM_DeleteLunaClient() {
 }
 
 func ExampleCloudHSM_DescribeHapg() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -199,7 +231,11 @@ func ExampleCloudHSM_DescribeHapg() {
 }
 
 func ExampleCloudHSM_DescribeHsm() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -221,7 +257,11 @@ func ExampleCloudHSM_DescribeHsm() {
 }
 
 func ExampleCloudHSM_DescribeLunaClient() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -243,7 +283,11 @@ func ExampleCloudHSM_DescribeLunaClient() {
 }
 
 func ExampleCloudHSM_GetConfig() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -269,7 +313,11 @@ func ExampleCloudHSM_GetConfig() {
 }
 
 func ExampleCloudHSM_ListAvailableZones() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -288,7 +336,11 @@ func ExampleCloudHSM_ListAvailableZones() {
 }
 
 func ExampleCloudHSM_ListHapgs() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -309,7 +361,11 @@ func ExampleCloudHSM_ListHapgs() {
 }
 
 func ExampleCloudHSM_ListHsms() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -330,7 +386,11 @@ func ExampleCloudHSM_ListHsms() {
 }
 
 func ExampleCloudHSM_ListLunaClients() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -351,7 +411,11 @@ func ExampleCloudHSM_ListLunaClients() {
 }
 
 func ExampleCloudHSM_ListTagsForResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -372,7 +436,11 @@ func ExampleCloudHSM_ListTagsForResource() {
 }
 
 func ExampleCloudHSM_ModifyHapg() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -398,7 +466,11 @@ func ExampleCloudHSM_ModifyHapg() {
 }
 
 func ExampleCloudHSM_ModifyHsm() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -424,7 +496,11 @@ func ExampleCloudHSM_ModifyHsm() {
 }
 
 func ExampleCloudHSM_ModifyLunaClient() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 
@@ -446,7 +522,11 @@ func ExampleCloudHSM_ModifyLunaClient() {
 }
 
 func ExampleCloudHSM_RemoveTagsFromResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudhsm.New(sess)
 

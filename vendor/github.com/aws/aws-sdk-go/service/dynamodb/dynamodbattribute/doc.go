@@ -31,7 +31,11 @@
 //
 // Marshal Go value type for DynamoDB.PutItem:
 //
-//     sess := session.Must(session.NewSession())
+//     sess, err := session.NewSession()
+//     if err != nil {
+//         fmt.Println("Failed create session", err)
+//         return
+//     }
 //
 //     svc := dynamodb.New(sess)
 //     item, err := dynamodbattribute.MarshalMap(r)

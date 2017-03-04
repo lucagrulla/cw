@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleDynamoDB_BatchGetItem() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -89,7 +93,11 @@ func ExampleDynamoDB_BatchGetItem() {
 }
 
 func ExampleDynamoDB_BatchWriteItem() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -191,7 +199,11 @@ func ExampleDynamoDB_BatchWriteItem() {
 }
 
 func ExampleDynamoDB_CreateTable() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -278,7 +290,11 @@ func ExampleDynamoDB_CreateTable() {
 }
 
 func ExampleDynamoDB_DeleteItem() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -448,7 +464,11 @@ func ExampleDynamoDB_DeleteItem() {
 }
 
 func ExampleDynamoDB_DeleteTable() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -469,7 +489,11 @@ func ExampleDynamoDB_DeleteTable() {
 }
 
 func ExampleDynamoDB_DescribeLimits() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -488,7 +512,11 @@ func ExampleDynamoDB_DescribeLimits() {
 }
 
 func ExampleDynamoDB_DescribeTable() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -508,29 +536,12 @@ func ExampleDynamoDB_DescribeTable() {
 	fmt.Println(resp)
 }
 
-func ExampleDynamoDB_DescribeTimeToLive() {
-	sess := session.Must(session.NewSession())
-
-	svc := dynamodb.New(sess)
-
-	params := &dynamodb.DescribeTimeToLiveInput{
-		TableName: aws.String("TableName"), // Required
-	}
-	resp, err := svc.DescribeTimeToLive(params)
-
+func ExampleDynamoDB_GetItem() {
+	sess, err := session.NewSession()
 	if err != nil {
-		// Print the error, cast err to awserr.Error to get the Code and
-		// Message from an error.
-		fmt.Println(err.Error())
+		fmt.Println("failed to create session,", err)
 		return
 	}
-
-	// Pretty-print the response data.
-	fmt.Println(resp)
-}
-
-func ExampleDynamoDB_GetItem() {
-	sess := session.Must(session.NewSession())
 
 	svc := dynamodb.New(sess)
 
@@ -596,7 +607,11 @@ func ExampleDynamoDB_GetItem() {
 }
 
 func ExampleDynamoDB_ListTables() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -618,7 +633,11 @@ func ExampleDynamoDB_ListTables() {
 }
 
 func ExampleDynamoDB_ListTagsOfResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -640,7 +659,11 @@ func ExampleDynamoDB_ListTagsOfResource() {
 }
 
 func ExampleDynamoDB_PutItem() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -810,7 +833,11 @@ func ExampleDynamoDB_PutItem() {
 }
 
 func ExampleDynamoDB_Query() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -997,7 +1024,11 @@ func ExampleDynamoDB_Query() {
 }
 
 func ExampleDynamoDB_Scan() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -1144,7 +1175,11 @@ func ExampleDynamoDB_Scan() {
 }
 
 func ExampleDynamoDB_TagResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -1172,7 +1207,11 @@ func ExampleDynamoDB_TagResource() {
 }
 
 func ExampleDynamoDB_UntagResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -1197,7 +1236,11 @@ func ExampleDynamoDB_UntagResource() {
 }
 
 func ExampleDynamoDB_UpdateItem() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -1405,7 +1448,11 @@ func ExampleDynamoDB_UpdateItem() {
 }
 
 func ExampleDynamoDB_UpdateTable() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := dynamodb.New(sess)
 
@@ -1464,31 +1511,6 @@ func ExampleDynamoDB_UpdateTable() {
 		},
 	}
 	resp, err := svc.UpdateTable(params)
-
-	if err != nil {
-		// Print the error, cast err to awserr.Error to get the Code and
-		// Message from an error.
-		fmt.Println(err.Error())
-		return
-	}
-
-	// Pretty-print the response data.
-	fmt.Println(resp)
-}
-
-func ExampleDynamoDB_UpdateTimeToLive() {
-	sess := session.Must(session.NewSession())
-
-	svc := dynamodb.New(sess)
-
-	params := &dynamodb.UpdateTimeToLiveInput{
-		TableName: aws.String("TableName"), // Required
-		TimeToLiveSpecification: &dynamodb.TimeToLiveSpecification{ // Required
-			AttributeName: aws.String("TimeToLiveAttributeName"), // Required
-			Enabled:       aws.Bool(true),                        // Required
-		},
-	}
-	resp, err := svc.UpdateTimeToLive(params)
 
 	if err != nil {
 		// Print the error, cast err to awserr.Error to get the Code and

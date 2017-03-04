@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleCodeBuild_BatchGetBuilds() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codebuild.New(sess)
 
@@ -40,7 +44,11 @@ func ExampleCodeBuild_BatchGetBuilds() {
 }
 
 func ExampleCodeBuild_BatchGetProjects() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codebuild.New(sess)
 
@@ -64,7 +72,11 @@ func ExampleCodeBuild_BatchGetProjects() {
 }
 
 func ExampleCodeBuild_CreateProject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codebuild.New(sess)
 
@@ -125,7 +137,11 @@ func ExampleCodeBuild_CreateProject() {
 }
 
 func ExampleCodeBuild_DeleteProject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codebuild.New(sess)
 
@@ -146,7 +162,11 @@ func ExampleCodeBuild_DeleteProject() {
 }
 
 func ExampleCodeBuild_ListBuilds() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codebuild.New(sess)
 
@@ -168,7 +188,11 @@ func ExampleCodeBuild_ListBuilds() {
 }
 
 func ExampleCodeBuild_ListBuildsForProject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codebuild.New(sess)
 
@@ -191,7 +215,11 @@ func ExampleCodeBuild_ListBuildsForProject() {
 }
 
 func ExampleCodeBuild_ListCuratedEnvironmentImages() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codebuild.New(sess)
 
@@ -210,7 +238,11 @@ func ExampleCodeBuild_ListCuratedEnvironmentImages() {
 }
 
 func ExampleCodeBuild_ListProjects() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codebuild.New(sess)
 
@@ -233,7 +265,11 @@ func ExampleCodeBuild_ListProjects() {
 }
 
 func ExampleCodeBuild_StartBuild() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codebuild.New(sess)
 
@@ -272,7 +308,11 @@ func ExampleCodeBuild_StartBuild() {
 }
 
 func ExampleCodeBuild_StopBuild() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codebuild.New(sess)
 
@@ -293,7 +333,11 @@ func ExampleCodeBuild_StopBuild() {
 }
 
 func ExampleCodeBuild_UpdateProject() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codebuild.New(sess)
 

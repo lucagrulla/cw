@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleKinesis_AddTagsToStream() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -41,7 +45,11 @@ func ExampleKinesis_AddTagsToStream() {
 }
 
 func ExampleKinesis_CreateStream() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -63,7 +71,11 @@ func ExampleKinesis_CreateStream() {
 }
 
 func ExampleKinesis_DecreaseStreamRetentionPeriod() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -85,7 +97,11 @@ func ExampleKinesis_DecreaseStreamRetentionPeriod() {
 }
 
 func ExampleKinesis_DeleteStream() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -106,7 +122,11 @@ func ExampleKinesis_DeleteStream() {
 }
 
 func ExampleKinesis_DescribeLimits() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -125,7 +145,11 @@ func ExampleKinesis_DescribeLimits() {
 }
 
 func ExampleKinesis_DescribeStream() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -148,7 +172,11 @@ func ExampleKinesis_DescribeStream() {
 }
 
 func ExampleKinesis_DisableEnhancedMonitoring() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -173,7 +201,11 @@ func ExampleKinesis_DisableEnhancedMonitoring() {
 }
 
 func ExampleKinesis_EnableEnhancedMonitoring() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -198,7 +230,11 @@ func ExampleKinesis_EnableEnhancedMonitoring() {
 }
 
 func ExampleKinesis_GetRecords() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -220,7 +256,11 @@ func ExampleKinesis_GetRecords() {
 }
 
 func ExampleKinesis_GetShardIterator() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -245,7 +285,11 @@ func ExampleKinesis_GetShardIterator() {
 }
 
 func ExampleKinesis_IncreaseStreamRetentionPeriod() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -267,7 +311,11 @@ func ExampleKinesis_IncreaseStreamRetentionPeriod() {
 }
 
 func ExampleKinesis_ListStreams() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -289,7 +337,11 @@ func ExampleKinesis_ListStreams() {
 }
 
 func ExampleKinesis_ListTagsForStream() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -312,7 +364,11 @@ func ExampleKinesis_ListTagsForStream() {
 }
 
 func ExampleKinesis_MergeShards() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -335,7 +391,11 @@ func ExampleKinesis_MergeShards() {
 }
 
 func ExampleKinesis_PutRecord() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -360,7 +420,11 @@ func ExampleKinesis_PutRecord() {
 }
 
 func ExampleKinesis_PutRecords() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -389,7 +453,11 @@ func ExampleKinesis_PutRecords() {
 }
 
 func ExampleKinesis_RemoveTagsFromStream() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -414,7 +482,11 @@ func ExampleKinesis_RemoveTagsFromStream() {
 }
 
 func ExampleKinesis_SplitShard() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 
@@ -437,7 +509,11 @@ func ExampleKinesis_SplitShard() {
 }
 
 func ExampleKinesis_UpdateShardCount() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesis.New(sess)
 

@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleOpsWorks_AssignInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -41,7 +45,11 @@ func ExampleOpsWorks_AssignInstance() {
 }
 
 func ExampleOpsWorks_AssignVolume() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -63,7 +71,11 @@ func ExampleOpsWorks_AssignVolume() {
 }
 
 func ExampleOpsWorks_AssociateElasticIp() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -85,7 +97,11 @@ func ExampleOpsWorks_AssociateElasticIp() {
 }
 
 func ExampleOpsWorks_AttachElasticLoadBalancer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -107,7 +123,11 @@ func ExampleOpsWorks_AttachElasticLoadBalancer() {
 }
 
 func ExampleOpsWorks_CloneStack() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -168,7 +188,11 @@ func ExampleOpsWorks_CloneStack() {
 }
 
 func ExampleOpsWorks_CreateApp() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -231,7 +255,11 @@ func ExampleOpsWorks_CreateApp() {
 }
 
 func ExampleOpsWorks_CreateDeployment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -273,7 +301,11 @@ func ExampleOpsWorks_CreateDeployment() {
 }
 
 func ExampleOpsWorks_CreateInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -328,7 +360,11 @@ func ExampleOpsWorks_CreateInstance() {
 }
 
 func ExampleOpsWorks_CreateLayer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -410,7 +446,11 @@ func ExampleOpsWorks_CreateLayer() {
 }
 
 func ExampleOpsWorks_CreateStack() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -465,7 +505,11 @@ func ExampleOpsWorks_CreateStack() {
 }
 
 func ExampleOpsWorks_CreateUserProfile() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -489,7 +533,11 @@ func ExampleOpsWorks_CreateUserProfile() {
 }
 
 func ExampleOpsWorks_DeleteApp() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -510,7 +558,11 @@ func ExampleOpsWorks_DeleteApp() {
 }
 
 func ExampleOpsWorks_DeleteInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -533,7 +585,11 @@ func ExampleOpsWorks_DeleteInstance() {
 }
 
 func ExampleOpsWorks_DeleteLayer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -554,7 +610,11 @@ func ExampleOpsWorks_DeleteLayer() {
 }
 
 func ExampleOpsWorks_DeleteStack() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -575,7 +635,11 @@ func ExampleOpsWorks_DeleteStack() {
 }
 
 func ExampleOpsWorks_DeleteUserProfile() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -596,7 +660,11 @@ func ExampleOpsWorks_DeleteUserProfile() {
 }
 
 func ExampleOpsWorks_DeregisterEcsCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -617,7 +685,11 @@ func ExampleOpsWorks_DeregisterEcsCluster() {
 }
 
 func ExampleOpsWorks_DeregisterElasticIp() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -638,7 +710,11 @@ func ExampleOpsWorks_DeregisterElasticIp() {
 }
 
 func ExampleOpsWorks_DeregisterInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -659,7 +735,11 @@ func ExampleOpsWorks_DeregisterInstance() {
 }
 
 func ExampleOpsWorks_DeregisterRdsDbInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -680,7 +760,11 @@ func ExampleOpsWorks_DeregisterRdsDbInstance() {
 }
 
 func ExampleOpsWorks_DeregisterVolume() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -701,7 +785,11 @@ func ExampleOpsWorks_DeregisterVolume() {
 }
 
 func ExampleOpsWorks_DescribeAgentVersions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -726,7 +814,11 @@ func ExampleOpsWorks_DescribeAgentVersions() {
 }
 
 func ExampleOpsWorks_DescribeApps() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -751,7 +843,11 @@ func ExampleOpsWorks_DescribeApps() {
 }
 
 func ExampleOpsWorks_DescribeCommands() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -777,7 +873,11 @@ func ExampleOpsWorks_DescribeCommands() {
 }
 
 func ExampleOpsWorks_DescribeDeployments() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -803,7 +903,11 @@ func ExampleOpsWorks_DescribeDeployments() {
 }
 
 func ExampleOpsWorks_DescribeEcsClusters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -830,7 +934,11 @@ func ExampleOpsWorks_DescribeEcsClusters() {
 }
 
 func ExampleOpsWorks_DescribeElasticIps() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -856,7 +964,11 @@ func ExampleOpsWorks_DescribeElasticIps() {
 }
 
 func ExampleOpsWorks_DescribeElasticLoadBalancers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -881,7 +993,11 @@ func ExampleOpsWorks_DescribeElasticLoadBalancers() {
 }
 
 func ExampleOpsWorks_DescribeInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -907,7 +1023,11 @@ func ExampleOpsWorks_DescribeInstances() {
 }
 
 func ExampleOpsWorks_DescribeLayers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -932,7 +1052,11 @@ func ExampleOpsWorks_DescribeLayers() {
 }
 
 func ExampleOpsWorks_DescribeLoadBasedAutoScaling() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -956,7 +1080,11 @@ func ExampleOpsWorks_DescribeLoadBasedAutoScaling() {
 }
 
 func ExampleOpsWorks_DescribeMyUserProfile() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -975,7 +1103,11 @@ func ExampleOpsWorks_DescribeMyUserProfile() {
 }
 
 func ExampleOpsWorks_DescribePermissions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -997,7 +1129,11 @@ func ExampleOpsWorks_DescribePermissions() {
 }
 
 func ExampleOpsWorks_DescribeRaidArrays() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1023,7 +1159,11 @@ func ExampleOpsWorks_DescribeRaidArrays() {
 }
 
 func ExampleOpsWorks_DescribeRdsDbInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1048,7 +1188,11 @@ func ExampleOpsWorks_DescribeRdsDbInstances() {
 }
 
 func ExampleOpsWorks_DescribeServiceErrors() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1074,7 +1218,11 @@ func ExampleOpsWorks_DescribeServiceErrors() {
 }
 
 func ExampleOpsWorks_DescribeStackProvisioningParameters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1095,7 +1243,11 @@ func ExampleOpsWorks_DescribeStackProvisioningParameters() {
 }
 
 func ExampleOpsWorks_DescribeStackSummary() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1116,7 +1268,11 @@ func ExampleOpsWorks_DescribeStackSummary() {
 }
 
 func ExampleOpsWorks_DescribeStacks() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1140,7 +1296,11 @@ func ExampleOpsWorks_DescribeStacks() {
 }
 
 func ExampleOpsWorks_DescribeTimeBasedAutoScaling() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1164,7 +1324,11 @@ func ExampleOpsWorks_DescribeTimeBasedAutoScaling() {
 }
 
 func ExampleOpsWorks_DescribeUserProfiles() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1188,7 +1352,11 @@ func ExampleOpsWorks_DescribeUserProfiles() {
 }
 
 func ExampleOpsWorks_DescribeVolumes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1215,7 +1383,11 @@ func ExampleOpsWorks_DescribeVolumes() {
 }
 
 func ExampleOpsWorks_DetachElasticLoadBalancer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1237,7 +1409,11 @@ func ExampleOpsWorks_DetachElasticLoadBalancer() {
 }
 
 func ExampleOpsWorks_DisassociateElasticIp() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1258,7 +1434,11 @@ func ExampleOpsWorks_DisassociateElasticIp() {
 }
 
 func ExampleOpsWorks_GetHostnameSuggestion() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1279,7 +1459,11 @@ func ExampleOpsWorks_GetHostnameSuggestion() {
 }
 
 func ExampleOpsWorks_GrantAccess() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1301,7 +1485,11 @@ func ExampleOpsWorks_GrantAccess() {
 }
 
 func ExampleOpsWorks_RebootInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1322,7 +1510,11 @@ func ExampleOpsWorks_RebootInstance() {
 }
 
 func ExampleOpsWorks_RegisterEcsCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1344,7 +1536,11 @@ func ExampleOpsWorks_RegisterEcsCluster() {
 }
 
 func ExampleOpsWorks_RegisterElasticIp() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1366,7 +1562,11 @@ func ExampleOpsWorks_RegisterElasticIp() {
 }
 
 func ExampleOpsWorks_RegisterInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1396,7 +1596,11 @@ func ExampleOpsWorks_RegisterInstance() {
 }
 
 func ExampleOpsWorks_RegisterRdsDbInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1420,7 +1624,11 @@ func ExampleOpsWorks_RegisterRdsDbInstance() {
 }
 
 func ExampleOpsWorks_RegisterVolume() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1442,7 +1650,11 @@ func ExampleOpsWorks_RegisterVolume() {
 }
 
 func ExampleOpsWorks_SetLoadBasedAutoScaling() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1488,7 +1700,11 @@ func ExampleOpsWorks_SetLoadBasedAutoScaling() {
 }
 
 func ExampleOpsWorks_SetPermission() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1513,7 +1729,11 @@ func ExampleOpsWorks_SetPermission() {
 }
 
 func ExampleOpsWorks_SetTimeBasedAutoScaling() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1564,7 +1784,11 @@ func ExampleOpsWorks_SetTimeBasedAutoScaling() {
 }
 
 func ExampleOpsWorks_StartInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1585,7 +1809,11 @@ func ExampleOpsWorks_StartInstance() {
 }
 
 func ExampleOpsWorks_StartStack() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1606,7 +1834,11 @@ func ExampleOpsWorks_StartStack() {
 }
 
 func ExampleOpsWorks_StopInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1627,7 +1859,11 @@ func ExampleOpsWorks_StopInstance() {
 }
 
 func ExampleOpsWorks_StopStack() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1648,7 +1884,11 @@ func ExampleOpsWorks_StopStack() {
 }
 
 func ExampleOpsWorks_UnassignInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1669,7 +1909,11 @@ func ExampleOpsWorks_UnassignInstance() {
 }
 
 func ExampleOpsWorks_UnassignVolume() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1690,7 +1934,11 @@ func ExampleOpsWorks_UnassignVolume() {
 }
 
 func ExampleOpsWorks_UpdateApp() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1752,7 +2000,11 @@ func ExampleOpsWorks_UpdateApp() {
 }
 
 func ExampleOpsWorks_UpdateElasticIp() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1774,7 +2026,11 @@ func ExampleOpsWorks_UpdateElasticIp() {
 }
 
 func ExampleOpsWorks_UpdateInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1809,7 +2065,11 @@ func ExampleOpsWorks_UpdateInstance() {
 }
 
 func ExampleOpsWorks_UpdateLayer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1890,7 +2150,11 @@ func ExampleOpsWorks_UpdateLayer() {
 }
 
 func ExampleOpsWorks_UpdateMyUserProfile() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1911,7 +2175,11 @@ func ExampleOpsWorks_UpdateMyUserProfile() {
 }
 
 func ExampleOpsWorks_UpdateRdsDbInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1934,7 +2202,11 @@ func ExampleOpsWorks_UpdateRdsDbInstance() {
 }
 
 func ExampleOpsWorks_UpdateStack() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -1988,7 +2260,11 @@ func ExampleOpsWorks_UpdateStack() {
 }
 
 func ExampleOpsWorks_UpdateUserProfile() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 
@@ -2012,7 +2288,11 @@ func ExampleOpsWorks_UpdateUserProfile() {
 }
 
 func ExampleOpsWorks_UpdateVolume() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := opsworks.New(sess)
 

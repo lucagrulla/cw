@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleElasticBeanstalk_AbortEnvironmentUpdate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -38,7 +42,11 @@ func ExampleElasticBeanstalk_AbortEnvironmentUpdate() {
 }
 
 func ExampleElasticBeanstalk_ApplyEnvironmentManagedAction() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -61,7 +69,11 @@ func ExampleElasticBeanstalk_ApplyEnvironmentManagedAction() {
 }
 
 func ExampleElasticBeanstalk_CheckDNSAvailability() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -82,7 +94,11 @@ func ExampleElasticBeanstalk_CheckDNSAvailability() {
 }
 
 func ExampleElasticBeanstalk_ComposeEnvironments() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -108,7 +124,11 @@ func ExampleElasticBeanstalk_ComposeEnvironments() {
 }
 
 func ExampleElasticBeanstalk_CreateApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -145,7 +165,11 @@ func ExampleElasticBeanstalk_CreateApplication() {
 }
 
 func ExampleElasticBeanstalk_CreateApplicationVersion() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -186,7 +210,11 @@ func ExampleElasticBeanstalk_CreateApplicationVersion() {
 }
 
 func ExampleElasticBeanstalk_CreateConfigurationTemplate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -204,7 +232,6 @@ func ExampleElasticBeanstalk_CreateConfigurationTemplate() {
 			},
 			// More values...
 		},
-		PlatformArn:       aws.String("PlatformArn"),
 		SolutionStackName: aws.String("SolutionStackName"),
 		SourceConfiguration: &elasticbeanstalk.SourceConfiguration{
 			ApplicationName: aws.String("ApplicationName"),
@@ -225,7 +252,11 @@ func ExampleElasticBeanstalk_CreateConfigurationTemplate() {
 }
 
 func ExampleElasticBeanstalk_CreateEnvironment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -252,7 +283,6 @@ func ExampleElasticBeanstalk_CreateEnvironment() {
 			},
 			// More values...
 		},
-		PlatformArn:       aws.String("PlatformArn"),
 		SolutionStackName: aws.String("SolutionStackName"),
 		Tags: []*elasticbeanstalk.Tag{
 			{ // Required
@@ -282,44 +312,12 @@ func ExampleElasticBeanstalk_CreateEnvironment() {
 	fmt.Println(resp)
 }
 
-func ExampleElasticBeanstalk_CreatePlatformVersion() {
-	sess := session.Must(session.NewSession())
-
-	svc := elasticbeanstalk.New(sess)
-
-	params := &elasticbeanstalk.CreatePlatformVersionInput{
-		PlatformDefinitionBundle: &elasticbeanstalk.S3Location{ // Required
-			S3Bucket: aws.String("S3Bucket"),
-			S3Key:    aws.String("S3Key"),
-		},
-		PlatformName:    aws.String("PlatformName"),    // Required
-		PlatformVersion: aws.String("PlatformVersion"), // Required
-		EnvironmentName: aws.String("EnvironmentName"),
-		OptionSettings: []*elasticbeanstalk.ConfigurationOptionSetting{
-			{ // Required
-				Namespace:    aws.String("OptionNamespace"),
-				OptionName:   aws.String("ConfigurationOptionName"),
-				ResourceName: aws.String("ResourceName"),
-				Value:        aws.String("ConfigurationOptionValue"),
-			},
-			// More values...
-		},
-	}
-	resp, err := svc.CreatePlatformVersion(params)
-
+func ExampleElasticBeanstalk_CreateStorageLocation() {
+	sess, err := session.NewSession()
 	if err != nil {
-		// Print the error, cast err to awserr.Error to get the Code and
-		// Message from an error.
-		fmt.Println(err.Error())
+		fmt.Println("failed to create session,", err)
 		return
 	}
-
-	// Pretty-print the response data.
-	fmt.Println(resp)
-}
-
-func ExampleElasticBeanstalk_CreateStorageLocation() {
-	sess := session.Must(session.NewSession())
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -338,7 +336,11 @@ func ExampleElasticBeanstalk_CreateStorageLocation() {
 }
 
 func ExampleElasticBeanstalk_DeleteApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -360,7 +362,11 @@ func ExampleElasticBeanstalk_DeleteApplication() {
 }
 
 func ExampleElasticBeanstalk_DeleteApplicationVersion() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -383,7 +389,11 @@ func ExampleElasticBeanstalk_DeleteApplicationVersion() {
 }
 
 func ExampleElasticBeanstalk_DeleteConfigurationTemplate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -405,7 +415,11 @@ func ExampleElasticBeanstalk_DeleteConfigurationTemplate() {
 }
 
 func ExampleElasticBeanstalk_DeleteEnvironmentConfiguration() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -426,29 +440,12 @@ func ExampleElasticBeanstalk_DeleteEnvironmentConfiguration() {
 	fmt.Println(resp)
 }
 
-func ExampleElasticBeanstalk_DeletePlatformVersion() {
-	sess := session.Must(session.NewSession())
-
-	svc := elasticbeanstalk.New(sess)
-
-	params := &elasticbeanstalk.DeletePlatformVersionInput{
-		PlatformArn: aws.String("PlatformArn"),
-	}
-	resp, err := svc.DeletePlatformVersion(params)
-
+func ExampleElasticBeanstalk_DescribeApplicationVersions() {
+	sess, err := session.NewSession()
 	if err != nil {
-		// Print the error, cast err to awserr.Error to get the Code and
-		// Message from an error.
-		fmt.Println(err.Error())
+		fmt.Println("failed to create session,", err)
 		return
 	}
-
-	// Pretty-print the response data.
-	fmt.Println(resp)
-}
-
-func ExampleElasticBeanstalk_DescribeApplicationVersions() {
-	sess := session.Must(session.NewSession())
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -475,7 +472,11 @@ func ExampleElasticBeanstalk_DescribeApplicationVersions() {
 }
 
 func ExampleElasticBeanstalk_DescribeApplications() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -499,7 +500,11 @@ func ExampleElasticBeanstalk_DescribeApplications() {
 }
 
 func ExampleElasticBeanstalk_DescribeConfigurationOptions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -514,7 +519,6 @@ func ExampleElasticBeanstalk_DescribeConfigurationOptions() {
 			},
 			// More values...
 		},
-		PlatformArn:       aws.String("PlatformArn"),
 		SolutionStackName: aws.String("SolutionStackName"),
 		TemplateName:      aws.String("ConfigurationTemplateName"),
 	}
@@ -532,7 +536,11 @@ func ExampleElasticBeanstalk_DescribeConfigurationOptions() {
 }
 
 func ExampleElasticBeanstalk_DescribeConfigurationSettings() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -555,7 +563,11 @@ func ExampleElasticBeanstalk_DescribeConfigurationSettings() {
 }
 
 func ExampleElasticBeanstalk_DescribeEnvironmentHealth() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -581,7 +593,11 @@ func ExampleElasticBeanstalk_DescribeEnvironmentHealth() {
 }
 
 func ExampleElasticBeanstalk_DescribeEnvironmentManagedActionHistory() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -605,7 +621,11 @@ func ExampleElasticBeanstalk_DescribeEnvironmentManagedActionHistory() {
 }
 
 func ExampleElasticBeanstalk_DescribeEnvironmentManagedActions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -628,7 +648,11 @@ func ExampleElasticBeanstalk_DescribeEnvironmentManagedActions() {
 }
 
 func ExampleElasticBeanstalk_DescribeEnvironmentResources() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -650,7 +674,11 @@ func ExampleElasticBeanstalk_DescribeEnvironmentResources() {
 }
 
 func ExampleElasticBeanstalk_DescribeEnvironments() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -682,7 +710,11 @@ func ExampleElasticBeanstalk_DescribeEnvironments() {
 }
 
 func ExampleElasticBeanstalk_DescribeEvents() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -693,7 +725,6 @@ func ExampleElasticBeanstalk_DescribeEvents() {
 		EnvironmentName: aws.String("EnvironmentName"),
 		MaxRecords:      aws.Int64(1),
 		NextToken:       aws.String("Token"),
-		PlatformArn:     aws.String("PlatformArn"),
 		RequestId:       aws.String("RequestId"),
 		Severity:        aws.String("EventSeverity"),
 		StartTime:       aws.Time(time.Now()),
@@ -714,7 +745,11 @@ func ExampleElasticBeanstalk_DescribeEvents() {
 }
 
 func ExampleElasticBeanstalk_DescribeInstancesHealth() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -740,29 +775,12 @@ func ExampleElasticBeanstalk_DescribeInstancesHealth() {
 	fmt.Println(resp)
 }
 
-func ExampleElasticBeanstalk_DescribePlatformVersion() {
-	sess := session.Must(session.NewSession())
-
-	svc := elasticbeanstalk.New(sess)
-
-	params := &elasticbeanstalk.DescribePlatformVersionInput{
-		PlatformArn: aws.String("PlatformArn"),
-	}
-	resp, err := svc.DescribePlatformVersion(params)
-
+func ExampleElasticBeanstalk_ListAvailableSolutionStacks() {
+	sess, err := session.NewSession()
 	if err != nil {
-		// Print the error, cast err to awserr.Error to get the Code and
-		// Message from an error.
-		fmt.Println(err.Error())
+		fmt.Println("failed to create session,", err)
 		return
 	}
-
-	// Pretty-print the response data.
-	fmt.Println(resp)
-}
-
-func ExampleElasticBeanstalk_ListAvailableSolutionStacks() {
-	sess := session.Must(session.NewSession())
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -780,41 +798,12 @@ func ExampleElasticBeanstalk_ListAvailableSolutionStacks() {
 	fmt.Println(resp)
 }
 
-func ExampleElasticBeanstalk_ListPlatformVersions() {
-	sess := session.Must(session.NewSession())
-
-	svc := elasticbeanstalk.New(sess)
-
-	params := &elasticbeanstalk.ListPlatformVersionsInput{
-		Filters: []*elasticbeanstalk.PlatformFilter{
-			{ // Required
-				Operator: aws.String("PlatformFilterOperator"),
-				Type:     aws.String("PlatformFilterType"),
-				Values: []*string{
-					aws.String("PlatformFilterValue"), // Required
-					// More values...
-				},
-			},
-			// More values...
-		},
-		MaxRecords: aws.Int64(1),
-		NextToken:  aws.String("Token"),
-	}
-	resp, err := svc.ListPlatformVersions(params)
-
+func ExampleElasticBeanstalk_RebuildEnvironment() {
+	sess, err := session.NewSession()
 	if err != nil {
-		// Print the error, cast err to awserr.Error to get the Code and
-		// Message from an error.
-		fmt.Println(err.Error())
+		fmt.Println("failed to create session,", err)
 		return
 	}
-
-	// Pretty-print the response data.
-	fmt.Println(resp)
-}
-
-func ExampleElasticBeanstalk_RebuildEnvironment() {
-	sess := session.Must(session.NewSession())
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -836,7 +825,11 @@ func ExampleElasticBeanstalk_RebuildEnvironment() {
 }
 
 func ExampleElasticBeanstalk_RequestEnvironmentInfo() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -859,7 +852,11 @@ func ExampleElasticBeanstalk_RequestEnvironmentInfo() {
 }
 
 func ExampleElasticBeanstalk_RestartAppServer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -881,7 +878,11 @@ func ExampleElasticBeanstalk_RestartAppServer() {
 }
 
 func ExampleElasticBeanstalk_RetrieveEnvironmentInfo() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -904,7 +905,11 @@ func ExampleElasticBeanstalk_RetrieveEnvironmentInfo() {
 }
 
 func ExampleElasticBeanstalk_SwapEnvironmentCNAMEs() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -928,7 +933,11 @@ func ExampleElasticBeanstalk_SwapEnvironmentCNAMEs() {
 }
 
 func ExampleElasticBeanstalk_TerminateEnvironment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -952,7 +961,11 @@ func ExampleElasticBeanstalk_TerminateEnvironment() {
 }
 
 func ExampleElasticBeanstalk_UpdateApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -974,7 +987,11 @@ func ExampleElasticBeanstalk_UpdateApplication() {
 }
 
 func ExampleElasticBeanstalk_UpdateApplicationResourceLifecycle() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -1010,7 +1027,11 @@ func ExampleElasticBeanstalk_UpdateApplicationResourceLifecycle() {
 }
 
 func ExampleElasticBeanstalk_UpdateApplicationVersion() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -1033,7 +1054,11 @@ func ExampleElasticBeanstalk_UpdateApplicationVersion() {
 }
 
 func ExampleElasticBeanstalk_UpdateConfigurationTemplate() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -1073,7 +1098,11 @@ func ExampleElasticBeanstalk_UpdateConfigurationTemplate() {
 }
 
 func ExampleElasticBeanstalk_UpdateEnvironment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 
@@ -1100,7 +1129,6 @@ func ExampleElasticBeanstalk_UpdateEnvironment() {
 			},
 			// More values...
 		},
-		PlatformArn:       aws.String("PlatformArn"),
 		SolutionStackName: aws.String("SolutionStackName"),
 		TemplateName:      aws.String("ConfigurationTemplateName"),
 		Tier: &elasticbeanstalk.EnvironmentTier{
@@ -1124,7 +1152,11 @@ func ExampleElasticBeanstalk_UpdateEnvironment() {
 }
 
 func ExampleElasticBeanstalk_ValidateConfigurationSettings() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticbeanstalk.New(sess)
 

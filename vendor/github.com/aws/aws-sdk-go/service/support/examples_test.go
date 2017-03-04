@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleSupport_AddAttachmentsToSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -44,7 +48,11 @@ func ExampleSupport_AddAttachmentsToSet() {
 }
 
 func ExampleSupport_AddCommunicationToCase() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -71,7 +79,11 @@ func ExampleSupport_AddCommunicationToCase() {
 }
 
 func ExampleSupport_CreateCase() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -103,7 +115,11 @@ func ExampleSupport_CreateCase() {
 }
 
 func ExampleSupport_DescribeAttachment() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -124,7 +140,11 @@ func ExampleSupport_DescribeAttachment() {
 }
 
 func ExampleSupport_DescribeCases() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -156,7 +176,11 @@ func ExampleSupport_DescribeCases() {
 }
 
 func ExampleSupport_DescribeCommunications() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -181,7 +205,11 @@ func ExampleSupport_DescribeCommunications() {
 }
 
 func ExampleSupport_DescribeServices() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -206,7 +234,11 @@ func ExampleSupport_DescribeServices() {
 }
 
 func ExampleSupport_DescribeSeverityLevels() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -227,7 +259,11 @@ func ExampleSupport_DescribeSeverityLevels() {
 }
 
 func ExampleSupport_DescribeTrustedAdvisorCheckRefreshStatuses() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -251,7 +287,11 @@ func ExampleSupport_DescribeTrustedAdvisorCheckRefreshStatuses() {
 }
 
 func ExampleSupport_DescribeTrustedAdvisorCheckResult() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -273,7 +313,11 @@ func ExampleSupport_DescribeTrustedAdvisorCheckResult() {
 }
 
 func ExampleSupport_DescribeTrustedAdvisorCheckSummaries() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -297,7 +341,11 @@ func ExampleSupport_DescribeTrustedAdvisorCheckSummaries() {
 }
 
 func ExampleSupport_DescribeTrustedAdvisorChecks() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -318,7 +366,11 @@ func ExampleSupport_DescribeTrustedAdvisorChecks() {
 }
 
 func ExampleSupport_RefreshTrustedAdvisorCheck() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 
@@ -339,7 +391,11 @@ func ExampleSupport_RefreshTrustedAdvisorCheck() {
 }
 
 func ExampleSupport_ResolveCase() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := support.New(sess)
 

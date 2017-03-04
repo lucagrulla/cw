@@ -159,13 +159,6 @@
         "ShardIterator":{"shape":"ShardIterator"}
       }
     },
-    "Identity":{
-      "type":"structure",
-      "members":{
-        "PrincipalId":{"shape":"String"},
-        "Type":{"shape":"String"}
-      }
-    },
     "InternalServerError":{
       "type":"structure",
       "members":{
@@ -264,8 +257,7 @@
         "eventVersion":{"shape":"String"},
         "eventSource":{"shape":"String"},
         "awsRegion":{"shape":"String"},
-        "dynamodb":{"shape":"StreamRecord"},
-        "userIdentity":{"shape":"Identity"}
+        "dynamodb":{"shape":"StreamRecord"}
       }
     },
     "RecordList":{

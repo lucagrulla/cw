@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExamplePolly_DeleteLexicon() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := polly.New(sess)
 
@@ -37,7 +41,11 @@ func ExamplePolly_DeleteLexicon() {
 }
 
 func ExamplePolly_DescribeVoices() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := polly.New(sess)
 
@@ -59,7 +67,11 @@ func ExamplePolly_DescribeVoices() {
 }
 
 func ExamplePolly_GetLexicon() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := polly.New(sess)
 
@@ -80,7 +92,11 @@ func ExamplePolly_GetLexicon() {
 }
 
 func ExamplePolly_ListLexicons() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := polly.New(sess)
 
@@ -101,7 +117,11 @@ func ExamplePolly_ListLexicons() {
 }
 
 func ExamplePolly_PutLexicon() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := polly.New(sess)
 
@@ -123,7 +143,11 @@ func ExamplePolly_PutLexicon() {
 }
 
 func ExamplePolly_SynthesizeSpeech() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := polly.New(sess)
 

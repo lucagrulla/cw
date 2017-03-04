@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleRekognition_CompareFaces() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rekognition.New(sess)
 
@@ -53,7 +57,11 @@ func ExampleRekognition_CompareFaces() {
 }
 
 func ExampleRekognition_CreateCollection() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rekognition.New(sess)
 
@@ -74,7 +82,11 @@ func ExampleRekognition_CreateCollection() {
 }
 
 func ExampleRekognition_DeleteCollection() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rekognition.New(sess)
 
@@ -95,7 +107,11 @@ func ExampleRekognition_DeleteCollection() {
 }
 
 func ExampleRekognition_DeleteFaces() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rekognition.New(sess)
 
@@ -120,7 +136,11 @@ func ExampleRekognition_DeleteFaces() {
 }
 
 func ExampleRekognition_DetectFaces() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rekognition.New(sess)
 
@@ -152,7 +172,11 @@ func ExampleRekognition_DetectFaces() {
 }
 
 func ExampleRekognition_DetectLabels() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rekognition.New(sess)
 
@@ -182,7 +206,11 @@ func ExampleRekognition_DetectLabels() {
 }
 
 func ExampleRekognition_IndexFaces() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rekognition.New(sess)
 
@@ -216,7 +244,11 @@ func ExampleRekognition_IndexFaces() {
 }
 
 func ExampleRekognition_ListCollections() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rekognition.New(sess)
 
@@ -238,7 +270,11 @@ func ExampleRekognition_ListCollections() {
 }
 
 func ExampleRekognition_ListFaces() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rekognition.New(sess)
 
@@ -261,7 +297,11 @@ func ExampleRekognition_ListFaces() {
 }
 
 func ExampleRekognition_SearchFaces() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rekognition.New(sess)
 
@@ -285,7 +325,11 @@ func ExampleRekognition_SearchFaces() {
 }
 
 func ExampleRekognition_SearchFacesByImage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rekognition.New(sess)
 

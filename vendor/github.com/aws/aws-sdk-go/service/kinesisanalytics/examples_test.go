@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleKinesisAnalytics_AddApplicationInput() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -75,7 +79,11 @@ func ExampleKinesisAnalytics_AddApplicationInput() {
 }
 
 func ExampleKinesisAnalytics_AddApplicationOutput() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -111,7 +119,11 @@ func ExampleKinesisAnalytics_AddApplicationOutput() {
 }
 
 func ExampleKinesisAnalytics_AddApplicationReferenceDataSource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -164,7 +176,11 @@ func ExampleKinesisAnalytics_AddApplicationReferenceDataSource() {
 }
 
 func ExampleKinesisAnalytics_CreateApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -244,7 +260,11 @@ func ExampleKinesisAnalytics_CreateApplication() {
 }
 
 func ExampleKinesisAnalytics_DeleteApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -266,7 +286,11 @@ func ExampleKinesisAnalytics_DeleteApplication() {
 }
 
 func ExampleKinesisAnalytics_DeleteApplicationOutput() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -289,7 +313,11 @@ func ExampleKinesisAnalytics_DeleteApplicationOutput() {
 }
 
 func ExampleKinesisAnalytics_DeleteApplicationReferenceDataSource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -312,7 +340,11 @@ func ExampleKinesisAnalytics_DeleteApplicationReferenceDataSource() {
 }
 
 func ExampleKinesisAnalytics_DescribeApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -333,7 +365,11 @@ func ExampleKinesisAnalytics_DescribeApplication() {
 }
 
 func ExampleKinesisAnalytics_DiscoverInputSchema() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -358,7 +394,11 @@ func ExampleKinesisAnalytics_DiscoverInputSchema() {
 }
 
 func ExampleKinesisAnalytics_ListApplications() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -380,7 +420,11 @@ func ExampleKinesisAnalytics_ListApplications() {
 }
 
 func ExampleKinesisAnalytics_StartApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -410,7 +454,11 @@ func ExampleKinesisAnalytics_StartApplication() {
 }
 
 func ExampleKinesisAnalytics_StopApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 
@@ -431,7 +479,11 @@ func ExampleKinesisAnalytics_StopApplication() {
 }
 
 func ExampleKinesisAnalytics_UpdateApplication() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := kinesisanalytics.New(sess)
 

@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleCloudTrail_AddTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -44,7 +48,11 @@ func ExampleCloudTrail_AddTags() {
 }
 
 func ExampleCloudTrail_CreateTrail() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -74,7 +82,11 @@ func ExampleCloudTrail_CreateTrail() {
 }
 
 func ExampleCloudTrail_DeleteTrail() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -95,7 +107,11 @@ func ExampleCloudTrail_DeleteTrail() {
 }
 
 func ExampleCloudTrail_DescribeTrails() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -120,7 +136,11 @@ func ExampleCloudTrail_DescribeTrails() {
 }
 
 func ExampleCloudTrail_GetEventSelectors() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -141,7 +161,11 @@ func ExampleCloudTrail_GetEventSelectors() {
 }
 
 func ExampleCloudTrail_GetTrailStatus() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -162,7 +186,11 @@ func ExampleCloudTrail_GetTrailStatus() {
 }
 
 func ExampleCloudTrail_ListPublicKeys() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -185,7 +213,11 @@ func ExampleCloudTrail_ListPublicKeys() {
 }
 
 func ExampleCloudTrail_ListTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -210,7 +242,11 @@ func ExampleCloudTrail_ListTags() {
 }
 
 func ExampleCloudTrail_LookupEvents() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -241,7 +277,11 @@ func ExampleCloudTrail_LookupEvents() {
 }
 
 func ExampleCloudTrail_PutEventSelectors() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -279,7 +319,11 @@ func ExampleCloudTrail_PutEventSelectors() {
 }
 
 func ExampleCloudTrail_RemoveTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -307,7 +351,11 @@ func ExampleCloudTrail_RemoveTags() {
 }
 
 func ExampleCloudTrail_StartLogging() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -328,7 +376,11 @@ func ExampleCloudTrail_StartLogging() {
 }
 
 func ExampleCloudTrail_StopLogging() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 
@@ -349,7 +401,11 @@ func ExampleCloudTrail_StopLogging() {
 }
 
 func ExampleCloudTrail_UpdateTrail() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudtrail.New(sess)
 

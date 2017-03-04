@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleCodePipeline_AcknowledgeJob() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -38,7 +42,11 @@ func ExampleCodePipeline_AcknowledgeJob() {
 }
 
 func ExampleCodePipeline_AcknowledgeThirdPartyJob() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -61,7 +69,11 @@ func ExampleCodePipeline_AcknowledgeThirdPartyJob() {
 }
 
 func ExampleCodePipeline_CreateCustomActionType() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -110,7 +122,11 @@ func ExampleCodePipeline_CreateCustomActionType() {
 }
 
 func ExampleCodePipeline_CreatePipeline() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -186,7 +202,11 @@ func ExampleCodePipeline_CreatePipeline() {
 }
 
 func ExampleCodePipeline_DeleteCustomActionType() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -209,7 +229,11 @@ func ExampleCodePipeline_DeleteCustomActionType() {
 }
 
 func ExampleCodePipeline_DeletePipeline() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -230,7 +254,11 @@ func ExampleCodePipeline_DeletePipeline() {
 }
 
 func ExampleCodePipeline_DisableStageTransition() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -254,7 +282,11 @@ func ExampleCodePipeline_DisableStageTransition() {
 }
 
 func ExampleCodePipeline_EnableStageTransition() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -277,7 +309,11 @@ func ExampleCodePipeline_EnableStageTransition() {
 }
 
 func ExampleCodePipeline_GetJobDetails() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -298,7 +334,11 @@ func ExampleCodePipeline_GetJobDetails() {
 }
 
 func ExampleCodePipeline_GetPipeline() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -320,7 +360,11 @@ func ExampleCodePipeline_GetPipeline() {
 }
 
 func ExampleCodePipeline_GetPipelineExecution() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -342,7 +386,11 @@ func ExampleCodePipeline_GetPipelineExecution() {
 }
 
 func ExampleCodePipeline_GetPipelineState() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -363,7 +411,11 @@ func ExampleCodePipeline_GetPipelineState() {
 }
 
 func ExampleCodePipeline_GetThirdPartyJobDetails() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -385,7 +437,11 @@ func ExampleCodePipeline_GetThirdPartyJobDetails() {
 }
 
 func ExampleCodePipeline_ListActionTypes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -407,7 +463,11 @@ func ExampleCodePipeline_ListActionTypes() {
 }
 
 func ExampleCodePipeline_ListPipelines() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -428,7 +488,11 @@ func ExampleCodePipeline_ListPipelines() {
 }
 
 func ExampleCodePipeline_PollForJobs() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -459,7 +523,11 @@ func ExampleCodePipeline_PollForJobs() {
 }
 
 func ExampleCodePipeline_PollForThirdPartyJobs() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -486,7 +554,11 @@ func ExampleCodePipeline_PollForThirdPartyJobs() {
 }
 
 func ExampleCodePipeline_PutActionRevision() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -514,7 +586,11 @@ func ExampleCodePipeline_PutActionRevision() {
 }
 
 func ExampleCodePipeline_PutApprovalResult() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -542,7 +618,11 @@ func ExampleCodePipeline_PutApprovalResult() {
 }
 
 func ExampleCodePipeline_PutJobFailureResult() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -568,7 +648,11 @@ func ExampleCodePipeline_PutJobFailureResult() {
 }
 
 func ExampleCodePipeline_PutJobSuccessResult() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -601,7 +685,11 @@ func ExampleCodePipeline_PutJobSuccessResult() {
 }
 
 func ExampleCodePipeline_PutThirdPartyJobFailureResult() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -628,7 +716,11 @@ func ExampleCodePipeline_PutThirdPartyJobFailureResult() {
 }
 
 func ExampleCodePipeline_PutThirdPartyJobSuccessResult() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -662,7 +754,11 @@ func ExampleCodePipeline_PutThirdPartyJobSuccessResult() {
 }
 
 func ExampleCodePipeline_RetryStageExecution() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -686,7 +782,11 @@ func ExampleCodePipeline_RetryStageExecution() {
 }
 
 func ExampleCodePipeline_StartPipelineExecution() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 
@@ -707,7 +807,11 @@ func ExampleCodePipeline_StartPipelineExecution() {
 }
 
 func ExampleCodePipeline_UpdatePipeline() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codepipeline.New(sess)
 

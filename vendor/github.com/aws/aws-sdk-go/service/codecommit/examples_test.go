@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleCodeCommit_BatchGetRepositories() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -40,7 +44,11 @@ func ExampleCodeCommit_BatchGetRepositories() {
 }
 
 func ExampleCodeCommit_CreateBranch() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -63,7 +71,11 @@ func ExampleCodeCommit_CreateBranch() {
 }
 
 func ExampleCodeCommit_CreateRepository() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -85,7 +97,11 @@ func ExampleCodeCommit_CreateRepository() {
 }
 
 func ExampleCodeCommit_DeleteRepository() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -106,7 +122,11 @@ func ExampleCodeCommit_DeleteRepository() {
 }
 
 func ExampleCodeCommit_GetBlob() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -128,7 +148,11 @@ func ExampleCodeCommit_GetBlob() {
 }
 
 func ExampleCodeCommit_GetBranch() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -150,7 +174,11 @@ func ExampleCodeCommit_GetBranch() {
 }
 
 func ExampleCodeCommit_GetCommit() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -172,7 +200,11 @@ func ExampleCodeCommit_GetCommit() {
 }
 
 func ExampleCodeCommit_GetDifferences() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -199,7 +231,11 @@ func ExampleCodeCommit_GetDifferences() {
 }
 
 func ExampleCodeCommit_GetRepository() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -220,7 +256,11 @@ func ExampleCodeCommit_GetRepository() {
 }
 
 func ExampleCodeCommit_GetRepositoryTriggers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -241,7 +281,11 @@ func ExampleCodeCommit_GetRepositoryTriggers() {
 }
 
 func ExampleCodeCommit_ListBranches() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -263,7 +307,11 @@ func ExampleCodeCommit_ListBranches() {
 }
 
 func ExampleCodeCommit_ListRepositories() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -286,7 +334,11 @@ func ExampleCodeCommit_ListRepositories() {
 }
 
 func ExampleCodeCommit_PutRepositoryTriggers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -323,7 +375,11 @@ func ExampleCodeCommit_PutRepositoryTriggers() {
 }
 
 func ExampleCodeCommit_TestRepositoryTriggers() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -360,7 +416,11 @@ func ExampleCodeCommit_TestRepositoryTriggers() {
 }
 
 func ExampleCodeCommit_UpdateDefaultBranch() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -382,7 +442,11 @@ func ExampleCodeCommit_UpdateDefaultBranch() {
 }
 
 func ExampleCodeCommit_UpdateRepositoryDescription() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 
@@ -404,7 +468,11 @@ func ExampleCodeCommit_UpdateRepositoryDescription() {
 }
 
 func ExampleCodeCommit_UpdateRepositoryName() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := codecommit.New(sess)
 

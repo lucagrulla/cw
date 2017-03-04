@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleDirectoryService_AddIpRoutes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -45,7 +49,11 @@ func ExampleDirectoryService_AddIpRoutes() {
 }
 
 func ExampleDirectoryService_AddTagsToResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -73,7 +81,11 @@ func ExampleDirectoryService_AddTagsToResource() {
 }
 
 func ExampleDirectoryService_CancelSchemaExtension() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -95,7 +107,11 @@ func ExampleDirectoryService_CancelSchemaExtension() {
 }
 
 func ExampleDirectoryService_ConnectDirectory() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -132,7 +148,11 @@ func ExampleDirectoryService_ConnectDirectory() {
 }
 
 func ExampleDirectoryService_CreateAlias() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -154,7 +174,11 @@ func ExampleDirectoryService_CreateAlias() {
 }
 
 func ExampleDirectoryService_CreateComputer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -185,7 +209,11 @@ func ExampleDirectoryService_CreateComputer() {
 }
 
 func ExampleDirectoryService_CreateConditionalForwarder() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -211,7 +239,11 @@ func ExampleDirectoryService_CreateConditionalForwarder() {
 }
 
 func ExampleDirectoryService_CreateDirectory() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -243,7 +275,11 @@ func ExampleDirectoryService_CreateDirectory() {
 }
 
 func ExampleDirectoryService_CreateMicrosoftAD() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -274,7 +310,11 @@ func ExampleDirectoryService_CreateMicrosoftAD() {
 }
 
 func ExampleDirectoryService_CreateSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -296,7 +336,11 @@ func ExampleDirectoryService_CreateSnapshot() {
 }
 
 func ExampleDirectoryService_CreateTrust() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -325,7 +369,11 @@ func ExampleDirectoryService_CreateTrust() {
 }
 
 func ExampleDirectoryService_DeleteConditionalForwarder() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -347,7 +395,11 @@ func ExampleDirectoryService_DeleteConditionalForwarder() {
 }
 
 func ExampleDirectoryService_DeleteDirectory() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -368,7 +420,11 @@ func ExampleDirectoryService_DeleteDirectory() {
 }
 
 func ExampleDirectoryService_DeleteSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -389,7 +445,11 @@ func ExampleDirectoryService_DeleteSnapshot() {
 }
 
 func ExampleDirectoryService_DeleteTrust() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -411,7 +471,11 @@ func ExampleDirectoryService_DeleteTrust() {
 }
 
 func ExampleDirectoryService_DeregisterEventTopic() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -433,7 +497,11 @@ func ExampleDirectoryService_DeregisterEventTopic() {
 }
 
 func ExampleDirectoryService_DescribeConditionalForwarders() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -458,7 +526,11 @@ func ExampleDirectoryService_DescribeConditionalForwarders() {
 }
 
 func ExampleDirectoryService_DescribeDirectories() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -484,7 +556,11 @@ func ExampleDirectoryService_DescribeDirectories() {
 }
 
 func ExampleDirectoryService_DescribeEventTopics() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -509,7 +585,11 @@ func ExampleDirectoryService_DescribeEventTopics() {
 }
 
 func ExampleDirectoryService_DescribeSnapshots() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -536,7 +616,11 @@ func ExampleDirectoryService_DescribeSnapshots() {
 }
 
 func ExampleDirectoryService_DescribeTrusts() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -563,7 +647,11 @@ func ExampleDirectoryService_DescribeTrusts() {
 }
 
 func ExampleDirectoryService_DisableRadius() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -584,7 +672,11 @@ func ExampleDirectoryService_DisableRadius() {
 }
 
 func ExampleDirectoryService_DisableSso() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -607,7 +699,11 @@ func ExampleDirectoryService_DisableSso() {
 }
 
 func ExampleDirectoryService_EnableRadius() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -641,7 +737,11 @@ func ExampleDirectoryService_EnableRadius() {
 }
 
 func ExampleDirectoryService_EnableSso() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -664,7 +764,11 @@ func ExampleDirectoryService_EnableSso() {
 }
 
 func ExampleDirectoryService_GetDirectoryLimits() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -683,7 +787,11 @@ func ExampleDirectoryService_GetDirectoryLimits() {
 }
 
 func ExampleDirectoryService_GetSnapshotLimits() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -704,7 +812,11 @@ func ExampleDirectoryService_GetSnapshotLimits() {
 }
 
 func ExampleDirectoryService_ListIpRoutes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -727,7 +839,11 @@ func ExampleDirectoryService_ListIpRoutes() {
 }
 
 func ExampleDirectoryService_ListSchemaExtensions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -750,7 +866,11 @@ func ExampleDirectoryService_ListSchemaExtensions() {
 }
 
 func ExampleDirectoryService_ListTagsForResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -773,7 +893,11 @@ func ExampleDirectoryService_ListTagsForResource() {
 }
 
 func ExampleDirectoryService_RegisterEventTopic() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -795,7 +919,11 @@ func ExampleDirectoryService_RegisterEventTopic() {
 }
 
 func ExampleDirectoryService_RemoveIpRoutes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -820,7 +948,11 @@ func ExampleDirectoryService_RemoveIpRoutes() {
 }
 
 func ExampleDirectoryService_RemoveTagsFromResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -845,7 +977,11 @@ func ExampleDirectoryService_RemoveTagsFromResource() {
 }
 
 func ExampleDirectoryService_RestoreFromSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -866,7 +1002,11 @@ func ExampleDirectoryService_RestoreFromSnapshot() {
 }
 
 func ExampleDirectoryService_StartSchemaExtension() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -890,7 +1030,11 @@ func ExampleDirectoryService_StartSchemaExtension() {
 }
 
 func ExampleDirectoryService_UpdateConditionalForwarder() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -916,7 +1060,11 @@ func ExampleDirectoryService_UpdateConditionalForwarder() {
 }
 
 func ExampleDirectoryService_UpdateRadius() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 
@@ -950,7 +1098,11 @@ func ExampleDirectoryService_UpdateRadius() {
 }
 
 func ExampleDirectoryService_VerifyTrust() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directoryservice.New(sess)
 

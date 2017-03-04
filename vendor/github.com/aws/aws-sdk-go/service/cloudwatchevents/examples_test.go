@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleCloudWatchEvents_DeleteRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 
@@ -37,7 +41,11 @@ func ExampleCloudWatchEvents_DeleteRule() {
 }
 
 func ExampleCloudWatchEvents_DescribeRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 
@@ -58,7 +66,11 @@ func ExampleCloudWatchEvents_DescribeRule() {
 }
 
 func ExampleCloudWatchEvents_DisableRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 
@@ -79,7 +91,11 @@ func ExampleCloudWatchEvents_DisableRule() {
 }
 
 func ExampleCloudWatchEvents_EnableRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 
@@ -100,7 +116,11 @@ func ExampleCloudWatchEvents_EnableRule() {
 }
 
 func ExampleCloudWatchEvents_ListRuleNamesByTarget() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 
@@ -123,7 +143,11 @@ func ExampleCloudWatchEvents_ListRuleNamesByTarget() {
 }
 
 func ExampleCloudWatchEvents_ListRules() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 
@@ -146,7 +170,11 @@ func ExampleCloudWatchEvents_ListRules() {
 }
 
 func ExampleCloudWatchEvents_ListTargetsByRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 
@@ -169,7 +197,11 @@ func ExampleCloudWatchEvents_ListTargetsByRule() {
 }
 
 func ExampleCloudWatchEvents_PutEvents() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 
@@ -202,7 +234,11 @@ func ExampleCloudWatchEvents_PutEvents() {
 }
 
 func ExampleCloudWatchEvents_PutRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 
@@ -228,7 +264,11 @@ func ExampleCloudWatchEvents_PutRule() {
 }
 
 func ExampleCloudWatchEvents_PutTargets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 
@@ -258,7 +298,11 @@ func ExampleCloudWatchEvents_PutTargets() {
 }
 
 func ExampleCloudWatchEvents_RemoveTargets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 
@@ -283,7 +327,11 @@ func ExampleCloudWatchEvents_RemoveTargets() {
 }
 
 func ExampleCloudWatchEvents_TestEventPattern() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudwatchevents.New(sess)
 

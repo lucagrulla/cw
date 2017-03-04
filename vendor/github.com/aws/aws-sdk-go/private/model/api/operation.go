@@ -209,7 +209,11 @@ func (o *Operation) InterfaceSignature() string {
 // tplExample defines the template for rendering an Operation example
 var tplExample = template.Must(template.New("operationExample").Parse(`
 func Example{{ .API.StructName }}_{{ .ExportedName }}() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := {{ .API.PackageName }}.New(sess)
 

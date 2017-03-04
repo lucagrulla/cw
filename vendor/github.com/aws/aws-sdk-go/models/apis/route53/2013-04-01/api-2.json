@@ -214,7 +214,6 @@
       },
       "output":{"shape":"CreateVPCAssociationAuthorizationResponse"},
       "errors":[
-        {"shape":"ConcurrentModification"},
         {"shape":"TooManyVPCAssociationAuthorizations"},
         {"shape":"NoSuchHostedZone"},
         {"shape":"InvalidVPCId"},
@@ -308,7 +307,6 @@
       },
       "output":{"shape":"DeleteVPCAssociationAuthorizationResponse"},
       "errors":[
-        {"shape":"ConcurrentModification"},
         {"shape":"VPCAssociationAuthorizationNotFound"},
         {"shape":"NoSuchHostedZone"},
         {"shape":"InvalidVPCId"},
@@ -2838,7 +2836,7 @@
     },
     "SubnetMask":{
       "type":"string",
-      "max":3,
+      "max":2,
       "min":0
     },
     "TTL":{

@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleGlacier_AbortMultipartUpload() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -39,7 +43,11 @@ func ExampleGlacier_AbortMultipartUpload() {
 }
 
 func ExampleGlacier_AbortVaultLock() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -61,7 +69,11 @@ func ExampleGlacier_AbortVaultLock() {
 }
 
 func ExampleGlacier_AddTagsToVault() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -87,7 +99,11 @@ func ExampleGlacier_AddTagsToVault() {
 }
 
 func ExampleGlacier_CompleteMultipartUpload() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -112,7 +128,11 @@ func ExampleGlacier_CompleteMultipartUpload() {
 }
 
 func ExampleGlacier_CompleteVaultLock() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -135,7 +155,11 @@ func ExampleGlacier_CompleteVaultLock() {
 }
 
 func ExampleGlacier_CreateVault() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -157,7 +181,11 @@ func ExampleGlacier_CreateVault() {
 }
 
 func ExampleGlacier_DeleteArchive() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -180,7 +208,11 @@ func ExampleGlacier_DeleteArchive() {
 }
 
 func ExampleGlacier_DeleteVault() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -202,7 +234,11 @@ func ExampleGlacier_DeleteVault() {
 }
 
 func ExampleGlacier_DeleteVaultAccessPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -224,7 +260,11 @@ func ExampleGlacier_DeleteVaultAccessPolicy() {
 }
 
 func ExampleGlacier_DeleteVaultNotifications() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -246,7 +286,11 @@ func ExampleGlacier_DeleteVaultNotifications() {
 }
 
 func ExampleGlacier_DescribeJob() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -269,7 +313,11 @@ func ExampleGlacier_DescribeJob() {
 }
 
 func ExampleGlacier_DescribeVault() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -291,7 +339,11 @@ func ExampleGlacier_DescribeVault() {
 }
 
 func ExampleGlacier_GetDataRetrievalPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -312,7 +364,11 @@ func ExampleGlacier_GetDataRetrievalPolicy() {
 }
 
 func ExampleGlacier_GetJobOutput() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -336,7 +392,11 @@ func ExampleGlacier_GetJobOutput() {
 }
 
 func ExampleGlacier_GetVaultAccessPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -358,7 +418,11 @@ func ExampleGlacier_GetVaultAccessPolicy() {
 }
 
 func ExampleGlacier_GetVaultLock() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -380,7 +444,11 @@ func ExampleGlacier_GetVaultLock() {
 }
 
 func ExampleGlacier_GetVaultNotifications() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -402,7 +470,11 @@ func ExampleGlacier_GetVaultNotifications() {
 }
 
 func ExampleGlacier_InitiateJob() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -439,7 +511,11 @@ func ExampleGlacier_InitiateJob() {
 }
 
 func ExampleGlacier_InitiateMultipartUpload() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -463,7 +539,11 @@ func ExampleGlacier_InitiateMultipartUpload() {
 }
 
 func ExampleGlacier_InitiateVaultLock() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -488,7 +568,11 @@ func ExampleGlacier_InitiateVaultLock() {
 }
 
 func ExampleGlacier_ListJobs() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -514,7 +598,11 @@ func ExampleGlacier_ListJobs() {
 }
 
 func ExampleGlacier_ListMultipartUploads() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -538,7 +626,11 @@ func ExampleGlacier_ListMultipartUploads() {
 }
 
 func ExampleGlacier_ListParts() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -563,7 +655,11 @@ func ExampleGlacier_ListParts() {
 }
 
 func ExampleGlacier_ListProvisionedCapacity() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -584,7 +680,11 @@ func ExampleGlacier_ListProvisionedCapacity() {
 }
 
 func ExampleGlacier_ListTagsForVault() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -606,7 +706,11 @@ func ExampleGlacier_ListTagsForVault() {
 }
 
 func ExampleGlacier_ListVaults() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -629,7 +733,11 @@ func ExampleGlacier_ListVaults() {
 }
 
 func ExampleGlacier_PurchaseProvisionedCapacity() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -650,7 +758,11 @@ func ExampleGlacier_PurchaseProvisionedCapacity() {
 }
 
 func ExampleGlacier_RemoveTagsFromVault() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -676,7 +788,11 @@ func ExampleGlacier_RemoveTagsFromVault() {
 }
 
 func ExampleGlacier_SetDataRetrievalPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -706,7 +822,11 @@ func ExampleGlacier_SetDataRetrievalPolicy() {
 }
 
 func ExampleGlacier_SetVaultAccessPolicy() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -731,7 +851,11 @@ func ExampleGlacier_SetVaultAccessPolicy() {
 }
 
 func ExampleGlacier_SetVaultNotifications() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -760,7 +884,11 @@ func ExampleGlacier_SetVaultNotifications() {
 }
 
 func ExampleGlacier_UploadArchive() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 
@@ -785,7 +913,11 @@ func ExampleGlacier_UploadArchive() {
 }
 
 func ExampleGlacier_UploadMultipartPart() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := glacier.New(sess)
 

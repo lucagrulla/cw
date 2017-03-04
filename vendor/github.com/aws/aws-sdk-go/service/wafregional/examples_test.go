@@ -17,7 +17,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleWAFRegional_AssociateWebACL() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -39,7 +43,11 @@ func ExampleWAFRegional_AssociateWebACL() {
 }
 
 func ExampleWAFRegional_CreateByteMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -61,7 +69,11 @@ func ExampleWAFRegional_CreateByteMatchSet() {
 }
 
 func ExampleWAFRegional_CreateIPSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -83,7 +95,11 @@ func ExampleWAFRegional_CreateIPSet() {
 }
 
 func ExampleWAFRegional_CreateRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -106,7 +122,11 @@ func ExampleWAFRegional_CreateRule() {
 }
 
 func ExampleWAFRegional_CreateSizeConstraintSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -128,7 +148,11 @@ func ExampleWAFRegional_CreateSizeConstraintSet() {
 }
 
 func ExampleWAFRegional_CreateSqlInjectionMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -150,7 +174,11 @@ func ExampleWAFRegional_CreateSqlInjectionMatchSet() {
 }
 
 func ExampleWAFRegional_CreateWebACL() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -176,7 +204,11 @@ func ExampleWAFRegional_CreateWebACL() {
 }
 
 func ExampleWAFRegional_CreateXssMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -198,7 +230,11 @@ func ExampleWAFRegional_CreateXssMatchSet() {
 }
 
 func ExampleWAFRegional_DeleteByteMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -220,7 +256,11 @@ func ExampleWAFRegional_DeleteByteMatchSet() {
 }
 
 func ExampleWAFRegional_DeleteIPSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -242,7 +282,11 @@ func ExampleWAFRegional_DeleteIPSet() {
 }
 
 func ExampleWAFRegional_DeleteRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -264,7 +308,11 @@ func ExampleWAFRegional_DeleteRule() {
 }
 
 func ExampleWAFRegional_DeleteSizeConstraintSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -286,7 +334,11 @@ func ExampleWAFRegional_DeleteSizeConstraintSet() {
 }
 
 func ExampleWAFRegional_DeleteSqlInjectionMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -308,7 +360,11 @@ func ExampleWAFRegional_DeleteSqlInjectionMatchSet() {
 }
 
 func ExampleWAFRegional_DeleteWebACL() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -330,7 +386,11 @@ func ExampleWAFRegional_DeleteWebACL() {
 }
 
 func ExampleWAFRegional_DeleteXssMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -352,7 +412,11 @@ func ExampleWAFRegional_DeleteXssMatchSet() {
 }
 
 func ExampleWAFRegional_DisassociateWebACL() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -373,7 +437,11 @@ func ExampleWAFRegional_DisassociateWebACL() {
 }
 
 func ExampleWAFRegional_GetByteMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -394,7 +462,11 @@ func ExampleWAFRegional_GetByteMatchSet() {
 }
 
 func ExampleWAFRegional_GetChangeToken() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -413,7 +485,11 @@ func ExampleWAFRegional_GetChangeToken() {
 }
 
 func ExampleWAFRegional_GetChangeTokenStatus() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -434,7 +510,11 @@ func ExampleWAFRegional_GetChangeTokenStatus() {
 }
 
 func ExampleWAFRegional_GetIPSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -455,7 +535,11 @@ func ExampleWAFRegional_GetIPSet() {
 }
 
 func ExampleWAFRegional_GetRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -476,7 +560,11 @@ func ExampleWAFRegional_GetRule() {
 }
 
 func ExampleWAFRegional_GetSampledRequests() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -503,7 +591,11 @@ func ExampleWAFRegional_GetSampledRequests() {
 }
 
 func ExampleWAFRegional_GetSizeConstraintSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -524,7 +616,11 @@ func ExampleWAFRegional_GetSizeConstraintSet() {
 }
 
 func ExampleWAFRegional_GetSqlInjectionMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -545,7 +641,11 @@ func ExampleWAFRegional_GetSqlInjectionMatchSet() {
 }
 
 func ExampleWAFRegional_GetWebACL() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -566,7 +666,11 @@ func ExampleWAFRegional_GetWebACL() {
 }
 
 func ExampleWAFRegional_GetWebACLForResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -587,7 +691,11 @@ func ExampleWAFRegional_GetWebACLForResource() {
 }
 
 func ExampleWAFRegional_GetXssMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -608,7 +716,11 @@ func ExampleWAFRegional_GetXssMatchSet() {
 }
 
 func ExampleWAFRegional_ListByteMatchSets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -630,7 +742,11 @@ func ExampleWAFRegional_ListByteMatchSets() {
 }
 
 func ExampleWAFRegional_ListIPSets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -652,7 +768,11 @@ func ExampleWAFRegional_ListIPSets() {
 }
 
 func ExampleWAFRegional_ListResourcesForWebACL() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -673,7 +793,11 @@ func ExampleWAFRegional_ListResourcesForWebACL() {
 }
 
 func ExampleWAFRegional_ListRules() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -695,7 +819,11 @@ func ExampleWAFRegional_ListRules() {
 }
 
 func ExampleWAFRegional_ListSizeConstraintSets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -717,7 +845,11 @@ func ExampleWAFRegional_ListSizeConstraintSets() {
 }
 
 func ExampleWAFRegional_ListSqlInjectionMatchSets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -739,7 +871,11 @@ func ExampleWAFRegional_ListSqlInjectionMatchSets() {
 }
 
 func ExampleWAFRegional_ListWebACLs() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -761,7 +897,11 @@ func ExampleWAFRegional_ListWebACLs() {
 }
 
 func ExampleWAFRegional_ListXssMatchSets() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -783,7 +923,11 @@ func ExampleWAFRegional_ListXssMatchSets() {
 }
 
 func ExampleWAFRegional_UpdateByteMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -820,7 +964,11 @@ func ExampleWAFRegional_UpdateByteMatchSet() {
 }
 
 func ExampleWAFRegional_UpdateIPSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -852,7 +1000,11 @@ func ExampleWAFRegional_UpdateIPSet() {
 }
 
 func ExampleWAFRegional_UpdateRule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -885,7 +1037,11 @@ func ExampleWAFRegional_UpdateRule() {
 }
 
 func ExampleWAFRegional_UpdateSizeConstraintSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -922,7 +1078,11 @@ func ExampleWAFRegional_UpdateSizeConstraintSet() {
 }
 
 func ExampleWAFRegional_UpdateSqlInjectionMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -957,7 +1117,11 @@ func ExampleWAFRegional_UpdateSqlInjectionMatchSet() {
 }
 
 func ExampleWAFRegional_UpdateWebACL() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 
@@ -995,7 +1159,11 @@ func ExampleWAFRegional_UpdateWebACL() {
 }
 
 func ExampleWAFRegional_UpdateXssMatchSet() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := wafregional.New(sess)
 

@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleStorageGateway_ActivateGateway() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -43,7 +47,11 @@ func ExampleStorageGateway_ActivateGateway() {
 }
 
 func ExampleStorageGateway_AddCache() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -68,7 +76,11 @@ func ExampleStorageGateway_AddCache() {
 }
 
 func ExampleStorageGateway_AddTagsToResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -96,7 +108,11 @@ func ExampleStorageGateway_AddTagsToResource() {
 }
 
 func ExampleStorageGateway_AddUploadBuffer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -121,7 +137,11 @@ func ExampleStorageGateway_AddUploadBuffer() {
 }
 
 func ExampleStorageGateway_AddWorkingStorage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -146,7 +166,11 @@ func ExampleStorageGateway_AddWorkingStorage() {
 }
 
 func ExampleStorageGateway_CancelArchival() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -168,7 +192,11 @@ func ExampleStorageGateway_CancelArchival() {
 }
 
 func ExampleStorageGateway_CancelRetrieval() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -190,7 +218,11 @@ func ExampleStorageGateway_CancelRetrieval() {
 }
 
 func ExampleStorageGateway_CreateCachediSCSIVolume() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -217,7 +249,11 @@ func ExampleStorageGateway_CreateCachediSCSIVolume() {
 }
 
 func ExampleStorageGateway_CreateNFSFileShare() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -254,7 +290,11 @@ func ExampleStorageGateway_CreateNFSFileShare() {
 }
 
 func ExampleStorageGateway_CreateSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -276,7 +316,11 @@ func ExampleStorageGateway_CreateSnapshot() {
 }
 
 func ExampleStorageGateway_CreateSnapshotFromVolumeRecoveryPoint() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -298,7 +342,11 @@ func ExampleStorageGateway_CreateSnapshotFromVolumeRecoveryPoint() {
 }
 
 func ExampleStorageGateway_CreateStorediSCSIVolume() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -324,7 +372,11 @@ func ExampleStorageGateway_CreateStorediSCSIVolume() {
 }
 
 func ExampleStorageGateway_CreateTapeWithBarcode() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -347,7 +399,11 @@ func ExampleStorageGateway_CreateTapeWithBarcode() {
 }
 
 func ExampleStorageGateway_CreateTapes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -372,7 +428,11 @@ func ExampleStorageGateway_CreateTapes() {
 }
 
 func ExampleStorageGateway_DeleteBandwidthRateLimit() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -394,7 +454,11 @@ func ExampleStorageGateway_DeleteBandwidthRateLimit() {
 }
 
 func ExampleStorageGateway_DeleteChapCredentials() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -416,7 +480,11 @@ func ExampleStorageGateway_DeleteChapCredentials() {
 }
 
 func ExampleStorageGateway_DeleteFileShare() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -437,7 +505,11 @@ func ExampleStorageGateway_DeleteFileShare() {
 }
 
 func ExampleStorageGateway_DeleteGateway() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -458,7 +530,11 @@ func ExampleStorageGateway_DeleteGateway() {
 }
 
 func ExampleStorageGateway_DeleteSnapshotSchedule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -479,7 +555,11 @@ func ExampleStorageGateway_DeleteSnapshotSchedule() {
 }
 
 func ExampleStorageGateway_DeleteTape() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -501,7 +581,11 @@ func ExampleStorageGateway_DeleteTape() {
 }
 
 func ExampleStorageGateway_DeleteTapeArchive() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -522,7 +606,11 @@ func ExampleStorageGateway_DeleteTapeArchive() {
 }
 
 func ExampleStorageGateway_DeleteVolume() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -543,7 +631,11 @@ func ExampleStorageGateway_DeleteVolume() {
 }
 
 func ExampleStorageGateway_DescribeBandwidthRateLimit() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -564,7 +656,11 @@ func ExampleStorageGateway_DescribeBandwidthRateLimit() {
 }
 
 func ExampleStorageGateway_DescribeCache() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -585,7 +681,11 @@ func ExampleStorageGateway_DescribeCache() {
 }
 
 func ExampleStorageGateway_DescribeCachediSCSIVolumes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -609,7 +709,11 @@ func ExampleStorageGateway_DescribeCachediSCSIVolumes() {
 }
 
 func ExampleStorageGateway_DescribeChapCredentials() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -630,7 +734,11 @@ func ExampleStorageGateway_DescribeChapCredentials() {
 }
 
 func ExampleStorageGateway_DescribeGatewayInformation() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -651,7 +759,11 @@ func ExampleStorageGateway_DescribeGatewayInformation() {
 }
 
 func ExampleStorageGateway_DescribeMaintenanceStartTime() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -672,7 +784,11 @@ func ExampleStorageGateway_DescribeMaintenanceStartTime() {
 }
 
 func ExampleStorageGateway_DescribeNFSFileShares() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -696,7 +812,11 @@ func ExampleStorageGateway_DescribeNFSFileShares() {
 }
 
 func ExampleStorageGateway_DescribeSnapshotSchedule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -717,7 +837,11 @@ func ExampleStorageGateway_DescribeSnapshotSchedule() {
 }
 
 func ExampleStorageGateway_DescribeStorediSCSIVolumes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -741,7 +865,11 @@ func ExampleStorageGateway_DescribeStorediSCSIVolumes() {
 }
 
 func ExampleStorageGateway_DescribeTapeArchives() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -767,7 +895,11 @@ func ExampleStorageGateway_DescribeTapeArchives() {
 }
 
 func ExampleStorageGateway_DescribeTapeRecoveryPoints() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -790,7 +922,11 @@ func ExampleStorageGateway_DescribeTapeRecoveryPoints() {
 }
 
 func ExampleStorageGateway_DescribeTapes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -817,7 +953,11 @@ func ExampleStorageGateway_DescribeTapes() {
 }
 
 func ExampleStorageGateway_DescribeUploadBuffer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -838,7 +978,11 @@ func ExampleStorageGateway_DescribeUploadBuffer() {
 }
 
 func ExampleStorageGateway_DescribeVTLDevices() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -865,7 +1009,11 @@ func ExampleStorageGateway_DescribeVTLDevices() {
 }
 
 func ExampleStorageGateway_DescribeWorkingStorage() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -886,7 +1034,11 @@ func ExampleStorageGateway_DescribeWorkingStorage() {
 }
 
 func ExampleStorageGateway_DisableGateway() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -907,7 +1059,11 @@ func ExampleStorageGateway_DisableGateway() {
 }
 
 func ExampleStorageGateway_ListFileShares() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -930,7 +1086,11 @@ func ExampleStorageGateway_ListFileShares() {
 }
 
 func ExampleStorageGateway_ListGateways() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -952,7 +1112,11 @@ func ExampleStorageGateway_ListGateways() {
 }
 
 func ExampleStorageGateway_ListLocalDisks() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -973,7 +1137,11 @@ func ExampleStorageGateway_ListLocalDisks() {
 }
 
 func ExampleStorageGateway_ListTagsForResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -996,7 +1164,11 @@ func ExampleStorageGateway_ListTagsForResource() {
 }
 
 func ExampleStorageGateway_ListTapes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1022,7 +1194,11 @@ func ExampleStorageGateway_ListTapes() {
 }
 
 func ExampleStorageGateway_ListVolumeInitiators() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1043,7 +1219,11 @@ func ExampleStorageGateway_ListVolumeInitiators() {
 }
 
 func ExampleStorageGateway_ListVolumeRecoveryPoints() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1064,7 +1244,11 @@ func ExampleStorageGateway_ListVolumeRecoveryPoints() {
 }
 
 func ExampleStorageGateway_ListVolumes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1087,7 +1271,11 @@ func ExampleStorageGateway_ListVolumes() {
 }
 
 func ExampleStorageGateway_RemoveTagsFromResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1112,7 +1300,11 @@ func ExampleStorageGateway_RemoveTagsFromResource() {
 }
 
 func ExampleStorageGateway_ResetCache() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1133,7 +1325,11 @@ func ExampleStorageGateway_ResetCache() {
 }
 
 func ExampleStorageGateway_RetrieveTapeArchive() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1155,7 +1351,11 @@ func ExampleStorageGateway_RetrieveTapeArchive() {
 }
 
 func ExampleStorageGateway_RetrieveTapeRecoveryPoint() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1177,7 +1377,11 @@ func ExampleStorageGateway_RetrieveTapeRecoveryPoint() {
 }
 
 func ExampleStorageGateway_SetLocalConsolePassword() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1199,7 +1403,11 @@ func ExampleStorageGateway_SetLocalConsolePassword() {
 }
 
 func ExampleStorageGateway_ShutdownGateway() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1220,7 +1428,11 @@ func ExampleStorageGateway_ShutdownGateway() {
 }
 
 func ExampleStorageGateway_StartGateway() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1241,7 +1453,11 @@ func ExampleStorageGateway_StartGateway() {
 }
 
 func ExampleStorageGateway_UpdateBandwidthRateLimit() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1264,7 +1480,11 @@ func ExampleStorageGateway_UpdateBandwidthRateLimit() {
 }
 
 func ExampleStorageGateway_UpdateChapCredentials() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1288,7 +1508,11 @@ func ExampleStorageGateway_UpdateChapCredentials() {
 }
 
 func ExampleStorageGateway_UpdateGatewayInformation() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1311,7 +1535,11 @@ func ExampleStorageGateway_UpdateGatewayInformation() {
 }
 
 func ExampleStorageGateway_UpdateGatewaySoftwareNow() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1332,7 +1560,11 @@ func ExampleStorageGateway_UpdateGatewaySoftwareNow() {
 }
 
 func ExampleStorageGateway_UpdateMaintenanceStartTime() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1356,7 +1588,11 @@ func ExampleStorageGateway_UpdateMaintenanceStartTime() {
 }
 
 func ExampleStorageGateway_UpdateNFSFileShare() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1390,7 +1626,11 @@ func ExampleStorageGateway_UpdateNFSFileShare() {
 }
 
 func ExampleStorageGateway_UpdateSnapshotSchedule() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 
@@ -1414,7 +1654,11 @@ func ExampleStorageGateway_UpdateSnapshotSchedule() {
 }
 
 func ExampleStorageGateway_UpdateVTLDeviceType() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := storagegateway.New(sess)
 

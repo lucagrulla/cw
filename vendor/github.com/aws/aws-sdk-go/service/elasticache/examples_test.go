@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleElastiCache_AddTagsToResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -44,7 +48,11 @@ func ExampleElastiCache_AddTagsToResource() {
 }
 
 func ExampleElastiCache_AuthorizeCacheSecurityGroupIngress() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -67,7 +75,11 @@ func ExampleElastiCache_AuthorizeCacheSecurityGroupIngress() {
 }
 
 func ExampleElastiCache_CopySnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -90,7 +102,11 @@ func ExampleElastiCache_CopySnapshot() {
 }
 
 func ExampleElastiCache_CreateCacheCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -151,7 +167,11 @@ func ExampleElastiCache_CreateCacheCluster() {
 }
 
 func ExampleElastiCache_CreateCacheParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -174,7 +194,11 @@ func ExampleElastiCache_CreateCacheParameterGroup() {
 }
 
 func ExampleElastiCache_CreateCacheSecurityGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -196,7 +220,11 @@ func ExampleElastiCache_CreateCacheSecurityGroup() {
 }
 
 func ExampleElastiCache_CreateCacheSubnetGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -222,7 +250,11 @@ func ExampleElastiCache_CreateCacheSubnetGroup() {
 }
 
 func ExampleElastiCache_CreateReplicationGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -297,7 +329,11 @@ func ExampleElastiCache_CreateReplicationGroup() {
 }
 
 func ExampleElastiCache_CreateSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -320,7 +356,11 @@ func ExampleElastiCache_CreateSnapshot() {
 }
 
 func ExampleElastiCache_DeleteCacheCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -342,7 +382,11 @@ func ExampleElastiCache_DeleteCacheCluster() {
 }
 
 func ExampleElastiCache_DeleteCacheParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -363,7 +407,11 @@ func ExampleElastiCache_DeleteCacheParameterGroup() {
 }
 
 func ExampleElastiCache_DeleteCacheSecurityGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -384,7 +432,11 @@ func ExampleElastiCache_DeleteCacheSecurityGroup() {
 }
 
 func ExampleElastiCache_DeleteCacheSubnetGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -405,7 +457,11 @@ func ExampleElastiCache_DeleteCacheSubnetGroup() {
 }
 
 func ExampleElastiCache_DeleteReplicationGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -428,7 +484,11 @@ func ExampleElastiCache_DeleteReplicationGroup() {
 }
 
 func ExampleElastiCache_DeleteSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -449,7 +509,11 @@ func ExampleElastiCache_DeleteSnapshot() {
 }
 
 func ExampleElastiCache_DescribeCacheClusters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -473,7 +537,11 @@ func ExampleElastiCache_DescribeCacheClusters() {
 }
 
 func ExampleElastiCache_DescribeCacheEngineVersions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -499,7 +567,11 @@ func ExampleElastiCache_DescribeCacheEngineVersions() {
 }
 
 func ExampleElastiCache_DescribeCacheParameterGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -522,7 +594,11 @@ func ExampleElastiCache_DescribeCacheParameterGroups() {
 }
 
 func ExampleElastiCache_DescribeCacheParameters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -546,7 +622,11 @@ func ExampleElastiCache_DescribeCacheParameters() {
 }
 
 func ExampleElastiCache_DescribeCacheSecurityGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -569,7 +649,11 @@ func ExampleElastiCache_DescribeCacheSecurityGroups() {
 }
 
 func ExampleElastiCache_DescribeCacheSubnetGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -592,7 +676,11 @@ func ExampleElastiCache_DescribeCacheSubnetGroups() {
 }
 
 func ExampleElastiCache_DescribeEngineDefaultParameters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -615,7 +703,11 @@ func ExampleElastiCache_DescribeEngineDefaultParameters() {
 }
 
 func ExampleElastiCache_DescribeEvents() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -642,7 +734,11 @@ func ExampleElastiCache_DescribeEvents() {
 }
 
 func ExampleElastiCache_DescribeReplicationGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -665,7 +761,11 @@ func ExampleElastiCache_DescribeReplicationGroups() {
 }
 
 func ExampleElastiCache_DescribeReservedCacheNodes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -693,7 +793,11 @@ func ExampleElastiCache_DescribeReservedCacheNodes() {
 }
 
 func ExampleElastiCache_DescribeReservedCacheNodesOfferings() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -720,7 +824,11 @@ func ExampleElastiCache_DescribeReservedCacheNodesOfferings() {
 }
 
 func ExampleElastiCache_DescribeSnapshots() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -747,7 +855,11 @@ func ExampleElastiCache_DescribeSnapshots() {
 }
 
 func ExampleElastiCache_ListAllowedNodeTypeModifications() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -769,7 +881,11 @@ func ExampleElastiCache_ListAllowedNodeTypeModifications() {
 }
 
 func ExampleElastiCache_ListTagsForResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -790,7 +906,11 @@ func ExampleElastiCache_ListTagsForResource() {
 }
 
 func ExampleElastiCache_ModifyCacheCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -839,7 +959,11 @@ func ExampleElastiCache_ModifyCacheCluster() {
 }
 
 func ExampleElastiCache_ModifyCacheParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -867,7 +991,11 @@ func ExampleElastiCache_ModifyCacheParameterGroup() {
 }
 
 func ExampleElastiCache_ModifyCacheSubnetGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -893,7 +1021,11 @@ func ExampleElastiCache_ModifyCacheSubnetGroup() {
 }
 
 func ExampleElastiCache_ModifyReplicationGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -936,7 +1068,11 @@ func ExampleElastiCache_ModifyReplicationGroup() {
 }
 
 func ExampleElastiCache_PurchaseReservedCacheNodesOffering() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -959,7 +1095,11 @@ func ExampleElastiCache_PurchaseReservedCacheNodesOffering() {
 }
 
 func ExampleElastiCache_RebootCacheCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -984,7 +1124,11 @@ func ExampleElastiCache_RebootCacheCluster() {
 }
 
 func ExampleElastiCache_RemoveTagsFromResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -1009,7 +1153,11 @@ func ExampleElastiCache_RemoveTagsFromResource() {
 }
 
 func ExampleElastiCache_ResetCacheParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 
@@ -1038,7 +1186,11 @@ func ExampleElastiCache_ResetCacheParameterGroup() {
 }
 
 func ExampleElastiCache_RevokeCacheSecurityGroupIngress() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticache.New(sess)
 

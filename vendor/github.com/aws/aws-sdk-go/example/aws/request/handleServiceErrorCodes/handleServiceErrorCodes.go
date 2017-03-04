@@ -32,7 +32,10 @@ func main() {
 	if len(os.Args) < 3 {
 		exitErrorf("Usage: %s <bucket> <key>", filepath.Base(os.Args[0]))
 	}
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		exitErrorf("failed to create session,", err)
+	}
 
 	svc := s3.New(sess)
 	resp, err := svc.GetObject(&s3.GetObjectInput{

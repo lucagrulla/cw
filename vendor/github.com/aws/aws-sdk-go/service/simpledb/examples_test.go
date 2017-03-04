@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleSimpleDB_BatchDeleteAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := simpledb.New(sess)
 
@@ -50,7 +54,11 @@ func ExampleSimpleDB_BatchDeleteAttributes() {
 }
 
 func ExampleSimpleDB_BatchPutAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := simpledb.New(sess)
 
@@ -85,7 +93,11 @@ func ExampleSimpleDB_BatchPutAttributes() {
 }
 
 func ExampleSimpleDB_CreateDomain() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := simpledb.New(sess)
 
@@ -106,7 +118,11 @@ func ExampleSimpleDB_CreateDomain() {
 }
 
 func ExampleSimpleDB_DeleteAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := simpledb.New(sess)
 
@@ -140,7 +156,11 @@ func ExampleSimpleDB_DeleteAttributes() {
 }
 
 func ExampleSimpleDB_DeleteDomain() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := simpledb.New(sess)
 
@@ -161,7 +181,11 @@ func ExampleSimpleDB_DeleteDomain() {
 }
 
 func ExampleSimpleDB_DomainMetadata() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := simpledb.New(sess)
 
@@ -182,7 +206,11 @@ func ExampleSimpleDB_DomainMetadata() {
 }
 
 func ExampleSimpleDB_GetAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := simpledb.New(sess)
 
@@ -209,7 +237,11 @@ func ExampleSimpleDB_GetAttributes() {
 }
 
 func ExampleSimpleDB_ListDomains() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := simpledb.New(sess)
 
@@ -231,7 +263,11 @@ func ExampleSimpleDB_ListDomains() {
 }
 
 func ExampleSimpleDB_PutAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := simpledb.New(sess)
 
@@ -266,7 +302,11 @@ func ExampleSimpleDB_PutAttributes() {
 }
 
 func ExampleSimpleDB_Select() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := simpledb.New(sess)
 

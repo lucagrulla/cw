@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleCostandUsageReportService_DeleteReportDefinition() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := costandusagereportservice.New(sess)
 
@@ -37,7 +41,11 @@ func ExampleCostandUsageReportService_DeleteReportDefinition() {
 }
 
 func ExampleCostandUsageReportService_DescribeReportDefinitions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := costandusagereportservice.New(sess)
 
@@ -59,7 +67,11 @@ func ExampleCostandUsageReportService_DescribeReportDefinitions() {
 }
 
 func ExampleCostandUsageReportService_PutReportDefinition() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := costandusagereportservice.New(sess)
 

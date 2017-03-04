@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleRDS_AddRoleToDBCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -38,7 +42,11 @@ func ExampleRDS_AddRoleToDBCluster() {
 }
 
 func ExampleRDS_AddSourceIdentifierToSubscription() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -60,7 +68,11 @@ func ExampleRDS_AddSourceIdentifierToSubscription() {
 }
 
 func ExampleRDS_AddTagsToResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -88,7 +100,11 @@ func ExampleRDS_AddTagsToResource() {
 }
 
 func ExampleRDS_ApplyPendingMaintenanceAction() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -111,7 +127,11 @@ func ExampleRDS_ApplyPendingMaintenanceAction() {
 }
 
 func ExampleRDS_AuthorizeDBSecurityGroupIngress() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -136,7 +156,11 @@ func ExampleRDS_AuthorizeDBSecurityGroupIngress() {
 }
 
 func ExampleRDS_CopyDBClusterParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -166,7 +190,11 @@ func ExampleRDS_CopyDBClusterParameterGroup() {
 }
 
 func ExampleRDS_CopyDBClusterSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -195,7 +223,11 @@ func ExampleRDS_CopyDBClusterSnapshot() {
 }
 
 func ExampleRDS_CopyDBParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -225,7 +257,11 @@ func ExampleRDS_CopyDBParameterGroup() {
 }
 
 func ExampleRDS_CopyDBSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -259,7 +295,11 @@ func ExampleRDS_CopyDBSnapshot() {
 }
 
 func ExampleRDS_CopyOptionGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -289,7 +329,11 @@ func ExampleRDS_CopyOptionGroup() {
 }
 
 func ExampleRDS_CreateDBCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -341,7 +385,11 @@ func ExampleRDS_CreateDBCluster() {
 }
 
 func ExampleRDS_CreateDBClusterParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -371,7 +419,11 @@ func ExampleRDS_CreateDBClusterParameterGroup() {
 }
 
 func ExampleRDS_CreateDBClusterSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -400,7 +452,11 @@ func ExampleRDS_CreateDBClusterSnapshot() {
 }
 
 func ExampleRDS_CreateDBInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -470,7 +526,11 @@ func ExampleRDS_CreateDBInstance() {
 }
 
 func ExampleRDS_CreateDBInstanceReadReplica() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -515,7 +575,11 @@ func ExampleRDS_CreateDBInstanceReadReplica() {
 }
 
 func ExampleRDS_CreateDBParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -545,7 +609,11 @@ func ExampleRDS_CreateDBParameterGroup() {
 }
 
 func ExampleRDS_CreateDBSecurityGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -574,7 +642,11 @@ func ExampleRDS_CreateDBSecurityGroup() {
 }
 
 func ExampleRDS_CreateDBSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -603,7 +675,11 @@ func ExampleRDS_CreateDBSnapshot() {
 }
 
 func ExampleRDS_CreateDBSubnetGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -636,7 +712,11 @@ func ExampleRDS_CreateDBSubnetGroup() {
 }
 
 func ExampleRDS_CreateEventSubscription() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -675,7 +755,11 @@ func ExampleRDS_CreateEventSubscription() {
 }
 
 func ExampleRDS_CreateOptionGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -706,7 +790,11 @@ func ExampleRDS_CreateOptionGroup() {
 }
 
 func ExampleRDS_DeleteDBCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -729,7 +817,11 @@ func ExampleRDS_DeleteDBCluster() {
 }
 
 func ExampleRDS_DeleteDBClusterParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -750,7 +842,11 @@ func ExampleRDS_DeleteDBClusterParameterGroup() {
 }
 
 func ExampleRDS_DeleteDBClusterSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -771,7 +867,11 @@ func ExampleRDS_DeleteDBClusterSnapshot() {
 }
 
 func ExampleRDS_DeleteDBInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -794,7 +894,11 @@ func ExampleRDS_DeleteDBInstance() {
 }
 
 func ExampleRDS_DeleteDBParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -815,7 +919,11 @@ func ExampleRDS_DeleteDBParameterGroup() {
 }
 
 func ExampleRDS_DeleteDBSecurityGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -836,7 +944,11 @@ func ExampleRDS_DeleteDBSecurityGroup() {
 }
 
 func ExampleRDS_DeleteDBSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -857,7 +969,11 @@ func ExampleRDS_DeleteDBSnapshot() {
 }
 
 func ExampleRDS_DeleteDBSubnetGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -878,7 +994,11 @@ func ExampleRDS_DeleteDBSubnetGroup() {
 }
 
 func ExampleRDS_DeleteEventSubscription() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -899,7 +1019,11 @@ func ExampleRDS_DeleteEventSubscription() {
 }
 
 func ExampleRDS_DeleteOptionGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -920,7 +1044,11 @@ func ExampleRDS_DeleteOptionGroup() {
 }
 
 func ExampleRDS_DescribeAccountAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -939,7 +1067,11 @@ func ExampleRDS_DescribeAccountAttributes() {
 }
 
 func ExampleRDS_DescribeCertificates() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -972,7 +1104,11 @@ func ExampleRDS_DescribeCertificates() {
 }
 
 func ExampleRDS_DescribeDBClusterParameterGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1005,7 +1141,11 @@ func ExampleRDS_DescribeDBClusterParameterGroups() {
 }
 
 func ExampleRDS_DescribeDBClusterParameters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1039,7 +1179,11 @@ func ExampleRDS_DescribeDBClusterParameters() {
 }
 
 func ExampleRDS_DescribeDBClusterSnapshotAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1060,7 +1204,11 @@ func ExampleRDS_DescribeDBClusterSnapshotAttributes() {
 }
 
 func ExampleRDS_DescribeDBClusterSnapshots() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1097,7 +1245,11 @@ func ExampleRDS_DescribeDBClusterSnapshots() {
 }
 
 func ExampleRDS_DescribeDBClusters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1130,7 +1282,11 @@ func ExampleRDS_DescribeDBClusters() {
 }
 
 func ExampleRDS_DescribeDBEngineVersions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1168,7 +1324,11 @@ func ExampleRDS_DescribeDBEngineVersions() {
 }
 
 func ExampleRDS_DescribeDBInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1201,7 +1361,11 @@ func ExampleRDS_DescribeDBInstances() {
 }
 
 func ExampleRDS_DescribeDBLogFiles() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1237,7 +1401,11 @@ func ExampleRDS_DescribeDBLogFiles() {
 }
 
 func ExampleRDS_DescribeDBParameterGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1270,7 +1438,11 @@ func ExampleRDS_DescribeDBParameterGroups() {
 }
 
 func ExampleRDS_DescribeDBParameters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1304,7 +1476,11 @@ func ExampleRDS_DescribeDBParameters() {
 }
 
 func ExampleRDS_DescribeDBSecurityGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1337,7 +1513,11 @@ func ExampleRDS_DescribeDBSecurityGroups() {
 }
 
 func ExampleRDS_DescribeDBSnapshotAttributes() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1358,7 +1538,11 @@ func ExampleRDS_DescribeDBSnapshotAttributes() {
 }
 
 func ExampleRDS_DescribeDBSnapshots() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1395,7 +1579,11 @@ func ExampleRDS_DescribeDBSnapshots() {
 }
 
 func ExampleRDS_DescribeDBSubnetGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1428,7 +1616,11 @@ func ExampleRDS_DescribeDBSubnetGroups() {
 }
 
 func ExampleRDS_DescribeEngineDefaultClusterParameters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1461,7 +1653,11 @@ func ExampleRDS_DescribeEngineDefaultClusterParameters() {
 }
 
 func ExampleRDS_DescribeEngineDefaultParameters() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1494,7 +1690,11 @@ func ExampleRDS_DescribeEngineDefaultParameters() {
 }
 
 func ExampleRDS_DescribeEventCategories() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1525,7 +1725,11 @@ func ExampleRDS_DescribeEventCategories() {
 }
 
 func ExampleRDS_DescribeEventSubscriptions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1558,7 +1762,11 @@ func ExampleRDS_DescribeEventSubscriptions() {
 }
 
 func ExampleRDS_DescribeEvents() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1599,7 +1807,11 @@ func ExampleRDS_DescribeEvents() {
 }
 
 func ExampleRDS_DescribeOptionGroupOptions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1633,7 +1845,11 @@ func ExampleRDS_DescribeOptionGroupOptions() {
 }
 
 func ExampleRDS_DescribeOptionGroups() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1668,7 +1884,11 @@ func ExampleRDS_DescribeOptionGroups() {
 }
 
 func ExampleRDS_DescribeOrderableDBInstanceOptions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1705,7 +1925,11 @@ func ExampleRDS_DescribeOrderableDBInstanceOptions() {
 }
 
 func ExampleRDS_DescribePendingMaintenanceActions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1738,7 +1962,11 @@ func ExampleRDS_DescribePendingMaintenanceActions() {
 }
 
 func ExampleRDS_DescribeReservedDBInstances() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1777,7 +2005,11 @@ func ExampleRDS_DescribeReservedDBInstances() {
 }
 
 func ExampleRDS_DescribeReservedDBInstancesOfferings() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1815,7 +2047,11 @@ func ExampleRDS_DescribeReservedDBInstancesOfferings() {
 }
 
 func ExampleRDS_DescribeSourceRegions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1848,7 +2084,11 @@ func ExampleRDS_DescribeSourceRegions() {
 }
 
 func ExampleRDS_DownloadDBLogFilePortion() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1872,7 +2112,11 @@ func ExampleRDS_DownloadDBLogFilePortion() {
 }
 
 func ExampleRDS_FailoverDBCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1894,7 +2138,11 @@ func ExampleRDS_FailoverDBCluster() {
 }
 
 func ExampleRDS_ListTagsForResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1925,7 +2173,11 @@ func ExampleRDS_ListTagsForResource() {
 }
 
 func ExampleRDS_ModifyDBCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1959,7 +2211,11 @@ func ExampleRDS_ModifyDBCluster() {
 }
 
 func ExampleRDS_ModifyDBClusterParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -1995,7 +2251,11 @@ func ExampleRDS_ModifyDBClusterParameterGroup() {
 }
 
 func ExampleRDS_ModifyDBClusterSnapshotAttribute() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2025,7 +2285,11 @@ func ExampleRDS_ModifyDBClusterSnapshotAttribute() {
 }
 
 func ExampleRDS_ModifyDBInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2083,7 +2347,11 @@ func ExampleRDS_ModifyDBInstance() {
 }
 
 func ExampleRDS_ModifyDBParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2119,7 +2387,11 @@ func ExampleRDS_ModifyDBParameterGroup() {
 }
 
 func ExampleRDS_ModifyDBSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2141,7 +2413,11 @@ func ExampleRDS_ModifyDBSnapshot() {
 }
 
 func ExampleRDS_ModifyDBSnapshotAttribute() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2171,7 +2447,11 @@ func ExampleRDS_ModifyDBSnapshotAttribute() {
 }
 
 func ExampleRDS_ModifyDBSubnetGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2197,7 +2477,11 @@ func ExampleRDS_ModifyDBSubnetGroup() {
 }
 
 func ExampleRDS_ModifyEventSubscription() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2225,7 +2509,11 @@ func ExampleRDS_ModifyEventSubscription() {
 }
 
 func ExampleRDS_ModifyOptionGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2281,7 +2569,11 @@ func ExampleRDS_ModifyOptionGroup() {
 }
 
 func ExampleRDS_PromoteReadReplica() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2304,7 +2596,11 @@ func ExampleRDS_PromoteReadReplica() {
 }
 
 func ExampleRDS_PromoteReadReplicaDBCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2325,7 +2621,11 @@ func ExampleRDS_PromoteReadReplicaDBCluster() {
 }
 
 func ExampleRDS_PurchaseReservedDBInstancesOffering() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2355,7 +2655,11 @@ func ExampleRDS_PurchaseReservedDBInstancesOffering() {
 }
 
 func ExampleRDS_RebootDBInstance() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2377,7 +2681,11 @@ func ExampleRDS_RebootDBInstance() {
 }
 
 func ExampleRDS_RemoveRoleFromDBCluster() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2399,7 +2707,11 @@ func ExampleRDS_RemoveRoleFromDBCluster() {
 }
 
 func ExampleRDS_RemoveSourceIdentifierFromSubscription() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2421,7 +2733,11 @@ func ExampleRDS_RemoveSourceIdentifierFromSubscription() {
 }
 
 func ExampleRDS_RemoveTagsFromResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2446,7 +2762,11 @@ func ExampleRDS_RemoveTagsFromResource() {
 }
 
 func ExampleRDS_ResetDBClusterParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2483,7 +2803,11 @@ func ExampleRDS_ResetDBClusterParameterGroup() {
 }
 
 func ExampleRDS_ResetDBParameterGroup() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2520,7 +2844,11 @@ func ExampleRDS_ResetDBParameterGroup() {
 }
 
 func ExampleRDS_RestoreDBClusterFromS3() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2576,7 +2904,11 @@ func ExampleRDS_RestoreDBClusterFromS3() {
 }
 
 func ExampleRDS_RestoreDBClusterFromSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2620,7 +2952,11 @@ func ExampleRDS_RestoreDBClusterFromSnapshot() {
 }
 
 func ExampleRDS_RestoreDBClusterToPointInTime() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2659,7 +2995,11 @@ func ExampleRDS_RestoreDBClusterToPointInTime() {
 }
 
 func ExampleRDS_RestoreDBInstanceFromDBSnapshot() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2706,7 +3046,11 @@ func ExampleRDS_RestoreDBInstanceFromDBSnapshot() {
 }
 
 func ExampleRDS_RestoreDBInstanceToPointInTime() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 
@@ -2755,7 +3099,11 @@ func ExampleRDS_RestoreDBInstanceToPointInTime() {
 }
 
 func ExampleRDS_RevokeDBSecurityGroupIngress() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := rds.New(sess)
 

@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleDirectConnect_AllocateConnectionOnInterconnect() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -41,7 +45,11 @@ func ExampleDirectConnect_AllocateConnectionOnInterconnect() {
 }
 
 func ExampleDirectConnect_AllocateHostedConnection() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -66,7 +74,11 @@ func ExampleDirectConnect_AllocateHostedConnection() {
 }
 
 func ExampleDirectConnect_AllocatePrivateVirtualInterface() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -97,7 +109,11 @@ func ExampleDirectConnect_AllocatePrivateVirtualInterface() {
 }
 
 func ExampleDirectConnect_AllocatePublicVirtualInterface() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -134,7 +150,11 @@ func ExampleDirectConnect_AllocatePublicVirtualInterface() {
 }
 
 func ExampleDirectConnect_AssociateConnectionWithLag() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -156,7 +176,11 @@ func ExampleDirectConnect_AssociateConnectionWithLag() {
 }
 
 func ExampleDirectConnect_AssociateHostedConnection() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -178,7 +202,11 @@ func ExampleDirectConnect_AssociateHostedConnection() {
 }
 
 func ExampleDirectConnect_AssociateVirtualInterface() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -200,7 +228,11 @@ func ExampleDirectConnect_AssociateVirtualInterface() {
 }
 
 func ExampleDirectConnect_ConfirmConnection() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -221,7 +253,11 @@ func ExampleDirectConnect_ConfirmConnection() {
 }
 
 func ExampleDirectConnect_ConfirmPrivateVirtualInterface() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -243,7 +279,11 @@ func ExampleDirectConnect_ConfirmPrivateVirtualInterface() {
 }
 
 func ExampleDirectConnect_ConfirmPublicVirtualInterface() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -264,7 +304,11 @@ func ExampleDirectConnect_ConfirmPublicVirtualInterface() {
 }
 
 func ExampleDirectConnect_CreateBGPPeer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -292,7 +336,11 @@ func ExampleDirectConnect_CreateBGPPeer() {
 }
 
 func ExampleDirectConnect_CreateConnection() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -316,7 +364,11 @@ func ExampleDirectConnect_CreateConnection() {
 }
 
 func ExampleDirectConnect_CreateInterconnect() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -340,7 +392,11 @@ func ExampleDirectConnect_CreateInterconnect() {
 }
 
 func ExampleDirectConnect_CreateLag() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -365,7 +421,11 @@ func ExampleDirectConnect_CreateLag() {
 }
 
 func ExampleDirectConnect_CreatePrivateVirtualInterface() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -396,7 +456,11 @@ func ExampleDirectConnect_CreatePrivateVirtualInterface() {
 }
 
 func ExampleDirectConnect_CreatePublicVirtualInterface() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -432,7 +496,11 @@ func ExampleDirectConnect_CreatePublicVirtualInterface() {
 }
 
 func ExampleDirectConnect_DeleteBGPPeer() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -455,7 +523,11 @@ func ExampleDirectConnect_DeleteBGPPeer() {
 }
 
 func ExampleDirectConnect_DeleteConnection() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -476,7 +548,11 @@ func ExampleDirectConnect_DeleteConnection() {
 }
 
 func ExampleDirectConnect_DeleteInterconnect() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -497,7 +573,11 @@ func ExampleDirectConnect_DeleteInterconnect() {
 }
 
 func ExampleDirectConnect_DeleteLag() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -518,7 +598,11 @@ func ExampleDirectConnect_DeleteLag() {
 }
 
 func ExampleDirectConnect_DeleteVirtualInterface() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -539,7 +623,11 @@ func ExampleDirectConnect_DeleteVirtualInterface() {
 }
 
 func ExampleDirectConnect_DescribeConnectionLoa() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -562,7 +650,11 @@ func ExampleDirectConnect_DescribeConnectionLoa() {
 }
 
 func ExampleDirectConnect_DescribeConnections() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -583,7 +675,11 @@ func ExampleDirectConnect_DescribeConnections() {
 }
 
 func ExampleDirectConnect_DescribeConnectionsOnInterconnect() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -604,7 +700,11 @@ func ExampleDirectConnect_DescribeConnectionsOnInterconnect() {
 }
 
 func ExampleDirectConnect_DescribeHostedConnections() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -625,7 +725,11 @@ func ExampleDirectConnect_DescribeHostedConnections() {
 }
 
 func ExampleDirectConnect_DescribeInterconnectLoa() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -648,7 +752,11 @@ func ExampleDirectConnect_DescribeInterconnectLoa() {
 }
 
 func ExampleDirectConnect_DescribeInterconnects() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -669,7 +777,11 @@ func ExampleDirectConnect_DescribeInterconnects() {
 }
 
 func ExampleDirectConnect_DescribeLags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -690,7 +802,11 @@ func ExampleDirectConnect_DescribeLags() {
 }
 
 func ExampleDirectConnect_DescribeLoa() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -713,7 +829,11 @@ func ExampleDirectConnect_DescribeLoa() {
 }
 
 func ExampleDirectConnect_DescribeLocations() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -732,7 +852,11 @@ func ExampleDirectConnect_DescribeLocations() {
 }
 
 func ExampleDirectConnect_DescribeTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -756,7 +880,11 @@ func ExampleDirectConnect_DescribeTags() {
 }
 
 func ExampleDirectConnect_DescribeVirtualGateways() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -775,7 +903,11 @@ func ExampleDirectConnect_DescribeVirtualGateways() {
 }
 
 func ExampleDirectConnect_DescribeVirtualInterfaces() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -797,7 +929,11 @@ func ExampleDirectConnect_DescribeVirtualInterfaces() {
 }
 
 func ExampleDirectConnect_DisassociateConnectionFromLag() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -819,7 +955,11 @@ func ExampleDirectConnect_DisassociateConnectionFromLag() {
 }
 
 func ExampleDirectConnect_TagResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -847,7 +987,11 @@ func ExampleDirectConnect_TagResource() {
 }
 
 func ExampleDirectConnect_UntagResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 
@@ -872,7 +1016,11 @@ func ExampleDirectConnect_UntagResource() {
 }
 
 func ExampleDirectConnect_UpdateLag() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := directconnect.New(sess)
 

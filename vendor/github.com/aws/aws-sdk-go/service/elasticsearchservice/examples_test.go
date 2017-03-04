@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleElasticsearchService_AddTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticsearchservice.New(sess)
 
@@ -44,7 +48,11 @@ func ExampleElasticsearchService_AddTags() {
 }
 
 func ExampleElasticsearchService_CreateElasticsearchDomain() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticsearchservice.New(sess)
 
@@ -88,7 +96,11 @@ func ExampleElasticsearchService_CreateElasticsearchDomain() {
 }
 
 func ExampleElasticsearchService_DeleteElasticsearchDomain() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticsearchservice.New(sess)
 
@@ -109,7 +121,11 @@ func ExampleElasticsearchService_DeleteElasticsearchDomain() {
 }
 
 func ExampleElasticsearchService_DescribeElasticsearchDomain() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticsearchservice.New(sess)
 
@@ -130,7 +146,11 @@ func ExampleElasticsearchService_DescribeElasticsearchDomain() {
 }
 
 func ExampleElasticsearchService_DescribeElasticsearchDomainConfig() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticsearchservice.New(sess)
 
@@ -151,7 +171,11 @@ func ExampleElasticsearchService_DescribeElasticsearchDomainConfig() {
 }
 
 func ExampleElasticsearchService_DescribeElasticsearchDomains() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticsearchservice.New(sess)
 
@@ -174,31 +198,12 @@ func ExampleElasticsearchService_DescribeElasticsearchDomains() {
 	fmt.Println(resp)
 }
 
-func ExampleElasticsearchService_DescribeElasticsearchInstanceTypeLimits() {
-	sess := session.Must(session.NewSession())
-
-	svc := elasticsearchservice.New(sess)
-
-	params := &elasticsearchservice.DescribeElasticsearchInstanceTypeLimitsInput{
-		ElasticsearchVersion: aws.String("ElasticsearchVersionString"), // Required
-		InstanceType:         aws.String("ESPartitionInstanceType"),    // Required
-		DomainName:           aws.String("DomainName"),
-	}
-	resp, err := svc.DescribeElasticsearchInstanceTypeLimits(params)
-
+func ExampleElasticsearchService_ListDomainNames() {
+	sess, err := session.NewSession()
 	if err != nil {
-		// Print the error, cast err to awserr.Error to get the Code and
-		// Message from an error.
-		fmt.Println(err.Error())
+		fmt.Println("failed to create session,", err)
 		return
 	}
-
-	// Pretty-print the response data.
-	fmt.Println(resp)
-}
-
-func ExampleElasticsearchService_ListDomainNames() {
-	sess := session.Must(session.NewSession())
 
 	svc := elasticsearchservice.New(sess)
 
@@ -216,54 +221,12 @@ func ExampleElasticsearchService_ListDomainNames() {
 	fmt.Println(resp)
 }
 
-func ExampleElasticsearchService_ListElasticsearchInstanceTypes() {
-	sess := session.Must(session.NewSession())
-
-	svc := elasticsearchservice.New(sess)
-
-	params := &elasticsearchservice.ListElasticsearchInstanceTypesInput{
-		ElasticsearchVersion: aws.String("ElasticsearchVersionString"), // Required
-		DomainName:           aws.String("DomainName"),
-		MaxResults:           aws.Int64(1),
-		NextToken:            aws.String("NextToken"),
-	}
-	resp, err := svc.ListElasticsearchInstanceTypes(params)
-
-	if err != nil {
-		// Print the error, cast err to awserr.Error to get the Code and
-		// Message from an error.
-		fmt.Println(err.Error())
-		return
-	}
-
-	// Pretty-print the response data.
-	fmt.Println(resp)
-}
-
-func ExampleElasticsearchService_ListElasticsearchVersions() {
-	sess := session.Must(session.NewSession())
-
-	svc := elasticsearchservice.New(sess)
-
-	params := &elasticsearchservice.ListElasticsearchVersionsInput{
-		MaxResults: aws.Int64(1),
-		NextToken:  aws.String("NextToken"),
-	}
-	resp, err := svc.ListElasticsearchVersions(params)
-
-	if err != nil {
-		// Print the error, cast err to awserr.Error to get the Code and
-		// Message from an error.
-		fmt.Println(err.Error())
-		return
-	}
-
-	// Pretty-print the response data.
-	fmt.Println(resp)
-}
-
 func ExampleElasticsearchService_ListTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticsearchservice.New(sess)
 
@@ -284,7 +247,11 @@ func ExampleElasticsearchService_ListTags() {
 }
 
 func ExampleElasticsearchService_RemoveTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticsearchservice.New(sess)
 
@@ -309,7 +276,11 @@ func ExampleElasticsearchService_RemoveTags() {
 }
 
 func ExampleElasticsearchService_UpdateElasticsearchDomainConfig() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := elasticsearchservice.New(sess)
 

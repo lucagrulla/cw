@@ -16,7 +16,11 @@ var _ time.Duration
 var _ bytes.Buffer
 
 func ExampleCloudFront_CreateCloudFrontOriginAccessIdentity() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -40,7 +44,11 @@ func ExampleCloudFront_CreateCloudFrontOriginAccessIdentity() {
 }
 
 func ExampleCloudFront_CreateDistribution() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -293,7 +301,11 @@ func ExampleCloudFront_CreateDistribution() {
 }
 
 func ExampleCloudFront_CreateDistributionWithTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -557,7 +569,11 @@ func ExampleCloudFront_CreateDistributionWithTags() {
 }
 
 func ExampleCloudFront_CreateInvalidation() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -588,7 +604,11 @@ func ExampleCloudFront_CreateInvalidation() {
 }
 
 func ExampleCloudFront_CreateStreamingDistribution() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -638,7 +658,11 @@ func ExampleCloudFront_CreateStreamingDistribution() {
 }
 
 func ExampleCloudFront_CreateStreamingDistributionWithTags() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -699,7 +723,11 @@ func ExampleCloudFront_CreateStreamingDistributionWithTags() {
 }
 
 func ExampleCloudFront_DeleteCloudFrontOriginAccessIdentity() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -721,7 +749,11 @@ func ExampleCloudFront_DeleteCloudFrontOriginAccessIdentity() {
 }
 
 func ExampleCloudFront_DeleteDistribution() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -743,7 +775,11 @@ func ExampleCloudFront_DeleteDistribution() {
 }
 
 func ExampleCloudFront_DeleteStreamingDistribution() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -765,7 +801,11 @@ func ExampleCloudFront_DeleteStreamingDistribution() {
 }
 
 func ExampleCloudFront_GetCloudFrontOriginAccessIdentity() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -786,7 +826,11 @@ func ExampleCloudFront_GetCloudFrontOriginAccessIdentity() {
 }
 
 func ExampleCloudFront_GetCloudFrontOriginAccessIdentityConfig() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -807,7 +851,11 @@ func ExampleCloudFront_GetCloudFrontOriginAccessIdentityConfig() {
 }
 
 func ExampleCloudFront_GetDistribution() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -828,7 +876,11 @@ func ExampleCloudFront_GetDistribution() {
 }
 
 func ExampleCloudFront_GetDistributionConfig() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -849,7 +901,11 @@ func ExampleCloudFront_GetDistributionConfig() {
 }
 
 func ExampleCloudFront_GetInvalidation() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -871,7 +927,11 @@ func ExampleCloudFront_GetInvalidation() {
 }
 
 func ExampleCloudFront_GetStreamingDistribution() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -892,7 +952,11 @@ func ExampleCloudFront_GetStreamingDistribution() {
 }
 
 func ExampleCloudFront_GetStreamingDistributionConfig() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -913,7 +977,11 @@ func ExampleCloudFront_GetStreamingDistributionConfig() {
 }
 
 func ExampleCloudFront_ListCloudFrontOriginAccessIdentities() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -935,7 +1003,11 @@ func ExampleCloudFront_ListCloudFrontOriginAccessIdentities() {
 }
 
 func ExampleCloudFront_ListDistributions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -957,7 +1029,11 @@ func ExampleCloudFront_ListDistributions() {
 }
 
 func ExampleCloudFront_ListDistributionsByWebACLId() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -980,7 +1056,11 @@ func ExampleCloudFront_ListDistributionsByWebACLId() {
 }
 
 func ExampleCloudFront_ListInvalidations() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -1003,7 +1083,11 @@ func ExampleCloudFront_ListInvalidations() {
 }
 
 func ExampleCloudFront_ListStreamingDistributions() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -1025,7 +1109,11 @@ func ExampleCloudFront_ListStreamingDistributions() {
 }
 
 func ExampleCloudFront_ListTagsForResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -1046,7 +1134,11 @@ func ExampleCloudFront_ListTagsForResource() {
 }
 
 func ExampleCloudFront_TagResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -1076,7 +1168,11 @@ func ExampleCloudFront_TagResource() {
 }
 
 func ExampleCloudFront_UntagResource() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -1103,7 +1199,11 @@ func ExampleCloudFront_UntagResource() {
 }
 
 func ExampleCloudFront_UpdateCloudFrontOriginAccessIdentity() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -1129,7 +1229,11 @@ func ExampleCloudFront_UpdateCloudFrontOriginAccessIdentity() {
 }
 
 func ExampleCloudFront_UpdateDistribution() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
@@ -1384,7 +1488,11 @@ func ExampleCloudFront_UpdateDistribution() {
 }
 
 func ExampleCloudFront_UpdateStreamingDistribution() {
-	sess := session.Must(session.NewSession())
+	sess, err := session.NewSession()
+	if err != nil {
+		fmt.Println("failed to create session,", err)
+		return
+	}
 
 	svc := cloudfront.New(sess)
 
