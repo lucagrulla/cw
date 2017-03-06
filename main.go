@@ -15,6 +15,7 @@ var (
 
 	tailCommand  = kingpin.Command("tail", "Tail a log group")
 	follow       = tailCommand.Flag("follow", "Don't stop when the end of stream is reached").Short('f').Default("false").Bool()
+	grep         = tailCommand.Flag("grep", "Pattern to filter logs by").Short('g').Default("").String()
 	logGroupName = tailCommand.Arg("group", "The log group name").Required().String()
 	startTime    = tailCommand.Arg("start", "The tailing start time in the format 2017-02-27[T09:00:[00]]").Default(time.Now().Add(-30 * time.Second).Format(timeutil.TimeFormat)).String()
 	endTime      = tailCommand.Arg("end", "The tailing end time in the format 2017-02-27[T09:00:[00]]").String()
@@ -52,6 +53,6 @@ func main() {
 	case "tail":
 		st := timestampShortcut(startTime)
 		et := timestampShortcut(endTime)
-		cloudwatch.Tail(logGroupName, follow, &st, &et, streamName)
+		cloudwatch.Tail(logGroupName, follow, &st, &et, streamName, grep)
 	}
 }

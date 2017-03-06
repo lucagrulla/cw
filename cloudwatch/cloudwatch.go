@@ -2,7 +2,9 @@ package cloudwatch
 
 import (
 	"fmt"
+	"os"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/lucagrulla/cw/timeutil"
@@ -21,7 +23,7 @@ func cwClient() *cloudwatchlogs.CloudWatchLogs {
 	return cloudwatchlogs.New(sess, aws.NewConfig().WithRegion("eu-west-1"))
 }
 
-func params(logGroupName string, streamName string, epochStartTime int64, epochEndTime int64) *cloudwatchlogs.FilterLogEventsInput {
+func params(logGroupName string, streamName string, epochStartTime int64, epochEndTime int64, grep string) *cloudwatchlogs.FilterLogEventsInput {
 	startTimeInt64 := epochStartTime * 1000
 	endTimeInt64 := epochEndTime * 1000
 	params := &cloudwatchlogs.FilterLogEventsInput{
@@ -29,16 +31,21 @@ func params(logGroupName string, streamName string, epochStartTime int64, epochE
 		Interleaved:  aws.Bool(true),
 		StartTime:    &startTimeInt64}
 
+	if grep != "" {
+		params.FilterPattern = &grep
+	}
+
 	if streamName != "" {
 		params.LogStreamNames = []*string{aws.String(streamName)}
 	}
+
 	if endTimeInt64 != 0 {
 		params.EndTime = &endTimeInt64
 	}
 	return params
 }
 
-func Tail(logGroupName *string, follow *bool, startTime *string, endTime *string, streamName *string) {
+func Tail(logGroupName *string, follow *bool, startTime *string, endTime *string, streamName *string, grep *string) {
 	cwl := cwClient()
 	startTimeEpoch := timeutil.ParseTime(*startTime).Unix()
 	lastTimestamp := startTimeEpoch
@@ -74,10 +81,16 @@ func Tail(logGroupName *string, follow *bool, startTime *string, endTime *string
 	}
 
 	for *follow || (lastTimestamp == startTimeEpoch) {
-		logParam := params(*logGroupName, *streamName, lastTimestamp, endTimeEpoch)
+		logParam := params(*logGroupName, *streamName, lastTimestamp, endTimeEpoch, *grep)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
 		if error != nil {
-			panic(error)
+			if strings.Contains(error.Error(), "InvalidParameterException: Invalid filter pattern") {
+				fmt.Fprintln(os.Stderr, "Invalid filter pattern: see AWS docs for syntax at")
+				fmt.Fprintln(os.Stderr, "http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html")
+				os.Exit(1)
+			} else {
+				panic(error)
+			}
 		}
 	}
 }
