@@ -18,6 +18,10 @@ On Mac OSX:
 * `brew tap lucagrulla/cw`
 * `brew install cw`
 
+Using go tools:
+
+`go get github.com/lucagrulla/cw`
+
 ## TODOs:
 
 * ~~fix bug for long polling once events are finished(currently we print again a last chunk of alerts)~~
