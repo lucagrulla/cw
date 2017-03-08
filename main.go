@@ -44,7 +44,7 @@ func timestampShortcut(timeStamp *string) string {
 }
 
 func main() {
-	kingpin.Version("0.1.2")
+	kingpin.Version("0.1.5")
 	command := kingpin.Parse()
 
 	switch command {
