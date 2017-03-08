@@ -26,5 +26,5 @@ Using go tools:
 * ~~fix bug for long polling once events are finished(currently we print again a last chunk of alerts)~~
 * ~~add an optionl end date for time window~~
 * ~~allow more flexible startTime format(no seconds means 00, no minutes means 00:00)~~
-* ~~add coloured output__
+* ~~add coloured output~~
 * ~~add brew recipe~~
