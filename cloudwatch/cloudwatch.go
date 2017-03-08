@@ -84,13 +84,7 @@ func Tail(logGroupName *string, follow *bool, startTime *string, endTime *string
 		logParam := params(*logGroupName, *streamName, lastTimestamp, endTimeEpoch, *grep)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
 		if error != nil {
-			if strings.Contains(error.Error(), "InvalidParameterException: Invalid filter pattern") {
-				fmt.Fprintln(os.Stderr, "Invalid filter pattern: see AWS docs for syntax at")
-				fmt.Fprintln(os.Stderr, "http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html")
-				os.Exit(1)
-			} else {
 				panic(error)
-			}
 		}
 	}
 }
