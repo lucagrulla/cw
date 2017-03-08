@@ -2,9 +2,7 @@ package cloudwatch
 
 import (
 	"fmt"
-	"os"
 	"sort"
-	"strings"
 	"time"
 
 	"github.com/lucagrulla/cw/timeutil"
