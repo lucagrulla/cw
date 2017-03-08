@@ -1,15 +1,13 @@
 # cw
 
-Tired of not being able to easily tail your AWS CloudWatch? Give cw a go!
-
-cw it's a CLI tool for an easier interaction with AWS CloudWatch. 
+Tired of not being able to easily tail your AWS CloudWatch Logs? Give `cw` a go!
 
 It provides commands for:
 
-* tail a given log group/stream
 * list of the available log groups
+* tail a given log group/stream
 
-`cw` uses the default credentials profile(stored in .aws) to authenticate against AWS.
+`cw` uses the default credentials profile(stored in ./aws) to authenticate against AWS.
  
 ## Installation
 
@@ -24,8 +22,9 @@ Using go tools:
 
 ## TODOs:
 
+* throttle AWS API request so that not to exceed rate limit
 * ~~fix bug for long polling once events are finished(currently we print again a last chunk of alerts)~~
 * ~~add an optionl end date for time window~~
 * ~~allow more flexible startTime format(no seconds means 00, no minutes means 00:00)~~
-* add coloured output
+* ~~add coloured output__
 * ~~add brew recipe~~
