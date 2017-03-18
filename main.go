@@ -1,6 +1,9 @@
 package main
 
 import (
+	//"fmt"
+	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -10,7 +13,7 @@ import (
 )
 
 var (
-	lsCommand       = kingpin.Command("ls", "Show all log groups.")
+	lsCommand = kingpin.Command("ls", "Show all log groups.")
 	//logGroupPattern = lsCommand.Arg("group", "The log group name.").String()
 
 	tailCommand  = kingpin.Command("tail", "Tail a log group")
@@ -23,24 +26,24 @@ var (
 )
 
 func timestampShortcut(timeStamp *string) string {
-	if *timeStamp == "" {
-		return *timeStamp
-	}
-	tokens := strings.Split(*timeStamp, "T")
-	if len(tokens) == 1 {
+	if regexp.MustCompile("\\d{4}-\\d{2}-\\d{2}").MatchString(*timeStamp) {
 		return strings.Join([]string{*timeStamp, "00:00:00"}, "T")
-	} else {
-		time := strings.Split(tokens[1], ":")
-		switch len(time) {
-		case 1:
-			return strings.Join([]string{*timeStamp, "00:00"}, ":")
-		case 2:
-			return strings.Join([]string{*timeStamp, "00"}, ":")
-		default:
-			return *timeStamp
-		}
+	}
+	if regexp.MustCompile("\\d{4}-\\d{2}-\\d{2}T\\d{2}").MatchString(*timeStamp) {
+		return strings.Join([]string{*timeStamp, "00:00"}, ":")
+	}
+	if regexp.MustCompile("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}").MatchString(*timeStamp) {
+		return strings.Join([]string{*timeStamp, "00"}, ":")
+	}
+	if regexp.MustCompile("\\d{2}").MatchString(*timeStamp) {
+		y, m, d := time.Now().Date()
+		t, _ := strconv.Atoi(*timeStamp)
+		c := time.Date(y, m, d, t, 0, 0, 0, time.UTC)
+
+		return c.Format(timeutil.TimeFormat)
 
 	}
+	return *timeStamp
 }
 
 func main() {
@@ -53,6 +56,7 @@ func main() {
 	case "tail":
 		st := timestampShortcut(startTime)
 		et := timestampShortcut(endTime)
+		//		fmt.Println(st, et)
 		cloudwatch.Tail(logGroupName, follow, &st, &et, streamName, grep)
 	}
 }
