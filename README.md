@@ -5,11 +5,11 @@ A simpler way to tail AWS Cloudwatch Logs
 It provides commands for:
 
 * list of the available log groups
-** `cw ls`
+  * `cw ls`
 * tail a given log group/stream
-** `cw tail my-log-group 2017-01-01T08:10:10 2017-01-01T08:05:00`
-** `cw tail -f my-log-group` 
-** `cw tail -f my-log-group 9:00 9:01`
+  * `cw tail my-log-group 2017-01-01T08:10:10 2017-01-01T08:05:00`
+  * `cw tail -f my-log-group` 
+  * `cw tail -f my-log-group 9:00 9:01`
 
 `cw` uses the default credentials profile(stored in ./aws) to authenticate against AWS.
  
