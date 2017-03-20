@@ -1,7 +1,7 @@
 package main
 
 import (
-	//"fmt"
+	//	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -26,23 +26,35 @@ var (
 )
 
 func timestampShortcut(timeStamp *string) string {
-	if regexp.MustCompile("\\d{4}-\\d{2}-\\d{2}").MatchString(*timeStamp) {
+	if regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}$").MatchString(*timeStamp) {
 		return strings.Join([]string{*timeStamp, "00:00:00"}, "T")
 	}
-	if regexp.MustCompile("\\d{4}-\\d{2}-\\d{2}T\\d{2}").MatchString(*timeStamp) {
+	if regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}T\\d{2}$").MatchString(*timeStamp) {
 		return strings.Join([]string{*timeStamp, "00:00"}, ":")
 	}
-	if regexp.MustCompile("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}").MatchString(*timeStamp) {
+	if regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}$").MatchString(*timeStamp) {
 		return strings.Join([]string{*timeStamp, "00"}, ":")
 	}
-	if regexp.MustCompile("\\d{2}").MatchString(*timeStamp) {
+	if regexp.MustCompile("^\\d{1,2}$").MatchString(*timeStamp) {
 		y, m, d := time.Now().Date()
 		t, _ := strconv.Atoi(*timeStamp)
 		c := time.Date(y, m, d, t, 0, 0, 0, time.UTC)
 
 		return c.Format(timeutil.TimeFormat)
-
 	}
+
+	res := regexp.MustCompile(`(?P<Hour>\d{1,2}):(?P<Minute>\d{2})`).FindStringSubmatch(*timeStamp)
+	if res != nil {
+		y, m, d := time.Now().Date()
+
+		t, _ := strconv.Atoi(res[1])
+		mm, _ := strconv.Atoi(res[2])
+
+		c := time.Date(y, m, d, t, mm, 0, 0, time.UTC)
+
+		return c.Format(timeutil.TimeFormat)
+	}
+
 	return *timeStamp
 }
 
