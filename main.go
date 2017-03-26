@@ -1,7 +1,7 @@
 package main
 
 import (
-	//	"fmt"
+		//"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -20,7 +20,8 @@ var (
 	follow       = tailCommand.Flag("follow", "Don't stop when the end of stream is reached.").Short('f').Default("false").Bool()
 	grep         = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").Short('g').Default("").String()
 	logGroupName = tailCommand.Arg("group", "The log group name.").Required().String()
-	startTime    = tailCommand.Arg("start", "The tailing start time. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").Default(time.Now().Add(-30 * time.Second).Format(timeutil.TimeFormat)).String()
+	startTime    = tailCommand.Arg("start", "The tailing start time. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").
+	Default(time.Now().UTC().Add(-30 * time.Second).Format(timeutil.TimeFormat)).String()
 	endTime      = tailCommand.Arg("end", "The tailing end time. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").String()
 	streamName   = tailCommand.Arg("stream", "An optional stream name.").String()
 )
@@ -59,7 +60,7 @@ func timestampShortcut(timeStamp *string) string {
 }
 
 func main() {
-	kingpin.Version("0.2.1")
+	kingpin.Version("0.2.2")
 	command := kingpin.Parse()
 
 	switch command {

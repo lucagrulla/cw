@@ -57,7 +57,7 @@ func Tail(logGroupName *string, follow *bool, startTime *string, endTime *string
 
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		if len(res.Events) == 0 {
-			time.Sleep(1 * time.Second)
+			time.Sleep(2 * time.Second)
 		} else {
 			for _, event := range res.Events {
 				eventTimestamp := *event.Timestamp / 1000
