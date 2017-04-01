@@ -1,5 +1,5 @@
 {
-    "memo": "40211cb11c2e3a876d2e6b617cf5ff378e33f3ebad187d4c4b4eba1682da7ea3",
+    "memo": "455f5613b5c9937a242bef51595f8b9a923a1ea4ccecdfbf6a203e990998f616",
     "projects": [
         {
             "name": "github.com/alecthomas/template",
@@ -25,6 +25,14 @@
                 "aws",
                 "aws/session",
                 "service/cloudwatchlogs"
+            ]
+        },
+        {
+            "name": "github.com/davecgh/go-spew",
+            "version": "v1.1.0",
+            "revision": "346938d642f2ec3594ed81d874461961cd0faa76",
+            "packages": [
+                "spew"
             ]
         },
         {
@@ -65,6 +73,22 @@
             "revision": "dda3de49cbfcec471bd7a70e6cc01fcc3ff90109",
             "packages": [
                 "."
+            ]
+        },
+        {
+            "name": "github.com/pmezard/go-difflib",
+            "version": "v1.0.0",
+            "revision": "792786c7400a136282c1664665ae0a8db921c6c2",
+            "packages": [
+                "difflib"
+            ]
+        },
+        {
+            "name": "github.com/stretchr/testify",
+            "version": "v1.1.4",
+            "revision": "69483b4bd14f5845b5a1e55bca19e954e827f1d0",
+            "packages": [
+                "assert"
             ]
         },
         {

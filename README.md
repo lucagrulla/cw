@@ -11,7 +11,7 @@ It provides commands for:
   * `cw tail -f my-log-group` 
   * `cw tail -f my-log-group 9:00 9:01`
 
-`cw` uses the default credentials profile(stored in ./aws) to authenticate against AWS.
+`cw` uses the default credentials profile(stored in ./aws) to authenticate against AWS. Time and dates are always treated in UtC.
  
 ## Installation
 

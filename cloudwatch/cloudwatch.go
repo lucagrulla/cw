@@ -43,14 +43,14 @@ func params(logGroupName string, streamName string, epochStartTime int64, epochE
 	return params
 }
 
-func Tail(logGroupName *string, follow *bool, startTime *string, endTime *string, streamName *string, grep *string) {
+func Tail(logGroupName *string, follow *bool, startTime *time.Time, endTime *time.Time, streamName *string, grep *string) {
 	cwl := cwClient()
-	startTimeEpoch := timeutil.ParseTime(*startTime).Unix()
+	startTimeEpoch := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix()
 	lastTimestamp := startTimeEpoch
 
 	var endTimeEpoch int64
-	if *endTime != "" {
-		endTimeEpoch = timeutil.ParseTime(*endTime).Unix()
+	if !endTime.IsZero() {
+		endTimeEpoch = timeutil.ParseTime(endTime.Format(timeutil.TimeFormat)).Unix()
 	}
 
 	var ids []string
@@ -82,7 +82,7 @@ func Tail(logGroupName *string, follow *bool, startTime *string, endTime *string
 		logParam := params(*logGroupName, *streamName, lastTimestamp, endTimeEpoch, *grep)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
 		if error != nil {
-				panic(error)
+			panic(error)
 		}
 	}
 }
