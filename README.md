@@ -25,7 +25,7 @@ Using go tools:
 `go get github.com/lucagrulla/cw`
 
 ## TODOs:
-
+* make the usage of log group+leg stream easier
 * throttle AWS API request so that not to exceed rate limit
 * ~~fix bug for long polling once events are finished(currently we print again a last chunk of alerts)~~
 * ~~add an optionl end date for time window~~
