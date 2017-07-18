@@ -87,7 +87,7 @@ func Tail(logGroupName *string, follow *bool, startTime *time.Time, endTime *tim
 	}
 }
 
-func Ls() {
+func LsGroups() {
 	cwl := cwClient()
 	params := &cloudwatchlogs.DescribeLogGroupsInput{
 	//		LogGroupNamePrefix: aws.String("LogGroupName"),
@@ -100,6 +100,23 @@ func Ls() {
 		return true
 	}
 	err := cwl.DescribeLogGroupsPages(params, handler)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func LsStreams(groupName *string) {
+	cwl := cwClient()
+	params := &cloudwatchlogs.DescribeLogStreamsInput{
+		LogGroupName: groupName}
+	handler := func(res *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
+		for _, logStream := range res.LogStreams {
+			fmt.Println(*logStream.LogStreamName)
+		}
+		return true
+	}
+
+	err := cwl.DescribeLogStreamsPages(params, handler)
 	if err != nil {
 		panic(err)
 	}

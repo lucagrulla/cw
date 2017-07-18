@@ -12,7 +12,10 @@ import (
 )
 
 var (
-	lsCommand = kingpin.Command("ls", "Show all log groups.")
+	lsCommand      = kingpin.Command("ls", "Show an entity")
+	lsGroups       = lsCommand.Command("groups", "Show all groups.")
+	lsStreams      = lsCommand.Command("streams", "Show all streams in a given log group.")
+	lsLogGroupName = lsStreams.Arg("group", "the group name").Required().String()
 	//logGroupPattern = lsCommand.Arg("group", "The log group name.").String()
 
 	tailCommand  = kingpin.Command("tail", "Tail a log group")
@@ -55,12 +58,14 @@ func timestampToUTC(timeStamp *string) time.Time {
 }
 
 func main() {
-	kingpin.Version("0.2.3")
+	kingpin.Version("1.0.0")
 	command := kingpin.Parse()
 
 	switch command {
-	case "ls":
-		cloudwatch.Ls()
+	case "ls groups":
+		cloudwatch.LsGroups()
+	case "ls streams":
+		cloudwatch.LsStreams(lsLogGroupName)
 	case "tail":
 		st := timestampToUTC(startTime)
 		var et time.Time
