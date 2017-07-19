@@ -14,14 +14,13 @@ import (
 )
 
 func cwClient() *cloudwatchlogs.CloudWatchLogs {
-	sess, err := session.NewSession()
-	if err != nil {
-		panic(err)
-	}
-	return cloudwatchlogs.New(sess, aws.NewConfig().WithRegion("eu-west-1"))
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}))
+	return cloudwatchlogs.New(sess)
 }
 
-func params(logGroupName string, streamName string, epochStartTime int64, epochEndTime int64, grep string) *cloudwatchlogs.FilterLogEventsInput {
+func params(logGroupName string, streamNames []*string, epochStartTime int64, epochEndTime int64, grep string) *cloudwatchlogs.FilterLogEventsInput {
 	startTimeInt64 := epochStartTime * 1000
 	endTimeInt64 := epochEndTime * 1000
 	params := &cloudwatchlogs.FilterLogEventsInput{
@@ -33,8 +32,8 @@ func params(logGroupName string, streamName string, epochStartTime int64, epochE
 		params.FilterPattern = &grep
 	}
 
-	if streamName != "" {
-		params.LogStreamNames = []*string{aws.String(streamName)}
+	if streamNames != nil {
+		params.LogStreamNames = streamNames
 	}
 
 	if endTimeInt64 != 0 {
@@ -43,8 +42,9 @@ func params(logGroupName string, streamName string, epochStartTime int64, epochE
 	return params
 }
 
-func Tail(logGroupName *string, follow *bool, startTime *time.Time, endTime *time.Time, streamName *string, grep *string) {
+func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, verbose *bool) {
 	cwl := cwClient()
+
 	startTimeEpoch := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix()
 	lastTimestamp := startTimeEpoch
 
@@ -70,16 +70,29 @@ func Tail(logGroupName *string, follow *bool, startTime *time.Time, endTime *tim
 				idx := sort.SearchStrings(ids, *event.EventId)
 				if ids == nil || (idx == len(ids) || ids[idx] != *event.EventId) {
 					d := timeutil.FormatTimestamp(eventTimestamp)
-					fmt.Printf("%s -  %s\n", color.GreenString(d), *event.Message)
+					if *verbose == true {
+						fmt.Printf("%s - %s -  %s\n", color.GreenString(d), color.BlueString(*event.LogStreamName), *event.Message)
+					} else {
+						fmt.Printf("%s -  %s\n", color.GreenString(d), *event.Message)
+					}
+
 				}
 				ids = append(ids, *event.EventId)
 			}
 		}
 		return true
 	}
-
+	var streams []*string
+	if *logStreamName != "*" {
+		for stream := range LsStreams(logGroupName, logStreamName) {
+			streams = append(streams, stream)
+		}
+		if len(streams) == 0 {
+			panic("No such log stream.")
+		}
+	}
 	for *follow || (lastTimestamp == startTimeEpoch) {
-		logParam := params(*logGroupName, *streamName, lastTimestamp, endTimeEpoch, *grep)
+		logParam := params(*logGroupName, streams, lastTimestamp, endTimeEpoch, *grep)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
 		if error != nil {
 			panic(error)
@@ -87,37 +100,55 @@ func Tail(logGroupName *string, follow *bool, startTime *time.Time, endTime *tim
 	}
 }
 
-func LsGroups() {
+func LsGroups() <-chan *string {
 	cwl := cwClient()
+	ch := make(chan *string)
 	params := &cloudwatchlogs.DescribeLogGroupsInput{
 	//		LogGroupNamePrefix: aws.String("LogGroupName"),
 	}
 
 	handler := func(res *cloudwatchlogs.DescribeLogGroupsOutput, lastPage bool) bool {
 		for _, logGroup := range res.LogGroups {
-			fmt.Println(*logGroup.LogGroupName)
+			ch <- logGroup.LogGroupName
 		}
-		return true
+		if lastPage {
+			close(ch)
+		}
+		return !lastPage
 	}
-	err := cwl.DescribeLogGroupsPages(params, handler)
-	if err != nil {
-		panic(err)
-	}
+	go func() {
+		err := cwl.DescribeLogGroupsPages(params, handler)
+		if err != nil {
+			panic(err)
+		}
+	}()
+	return ch
 }
 
-func LsStreams(groupName *string) {
+func LsStreams(groupName *string, streamName *string) <-chan *string {
 	cwl := cwClient()
+	ch := make(chan *string)
+
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
 		LogGroupName: groupName}
+	if streamName != nil {
+		params.LogStreamNamePrefix = streamName
+	}
 	handler := func(res *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
 		for _, logStream := range res.LogStreams {
-			fmt.Println(*logStream.LogStreamName)
+			ch <- logStream.LogStreamName
 		}
-		return true
+		if lastPage {
+			close(ch)
+		}
+		return !lastPage
 	}
 
-	err := cwl.DescribeLogStreamsPages(params, handler)
-	if err != nil {
-		panic(err)
-	}
+	go func() {
+		err := cwl.DescribeLogStreamsPages(params, handler)
+		if err != nil {
+			panic(err)
+		}
+	}()
+	return ch
 }
