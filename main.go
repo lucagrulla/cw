@@ -17,9 +17,10 @@ var (
 	lsStreams      = lsCommand.Command("streams", "Show all streams in a given log group.")
 	lsLogGroupName = lsStreams.Arg("group", "the group name").Required().String()
 
-	tailCommand   = kingpin.Command("tail", "Tail a log group")
-	follow        = tailCommand.Flag("follow", "Don't stop when the end of stream is reached.").Short('f').Default("false").Bool()
-	verbose       = tailCommand.Flag("verbose", "Print extra information such as stream name").Short('v').Default("false").Bool()
+	tailCommand = kingpin.Command("tail", "Tail a log group.")
+
+	follow        = tailCommand.Flag("follow", "Don't stop when the end of stream is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
+	verbose       = tailCommand.Flag("verbose", "Print extra information such as stream name.").Short('v').Default("false").Bool()
 	grep          = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").Short('g').Default("").String()
 	logGroupName  = tailCommand.Arg("group", "The log group name.").Required().String()
 	logStreamName = tailCommand.Arg("stream", "The log stream name. Use \\* for tail all the group streams.").Default("*").String()
@@ -58,10 +59,8 @@ func timestampToUTC(timeStamp *string) time.Time {
 
 func main() {
 	kingpin.Version("1.0.0")
-	//	fmt.Println("parsing")
 	command := kingpin.Parse()
 
-	//	fmt.Println("parsed")
 	switch command {
 	case "ls groups":
 		for msg := range cloudwatch.LsGroups() {
