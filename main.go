@@ -19,13 +19,13 @@ var (
 
 	tailCommand = kingpin.Command("tail", "Tail a log group.")
 
-	follow        = tailCommand.Flag("follow", "Don't stop when the end of stream is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
-	timestamp     = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
-	streamName    = tailCommand.Flag("stream name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
-	grep          = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").Short('g').Default("").String()
-	logGroupName  = tailCommand.Arg("group", "The log group name.").Required().String()
-	logStreamName = tailCommand.Arg("stream", "The log stream name. Use \\* for tail all the group streams.").Default("*").String()
-	startTime     = tailCommand.Arg("start", "The tailing start time in UTC. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").
+	follow          = tailCommand.Flag("follow", "Don't stop when the end of stream is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
+	printTimestamp  = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
+	printStreamName = tailCommand.Flag("stream name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
+	grep            = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").Short('g').Default("").String()
+	logGroupName    = tailCommand.Arg("group", "The log group name.").Required().String()
+	logStreamName   = tailCommand.Arg("stream", "The log stream name. Use \\* for tail all the group streams.").Default("*").String()
+	startTime       = tailCommand.Arg("start", "The tailing start time in UTC. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").
 			Default(time.Now().UTC().Add(-30 * time.Second).Format(timeutil.TimeFormat)).String()
 	endTime = tailCommand.Arg("end", "The tailing end time in UTC. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").String()
 )
@@ -77,6 +77,6 @@ func main() {
 		if *endTime != "" {
 			et = timestampToUTC(endTime)
 		}
-		cloudwatch.Tail(logGroupName, logStreamName, follow, &st, &et, grep, timestamp, streamName)
+		cloudwatch.Tail(logGroupName, logStreamName, follow, &st, &et, grep, printTimestamp, printStreamName)
 	}
 }

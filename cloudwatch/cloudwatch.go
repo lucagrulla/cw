@@ -20,7 +20,7 @@ func cwClient() *cloudwatchlogs.CloudWatchLogs {
 	return cloudwatchlogs.New(sess)
 }
 
-func params(logGroupName string, streamNames []*string, epochStartTime int64, epochEndTime int64, grep string) *cloudwatchlogs.FilterLogEventsInput {
+func params(logGroupName string, streamNames []*string, epochStartTime int64, epochEndTime int64, grep *string, follow *bool) *cloudwatchlogs.FilterLogEventsInput {
 	startTimeInt64 := epochStartTime * 1000
 	endTimeInt64 := epochEndTime * 1000
 	params := &cloudwatchlogs.FilterLogEventsInput{
@@ -28,15 +28,15 @@ func params(logGroupName string, streamNames []*string, epochStartTime int64, ep
 		Interleaved:  aws.Bool(true),
 		StartTime:    &startTimeInt64}
 
-	if grep != "" {
-		params.FilterPattern = &grep
+	if *grep != "" {
+		params.FilterPattern = grep
 	}
 
 	if streamNames != nil {
 		params.LogStreamNames = streamNames
 	}
 
-	if endTimeInt64 != 0 {
+	if !*follow && endTimeInt64 != 0 {
 		params.EndTime = &endTimeInt64
 	}
 	return params
@@ -97,7 +97,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 	}
 
 	for *follow || lastSeenTimestamp == startTimeEpoch {
-		logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, *grep)
+		logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, grep, follow)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
 		if error != nil {
 			panic(error)
