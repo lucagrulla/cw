@@ -42,11 +42,11 @@ func params(logGroupName string, streamNames []*string, epochStartTime int64, ep
 	return params
 }
 
-func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, verbose *bool) {
+func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, printTimestamp *bool, printStreamName *bool) {
 	cwl := cwClient()
 
 	startTimeEpoch := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix()
-	lastTimestamp := startTimeEpoch
+	lastSeenTimestamp := startTimeEpoch
 
 	var endTimeEpoch int64
 	if !endTime.IsZero() {
@@ -61,20 +61,24 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 		} else {
 			for _, event := range res.Events {
 				eventTimestamp := *event.Timestamp / 1000
-				if eventTimestamp != lastTimestamp {
+				if eventTimestamp != lastSeenTimestamp {
 					ids = nil
-					lastTimestamp = eventTimestamp
+					lastSeenTimestamp = eventTimestamp
 				} else {
 					sort.Strings(ids)
 				}
 				idx := sort.SearchStrings(ids, *event.EventId)
 				if ids == nil || (idx == len(ids) || ids[idx] != *event.EventId) {
 					d := timeutil.FormatTimestamp(eventTimestamp)
-					if *verbose == true {
-						fmt.Printf("%s - %s -  %s\n", color.GreenString(d), color.BlueString(*event.LogStreamName), *event.Message)
-					} else {
-						fmt.Printf("%s -  %s\n", color.GreenString(d), *event.Message)
+					var msg string
+					if *printTimestamp {
+						msg = fmt.Sprintf("%s - ", color.GreenString(d))
 					}
+					if *printStreamName {
+						msg = fmt.Sprintf("%s%s - ", msg, color.BlueString(*event.LogStreamName))
+					}
+					msg = fmt.Sprintf("%s%s", msg, *event.Message)
+					fmt.Println(msg)
 
 				}
 				ids = append(ids, *event.EventId)
@@ -91,8 +95,9 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			panic("No such log stream.")
 		}
 	}
-	for *follow || (lastTimestamp == startTimeEpoch) {
-		logParam := params(*logGroupName, streams, lastTimestamp, endTimeEpoch, *grep)
+
+	for *follow || lastSeenTimestamp == startTimeEpoch {
+		logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, *grep)
 		error := cwl.FilterLogEventsPages(logParam, pageHandler)
 		if error != nil {
 			panic(error)
