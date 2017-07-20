@@ -42,7 +42,7 @@ func params(logGroupName string, streamNames []*string, epochStartTime int64, ep
 	return params
 }
 
-func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, printTimestamp *bool, printStreamName *bool) {
+func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, printTimestamp *bool, printStreamName *bool) <-chan *string {
 	cwl := cwClient()
 
 	startTimeEpoch := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix()
@@ -55,6 +55,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 
 	var ids []string
 
+	ch := make(chan *string)
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		if len(res.Events) == 0 {
 			time.Sleep(2 * time.Second)
@@ -78,13 +79,17 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 						msg = fmt.Sprintf("%s%s - ", msg, color.BlueString(*event.LogStreamName))
 					}
 					msg = fmt.Sprintf("%s%s", msg, *event.Message)
-					fmt.Println(msg)
+					ch <- &msg
 
 				}
 				ids = append(ids, *event.EventId)
 			}
 		}
-		return true
+		if lastPage && !*follow {
+			time.Sleep(1 * time.Second)
+			close(ch)
+		}
+		return !lastPage
 	}
 	var streams []*string
 	if *logStreamName != "*" {
@@ -95,14 +100,16 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			panic("No such log stream.")
 		}
 	}
-
-	for *follow || lastSeenTimestamp == startTimeEpoch {
-		logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, grep, follow)
-		error := cwl.FilterLogEventsPages(logParam, pageHandler)
-		if error != nil {
-			panic(error)
+	go func() {
+		for *follow || lastSeenTimestamp == startTimeEpoch {
+			logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, grep, follow)
+			error := cwl.FilterLogEventsPages(logParam, pageHandler)
+			if error != nil {
+				panic(error)
+			}
 		}
-	}
+	}()
+	return ch
 }
 
 func LsGroups() <-chan *string {

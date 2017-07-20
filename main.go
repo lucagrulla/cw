@@ -77,6 +77,9 @@ func main() {
 		if *endTime != "" {
 			et = timestampToUTC(endTime)
 		}
-		cloudwatch.Tail(logGroupName, logStreamName, follow, &st, &et, grep, printTimestamp, printStreamName)
+
+		for msg := range cloudwatch.Tail(logGroupName, logStreamName, follow, &st, &et, grep, printTimestamp, printStreamName) {
+			fmt.Println(*msg)
+		}
 	}
 }
