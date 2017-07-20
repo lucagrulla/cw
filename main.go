@@ -59,7 +59,7 @@ func timestampToUTC(timeStamp *string) time.Time {
 }
 
 func main() {
-	kingpin.Version("1.0.0")
+	kingpin.Version("1.1.0")
 	command := kingpin.Parse()
 
 	switch command {
