@@ -38,12 +38,3 @@ On Mac OSX:
 Using go tools:
 
 `go get github.com/lucagrulla/cw`
-
-## TODOs
-* throttle AWS API request so that not to exceed rate limit
-* ~~make the usage of log group+leg stream easier~~
-* ~~fix bug for long polling once events are finished(currently we print again a last chunk of alerts)~~
-* ~~add an optionl end date for time window~~
-* ~~allow more flexible startTime format(no seconds means 00, no minutes means 00:00)~~
-* ~~add coloured output~~
-* ~~add brew recipe~~
