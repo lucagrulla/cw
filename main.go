@@ -15,7 +15,7 @@ var (
 	lsCommand      = kingpin.Command("ls", "Show an entity")
 	lsGroups       = lsCommand.Command("groups", "Show all groups.")
 	lsStreams      = lsCommand.Command("streams", "Show all streams in a given log group.")
-	lsLogGroupName = lsStreams.Arg("group", "the group name").Required().String()
+	lsLogGroupName = lsStreams.Arg("group", "the group name").HintAction(groupsCompletion).Required().String()
 
 	tailCommand = kingpin.Command("tail", "Tail a log group.")
 
@@ -23,12 +23,29 @@ var (
 	printTimestamp  = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
 	printStreamName = tailCommand.Flag("stream name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
 	grep            = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").Short('g').Default("").String()
-	logGroupName    = tailCommand.Arg("group", "The log group name.").Required().String()
-	logStreamName   = tailCommand.Arg("stream", "The log stream name. Use \\* for tail all the group streams.").Default("*").String()
+	logGroupName    = tailCommand.Arg("group", "The log group name.").Required().HintAction(groupsCompletion).String()
+	logStreamName   = tailCommand.Arg("stream", "The log stream name. Use \\* for tail all the group streams.").Default("*").HintAction(streamsCompletion).String()
 	startTime       = tailCommand.Arg("start", "The tailing start time in UTC. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").
 			Default(time.Now().UTC().Add(-30 * time.Second).Format(timeutil.TimeFormat)).String()
 	endTime = tailCommand.Arg("end", "The tailing end time in UTC. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").String()
 )
+
+func groupsCompletion() []string {
+	var groups []string
+	for msg := range cloudwatch.LsGroups() {
+		groups = append(groups, *msg)
+	}
+	return groups
+
+}
+
+func streamsCompletion() []string {
+	var streams []string
+	for msg := range cloudwatch.LsStreams(logGroupName, nil) {
+		streams = append(streams, *msg)
+	}
+	return streams
+}
 
 func timestampToUTC(timeStamp *string) time.Time {
 	if regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}$").MatchString(*timeStamp) {
@@ -59,7 +76,7 @@ func timestampToUTC(timeStamp *string) time.Time {
 }
 
 func main() {
-	kingpin.Version("1.1.0")
+	kingpin.Version("1.2.0")
 	command := kingpin.Parse()
 
 	switch command {
