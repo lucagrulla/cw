@@ -2,12 +2,14 @@ package cloudwatch
 
 import (
 	"fmt"
+	"os"
 	"sort"
 	"time"
 
 	"github.com/lucagrulla/cw/timeutil"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 	"github.com/fatih/color"
@@ -97,7 +99,8 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			streams = append(streams, stream)
 		}
 		if len(streams) == 0 {
-			panic("No such log stream.")
+			fmt.Println("No such log stream.")
+			os.Exit(1)
 		}
 	}
 	go func() {
@@ -105,7 +108,10 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, grep, follow)
 			error := cwl.FilterLogEventsPages(logParam, pageHandler)
 			if error != nil {
-				panic(error)
+				if awsErr, ok := error.(awserr.Error); ok {
+					fmt.Println(awsErr.Message())
+					os.Exit(1)
+				}
 			}
 		}
 	}()
@@ -131,7 +137,10 @@ func LsGroups() <-chan *string {
 	go func() {
 		err := cwl.DescribeLogGroupsPages(params, handler)
 		if err != nil {
-			panic(err)
+			if awsErr, ok := err.(awserr.Error); ok {
+				fmt.Println(awsErr.Message())
+				os.Exit(1)
+			}
 		}
 	}()
 	return ch
@@ -159,7 +168,10 @@ func LsStreams(groupName *string, streamName *string) <-chan *string {
 	go func() {
 		err := cwl.DescribeLogStreamsPages(params, handler)
 		if err != nil {
-			panic(err)
+			if awsErr, ok := err.(awserr.Error); ok {
+				fmt.Println(awsErr.Message())
+				os.Exit(1)
+			}
 		}
 	}()
 	return ch
