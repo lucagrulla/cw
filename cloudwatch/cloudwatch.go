@@ -44,7 +44,7 @@ func params(logGroupName string, streamNames []*string, epochStartTime int64, ep
 	return params
 }
 
-func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, printTimestamp *bool, printStreamName *bool) <-chan *string {
+func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, printTimestamp *bool, printStreamName *bool, printEventId *bool) <-chan *string {
 	cwl := cwClient()
 
 	startTimeEpoch := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix()
@@ -59,36 +59,35 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 
 	ch := make(chan *string)
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
-		if len(res.Events) == 0 {
-			time.Sleep(2 * time.Second)
-		} else {
-			for _, event := range res.Events {
-				eventTimestamp := *event.Timestamp / 1000
-				if eventTimestamp != lastSeenTimestamp {
-					ids = nil
-					lastSeenTimestamp = eventTimestamp
-				} else {
-					sort.Strings(ids)
-				}
-				idx := sort.SearchStrings(ids, *event.EventId)
-				if ids == nil || (idx == len(ids) || ids[idx] != *event.EventId) {
-					d := timeutil.FormatTimestamp(eventTimestamp)
-					var msg string
-					if *printTimestamp {
-						msg = fmt.Sprintf("%s - ", color.GreenString(d))
-					}
-					if *printStreamName {
-						msg = fmt.Sprintf("%s%s - ", msg, color.BlueString(*event.LogStreamName))
-					}
-					msg = fmt.Sprintf("%s%s", msg, *event.Message)
-					ch <- &msg
-
-				}
-				ids = append(ids, *event.EventId)
+		for _, event := range res.Events {
+			eventTimestamp := *event.Timestamp / 1000
+			if eventTimestamp != lastSeenTimestamp {
+				ids = nil
+				lastSeenTimestamp = eventTimestamp
+			} else {
+				sort.Strings(ids)
 			}
+			idx := sort.SearchStrings(ids, *event.EventId)
+			if ids == nil || (idx == len(ids) || ids[idx] != *event.EventId) {
+
+				msg := fmt.Sprintf("%s", *event.Message)
+				if *printEventId {
+					msg = fmt.Sprintf("%s - %s", color.YellowString(*event.EventId), msg)
+				}
+				if *printStreamName {
+					msg = fmt.Sprintf("%s - %s", color.BlueString(*event.LogStreamName), msg)
+				}
+				if *printTimestamp {
+					msg = fmt.Sprintf("%s - %s", color.GreenString(timeutil.FormatTimestamp(eventTimestamp)), msg)
+				}
+
+				ch <- &msg
+
+			}
+			ids = append(ids, *event.EventId)
 		}
+
 		if lastPage && !*follow {
-			time.Sleep(1 * time.Second)
 			close(ch)
 		}
 		return !lastPage
@@ -103,18 +102,21 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			os.Exit(1)
 		}
 	}
-	go func() {
-		for *follow || lastSeenTimestamp == startTimeEpoch {
-			logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, grep, follow)
-			error := cwl.FilterLogEventsPages(logParam, pageHandler)
-			if error != nil {
-				if awsErr, ok := error.(awserr.Error); ok {
-					fmt.Println(awsErr.Message())
-					os.Exit(1)
+	if *follow || lastSeenTimestamp == startTimeEpoch {
+		ticker := time.NewTicker(time.Millisecond * 50)
+		go func() {
+			for range ticker.C {
+				logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, grep, follow)
+				error := cwl.FilterLogEventsPages(logParam, pageHandler)
+				if error != nil {
+					if awsErr, ok := error.(awserr.Error); ok {
+						fmt.Println(awsErr.Message())
+						os.Exit(1)
+					}
 				}
 			}
-		}
-	}()
+		}()
+	}
 	return ch
 }
 

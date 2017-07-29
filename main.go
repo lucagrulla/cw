@@ -21,6 +21,7 @@ var (
 
 	follow          = tailCommand.Flag("follow", "Don't stop when the end of stream is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
 	printTimestamp  = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
+	printEventId    = tailCommand.Flag("event Id", "Print the event Id").Short('i').Default("false").Bool()
 	printStreamName = tailCommand.Flag("stream name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
 	grep            = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").Short('g').Default("").String()
 	logGroupName    = tailCommand.Arg("group", "The log group name.").Required().HintAction(groupsCompletion).String()
@@ -76,7 +77,7 @@ func timestampToUTC(timeStamp *string) time.Time {
 }
 
 func main() {
-	kingpin.Version("1.2.0")
+	kingpin.Version("1.3.0")
 	command := kingpin.Parse()
 
 	switch command {
@@ -95,7 +96,7 @@ func main() {
 			et = timestampToUTC(endTime)
 		}
 
-		for msg := range cloudwatch.Tail(logGroupName, logStreamName, follow, &st, &et, grep, printTimestamp, printStreamName) {
+		for msg := range cloudwatch.Tail(logGroupName, logStreamName, follow, &st, &et, grep, printTimestamp, printStreamName, printEventId) {
 			fmt.Println(*msg)
 		}
 	}
