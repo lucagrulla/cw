@@ -103,7 +103,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 		}
 	}
 	if *follow || lastSeenTimestamp == startTimeEpoch {
-		ticker := time.NewTicker(time.Millisecond * 50)
+		ticker := time.NewTicker(time.Millisecond * 201) //AWS cloudwatch logs limit is 5tx/sec
 		go func() {
 			for range ticker.C {
 				logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, grep, follow)
