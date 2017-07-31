@@ -77,12 +77,12 @@
 [[projects]]
   name = "gopkg.in/alecthomas/kingpin.v2"
   packages = ["."]
-  revision = "7f0871f2e17818990e4eed73f9b5c2f429501228"
-  version = "v2.2.4"
+  revision = "1087e65c9441605df944fb12c33f0fe7072d18ca"
+  version = "v2.2.5"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "a34faa7f0e71c7d249b38ada229e71ed5a9e77c21a6b62bad45157ab1af235bb"
+  inputs-digest = "abb14c82f238c2ecbb5899ed849fbeefc345538e25c825df4714173b5e58e601"
   solver-name = "gps-cdcl"
   solver-version = 1
