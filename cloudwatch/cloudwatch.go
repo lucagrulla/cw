@@ -100,12 +100,16 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 		if len(streams) == 0 {
 			fmt.Println("No such log stream.")
 			os.Exit(1)
+		} else { //FilterLogEventPages won't take more than 100 stream names
+			streams = streams[0:100]
 		}
+
 	}
 	if *follow || lastSeenTimestamp == startTimeEpoch {
 		ticker := time.NewTicker(time.Millisecond * 201) //AWS cloudwatch logs limit is 5tx/sec
 		go func() {
 			for range ticker.C {
+				//FilterLogEventPages won't take more than 100 stream names
 				logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, grep, follow)
 				error := cwl.FilterLogEventsPages(logParam, pageHandler)
 				if error != nil {
