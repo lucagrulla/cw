@@ -3,7 +3,7 @@ package cloudwatch
 import (
 	"fmt"
 	"os"
-	"sort"
+	"sync"
 	"time"
 
 	"github.com/lucagrulla/cw/timeutil"
@@ -55,20 +55,30 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 		endTimeEpoch = timeutil.ParseTime(endTime.Format(timeutil.TimeFormat)).Unix()
 	}
 
-	var ids []string
-
 	ch := make(chan *string)
+
+	cache := struct {
+		sync.RWMutex
+		seenEvents map[string]bool
+	}{seenEvents: make(map[string]bool)}
+
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
 			eventTimestamp := *event.Timestamp / 1000
 			if eventTimestamp != lastSeenTimestamp {
-				ids = nil
 				lastSeenTimestamp = eventTimestamp
-			} else {
-				sort.Strings(ids)
+				cache.RLock()
+				cache.seenEvents = make(map[string]bool)
+				cache.RUnlock()
 			}
-			idx := sort.SearchStrings(ids, *event.EventId)
-			if ids == nil || (idx == len(ids) || ids[idx] != *event.EventId) {
+			cache.RLock()
+			seenEvent := cache.seenEvents[*event.EventId]
+			cache.RUnlock()
+
+			if seenEvent == false {
+				cache.Lock()
+				cache.seenEvents[*event.EventId] = true
+				cache.Unlock()
 
 				msg := fmt.Sprintf("%s", *event.Message)
 				if *printEventId {
@@ -83,8 +93,9 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 
 				ch <- &msg
 
+			} else {
+				//fmt.Printf("%s already seen\n", *event.EventId)
 			}
-			ids = append(ids, *event.EventId)
 		}
 
 		if lastPage && !*follow {
