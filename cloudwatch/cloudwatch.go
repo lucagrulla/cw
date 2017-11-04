@@ -44,6 +44,29 @@ func params(logGroupName string, streamNames []*string, epochStartTime int64, ep
 	return params
 }
 
+type EventCache struct {
+	seen map[string]bool
+	sync.RWMutex
+}
+
+func (c *EventCache) Has(eventId string) bool {
+	c.RLock()
+	defer c.RUnlock()
+	return c.seen[eventId]
+}
+
+func (c *EventCache) Add(eventId string) {
+	c.Lock()
+	defer c.Unlock()
+	c.seen[eventId] = true
+}
+
+func (c *EventCache) Reset() {
+	c.Lock()
+	defer c.Unlock()
+	c.seen = make(map[string]bool)
+}
+
 func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, printTimestamp *bool, printStreamName *bool, printEventId *bool) <-chan *string {
 	cwl := cwClient()
 
@@ -57,28 +80,18 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 
 	ch := make(chan *string)
 
-	cache := struct {
-		sync.RWMutex
-		seenEvents map[string]bool
-	}{seenEvents: make(map[string]bool)}
+	cache := &EventCache{seen: make(map[string]bool)}
 
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
 			eventTimestamp := *event.Timestamp / 1000
 			if eventTimestamp != lastSeenTimestamp {
 				lastSeenTimestamp = eventTimestamp
-				cache.RLock()
-				cache.seenEvents = make(map[string]bool)
-				cache.RUnlock()
+				cache.Reset()
 			}
-			cache.RLock()
-			seenEvent := cache.seenEvents[*event.EventId]
-			cache.RUnlock()
 
-			if seenEvent == false {
-				cache.Lock()
-				cache.seenEvents[*event.EventId] = true
-				cache.Unlock()
+			if cache.Has(*event.EventId) == false {
+				cache.Add(*event.EventId)
 
 				msg := fmt.Sprintf("%s", *event.Message)
 				if *printEventId {
