@@ -130,7 +130,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 		}
 	}
 	if *follow || lastSeenTimestamp == startTimeEpoch {
-		ticker := time.NewTicker(time.Millisecond * 201) //AWS cloudwatch logs limit is 5tx/sec
+		ticker := time.NewTicker(time.Millisecond * 250) //AWS cloudwatch logs limit is 5tx/sec
 		go func() {
 			for range ticker.C {
 				//FilterLogEventPages won't take more than 100 stream names
