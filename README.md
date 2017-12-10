@@ -1,6 +1,8 @@
 # cw
 
-The best way to tail AWS Cloudwatch Logs
+The best way to tail AWS Cloudwatch Logs from your terminal
+
+Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.com](https://www.lucagrulla.com)
 
 ## Commands
 
