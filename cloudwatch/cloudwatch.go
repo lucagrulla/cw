@@ -44,24 +44,24 @@ func params(logGroupName string, streamNames []*string, epochStartTime int64, ep
 	return params
 }
 
-type EventCache struct {
+type eventCache struct {
 	seen map[string]bool
 	sync.RWMutex
 }
 
-func (c *EventCache) Has(eventId string) bool {
+func (c *eventCache) Has(eventID string) bool {
 	c.RLock()
 	defer c.RUnlock()
-	return c.seen[eventId]
+	return c.seen[eventID]
 }
 
-func (c *EventCache) Add(eventId string) {
+func (c *eventCache) Add(eventID string) {
 	c.Lock()
 	defer c.Unlock()
-	c.seen[eventId] = true
+	c.seen[eventID] = true
 }
 
-func (c *EventCache) Reset() {
+func (c *eventCache) Reset() {
 	c.Lock()
 	defer c.Unlock()
 	c.seen = make(map[string]bool)
@@ -79,8 +79,9 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 	}
 
 	ch := make(chan *string)
+	timer := time.NewTimer(time.Millisecond * 250)
 
-	cache := &EventCache{seen: make(map[string]bool)}
+	cache := &eventCache{seen: make(map[string]bool)}
 
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
@@ -90,10 +91,10 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 				cache.Reset()
 			}
 
-			if cache.Has(*event.EventId) == false {
+			if !cache.Has(*event.EventId) {
 				cache.Add(*event.EventId)
 
-				msg := fmt.Sprintf("%s", *event.Message)
+				msg := *event.Message
 				if *printEventId {
 					msg = fmt.Sprintf("%s - %s", color.YellowString(*event.EventId), msg)
 				}
@@ -111,8 +112,13 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			}
 		}
 
-		if lastPage && !*follow {
-			close(ch)
+		if lastPage {
+			if !*follow {
+				close(ch)
+			} else {
+				//AWS API will take 5 reqs/sec
+				timer.Reset(time.Millisecond * 250)
+			}
 		}
 		return !lastPage
 	}
@@ -130,9 +136,8 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 		}
 	}
 	if *follow || lastSeenTimestamp == startTimeEpoch {
-		ticker := time.NewTicker(time.Millisecond * 250) //AWS cloudwatch logs limit is 5tx/sec
 		go func() {
-			for range ticker.C {
+			for range timer.C {
 				//FilterLogEventPages won't take more than 100 stream names
 				logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, grep, follow)
 				error := cwl.FilterLogEventsPages(logParam, pageHandler)
