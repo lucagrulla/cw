@@ -2,14 +2,14 @@
   "version": "2.0",
   "service": "<fullname>Amazon Cloud Directory</fullname> <p>Amazon Cloud Directory is a component of the AWS Directory Service that simplifies the development and management of cloud-scale web, mobile, and IoT applications. This guide describes the Cloud Directory operations that you can call programmatically and includes detailed information on data types and errors. For information about AWS Directory Services features, see <a href=\"https://aws.amazon.com/directoryservice/\">AWS Directory Service</a> and the <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html\">AWS Directory Service Administration Guide</a>.</p>",
   "operations": {
-    "AddFacetToObject": "<p>Adds a new <a>Facet</a> to an object.</p>",
-    "ApplySchema": "<p>Copies the input published schema into the <a>Directory</a> with the same name and version as that of the published schema .</p>",
+    "AddFacetToObject": "<p>Adds a new <a>Facet</a> to an object. An object can have more than one facet applied on it.</p>",
+    "ApplySchema": "<p>Copies the input published schema, at the specified version, into the <a>Directory</a> with the same name and version as that of the published schema.</p>",
     "AttachObject": "<p>Attaches an existing object to another object. An object can be accessed in two ways:</p> <ol> <li> <p>Using the path</p> </li> <li> <p>Using <code>ObjectIdentifier</code> </p> </li> </ol>",
     "AttachPolicy": "<p>Attaches a policy object to a regular object. An object can have a limited number of attached policies.</p>",
     "AttachToIndex": "<p>Attaches the specified object to the specified index.</p>",
     "AttachTypedLink": "<p>Attaches a typed link to a specified source and target object. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>",
     "BatchRead": "<p>Performs all the read operations in a batch. </p>",
-    "BatchWrite": "<p>Performs all the write operations in a batch. Either all the operations succeed or none. Batch writes supports only object-related operations.</p>",
+    "BatchWrite": "<p>Performs all the write operations in a batch. Either all the operations succeed or none.</p>",
     "CreateDirectory": "<p>Creates a <a>Directory</a> by copying the published schema into the directory. A directory cannot be created without a schema.</p>",
     "CreateFacet": "<p>Creates a new <a>Facet</a> in a schema. Facet creation is allowed only in development or applied schemas.</p>",
     "CreateIndex": "<p>Creates an index object. See <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_indexing.html\">Indexing</a> for more information.</p>",
@@ -27,13 +27,15 @@
     "DetachTypedLink": "<p>Detaches a typed link from a specified source and target object. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>",
     "DisableDirectory": "<p>Disables the specified directory. Disabled directories cannot be read or written to. Only enabled directories can be disabled. Disabled directories may be reenabled.</p>",
     "EnableDirectory": "<p>Enables the specified directory. Only disabled directories can be enabled. Once enabled, the directory can then be read and written to.</p>",
+    "GetAppliedSchemaVersion": "<p>Returns current applied schema version ARN, including the minor version in use.</p>",
     "GetDirectory": "<p>Retrieves metadata about a directory.</p>",
     "GetFacet": "<p>Gets details of the <a>Facet</a>, such as facet name, attributes, <a>Rule</a>s, or <code>ObjectType</code>. You can call this on all kinds of schema facets -- published, development, or applied.</p>",
+    "GetObjectAttributes": "<p>Retrieves attributes within a facet that are associated with an object.</p>",
     "GetObjectInformation": "<p>Retrieves metadata about an object.</p>",
     "GetSchemaAsJson": "<p>Retrieves a JSON representation of the schema. See <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_schemas.html#jsonformat\">JSON Schema Format</a> for more information.</p>",
     "GetTypedLinkFacetInformation": "<p>Returns the identity attribute order for a specific <a>TypedLinkFacet</a>. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>",
-    "ListAppliedSchemaArns": "<p>Lists schemas applied to a directory.</p>",
-    "ListAttachedIndices": "<p>Lists indices attached to an object.</p>",
+    "ListAppliedSchemaArns": "<p>Lists schema major versions applied to a directory. If <code>SchemaArn</code> is provided, lists the minor version.</p>",
+    "ListAttachedIndices": "<p>Lists indices attached to the specified object.</p>",
     "ListDevelopmentSchemaArns": "<p>Retrieves each Amazon Resource Name (ARN) of schemas in the development state.</p>",
     "ListDirectories": "<p>Lists directories created within an account.</p>",
     "ListFacetAttributes": "<p>Retrieves attributes attached to the facet.</p>",
@@ -47,12 +49,12 @@
     "ListObjectPolicies": "<p>Returns policies attached to an object in pagination fashion.</p>",
     "ListOutgoingTypedLinks": "<p>Returns a paginated list of all the outgoing <a>TypedLinkSpecifier</a> information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>",
     "ListPolicyAttachments": "<p>Returns all of the <code>ObjectIdentifiers</code> to which a given policy is attached.</p>",
-    "ListPublishedSchemaArns": "<p>Retrieves each published schema Amazon Resource Name (ARN).</p>",
+    "ListPublishedSchemaArns": "<p>Lists the major version families of each published schema. If a major version ARN is provided as <code>SchemaArn</code>, the minor version revisions in that family are listed instead.</p>",
     "ListTagsForResource": "<p>Returns tags for a resource. Tagging is currently supported only for directories with a limit of 50 tags per directory. All 50 tags are returned for a given directory with this API call.</p>",
     "ListTypedLinkFacetAttributes": "<p>Returns a paginated list of all attribute definitions for a particular <a>TypedLinkFacet</a>. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>",
     "ListTypedLinkFacetNames": "<p>Returns a paginated list of <code>TypedLink</code> facet names for a particular schema. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>",
     "LookupPolicy": "<p>Lists all policies from the root of the <a>Directory</a> to the object specified. If there are no policies present, an empty list is returned. If policies are present, and if some objects don't have the policies attached, it returns the <code>ObjectIdentifier</code> for such objects. If policies are present, it returns <code>ObjectIdentifier</code>, <code>policyId</code>, and <code>policyType</code>. Paths that don't lead to the root from the target object are ignored. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_key_concepts.html#policies\">Policies</a>.</p>",
-    "PublishSchema": "<p>Publishes a development schema with a version. If description and attributes are specified, <code>PublishSchema</code> overrides the development schema description and attributes. If not, the development schema description and attributes are used.</p>",
+    "PublishSchema": "<p>Publishes a development schema with a major version and a recommended minor version.</p>",
     "PutSchemaFromJson": "<p>Allows a schema to be updated using JSON upload. Only available for development schemas. See <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_schemas.html#jsonformat\">JSON Schema Format</a> for more information.</p>",
     "RemoveFacetFromObject": "<p>Removes the specified facet from the specified object.</p>",
     "TagResource": "<p>An API operation for adding tags to a resource.</p>",
@@ -60,7 +62,9 @@
     "UpdateFacet": "<p>Does the following:</p> <ol> <li> <p>Adds new <code>Attributes</code>, <code>Rules</code>, or <code>ObjectTypes</code>.</p> </li> <li> <p>Updates existing <code>Attributes</code>, <code>Rules</code>, or <code>ObjectTypes</code>.</p> </li> <li> <p>Deletes existing <code>Attributes</code>, <code>Rules</code>, or <code>ObjectTypes</code>.</p> </li> </ol>",
     "UpdateObjectAttributes": "<p>Updates a given object's attributes.</p>",
     "UpdateSchema": "<p>Updates the schema name with a new name. Only development schema names can be updated.</p>",
-    "UpdateTypedLinkFacet": "<p>Updates a <a>TypedLinkFacet</a>. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>"
+    "UpdateTypedLinkFacet": "<p>Updates a <a>TypedLinkFacet</a>. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>",
+    "UpgradeAppliedSchema": "<p>Upgrades a single directory in-place using the <code>PublishedSchemaArn</code> with schema updates found in <code>MinorVersion</code>. Backwards-compatible minor version upgrades are instantaneously available for readers on all objects in the directory. Note: This is a synchronous API call and upgrades only one schema on a given directory per call. To upgrade multiple directories from one schema, you would need to call this API on each directory.</p>",
+    "UpgradePublishedSchema": "<p>Upgrades a published schema under a new minor version revision using the current contents of <code>DevelopmentSchemaArn</code>.</p>"
   },
   "shapes": {
     "AccessDeniedException": {
@@ -126,11 +130,15 @@
         "DisableDirectoryResponse$DirectoryArn": "<p>The ARN of the directory that has been disabled.</p>",
         "EnableDirectoryRequest$DirectoryArn": "<p>The ARN of the directory to enable.</p>",
         "EnableDirectoryResponse$DirectoryArn": "<p>The ARN of the enabled directory.</p>",
+        "GetAppliedSchemaVersionRequest$SchemaArn": "<p>The ARN of the applied schema.</p>",
+        "GetAppliedSchemaVersionResponse$AppliedSchemaArn": "<p>Current applied schema ARN, including the minor version in use if one was provided.</p>",
         "GetFacetRequest$SchemaArn": "<p>The Amazon Resource Name (ARN) that is associated with the <a>Facet</a>. For more information, see <a>arns</a>.</p>",
+        "GetObjectAttributesRequest$DirectoryArn": "<p>The Amazon Resource Name (ARN) that is associated with the <a>Directory</a> where the object resides.</p>",
         "GetObjectInformationRequest$DirectoryArn": "<p>The ARN of the directory being retrieved.</p>",
         "GetSchemaAsJsonRequest$SchemaArn": "<p>The ARN of the schema to retrieve.</p>",
         "GetTypedLinkFacetInformationRequest$SchemaArn": "<p>The Amazon Resource Name (ARN) that is associated with the schema. For more information, see <a>arns</a>.</p>",
         "ListAppliedSchemaArnsRequest$DirectoryArn": "<p>The ARN of the directory you are listing.</p>",
+        "ListAppliedSchemaArnsRequest$SchemaArn": "<p>The response for <code>ListAppliedSchemaArns</code> when this parameter is used will list all minor version ARNs for a major version.</p>",
         "ListAttachedIndicesRequest$DirectoryArn": "<p>The ARN of the directory.</p>",
         "ListFacetAttributesRequest$SchemaArn": "<p>The ARN of the schema where the facet resides.</p>",
         "ListFacetNamesRequest$SchemaArn": "<p>The Amazon Resource Name (ARN) to retrieve facet names from.</p>",
@@ -143,6 +151,7 @@
         "ListObjectPoliciesRequest$DirectoryArn": "<p>The Amazon Resource Name (ARN) that is associated with the <a>Directory</a> where objects reside. For more information, see <a>arns</a>.</p>",
         "ListOutgoingTypedLinksRequest$DirectoryArn": "<p>The Amazon Resource Name (ARN) of the directory where you want to list the typed links.</p>",
         "ListPolicyAttachmentsRequest$DirectoryArn": "<p>The Amazon Resource Name (ARN) that is associated with the <a>Directory</a> where objects reside. For more information, see <a>arns</a>.</p>",
+        "ListPublishedSchemaArnsRequest$SchemaArn": "<p>The response for <code>ListPublishedSchemaArns</code> when this parameter is used will list all minor version ARNs for a major version.</p>",
         "ListTagsForResourceRequest$ResourceArn": "<p>The Amazon Resource Name (ARN) of the resource. Tagging is only supported for directories.</p>",
         "ListTypedLinkFacetAttributesRequest$SchemaArn": "<p>The Amazon Resource Name (ARN) that is associated with the schema. For more information, see <a>arns</a>.</p>",
         "ListTypedLinkFacetNamesRequest$SchemaArn": "<p>The Amazon Resource Name (ARN) that is associated with the schema. For more information, see <a>arns</a>.</p>",
@@ -152,7 +161,7 @@
         "PutSchemaFromJsonRequest$SchemaArn": "<p>The ARN of the schema to update.</p>",
         "PutSchemaFromJsonResponse$Arn": "<p>The ARN of the schema to update.</p>",
         "RemoveFacetFromObjectRequest$DirectoryArn": "<p>The ARN of the directory in which the object resides.</p>",
-        "SchemaFacet$SchemaArn": "<p>The ARN of the schema that contains the facet.</p>",
+        "SchemaFacet$SchemaArn": "<p>The ARN of the schema that contains the facet with no minor component. See <a>arns</a> and <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/inplaceschemaupgrade.html\">In-Place Schema Upgrade</a> for a description of when to provide minor versions.</p>",
         "TagResourceRequest$ResourceArn": "<p>The Amazon Resource Name (ARN) of the resource. Tagging is only supported for directories.</p>",
         "TypedLinkSchemaAndFacetName$SchemaArn": "<p>The Amazon Resource Name (ARN) that is associated with the schema. For more information, see <a>arns</a>.</p>",
         "UntagResourceRequest$ResourceArn": "<p>The Amazon Resource Name (ARN) of the resource. Tagging is only supported for directories.</p>",
@@ -160,7 +169,14 @@
         "UpdateObjectAttributesRequest$DirectoryArn": "<p>The Amazon Resource Name (ARN) that is associated with the <a>Directory</a> where the object resides. For more information, see <a>arns</a>.</p>",
         "UpdateSchemaRequest$SchemaArn": "<p>The Amazon Resource Name (ARN) of the development schema. For more information, see <a>arns</a>.</p>",
         "UpdateSchemaResponse$SchemaArn": "<p>The ARN that is associated with the updated schema. For more information, see <a>arns</a>.</p>",
-        "UpdateTypedLinkFacetRequest$SchemaArn": "<p>The Amazon Resource Name (ARN) that is associated with the schema. For more information, see <a>arns</a>.</p>"
+        "UpdateTypedLinkFacetRequest$SchemaArn": "<p>The Amazon Resource Name (ARN) that is associated with the schema. For more information, see <a>arns</a>.</p>",
+        "UpgradeAppliedSchemaRequest$PublishedSchemaArn": "<p>The revision of the published schema to upgrade the directory to.</p>",
+        "UpgradeAppliedSchemaRequest$DirectoryArn": "<p>The ARN for the directory to which the upgraded schema will be applied.</p>",
+        "UpgradeAppliedSchemaResponse$UpgradedSchemaArn": "<p>The ARN of the upgraded schema that is returned as part of the response.</p>",
+        "UpgradeAppliedSchemaResponse$DirectoryArn": "<p>The ARN of the directory that is returned as part of the response.</p>",
+        "UpgradePublishedSchemaRequest$DevelopmentSchemaArn": "<p>The ARN of the development schema with the changes used for the upgrade.</p>",
+        "UpgradePublishedSchemaRequest$PublishedSchemaArn": "<p>The ARN of the published schema to be upgraded.</p>",
+        "UpgradePublishedSchemaResponse$UpgradedSchemaArn": "<p>The ARN of the upgraded schema that is returned as part of the response.</p>"
       }
     },
     "Arns": {
@@ -232,8 +248,10 @@
         "AddFacetToObjectRequest$ObjectAttributeList": "<p>Attributes on the facet that you are adding to the object.</p>",
         "BatchAddFacetToObject$ObjectAttributeList": "<p>The attributes to set on the object.</p>",
         "BatchCreateObject$ObjectAttributeList": "<p>An attribute map, which contains an attribute ARN as the key and attribute value as the map value.</p>",
+        "BatchGetObjectAttributesResponse$Attributes": "<p>The attribute values that are associated with an object.</p>",
         "BatchListObjectAttributesResponse$Attributes": "<p>The attributes map that is associated with the object. <code>AttributeArn</code> is the key; attribute value is the value.</p>",
         "CreateObjectRequest$ObjectAttributeList": "<p>The attribute map whose attribute ARN contains the key and attribute value as the map value.</p>",
+        "GetObjectAttributesResponse$Attributes": "<p>The attributes that are associated with the object.</p>",
         "IndexAttachment$IndexedAttributes": "<p>The indexed attribute values.</p>",
         "ListObjectAttributesResponse$Attributes": "<p>Attributes map that is associated with the object. <code>AttributeArn</code> is the key, and attribute value is the value.</p>"
       }
@@ -241,6 +259,7 @@
     "AttributeKeyList": {
       "base": null,
       "refs": {
+        "BatchCreateIndex$OrderedIndexedAttributeList": "<p>Specifies the attributes that should be indexed on. Currently only a single attribute is supported.</p>",
         "CreateIndexRequest$OrderedIndexedAttributeList": "<p>Specifies the attributes that should be indexed on. Currently only a single attribute is supported.</p>"
       }
     },
@@ -266,14 +285,17 @@
       "base": null,
       "refs": {
         "AttachTypedLinkRequest$Attributes": "<p>A set of attributes that are associated with the typed link.</p>",
+        "BatchAttachTypedLink$Attributes": "<p>A set of attributes that are associated with the typed link.</p>",
         "TypedLinkSpecifier$IdentityAttributeValues": "<p>Identifies the attribute value to update.</p>"
       }
     },
     "AttributeNameList": {
       "base": null,
       "refs": {
+        "BatchGetObjectAttributes$AttributeNames": "<p>List of attribute names whose values will be retrieved.</p>",
+        "GetObjectAttributesRequest$AttributeNames": "<p>List of attribute names whose values will be retrieved.</p>",
         "GetTypedLinkFacetInformationResponse$IdentityAttributeOrder": "<p>The order of identity attributes for the facet, from most significant to least significant. The ability to filter typed links considers the order that the attributes are defined on the typed link facet. When providing ranges to typed link selection, any inexact ranges must be specified at the end. Any attributes that do not have a range specified are presumed to match the entire range. Filters are interpreted in the order of the attributes on the typed link facet, not the order in which they are supplied to any API calls. For more information about identity attributes, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>",
-        "TypedLinkFacet$IdentityAttributeOrder": "<p>The set of attributes that distinguish links made from this facet from each other, in the order of significance. Listing typed links can filter on the values of these attributes. See <a>ListOutgoingTypedLinks</a> and <a>ListIncomingTypeLinks</a> for details.</p>",
+        "TypedLinkFacet$IdentityAttributeOrder": "<p>The set of attributes that distinguish links made from this facet from each other, in the order of significance. Listing typed links can filter on the values of these attributes. See <a>ListOutgoingTypedLinks</a> and <a>ListIncomingTypedLinks</a> for details.</p>",
         "UpdateTypedLinkFacetRequest$IdentityAttributeOrder": "<p>The order of identity attributes for the facet, from most significant to least significant. The ability to filter typed links considers the order that the attributes are defined on the typed link facet. When providing ranges to a typed link selection, any inexact ranges must be specified at the end. Any attributes that do not have a range specified are presumed to match the entire range. Filters are interpreted in the order of the attributes on the typed link facet, not the order in which they are supplied to any API calls. For more information about identity attributes, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>"
       }
     },
@@ -290,75 +312,279 @@
       }
     },
     "BatchAttachObject": {
-      "base": "<p>Represents the output of an <code>AttachObject</code> operation.</p>",
+      "base": "<p>Represents the output of an <a>AttachObject</a> operation.</p>",
       "refs": {
         "BatchWriteOperation$AttachObject": "<p>Attaches an object to a <a>Directory</a>.</p>"
       }
     },
     "BatchAttachObjectResponse": {
-      "base": "<p>Represents the output batch <code>AttachObject</code> response operation.</p>",
+      "base": "<p>Represents the output batch <a>AttachObject</a> response operation.</p>",
       "refs": {
         "BatchWriteOperationResponse$AttachObject": "<p>Attaches an object to a <a>Directory</a>.</p>"
       }
     },
+    "BatchAttachPolicy": {
+      "base": "<p>Attaches a policy object to a regular object inside a <a>BatchRead</a> operation. For more information, see <a>AttachPolicy</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchWriteOperation$AttachPolicy": "<p>Attaches a policy object to a regular object. An object can have a limited number of attached policies.</p>"
+      }
+    },
+    "BatchAttachPolicyResponse": {
+      "base": "<p>Represents the output of an <a>AttachPolicy</a> response operation.</p>",
+      "refs": {
+        "BatchWriteOperationResponse$AttachPolicy": "<p>Attaches a policy object to a regular object. An object can have a limited number of attached policies.</p>"
+      }
+    },
+    "BatchAttachToIndex": {
+      "base": "<p>Attaches the specified object to the specified index inside a <a>BatchRead</a> operation. For more information, see <a>AttachToIndex</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchWriteOperation$AttachToIndex": "<p>Attaches the specified object to the specified index.</p>"
+      }
+    },
+    "BatchAttachToIndexResponse": {
+      "base": "<p>Represents the output of a <a>AttachToIndex</a> response operation.</p>",
+      "refs": {
+        "BatchWriteOperationResponse$AttachToIndex": "<p>Attaches the specified object to the specified index.</p>"
+      }
+    },
+    "BatchAttachTypedLink": {
+      "base": "<p>Attaches a typed link to a specified source and target object inside a <a>BatchRead</a> operation. For more information, see <a>AttachTypedLink</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchWriteOperation$AttachTypedLink": "<p>Attaches a typed link to a specified source and target object. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>"
+      }
+    },
+    "BatchAttachTypedLinkResponse": {
+      "base": "<p>Represents the output of a <a>AttachTypedLink</a> response operation.</p>",
+      "refs": {
+        "BatchWriteOperationResponse$AttachTypedLink": "<p>Attaches a typed link to a specified source and target object. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>"
+      }
+    },
+    "BatchCreateIndex": {
+      "base": "<p>Creates an index object inside of a <a>BatchRead</a> operation. For more information, see <a>CreateIndex</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchWriteOperation$CreateIndex": "<p>Creates an index object. See <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_indexing.html\">Indexing</a> for more information.</p>"
+      }
+    },
+    "BatchCreateIndexResponse": {
+      "base": "<p>Represents the output of a <a>CreateIndex</a> response operation.</p>",
+      "refs": {
+        "BatchWriteOperationResponse$CreateIndex": "<p>Creates an index object. See <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_indexing.html\">Indexing</a> for more information.</p>"
+      }
+    },
     "BatchCreateObject": {
-      "base": "<p>Represents the output of a <code>CreateObject</code> operation.</p>",
+      "base": "<p>Represents the output of a <a>CreateObject</a> operation.</p>",
       "refs": {
         "BatchWriteOperation$CreateObject": "<p>Creates an object.</p>"
       }
     },
     "BatchCreateObjectResponse": {
-      "base": "<p>Represents the output of a <code>CreateObject</code> response operation.</p>",
+      "base": "<p>Represents the output of a <a>CreateObject</a> response operation.</p>",
       "refs": {
         "BatchWriteOperationResponse$CreateObject": "<p>Creates an object in a <a>Directory</a>.</p>"
       }
     },
     "BatchDeleteObject": {
-      "base": "<p>Represents the output of a <code>DeleteObject</code> operation.</p>",
+      "base": "<p>Represents the output of a <a>DeleteObject</a> operation.</p>",
       "refs": {
         "BatchWriteOperation$DeleteObject": "<p>Deletes an object in a <a>Directory</a>.</p>"
       }
     },
     "BatchDeleteObjectResponse": {
-      "base": "<p>Represents the output of a <code>DeleteObject</code> response operation.</p>",
+      "base": "<p>Represents the output of a <a>DeleteObject</a> response operation.</p>",
       "refs": {
         "BatchWriteOperationResponse$DeleteObject": "<p>Deletes an object in a <a>Directory</a>.</p>"
       }
     },
+    "BatchDetachFromIndex": {
+      "base": "<p>Detaches the specified object from the specified index inside a <a>BatchRead</a> operation. For more information, see <a>DetachFromIndex</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchWriteOperation$DetachFromIndex": "<p>Detaches the specified object from the specified index.</p>"
+      }
+    },
+    "BatchDetachFromIndexResponse": {
+      "base": "<p>Represents the output of a <a>DetachFromIndex</a> response operation.</p>",
+      "refs": {
+        "BatchWriteOperationResponse$DetachFromIndex": "<p>Detaches the specified object from the specified index.</p>"
+      }
+    },
     "BatchDetachObject": {
-      "base": "<p>Represents the output of a <code>DetachObject</code> operation.</p>",
+      "base": "<p>Represents the output of a <a>DetachObject</a> operation.</p>",
       "refs": {
         "BatchWriteOperation$DetachObject": "<p>Detaches an object from a <a>Directory</a>.</p>"
       }
     },
     "BatchDetachObjectResponse": {
-      "base": "<p>Represents the output of a <code>DetachObject</code> response operation.</p>",
+      "base": "<p>Represents the output of a <a>DetachObject</a> response operation.</p>",
       "refs": {
         "BatchWriteOperationResponse$DetachObject": "<p>Detaches an object from a <a>Directory</a>.</p>"
       }
     },
+    "BatchDetachPolicy": {
+      "base": "<p>Detaches the specified policy from the specified directory inside a <a>BatchWrite</a> operation. For more information, see <a>DetachPolicy</a> and <a>BatchWriteRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchWriteOperation$DetachPolicy": "<p>Detaches a policy from a <a>Directory</a>.</p>"
+      }
+    },
+    "BatchDetachPolicyResponse": {
+      "base": "<p>Represents the output of a <a>DetachPolicy</a> response operation.</p>",
+      "refs": {
+        "BatchWriteOperationResponse$DetachPolicy": "<p>Detaches a policy from a <a>Directory</a>.</p>"
+      }
+    },
+    "BatchDetachTypedLink": {
+      "base": "<p>Detaches a typed link from a specified source and target object inside a <a>BatchRead</a> operation. For more information, see <a>DetachTypedLink</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchWriteOperation$DetachTypedLink": "<p>Detaches a typed link from a specified source and target object. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>"
+      }
+    },
+    "BatchDetachTypedLinkResponse": {
+      "base": "<p>Represents the output of a <a>DetachTypedLink</a> response operation.</p>",
+      "refs": {
+        "BatchWriteOperationResponse$DetachTypedLink": "<p>Detaches a typed link from a specified source and target object. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>"
+      }
+    },
+    "BatchGetObjectAttributes": {
+      "base": "<p>Retrieves attributes within a facet that are associated with an object inside an <a>BatchRead</a> operation. For more information, see <a>GetObjectAttributes</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchReadOperation$GetObjectAttributes": "<p>Retrieves attributes within a facet that are associated with an object.</p>"
+      }
+    },
+    "BatchGetObjectAttributesResponse": {
+      "base": "<p>Represents the output of a <a>GetObjectAttributes</a> response operation.</p>",
+      "refs": {
+        "BatchReadSuccessfulResponse$GetObjectAttributes": "<p>Retrieves attributes within a facet that are associated with an object.</p>"
+      }
+    },
+    "BatchGetObjectInformation": {
+      "base": "<p>Retrieves metadata about an object inside a <a>BatchRead</a> operation. For more information, see <a>GetObjectInformation</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchReadOperation$GetObjectInformation": "<p>Retrieves metadata about an object.</p>"
+      }
+    },
+    "BatchGetObjectInformationResponse": {
+      "base": "<p>Represents the output of a <a>GetObjectInformation</a> response operation.</p>",
+      "refs": {
+        "BatchReadSuccessfulResponse$GetObjectInformation": "<p>Retrieves metadata about an object.</p>"
+      }
+    },
+    "BatchListAttachedIndices": {
+      "base": "<p>Lists indices attached to an object inside a <a>BatchRead</a> operation. For more information, see <a>ListAttachedIndices</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchReadOperation$ListAttachedIndices": "<p>Lists indices attached to an object.</p>"
+      }
+    },
+    "BatchListAttachedIndicesResponse": {
+      "base": "<p>Represents the output of a <a>ListAttachedIndices</a> response operation.</p>",
+      "refs": {
+        "BatchReadSuccessfulResponse$ListAttachedIndices": "<p>Lists indices attached to an object.</p>"
+      }
+    },
+    "BatchListIncomingTypedLinks": {
+      "base": "<p>Returns a paginated list of all the incoming <a>TypedLinkSpecifier</a> information for an object inside a <a>BatchRead</a> operation. For more information, see <a>ListIncomingTypedLinks</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchReadOperation$ListIncomingTypedLinks": "<p>Returns a paginated list of all the incoming <a>TypedLinkSpecifier</a> information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>"
+      }
+    },
+    "BatchListIncomingTypedLinksResponse": {
+      "base": "<p>Represents the output of a <a>ListIncomingTypedLinks</a> response operation.</p>",
+      "refs": {
+        "BatchReadSuccessfulResponse$ListIncomingTypedLinks": "<p>Returns a paginated list of all the incoming <a>TypedLinkSpecifier</a> information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>"
+      }
+    },
+    "BatchListIndex": {
+      "base": "<p>Lists objects attached to the specified index inside a <a>BatchRead</a> operation. For more information, see <a>ListIndex</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchReadOperation$ListIndex": "<p>Lists objects attached to the specified index.</p>"
+      }
+    },
+    "BatchListIndexResponse": {
+      "base": "<p>Represents the output of a <a>ListIndex</a> response operation.</p>",
+      "refs": {
+        "BatchReadSuccessfulResponse$ListIndex": "<p>Lists objects attached to the specified index.</p>"
+      }
+    },
     "BatchListObjectAttributes": {
-      "base": "<p>Represents the output of a <code>ListObjectAttributes</code> operation.</p>",
+      "base": "<p>Represents the output of a <a>ListObjectAttributes</a> operation.</p>",
       "refs": {
         "BatchReadOperation$ListObjectAttributes": "<p>Lists all attributes that are associated with an object.</p>"
       }
     },
     "BatchListObjectAttributesResponse": {
-      "base": "<p>Represents the output of a <code>ListObjectAttributes</code> response operation.</p>",
+      "base": "<p>Represents the output of a <a>ListObjectAttributes</a> response operation.</p>",
       "refs": {
         "BatchReadSuccessfulResponse$ListObjectAttributes": "<p>Lists all attributes that are associated with an object.</p>"
       }
     },
     "BatchListObjectChildren": {
-      "base": "<p>Represents the output of a <code>ListObjectChildren</code> operation.</p>",
+      "base": "<p>Represents the output of a <a>ListObjectChildren</a> operation.</p>",
       "refs": {
         "BatchReadOperation$ListObjectChildren": "<p>Returns a paginated list of child objects that are associated with a given object.</p>"
       }
     },
     "BatchListObjectChildrenResponse": {
-      "base": "<p>Represents the output of a <code>ListObjectChildren</code> response operation.</p>",
+      "base": "<p>Represents the output of a <a>ListObjectChildren</a> response operation.</p>",
       "refs": {
         "BatchReadSuccessfulResponse$ListObjectChildren": "<p>Returns a paginated list of child objects that are associated with a given object.</p>"
+      }
+    },
+    "BatchListObjectParentPaths": {
+      "base": "<p>Retrieves all available parent paths for any object type such as node, leaf node, policy node, and index node objects inside a <a>BatchRead</a> operation. For more information, see <a>ListObjectParentPaths</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchReadOperation$ListObjectParentPaths": "<p>Retrieves all available parent paths for any object type such as node, leaf node, policy node, and index node objects. For more information about objects, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_key_concepts.html#dirstructure\">Directory Structure</a>.</p>"
+      }
+    },
+    "BatchListObjectParentPathsResponse": {
+      "base": "<p>Represents the output of a <a>ListObjectParentPaths</a> response operation.</p>",
+      "refs": {
+        "BatchReadSuccessfulResponse$ListObjectParentPaths": "<p>Retrieves all available parent paths for any object type such as node, leaf node, policy node, and index node objects. For more information about objects, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_key_concepts.html#dirstructure\">Directory Structure</a>.</p>"
+      }
+    },
+    "BatchListObjectPolicies": {
+      "base": "<p>Returns policies attached to an object in pagination fashion inside a <a>BatchRead</a> operation. For more information, see <a>ListObjectPolicies</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchReadOperation$ListObjectPolicies": "<p>Returns policies attached to an object in pagination fashion.</p>"
+      }
+    },
+    "BatchListObjectPoliciesResponse": {
+      "base": "<p>Represents the output of a <a>ListObjectPolicies</a> response operation.</p>",
+      "refs": {
+        "BatchReadSuccessfulResponse$ListObjectPolicies": "<p>Returns policies attached to an object in pagination fashion.</p>"
+      }
+    },
+    "BatchListOutgoingTypedLinks": {
+      "base": "<p>Returns a paginated list of all the outgoing <a>TypedLinkSpecifier</a> information for an object inside a <a>BatchRead</a> operation. For more information, see <a>ListOutgoingTypedLinks</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchReadOperation$ListOutgoingTypedLinks": "<p>Returns a paginated list of all the outgoing <a>TypedLinkSpecifier</a> information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>"
+      }
+    },
+    "BatchListOutgoingTypedLinksResponse": {
+      "base": "<p>Represents the output of a <a>ListOutgoingTypedLinks</a> response operation.</p>",
+      "refs": {
+        "BatchReadSuccessfulResponse$ListOutgoingTypedLinks": "<p>Returns a paginated list of all the outgoing <a>TypedLinkSpecifier</a> information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#typedlink\">Typed link</a>.</p>"
+      }
+    },
+    "BatchListPolicyAttachments": {
+      "base": "<p>Returns all of the <code>ObjectIdentifiers</code> to which a given policy is attached inside a <a>BatchRead</a> operation. For more information, see <a>ListPolicyAttachments</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchReadOperation$ListPolicyAttachments": "<p>Returns all of the <code>ObjectIdentifiers</code> to which a given policy is attached.</p>"
+      }
+    },
+    "BatchListPolicyAttachmentsResponse": {
+      "base": "<p>Represents the output of a <a>ListPolicyAttachments</a> response operation.</p>",
+      "refs": {
+        "BatchReadSuccessfulResponse$ListPolicyAttachments": "<p>Returns all of the <code>ObjectIdentifiers</code> to which a given policy is attached.</p>"
+      }
+    },
+    "BatchLookupPolicy": {
+      "base": "<p>Lists all policies from the root of the Directory to the object specified inside a <a>BatchRead</a> operation. For more information, see <a>LookupPolicy</a> and <a>BatchReadRequest$Operations</a>.</p>",
+      "refs": {
+        "BatchReadOperation$LookupPolicy": "<p>Lists all policies from the root of the <a>Directory</a> to the object specified. If there are no policies present, an empty list is returned. If policies are present, and if some objects don't have the policies attached, it returns the <code>ObjectIdentifier</code> for such objects. If policies are present, it returns <code>ObjectIdentifier</code>, <code>policyId</code>, and <code>policyType</code>. Paths that don't lead to the root from the target object are ignored. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_key_concepts.html#policies\">Policies</a>.</p>"
+      }
+    },
+    "BatchLookupPolicyResponse": {
+      "base": "<p>Represents the output of a <a>LookupPolicy</a> response operation.</p>",
+      "refs": {
+        "BatchReadSuccessfulResponse$LookupPolicy": "<p>Lists all policies from the root of the <a>Directory</a> to the object specified. If there are no policies present, an empty list is returned. If policies are present, and if some objects don't have the policies attached, it returns the <code>ObjectIdentifier</code> for such objects. If policies are present, it returns <code>ObjectIdentifier</code>, <code>policyId</code>, and <code>policyType</code>. Paths that don't lead to the root from the target object are ignored. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_key_concepts.html#policies\">Policies</a>.</p>"
       }
     },
     "BatchOperationIndex": {
@@ -422,6 +648,7 @@
     "BatchReferenceName": {
       "base": null,
       "refs": {
+        "BatchCreateIndex$BatchReferenceName": "<p>The batch reference name. See <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_advanced.html#batches\">Batches</a> for more information.</p>",
         "BatchCreateObject$BatchReferenceName": "<p>The batch reference name. See <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_advanced.html#batches\">Batches</a> for more information.</p>",
         "BatchDetachObject$BatchReferenceName": "<p>The batch reference name. See <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_advanced.html#batches\">Batches</a> for more information.</p>"
       }
@@ -504,9 +731,12 @@
     "Bool": {
       "base": null,
       "refs": {
+        "BatchCreateIndex$IsUnique": "<p>Indicates whether the attribute that is being indexed has unique values or not.</p>",
         "CreateIndexRequest$IsUnique": "<p>Indicates whether the attribute that is being indexed has unique values or not.</p>",
         "FacetAttributeDefinition$IsImmutable": "<p>Whether the attribute is mutable or not.</p>",
-        "TypedLinkAttributeDefinition$IsImmutable": "<p>Whether the attribute is mutable or not.</p>"
+        "TypedLinkAttributeDefinition$IsImmutable": "<p>Whether the attribute is mutable or not.</p>",
+        "UpgradeAppliedSchemaRequest$DryRun": "<p>Used for testing whether the major version schemas are backward compatible or not. If schema compatibility fails, an exception would be thrown else the call would succeed but no changes will be saved. This parameter is optional.</p>",
+        "UpgradePublishedSchemaRequest$DryRun": "<p>Used for testing whether the Development schema provided is backwards compatible, or not, with the publish schema provided by the user to be upgraded. If schema compatibility fails, an exception would be thrown else the call would succeed. This parameter is optional and defaults to false.</p>"
       }
     },
     "BooleanAttributeValue": {
@@ -524,6 +754,7 @@
       "base": null,
       "refs": {
         "BatchReadRequest$ConsistencyLevel": "<p>Represents the manner and timing in which the successful write or update of an object is reflected in a subsequent read operation of that same object.</p>",
+        "GetObjectAttributesRequest$ConsistencyLevel": "<p>The consistency level at which to retrieve the attributes on an object.</p>",
         "GetObjectInformationRequest$ConsistencyLevel": "<p>The consistency level at which to retrieve the object information.</p>",
         "ListAttachedIndicesRequest$ConsistencyLevel": "<p>The consistency level to use for this operation.</p>",
         "ListIncomingTypedLinksRequest$ConsistencyLevel": "<p>The consistency level to execute the request at.</p>",
@@ -738,7 +969,7 @@
       }
     },
     "DirectoryNotEnabledException": {
-      "base": "<p>An operation can only operate on a directory that is not enabled.</p>",
+      "base": "<p>Operations are only permitted on enabled directories.</p>",
       "refs": {
       }
     },
@@ -784,6 +1015,7 @@
         "FacetInUseException$Message": null,
         "FacetNotFoundException$Message": null,
         "FacetValidationException$Message": null,
+        "IncompatibleSchemaException$Message": null,
         "IndexedAttributeMissingException$Message": null,
         "InternalServiceException$Message": null,
         "InvalidArnException$Message": null,
@@ -810,7 +1042,7 @@
       }
     },
     "Facet": {
-      "base": "<p>A structure that contains <code>Name</code>, <code>ARN</code>, <code>Attributes</code>, <a>Rule</a>s, and <code>ObjectTypes</code>.</p>",
+      "base": "<p>A structure that contains <code>Name</code>, <code>ARN</code>, <code>Attributes</code>, <code> <a>Rule</a>s</code>, and <code>ObjectTypes</code>. See <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/whatarefacets.html\">Facets</a> for more information.</p>",
       "refs": {
         "GetFacetResponse$Facet": "<p>The <a>Facet</a> structure that is associated with the facet.</p>"
       }
@@ -901,6 +1133,16 @@
       "refs": {
       }
     },
+    "GetAppliedSchemaVersionRequest": {
+      "base": null,
+      "refs": {
+      }
+    },
+    "GetAppliedSchemaVersionResponse": {
+      "base": null,
+      "refs": {
+      }
+    },
     "GetDirectoryRequest": {
       "base": null,
       "refs": {
@@ -917,6 +1159,16 @@
       }
     },
     "GetFacetResponse": {
+      "base": null,
+      "refs": {
+      }
+    },
+    "GetObjectAttributesRequest": {
+      "base": null,
+      "refs": {
+      }
+    },
+    "GetObjectAttributesResponse": {
       "base": null,
       "refs": {
       }
@@ -951,6 +1203,11 @@
       "refs": {
       }
     },
+    "IncompatibleSchemaException": {
+      "base": "<p>Indicates a failure occurred while performing a check for backward compatibility between the specified schema and the schema that is currently applied to the directory.</p>",
+      "refs": {
+      }
+    },
     "IndexAttachment": {
       "base": "<p>Represents an index and an attached object.</p>",
       "refs": {
@@ -960,6 +1217,8 @@
     "IndexAttachmentList": {
       "base": null,
       "refs": {
+        "BatchListAttachedIndicesResponse$IndexAttachments": "<p>The indices attached to the specified object.</p>",
+        "BatchListIndexResponse$IndexAttachments": "<p>The objects and indexed values attached to the index.</p>",
         "ListAttachedIndicesResponse$IndexAttachments": "<p>The indices attached to the specified object.</p>",
         "ListIndexResponse$IndexAttachments": "<p>The objects and indexed values attached to the index.</p>"
       }
@@ -1019,6 +1278,7 @@
       "refs": {
         "AttachObjectRequest$LinkName": "<p>The link name with which the child object is attached to the parent.</p>",
         "BatchAttachObject$LinkName": "<p>The name of the link.</p>",
+        "BatchCreateIndex$LinkName": "<p>The name of the link between the parent object and the index object.</p>",
         "BatchCreateObject$LinkName": "<p>The name of the link.</p>",
         "BatchDetachObject$LinkName": "<p>The name of the link.</p>",
         "CreateIndexRequest$LinkName": "<p>The name of the link between the parent object and the index object.</p>",
@@ -1243,10 +1503,26 @@
     "NextToken": {
       "base": null,
       "refs": {
+        "BatchListAttachedIndices$NextToken": "<p>The pagination token.</p>",
+        "BatchListAttachedIndicesResponse$NextToken": "<p>The pagination token.</p>",
+        "BatchListIncomingTypedLinks$NextToken": "<p>The pagination token.</p>",
+        "BatchListIncomingTypedLinksResponse$NextToken": "<p>The pagination token.</p>",
+        "BatchListIndex$NextToken": "<p>The pagination token.</p>",
+        "BatchListIndexResponse$NextToken": "<p>The pagination token.</p>",
         "BatchListObjectAttributes$NextToken": "<p>The pagination token.</p>",
         "BatchListObjectAttributesResponse$NextToken": "<p>The pagination token.</p>",
         "BatchListObjectChildren$NextToken": "<p>The pagination token.</p>",
         "BatchListObjectChildrenResponse$NextToken": "<p>The pagination token.</p>",
+        "BatchListObjectParentPaths$NextToken": "<p>The pagination token.</p>",
+        "BatchListObjectParentPathsResponse$NextToken": "<p>The pagination token.</p>",
+        "BatchListObjectPolicies$NextToken": "<p>The pagination token.</p>",
+        "BatchListObjectPoliciesResponse$NextToken": "<p>The pagination token.</p>",
+        "BatchListOutgoingTypedLinks$NextToken": "<p>The pagination token.</p>",
+        "BatchListOutgoingTypedLinksResponse$NextToken": "<p>The pagination token.</p>",
+        "BatchListPolicyAttachments$NextToken": "<p>The pagination token.</p>",
+        "BatchListPolicyAttachmentsResponse$NextToken": "<p>The pagination token.</p>",
+        "BatchLookupPolicy$NextToken": "<p>The pagination token.</p>",
+        "BatchLookupPolicyResponse$NextToken": "<p>The pagination token.</p>",
         "ListAppliedSchemaArnsRequest$NextToken": "<p>The pagination token.</p>",
         "ListAppliedSchemaArnsResponse$NextToken": "<p>The pagination token.</p>",
         "ListAttachedIndicesRequest$NextToken": "<p>The pagination token.</p>",
@@ -1313,8 +1589,16 @@
     "NumberResults": {
       "base": null,
       "refs": {
+        "BatchListAttachedIndices$MaxResults": "<p>The maximum number of results to retrieve.</p>",
+        "BatchListIncomingTypedLinks$MaxResults": "<p>The maximum number of results to retrieve.</p>",
+        "BatchListIndex$MaxResults": "<p>The maximum number of results to retrieve.</p>",
         "BatchListObjectAttributes$MaxResults": "<p>The maximum number of items to be retrieved in a single call. This is an approximate number.</p>",
         "BatchListObjectChildren$MaxResults": "<p>Maximum number of items to be retrieved in a single call. This is an approximate number.</p>",
+        "BatchListObjectParentPaths$MaxResults": "<p>The maximum number of results to retrieve.</p>",
+        "BatchListObjectPolicies$MaxResults": "<p>The maximum number of results to retrieve.</p>",
+        "BatchListOutgoingTypedLinks$MaxResults": "<p>The maximum number of results to retrieve.</p>",
+        "BatchListPolicyAttachments$MaxResults": "<p>The maximum number of results to retrieve.</p>",
+        "BatchLookupPolicy$MaxResults": "<p>The maximum number of results to retrieve.</p>",
         "ListAppliedSchemaArnsRequest$MaxResults": "<p>The maximum number of results to retrieve.</p>",
         "ListAttachedIndicesRequest$MaxResults": "<p>The maximum number of results to retrieve.</p>",
         "ListDevelopmentSchemaArnsRequest$MaxResults": "<p>The maximum number of results to retrieve.</p>",
@@ -1322,7 +1606,7 @@
         "ListFacetAttributesRequest$MaxResults": "<p>The maximum number of results to retrieve.</p>",
         "ListFacetNamesRequest$MaxResults": "<p>The maximum number of results to retrieve.</p>",
         "ListIncomingTypedLinksRequest$MaxResults": "<p>The maximum number of results to retrieve.</p>",
-        "ListIndexRequest$MaxResults": "<p>The maximum number of results to retrieve from the index.</p>",
+        "ListIndexRequest$MaxResults": "<p>The maximum number of objects in a single page to retrieve from the index during a request. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/limits.html#limits_cd\">AWS Directory Service Limits</a>.</p>",
         "ListObjectAttributesRequest$MaxResults": "<p>The maximum number of items to be retrieved in a single call. This is an approximate number.</p>",
         "ListObjectChildrenRequest$MaxResults": "<p>The maximum number of items to be retrieved in a single call. This is an approximate number.</p>",
         "ListObjectParentPathsRequest$MaxResults": "<p>The maximum number of items to be retrieved in a single call. This is an approximate number.</p>",
@@ -1356,6 +1640,7 @@
     "ObjectAttributeRangeList": {
       "base": null,
       "refs": {
+        "BatchListIndex$RangesOnIndexedValues": "<p>Specifies the ranges of indexed values that you want to query.</p>",
         "ListIndexRequest$RangesOnIndexedValues": "<p>Specifies the ranges of indexed values that you want to query.</p>"
       }
     },
@@ -1378,8 +1663,12 @@
         "AttachObjectResponse$AttachedObjectIdentifier": "<p>The attached <code>ObjectIdentifier</code>, which is the child <code>ObjectIdentifier</code>.</p>",
         "AttachToIndexResponse$AttachedObjectIdentifier": "<p>The <code>ObjectIdentifier</code> of the object that was attached to the index.</p>",
         "BatchAttachObjectResponse$attachedObjectIdentifier": "<p>The <code>ObjectIdentifier</code> of the object that has been attached.</p>",
+        "BatchAttachToIndexResponse$AttachedObjectIdentifier": "<p>The <code>ObjectIdentifier</code> of the object that was attached to the index.</p>",
+        "BatchCreateIndexResponse$ObjectIdentifier": "<p>The <code>ObjectIdentifier</code> of the index created by this operation.</p>",
         "BatchCreateObjectResponse$ObjectIdentifier": "<p>The ID that is associated with the object.</p>",
+        "BatchDetachFromIndexResponse$DetachedObjectIdentifier": "<p>The <code>ObjectIdentifier</code> of the object that was detached from the index.</p>",
         "BatchDetachObjectResponse$detachedObjectIdentifier": "<p>The <code>ObjectIdentifier</code> of the detached object.</p>",
+        "BatchGetObjectInformationResponse$ObjectIdentifier": "<p>The <code>ObjectIdentifier</code> of the specified object.</p>",
         "BatchUpdateObjectAttributesResponse$ObjectIdentifier": "<p>ID that is associated with the object.</p>",
         "CreateDirectoryResponse$ObjectIdentifier": "<p>The root object node of the created directory.</p>",
         "CreateIndexResponse$ObjectIdentifier": "<p>The <code>ObjectIdentifier</code> of the index created by this operation.</p>",
@@ -1387,7 +1676,7 @@
         "DetachFromIndexResponse$DetachedObjectIdentifier": "<p>The <code>ObjectIdentifier</code> of the object that was detached from the index.</p>",
         "DetachObjectResponse$DetachedObjectIdentifier": "<p>The <code>ObjectIdentifier</code> that was detached from the object.</p>",
         "GetObjectInformationResponse$ObjectIdentifier": "<p>The <code>ObjectIdentifier</code> of the specified object.</p>",
-        "IndexAttachment$ObjectIdentifier": "<p>The <code>ObjectIdentifier</code> of the object attached to the index.</p>",
+        "IndexAttachment$ObjectIdentifier": "<p>In response to <a>ListIndex</a>, the <code>ObjectIdentifier</code> of the object attached to the index. In response to <a>ListAttachedIndices</a>, the <code>ObjectIdentifier</code> of the index attached to the object. This field will always contain the <code>ObjectIdentifier</code> of the object on the opposite side of the attachment specified in the query.</p>",
         "LinkNameToObjectIdentifierMap$value": null,
         "ObjectIdentifierList$member": null,
         "ObjectIdentifierToLinkNameMap$key": null,
@@ -1399,6 +1688,8 @@
     "ObjectIdentifierList": {
       "base": null,
       "refs": {
+        "BatchListObjectPoliciesResponse$AttachedPolicyIds": "<p>A list of policy <code>ObjectIdentifiers</code>, that are attached to the object.</p>",
+        "BatchListPolicyAttachmentsResponse$ObjectIdentifiers": "<p>A list of <code>ObjectIdentifiers</code> to which the policy is attached.</p>",
         "ListObjectPoliciesResponse$AttachedPolicyIds": "<p>A list of policy <code>ObjectIdentifiers</code>, that are attached to the object.</p>",
         "ListPolicyAttachmentsResponse$ObjectIdentifiers": "<p>A list of <code>ObjectIdentifiers</code> to which the policy is attached.</p>",
         "PathToObjectIdentifiers$ObjectIdentifiers": "<p>Lists <code>ObjectIdentifiers</code> starting from directory root to the object in the request.</p>"
@@ -1430,11 +1721,32 @@
         "BatchAddFacetToObject$ObjectReference": "<p>A reference to the object being mutated.</p>",
         "BatchAttachObject$ParentReference": "<p>The parent object reference.</p>",
         "BatchAttachObject$ChildReference": "<p>The child object reference that is to be attached to the object.</p>",
+        "BatchAttachPolicy$PolicyReference": "<p>The reference that is associated with the policy object.</p>",
+        "BatchAttachPolicy$ObjectReference": "<p>The reference that identifies the object to which the policy will be attached.</p>",
+        "BatchAttachToIndex$IndexReference": "<p>A reference to the index that you are attaching the object to.</p>",
+        "BatchAttachToIndex$TargetReference": "<p>A reference to the object that you are attaching to the index.</p>",
+        "BatchAttachTypedLink$SourceObjectReference": "<p>Identifies the source object that the typed link will attach to.</p>",
+        "BatchAttachTypedLink$TargetObjectReference": "<p>Identifies the target object that the typed link will attach to.</p>",
+        "BatchCreateIndex$ParentReference": "<p>A reference to the parent object that contains the index object.</p>",
         "BatchCreateObject$ParentReference": "<p>If specified, the parent reference to which this object will be attached.</p>",
         "BatchDeleteObject$ObjectReference": "<p>The reference that identifies the object.</p>",
+        "BatchDetachFromIndex$IndexReference": "<p>A reference to the index object.</p>",
+        "BatchDetachFromIndex$TargetReference": "<p>A reference to the object being detached from the index.</p>",
         "BatchDetachObject$ParentReference": "<p>Parent reference from which the object with the specified link name is detached.</p>",
+        "BatchDetachPolicy$PolicyReference": "<p>Reference that identifies the policy object.</p>",
+        "BatchDetachPolicy$ObjectReference": "<p>Reference that identifies the object whose policy object will be detached.</p>",
+        "BatchGetObjectAttributes$ObjectReference": "<p>Reference that identifies the object whose attributes will be retrieved.</p>",
+        "BatchGetObjectInformation$ObjectReference": "<p>A reference to the object.</p>",
+        "BatchListAttachedIndices$TargetReference": "<p>A reference to the object that has indices attached.</p>",
+        "BatchListIncomingTypedLinks$ObjectReference": "<p>The reference that identifies the object whose attributes will be listed.</p>",
+        "BatchListIndex$IndexReference": "<p>The reference to the index to list.</p>",
         "BatchListObjectAttributes$ObjectReference": "<p>Reference of the object whose attributes need to be listed.</p>",
         "BatchListObjectChildren$ObjectReference": "<p>Reference of the object for which child objects are being listed.</p>",
+        "BatchListObjectParentPaths$ObjectReference": "<p>The reference that identifies the object whose attributes will be listed.</p>",
+        "BatchListObjectPolicies$ObjectReference": "<p>The reference that identifies the object whose attributes will be listed.</p>",
+        "BatchListOutgoingTypedLinks$ObjectReference": "<p>The reference that identifies the object whose attributes will be listed.</p>",
+        "BatchListPolicyAttachments$PolicyReference": "<p>The reference that identifies the policy object.</p>",
+        "BatchLookupPolicy$ObjectReference": "<p>Reference that identifies the object whose policies will be looked up.</p>",
         "BatchRemoveFacetFromObject$ObjectReference": "<p>A reference to the object whose facet will be removed.</p>",
         "BatchUpdateObjectAttributes$ObjectReference": "<p>Reference that identifies the object.</p>",
         "CreateIndexRequest$ParentReference": "<p>A reference to the parent object that contains the index object.</p>",
@@ -1445,8 +1757,9 @@
         "DetachObjectRequest$ParentReference": "<p>The parent reference from which the object with the specified link name is detached.</p>",
         "DetachPolicyRequest$PolicyReference": "<p>Reference that identifies the policy object.</p>",
         "DetachPolicyRequest$ObjectReference": "<p>Reference that identifies the object whose policy object will be detached.</p>",
+        "GetObjectAttributesRequest$ObjectReference": "<p>Reference that identifies the object whose attributes will be retrieved.</p>",
         "GetObjectInformationRequest$ObjectReference": "<p>A reference to the object.</p>",
-        "ListAttachedIndicesRequest$TargetReference": "<p>A reference to the object to that has indices attached.</p>",
+        "ListAttachedIndicesRequest$TargetReference": "<p>A reference to the object that has indices attached.</p>",
         "ListIncomingTypedLinksRequest$ObjectReference": "<p>Reference that identifies the object whose attributes will be listed.</p>",
         "ListIndexRequest$IndexReference": "<p>The reference to the index to list.</p>",
         "ListObjectAttributesRequest$ObjectReference": "<p>The reference that identifies the object whose attributes will be listed.</p>",
@@ -1487,6 +1800,7 @@
     "PathToObjectIdentifiersList": {
       "base": null,
       "refs": {
+        "BatchListObjectParentPathsResponse$PathToObjectIdentifiersList": "<p>Returns the path to the <code>ObjectIdentifiers</code> that are associated with the directory.</p>",
         "ListObjectParentPathsResponse$PathToObjectIdentifiersList": "<p>Returns the path to the <code>ObjectIdentifiers</code> that are associated with the directory.</p>"
       }
     },
@@ -1511,6 +1825,7 @@
     "PolicyToPathList": {
       "base": null,
       "refs": {
+        "BatchLookupPolicyResponse$PolicyToPathList": "<p>Provides list of path to policies. Policies contain <code>PolicyId</code>, <code>ObjectIdentifier</code>, and <code>PolicyType</code>. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_key_concepts.html#policies\">Policies</a>.</p>",
         "LookupPolicyResponse$PolicyToPathList": "<p>Provides list of path to policies. Policies contain <code>PolicyId</code>, <code>ObjectIdentifier</code>, and <code>PolicyType</code>. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/cd_key_concepts.html#policies\">Policies</a>.</p>"
       }
     },
@@ -1630,12 +1945,14 @@
     "SchemaFacet": {
       "base": "<p>A facet.</p>",
       "refs": {
-        "AddFacetToObjectRequest$SchemaFacet": "<p>Identifiers for the facet that you are adding to the object.</p>",
+        "AddFacetToObjectRequest$SchemaFacet": "<p>Identifiers for the facet that you are adding to the object. See <a>SchemaFacet</a> for details.</p>",
         "BatchAddFacetToObject$SchemaFacet": "<p>Represents the facet being added to the object.</p>",
+        "BatchGetObjectAttributes$SchemaFacet": "<p>Identifier for the facet whose attributes will be retrieved. See <a>SchemaFacet</a> for details.</p>",
         "BatchListObjectAttributes$FacetFilter": "<p>Used to filter the list of object attributes that are associated with a certain facet.</p>",
         "BatchRemoveFacetFromObject$SchemaFacet": "<p>The facet to remove from the object.</p>",
+        "GetObjectAttributesRequest$SchemaFacet": "<p>Identifier for the facet whose attributes will be retrieved. See <a>SchemaFacet</a> for details.</p>",
         "ListObjectAttributesRequest$FacetFilter": "<p>Used to filter the list of object attributes that are associated with a certain facet.</p>",
-        "RemoveFacetFromObjectRequest$SchemaFacet": "<p>The facet to remove.</p>",
+        "RemoveFacetFromObjectRequest$SchemaFacet": "<p>The facet to remove. See <a>SchemaFacet</a> for details.</p>",
         "SchemaFacetList$member": null
       }
     },
@@ -1643,8 +1960,9 @@
       "base": null,
       "refs": {
         "BatchCreateObject$SchemaFacet": "<p>A list of <code>FacetArns</code> that will be associated with the object. For more information, see <a>arns</a>.</p>",
-        "CreateObjectRequest$SchemaFacets": "<p>A list of schema facets to be associated with the object that contains <code>SchemaArn</code> and facet name. For more information, see <a>arns</a>.</p>",
-        "GetObjectInformationResponse$SchemaFacets": "<p>The facets attached to the specified object.</p>"
+        "BatchGetObjectInformationResponse$SchemaFacets": "<p>The facets attached to the specified object.</p>",
+        "CreateObjectRequest$SchemaFacets": "<p>A list of schema facets to be associated with the object. Do not provide minor version components. See <a>SchemaFacet</a> for details.</p>",
+        "GetObjectInformationResponse$SchemaFacets": "<p>The facets attached to the specified object. Although the response does not include minor version information, the most recently applied minor version of each Facet is in effect. See <a>GetAppliedSchemaVersion</a> for details.</p>"
       }
     },
     "SchemaJsonDocument": {
@@ -1741,7 +2059,7 @@
       }
     },
     "TypedAttributeValueRange": {
-      "base": "<p>A range of attribute values.</p>",
+      "base": "<p>A range of attribute values. For more information, see <a href=\"http://docs.aws.amazon.com/directoryservice/latest/admin-guide/objectsandlinks.html#rangefilters\">Range Filters</a>.</p>",
       "refs": {
         "ObjectAttributeRange$Range": "<p>The range of attribute values being selected.</p>",
         "TypedLinkAttributeRange$Range": "<p>The range of attribute values that are being selected.</p>"
@@ -1770,6 +2088,8 @@
     "TypedLinkAttributeRangeList": {
       "base": null,
       "refs": {
+        "BatchListIncomingTypedLinks$FilterAttributeRanges": "<p>Provides range filters for multiple attributes. When providing ranges to typed link selection, any inexact ranges must be specified at the end. Any attributes that do not have a range specified are presumed to match the entire range.</p>",
+        "BatchListOutgoingTypedLinks$FilterAttributeRanges": "<p>Provides range filters for multiple attributes. When providing ranges to typed link selection, any inexact ranges must be specified at the end. Any attributes that do not have a range specified are presumed to match the entire range.</p>",
         "ListIncomingTypedLinksRequest$FilterAttributeRanges": "<p>Provides range filters for multiple attributes. When providing ranges to typed link selection, any inexact ranges must be specified at the end. Any attributes that do not have a range specified are presumed to match the entire range.</p>",
         "ListOutgoingTypedLinksRequest$FilterAttributeRanges": "<p>Provides range filters for multiple attributes. When providing ranges to typed link selection, any inexact ranges must be specified at the end. Any attributes that do not have a range specified are presumed to match the entire range.</p>"
       }
@@ -1814,6 +2134,9 @@
       "base": "<p>Identifies the schema Amazon Resource Name (ARN) and facet name for the typed link.</p>",
       "refs": {
         "AttachTypedLinkRequest$TypedLinkFacet": "<p>Identifies the typed link facet that is associated with the typed link.</p>",
+        "BatchAttachTypedLink$TypedLinkFacet": "<p>Identifies the typed link facet that is associated with the typed link.</p>",
+        "BatchListIncomingTypedLinks$FilterTypedLink": "<p>Filters are interpreted in the order of the attributes on the typed link facet, not the order in which they are supplied to any API calls.</p>",
+        "BatchListOutgoingTypedLinks$FilterTypedLink": "<p>Filters are interpreted in the order of the attributes defined on the typed link facet, not the order they are supplied to any API calls.</p>",
         "ListIncomingTypedLinksRequest$FilterTypedLink": "<p>Filters are interpreted in the order of the attributes on the typed link facet, not the order in which they are supplied to any API calls.</p>",
         "ListOutgoingTypedLinksRequest$FilterTypedLink": "<p>Filters are interpreted in the order of the attributes defined on the typed link facet, not the order they are supplied to any API calls.</p>",
         "TypedLinkSpecifier$TypedLinkFacet": "<p>Identifies the typed link facet that is associated with the typed link.</p>"
@@ -1823,6 +2146,8 @@
       "base": "<p>Contains all the information that is used to uniquely identify a typed link. The parameters discussed in this topic are used to uniquely specify the typed link being operated on. The <a>AttachTypedLink</a> API returns a typed link specifier while the <a>DetachTypedLink</a> API accepts one as input. Similarly, the <a>ListIncomingTypedLinks</a> and <a>ListOutgoingTypedLinks</a> API operations provide typed link specifiers as output. You can also construct a typed link specifier from scratch.</p>",
       "refs": {
         "AttachTypedLinkResponse$TypedLinkSpecifier": "<p>Returns a typed link specifier as output.</p>",
+        "BatchAttachTypedLinkResponse$TypedLinkSpecifier": "<p>Returns a typed link specifier as output.</p>",
+        "BatchDetachTypedLink$TypedLinkSpecifier": "<p>Used to accept a typed link specifier as input.</p>",
         "DetachTypedLinkRequest$TypedLinkSpecifier": "<p>Used to accept a typed link specifier as input.</p>",
         "TypedLinkSpecifierList$member": null
       }
@@ -1830,6 +2155,8 @@
     "TypedLinkSpecifierList": {
       "base": null,
       "refs": {
+        "BatchListIncomingTypedLinksResponse$LinkSpecifiers": "<p>Returns one or more typed link specifiers as output.</p>",
+        "BatchListOutgoingTypedLinksResponse$TypedLinkSpecifiers": "<p>Returns a typed link specifier as output.</p>",
         "ListIncomingTypedLinksResponse$LinkSpecifiers": "<p>Returns one or more typed link specifiers as output.</p>",
         "ListOutgoingTypedLinksResponse$TypedLinkSpecifiers": "<p>Returns a typed link specifier as output.</p>"
       }
@@ -1897,6 +2224,26 @@
       "refs": {
       }
     },
+    "UpgradeAppliedSchemaRequest": {
+      "base": null,
+      "refs": {
+      }
+    },
+    "UpgradeAppliedSchemaResponse": {
+      "base": null,
+      "refs": {
+      }
+    },
+    "UpgradePublishedSchemaRequest": {
+      "base": null,
+      "refs": {
+      }
+    },
+    "UpgradePublishedSchemaResponse": {
+      "base": null,
+      "refs": {
+      }
+    },
     "ValidationException": {
       "base": "<p>Indicates that your request is malformed in some manner. See the exception message.</p>",
       "refs": {
@@ -1905,7 +2252,9 @@
     "Version": {
       "base": null,
       "refs": {
-        "PublishSchemaRequest$Version": "<p>The version under which the schema will be published.</p>"
+        "PublishSchemaRequest$Version": "<p>The major version under which the schema will be published. Schemas have both a major and minor version associated with them.</p>",
+        "PublishSchemaRequest$MinorVersion": "<p>The minor version under which the schema will be published. This parameter is recommended. Schemas have both a major and minor version associated with them.</p>",
+        "UpgradePublishedSchemaRequest$MinorVersion": "<p>Identifies the minor version of the published schema that will be created. This parameter is NOT optional.</p>"
       }
     }
   }

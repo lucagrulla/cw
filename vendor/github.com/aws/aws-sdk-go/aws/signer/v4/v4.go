@@ -55,7 +55,6 @@
 package v4
 
 import (
-	"bytes"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
@@ -72,6 +71,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/request"
+	"github.com/aws/aws-sdk-go/internal/sdkio"
 	"github.com/aws/aws-sdk-go/private/protocol/rest"
 )
 
@@ -269,7 +269,7 @@ type signingCtx struct {
 // "X-Amz-Content-Sha256" header with a precomputed value. The signer will
 // only compute the hash if the request header value is empty.
 func (v4 Signer) Sign(r *http.Request, body io.ReadSeeker, service, region string, signTime time.Time) (http.Header, error) {
-	return v4.signWithBody(r, body, service, region, 0, signTime)
+	return v4.signWithBody(r, body, service, region, 0, false, signTime)
 }
 
 // Presign signs AWS v4 requests with the provided body, service name, region
@@ -303,10 +303,10 @@ func (v4 Signer) Sign(r *http.Request, body io.ReadSeeker, service, region strin
 // presigned request's signature you can set the "X-Amz-Content-Sha256"
 // HTTP header and that will be included in the request's signature.
 func (v4 Signer) Presign(r *http.Request, body io.ReadSeeker, service, region string, exp time.Duration, signTime time.Time) (http.Header, error) {
-	return v4.signWithBody(r, body, service, region, exp, signTime)
+	return v4.signWithBody(r, body, service, region, exp, true, signTime)
 }
 
-func (v4 Signer) signWithBody(r *http.Request, body io.ReadSeeker, service, region string, exp time.Duration, signTime time.Time) (http.Header, error) {
+func (v4 Signer) signWithBody(r *http.Request, body io.ReadSeeker, service, region string, exp time.Duration, isPresign bool, signTime time.Time) (http.Header, error) {
 	currentTimeFn := v4.currentTimeFn
 	if currentTimeFn == nil {
 		currentTimeFn = time.Now
@@ -318,7 +318,7 @@ func (v4 Signer) signWithBody(r *http.Request, body io.ReadSeeker, service, regi
 		Query:                  r.URL.Query(),
 		Time:                   signTime,
 		ExpireTime:             exp,
-		isPresign:              exp != 0,
+		isPresign:              isPresign,
 		ServiceName:            service,
 		Region:                 region,
 		DisableURIPathEscaping: v4.DisableURIPathEscaping,
@@ -340,8 +340,11 @@ func (v4 Signer) signWithBody(r *http.Request, body io.ReadSeeker, service, regi
 		return http.Header{}, err
 	}
 
+	ctx.sanitizeHostForHeader()
 	ctx.assignAmzQueryValues()
-	ctx.build(v4.DisableHeaderHoisting)
+	if err := ctx.build(v4.DisableHeaderHoisting); err != nil {
+		return nil, err
+	}
 
 	// If the request is not presigned the body should be attached to it. This
 	// prevents the confusion of wanting to send a signed request without
@@ -362,6 +365,10 @@ func (v4 Signer) signWithBody(r *http.Request, body io.ReadSeeker, service, regi
 	}
 
 	return ctx.SignedHeaderVals, nil
+}
+
+func (ctx *signingCtx) sanitizeHostForHeader() {
+	request.SanitizeHostForHeader(ctx.Request)
 }
 
 func (ctx *signingCtx) handlePresignRemoval() {
@@ -468,7 +475,7 @@ func signSDKRequestWithCurrTime(req *request.Request, curTimeFn func() time.Time
 	}
 
 	signedHeaders, err := v4.signWithBody(req.HTTPRequest, req.GetBody(),
-		name, region, req.ExpireTime, signingTime,
+		name, region, req.ExpireTime, req.ExpireTime > 0, signingTime,
 	)
 	if err != nil {
 		req.Error = err
@@ -499,9 +506,13 @@ func (v4 *Signer) logSigningInfo(ctx *signingCtx) {
 	v4.Logger.Log(msg)
 }
 
-func (ctx *signingCtx) build(disableHeaderHoisting bool) {
+func (ctx *signingCtx) build(disableHeaderHoisting bool) error {
 	ctx.buildTime()             // no depends
 	ctx.buildCredentialString() // no depends
+
+	if err := ctx.buildBodyDigest(); err != nil {
+		return err
+	}
 
 	unsignedHeaders := ctx.Request.Header
 	if ctx.isPresign {
@@ -514,7 +525,6 @@ func (ctx *signingCtx) build(disableHeaderHoisting bool) {
 		}
 	}
 
-	ctx.buildBodyDigest()
 	ctx.buildCanonicalHeaders(ignoredHeaders, unsignedHeaders)
 	ctx.buildCanonicalString() // depends on canon headers / signed headers
 	ctx.buildStringToSign()    // depends on canon string
@@ -530,6 +540,8 @@ func (ctx *signingCtx) build(disableHeaderHoisting bool) {
 		}
 		ctx.Request.Header.Set("Authorization", strings.Join(parts, ", "))
 	}
+
+	return nil
 }
 
 func (ctx *signingCtx) buildTime() {
@@ -614,8 +626,8 @@ func (ctx *signingCtx) buildCanonicalHeaders(r rule, header http.Header) {
 				strings.Join(ctx.SignedHeaderVals[k], ",")
 		}
 	}
-
-	ctx.canonicalHeaders = strings.Join(stripExcessSpaces(headerValues), "\n")
+	stripExcessSpaces(headerValues)
+	ctx.canonicalHeaders = strings.Join(headerValues, "\n")
 }
 
 func (ctx *signingCtx) buildCanonicalString() {
@@ -656,7 +668,7 @@ func (ctx *signingCtx) buildSignature() {
 	ctx.signature = hex.EncodeToString(signature)
 }
 
-func (ctx *signingCtx) buildBodyDigest() {
+func (ctx *signingCtx) buildBodyDigest() error {
 	hash := ctx.Request.Header.Get("X-Amz-Content-Sha256")
 	if hash == "" {
 		if ctx.unsignedPayload || (ctx.isPresign && ctx.ServiceName == "s3") {
@@ -664,6 +676,9 @@ func (ctx *signingCtx) buildBodyDigest() {
 		} else if ctx.Body == nil {
 			hash = emptyStringSHA256
 		} else {
+			if !aws.IsReaderSeekable(ctx.Body) {
+				return fmt.Errorf("cannot use unseekable request body %T, for signed request with body", ctx.Body)
+			}
 			hash = hex.EncodeToString(makeSha256Reader(ctx.Body))
 		}
 		if ctx.unsignedPayload || ctx.ServiceName == "s3" || ctx.ServiceName == "glacier" {
@@ -671,6 +686,8 @@ func (ctx *signingCtx) buildBodyDigest() {
 		}
 	}
 	ctx.bodyDigest = hash
+
+	return nil
 }
 
 // isRequestSigned returns if the request is currently signed or presigned
@@ -710,52 +727,53 @@ func makeSha256(data []byte) []byte {
 
 func makeSha256Reader(reader io.ReadSeeker) []byte {
 	hash := sha256.New()
-	start, _ := reader.Seek(0, 1)
-	defer reader.Seek(start, 0)
+	start, _ := reader.Seek(0, sdkio.SeekCurrent)
+	defer reader.Seek(start, sdkio.SeekStart)
 
 	io.Copy(hash, reader)
 	return hash.Sum(nil)
 }
 
-const doubleSpaces = "  "
+const doubleSpace = "  "
 
-var doubleSpaceBytes = []byte(doubleSpaces)
+// stripExcessSpaces will rewrite the passed in slice's string values to not
+// contain muliple side-by-side spaces.
+func stripExcessSpaces(vals []string) {
+	var j, k, l, m, spaces int
+	for i, str := range vals {
+		// Trim trailing spaces
+		for j = len(str) - 1; j >= 0 && str[j] == ' '; j-- {
+		}
 
-func stripExcessSpaces(headerVals []string) []string {
-	vals := make([]string, len(headerVals))
-	for i, str := range headerVals {
-		// Trim leading and trailing spaces
-		trimmed := strings.TrimSpace(str)
+		// Trim leading spaces
+		for k = 0; k < j && str[k] == ' '; k++ {
+		}
+		str = str[k : j+1]
 
-		idx := strings.Index(trimmed, doubleSpaces)
-		if idx < 0 {
-			vals[i] = trimmed
+		// Strip multiple spaces.
+		j = strings.Index(str, doubleSpace)
+		if j < 0 {
+			vals[i] = str
 			continue
 		}
 
-		buf := []byte(trimmed)
-		for idx > -1 {
-			stripToIdx := -1
-			for j := idx + 1; j < len(buf); j++ {
-				if buf[j] != ' ' {
-					buf = append(buf[:idx+1], buf[j:]...)
-					stripToIdx = j - idx - 1
-					break
+		buf := []byte(str)
+		for k, m, l = j, j, len(buf); k < l; k++ {
+			if buf[k] == ' ' {
+				if spaces == 0 {
+					// First space.
+					buf[m] = buf[k]
+					m++
 				}
-			}
-
-			if stripToIdx >= 0 {
-				// Find next double space
-				idx = bytes.Index(buf[stripToIdx:], doubleSpaceBytes)
-				if idx >= 0 {
-					idx += stripToIdx
-				}
+				spaces++
 			} else {
-				idx = -1
+				// End of multiple spaces.
+				spaces = 0
+				buf[m] = buf[k]
+				m++
 			}
 		}
 
-		vals[i] = string(buf)
+		vals[i] = string(buf[:m])
 	}
-	return vals
 }

@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "service": "<fullname>AWS Application Discovery Service</fullname> <p>AWS Application Discovery Service helps you plan application migration projects by automatically identifying servers, virtual machines (VMs), software, and software dependencies running in your on-premises data centers. Application Discovery Service also collects application performance data, which can help you assess the outcome of your migration. The data collected by Application Discovery Service is securely retained in an Amazon-hosted and managed database in the cloud. You can export the data as a CSV or XML file into your preferred visualization tool or cloud-migration solution to plan your migration. For more information, see the Application Discovery Service <a href=\"http://aws.amazon.com/application-discovery/faqs/\">FAQ</a>.</p> <p>Application Discovery Service offers two modes of operation.</p> <ul> <li> <p> <b>Agentless discovery</b> mode is recommended for environments that use VMware vCenter Server. This mode doesn't require you to install an agent on each host. Agentless discovery gathers server information regardless of the operating systems, which minimizes the time required for initial on-premises infrastructure assessment. Agentless discovery doesn't collect information about software and software dependencies. It also doesn't work in non-VMware environments. We recommend that you use agent-based discovery for non-VMware environments and if you want to collect information about software and software dependencies. You can also run agent-based and agentless discovery simultaneously. Use agentless discovery to quickly complete the initial infrastructure assessment and then install agents on select hosts to gather information about software and software dependencies.</p> </li> <li> <p> <b>Agent-based discovery</b> mode collects a richer set of data than agentless discovery by using Amazon software, the AWS Application Discovery Agent, which you install on one or more hosts in your data center. The agent captures infrastructure and application information, including an inventory of installed software applications, system and process performance, resource utilization, and network dependencies between workloads. The information collected by agents is secured at rest and in transit to the Application Discovery Service database in the cloud. </p> </li> </ul> <p>Application Discovery Service integrates with application discovery solutions from AWS Partner Network (APN) partners. Third-party application discovery tools can query Application Discovery Service and write to the Application Discovery Service database using a public API. You can then import the data into either a visualization tool or cloud-migration solution.</p> <important> <p>Application Discovery Service doesn't gather sensitive information. All data is handled according to the <a href=\"http://aws.amazon.com/privacy/\">AWS Privacy Policy</a>. You can operate Application Discovery Service using offline mode to inspect collected data before it is shared with the service.</p> </important> <p>Your AWS account must be granted access to Application Discovery Service, a process called <i>whitelisting</i>. This is true for AWS partners and customers alike. To request access, sign up for AWS Application Discovery Service <a href=\"http://aws.amazon.com/application-discovery/preview/\">here</a>. We send you information about how to get started.</p> <p>This API reference provides descriptions, syntax, and usage examples for each of the actions and data types for Application Discovery Service. The topic for each action shows the API request parameters and the response. Alternatively, you can use one of the AWS SDKs to access an API that is tailored to the programming language or platform that you're using. For more information, see <a href=\"http://aws.amazon.com/tools/#SDKs\">AWS SDKs</a>.</p> <p>This guide is intended for use with the <a href=\"http://docs.aws.amazon.com/application-discovery/latest/userguide/\"> <i>AWS Application Discovery Service User Guide</i> </a>.</p>",
+  "service": "<fullname>AWS Application Discovery Service</fullname> <p>AWS Application Discovery Service helps you plan application migration projects by automatically identifying servers, virtual machines (VMs), software, and software dependencies running in your on-premises data centers. Application Discovery Service also collects application performance data, which can help you assess the outcome of your migration. The data collected by Application Discovery Service is securely retained in an AWS-hosted and managed database in the cloud. You can export the data as a CSV or XML file into your preferred visualization tool or cloud-migration solution to plan your migration. For more information, see <a href=\"http://aws.amazon.com/application-discovery/faqs/\">AWS Application Discovery Service FAQ</a>.</p> <p>Application Discovery Service offers two modes of operation:</p> <ul> <li> <p> <b>Agentless discovery</b> mode is recommended for environments that use VMware vCenter Server. This mode doesn't require you to install an agent on each host. Agentless discovery gathers server information regardless of the operating systems, which minimizes the time required for initial on-premises infrastructure assessment. Agentless discovery doesn't collect information about software and software dependencies. It also doesn't work in non-VMware environments. </p> </li> <li> <p> <b>Agent-based discovery</b> mode collects a richer set of data than agentless discovery by using the AWS Application Discovery Agent, which you install on one or more hosts in your data center. The agent captures infrastructure and application information, including an inventory of installed software applications, system and process performance, resource utilization, and network dependencies between workloads. The information collected by agents is secured at rest and in transit to the Application Discovery Service database in the cloud. </p> </li> </ul> <p>We recommend that you use agent-based discovery for non-VMware environments and to collect information about software and software dependencies. You can also run agent-based and agentless discovery simultaneously. Use agentless discovery to quickly complete the initial infrastructure assessment and then install agents on select hosts.</p> <p>Application Discovery Service integrates with application discovery solutions from AWS Partner Network (APN) partners. Third-party application discovery tools can query Application Discovery Service and write to the Application Discovery Service database using a public API. You can then import the data into either a visualization tool or cloud-migration solution.</p> <important> <p>Application Discovery Service doesn't gather sensitive information. All data is handled according to the <a href=\"http://aws.amazon.com/privacy/\">AWS Privacy Policy</a>. You can operate Application Discovery Service offline to inspect collected data before it is shared with the service.</p> </important> <p>Your AWS account must be granted access to Application Discovery Service, a process called <i>whitelisting</i>. This is true for AWS partners and customers alike. To request access, <a href=\"http://aws.amazon.com/application-discovery/\">sign up for Application Discovery Service</a>. </p> <p>This API reference provides descriptions, syntax, and usage examples for each of the actions and data types for Application Discovery Service. The topic for each action shows the API request parameters and the response. Alternatively, you can use one of the AWS SDKs to access an API that is tailored to the programming language or platform that you're using. For more information, see <a href=\"http://aws.amazon.com/tools/#SDKs\">AWS SDKs</a>.</p> <p>This guide is intended for use with the <a href=\"http://docs.aws.amazon.com/application-discovery/latest/userguide/\"> <i>AWS Application Discovery Service User Guide</i> </a>.</p>",
   "operations": {
     "AssociateConfigurationItemsToApplication": "<p>Associates one or more configuration items with an application.</p>",
     "CreateApplication": "<p>Creates an application with the given name and description.</p>",
@@ -18,7 +18,7 @@
     "ListConfigurations": "<p>Retrieves a list of configuration items according to criteria that you specify in a filter. The filter criteria identifies the relationship requirements.</p>",
     "ListServerNeighbors": "<p>Retrieves a list of servers that are one network hop away from a specified server.</p>",
     "StartDataCollectionByAgentIds": "<p>Instructs the specified agents or connectors to start collecting data.</p>",
-    "StartExportTask": "<p>Export the configuration data about discovered configuration items and relationships to an S3 bucket in a specified format.</p>",
+    "StartExportTask": "<p> Begins the export of discovered data to an S3 bucket.</p> <p> If you specify <code>agentIds</code> in a filter, the task exports up to 72 hours of detailed data collected by the identified Application Discovery Agent, including network, process, and performance details. A time range for exported agent data may be set by using <code>startTime</code> and <code>endTime</code>. Export of detailed agent data is limited to five concurrently running exports. </p> <p> If you do not include an <code>agentIds</code> filter, summary data is exported that includes both AWS Agentless Discovery Connector data and summary data from AWS Discovery Agents. Export of summary data is limited to two exports per day. </p>",
     "StopDataCollectionByAgentIds": "<p>Instructs the specified agents or connectors to stop collecting data.</p>",
     "UpdateApplication": "<p>Updates metadata about an application.</p>"
   },
@@ -115,6 +115,7 @@
       "base": null,
       "refs": {
         "AgentConfigurationStatus$operationSucceeded": "<p>Information about the status of the <code>StartDataCollection</code> and <code>StopDataCollection</code> operations. The system has recorded the data collection operation. The agent/connector receives this command the next time it polls for a new command. </p>",
+        "ExportInfo$isTruncated": "<p>If true, the export of agent information exceeded the size limit for a single export and the exported data is incomplete for the requested time range. To address this, select a smaller time range for the export by using <code>startDate</code> and <code>endDate</code>.</p>",
         "ListServerNeighborsRequest$portInformationNeeded": "<p>Flag to indicate if port and protocol information is needed as part of the response.</p>"
       }
     },
@@ -127,6 +128,7 @@
     "Condition": {
       "base": null,
       "refs": {
+        "ExportFilter$condition": "<p>Supported condition: <code>EQUALS</code> </p>",
         "Filter$condition": "<p>A conditional operator. The following operators are valid: EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS. If you specify multiple filters, the system utilizes all filters as though concatenated by <i>AND</i>. If you specify multiple values for a particular filter, the system differentiates the values using <i>OR</i>. Calling either <i>DescribeConfigurations</i> or <i>ListConfigurations</i> returns attributes of matching configuration items.</p>"
       }
     },
@@ -185,7 +187,7 @@
     "ConfigurationsDownloadUrl": {
       "base": null,
       "refs": {
-        "ExportInfo$configurationsDownloadUrl": "<p>A URL for an Amazon S3 bucket where you can review the configuration data. The URL is displayed only if the export succeeded.</p>"
+        "ExportInfo$configurationsDownloadUrl": "<p>A URL for an Amazon S3 bucket where you can review the exported data. The URL is displayed only if the export succeeded.</p>"
       }
     },
     "ConfigurationsExportId": {
@@ -193,8 +195,8 @@
       "refs": {
         "ExportConfigurationsResponse$exportId": "<p>A unique identifier that you can use to query the export status.</p>",
         "ExportIds$member": null,
-        "ExportInfo$exportId": "<p>A unique identifier that you can use to query the export.</p>",
-        "StartExportTaskResponse$exportId": "<p> A unique identifier used to query the status of an export request.</p>"
+        "ExportInfo$exportId": "<p>A unique identifier used to query an export.</p>",
+        "StartExportTaskResponse$exportId": "<p>A unique identifier used to query the status of an export request.</p>"
       }
     },
     "CreateApplicationRequest": {
@@ -335,7 +337,20 @@
     "ExportDataFormats": {
       "base": null,
       "refs": {
-        "StartExportTaskRequest$exportDataFormat": "<p>The file format for the returned export data. Default value is <code>CSV</code>.</p>"
+        "StartExportTaskRequest$exportDataFormat": "<p>The file format for the returned export data. Default value is <code>CSV</code>. <b>Note:</b> <i>The</i> <code>GRAPHML</code> <i>option has been deprecated.</i> </p>"
+      }
+    },
+    "ExportFilter": {
+      "base": "<p>Used to select which agent's data is to be exported. A single agent ID may be selected for export using the <a href=\"http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_StartExportTask.html\">StartExportTask</a> action.</p>",
+      "refs": {
+        "ExportFilters$member": null
+      }
+    },
+    "ExportFilters": {
+      "base": null,
+      "refs": {
+        "DescribeExportTasksRequest$filters": "<p>One or more filters.</p> <ul> <li> <p> <code>AgentId</code> - ID of the agent whose collected data will be exported</p> </li> </ul>",
+        "StartExportTaskRequest$filters": "<p>If a filter is present, it selects the single <code>agentId</code> of the Application Discovery Agent for which data is exported. The <code>agentId</code> can be found in the results of the <code>DescribeAgents</code> API or CLI. If no filter is present, <code>startTime</code> and <code>endTime</code> are ignored and exported data includes both Agentless Discovery Connector data and summary data from Application Discovery agents. </p>"
       }
     },
     "ExportIds": {
@@ -346,7 +361,7 @@
       }
     },
     "ExportInfo": {
-      "base": "<p>Information regarding the export status of the discovered data. The value is an array of objects.</p>",
+      "base": "<p>Information regarding the export status of discovered data. The value is an array of objects.</p>",
       "refs": {
         "ExportsInfo$member": null
       }
@@ -354,19 +369,19 @@
     "ExportRequestTime": {
       "base": null,
       "refs": {
-        "ExportInfo$exportRequestTime": "<p>The time that the configuration data export was initiated.</p>"
+        "ExportInfo$exportRequestTime": "<p>The time that the data export was initiated.</p>"
       }
     },
     "ExportStatus": {
       "base": null,
       "refs": {
-        "ExportInfo$exportStatus": "<p>The status of the configuration data export. The status can succeed, fail, or be in-progress.</p>"
+        "ExportInfo$exportStatus": "<p>The status of the data export job.</p>"
       }
     },
     "ExportStatusMessage": {
       "base": null,
       "refs": {
-        "ExportInfo$statusMessage": "<p>Helpful status messages for API callers. For example: Too many exports in the last 6 hours. Export in progress. Export was successful.</p>"
+        "ExportInfo$statusMessage": "<p>A status message provided for API callers.</p>"
       }
     },
     "ExportsInfo": {
@@ -385,6 +400,7 @@
     "FilterName": {
       "base": null,
       "refs": {
+        "ExportFilter$name": "<p>A single <code>ExportFilter</code> name. Supported filters: <code>agentId</code>.</p>",
         "TagFilter$name": "<p>A name of the tag filter.</p>"
       }
     },
@@ -397,6 +413,7 @@
     "FilterValues": {
       "base": null,
       "refs": {
+        "ExportFilter$values": "<p>A single <code>agentId</code> for a Discovery Agent. An <code>agentId</code> can be found using the <a href=\"http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeExportTasks.html\">DescribeAgents</a> action. Typically an ADS <code>agentId</code> is in the form <code>o-0123456789abcdef0</code>.</p>",
         "Filter$values": "<p>A string value on which to filter. For example, if you choose the <code>destinationServer.osVersion</code> filter name, you could specify <code>Ubuntu</code> for the value.</p>",
         "TagFilter$values": "<p>Values for the tag filter.</p>"
       }
@@ -651,7 +668,11 @@
     "TimeStamp": {
       "base": null,
       "refs": {
-        "ConfigurationTag$timeOfCreation": "<p>The time the configuration tag was created in Coordinated Universal Time (UTC).</p>"
+        "ConfigurationTag$timeOfCreation": "<p>The time the configuration tag was created in Coordinated Universal Time (UTC).</p>",
+        "ExportInfo$requestedStartTime": "<p>The value of <code>startTime</code> parameter in the <code>StartExportTask</code> request. If no <code>startTime</code> was requested, this result does not appear in <code>ExportInfo</code>.</p>",
+        "ExportInfo$requestedEndTime": "<p>The <code>endTime</code> used in the <code>StartExportTask</code> request. If no <code>endTime</code> was requested, this result does not appear in <code>ExportInfo</code>.</p>",
+        "StartExportTaskRequest$startTime": "<p>The start timestamp for exported data from the single Application Discovery Agent selected in the filters. If no value is specified, data is exported starting from the first data collected by the agent.</p>",
+        "StartExportTaskRequest$endTime": "<p>The end timestamp for exported data from the single Application Discovery Agent selected in the filters. If no value is specified, exported data includes the most recent data collected by the agent.</p>"
       }
     },
     "UpdateApplicationRequest": {

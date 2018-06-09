@@ -6,6 +6,7 @@
     "jsonVersion":"1.1",
     "protocol":"json",
     "serviceFullName":"AWS Application Discovery Service",
+    "serviceId":"Application Discovery Service",
     "signatureVersion":"v4",
     "targetPrefix":"AWSPoseidonService_V2015_11_01",
     "uid":"discovery-2015-11-01"
@@ -429,10 +430,7 @@
     },
     "ConfigurationTagSet":{
       "type":"list",
-      "member":{
-        "shape":"ConfigurationTag",
-        "locationName":"item"
-      }
+      "member":{"shape":"ConfigurationTag"}
     },
     "Configurations":{
       "type":"list",
@@ -594,6 +592,7 @@
       "type":"structure",
       "members":{
         "exportIds":{"shape":"ExportIds"},
+        "filters":{"shape":"ExportFilters"},
         "maxResults":{"shape":"Integer"},
         "nextToken":{"shape":"NextToken"}
       }
@@ -653,6 +652,23 @@
       "type":"list",
       "member":{"shape":"ExportDataFormat"}
     },
+    "ExportFilter":{
+      "type":"structure",
+      "required":[
+        "name",
+        "values",
+        "condition"
+      ],
+      "members":{
+        "name":{"shape":"FilterName"},
+        "values":{"shape":"FilterValues"},
+        "condition":{"shape":"Condition"}
+      }
+    },
+    "ExportFilters":{
+      "type":"list",
+      "member":{"shape":"ExportFilter"}
+    },
     "ExportIds":{
       "type":"list",
       "member":{"shape":"ConfigurationsExportId"}
@@ -670,7 +686,10 @@
         "exportStatus":{"shape":"ExportStatus"},
         "statusMessage":{"shape":"ExportStatusMessage"},
         "configurationsDownloadUrl":{"shape":"ConfigurationsDownloadUrl"},
-        "exportRequestTime":{"shape":"ExportRequestTime"}
+        "exportRequestTime":{"shape":"ExportRequestTime"},
+        "isTruncated":{"shape":"Boolean"},
+        "requestedStartTime":{"shape":"TimeStamp"},
+        "requestedEndTime":{"shape":"TimeStamp"}
       }
     },
     "ExportRequestTime":{"type":"timestamp"},
@@ -704,10 +723,7 @@
     "FilterValue":{"type":"string"},
     "FilterValues":{
       "type":"list",
-      "member":{
-        "shape":"FilterValue",
-        "locationName":"item"
-      }
+      "member":{"shape":"FilterValue"}
     },
     "Filters":{
       "type":"list",
@@ -854,7 +870,10 @@
     "StartExportTaskRequest":{
       "type":"structure",
       "members":{
-        "exportDataFormat":{"shape":"ExportDataFormats"}
+        "exportDataFormat":{"shape":"ExportDataFormats"},
+        "filters":{"shape":"ExportFilters"},
+        "startTime":{"shape":"TimeStamp"},
+        "endTime":{"shape":"TimeStamp"}
       }
     },
     "StartExportTaskResponse":{
@@ -906,10 +925,7 @@
     "TagKey":{"type":"string"},
     "TagSet":{
       "type":"list",
-      "member":{
-        "shape":"Tag",
-        "locationName":"item"
-      }
+      "member":{"shape":"Tag"}
     },
     "TagValue":{"type":"string"},
     "TimeStamp":{"type":"timestamp"},

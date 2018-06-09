@@ -21,7 +21,7 @@ import (
 //
 // The best way to use this interface is so the SDK's service client's calls
 // can be stubbed out for unit testing your code with the SDK without needing
-// to inject custom request handlers into the the SDK's request pipeline.
+// to inject custom request handlers into the SDK's request pipeline.
 //
 //    // myFunc uses an SDK service client to make a request to
 //    // AWS OpsWorks.
@@ -190,6 +190,10 @@ type OpsWorksAPI interface {
 	DescribeMyUserProfile(*opsworks.DescribeMyUserProfileInput) (*opsworks.DescribeMyUserProfileOutput, error)
 	DescribeMyUserProfileWithContext(aws.Context, *opsworks.DescribeMyUserProfileInput, ...request.Option) (*opsworks.DescribeMyUserProfileOutput, error)
 	DescribeMyUserProfileRequest(*opsworks.DescribeMyUserProfileInput) (*request.Request, *opsworks.DescribeMyUserProfileOutput)
+
+	DescribeOperatingSystems(*opsworks.DescribeOperatingSystemsInput) (*opsworks.DescribeOperatingSystemsOutput, error)
+	DescribeOperatingSystemsWithContext(aws.Context, *opsworks.DescribeOperatingSystemsInput, ...request.Option) (*opsworks.DescribeOperatingSystemsOutput, error)
+	DescribeOperatingSystemsRequest(*opsworks.DescribeOperatingSystemsInput) (*request.Request, *opsworks.DescribeOperatingSystemsOutput)
 
 	DescribePermissions(*opsworks.DescribePermissionsInput) (*opsworks.DescribePermissionsOutput, error)
 	DescribePermissionsWithContext(aws.Context, *opsworks.DescribePermissionsInput, ...request.Option) (*opsworks.DescribePermissionsOutput, error)

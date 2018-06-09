@@ -44,6 +44,7 @@ func (o *Operation) HasOutput() bool {
 	return o.OutputRef.ShapeName != ""
 }
 
+// GetSigner returns the signer that should be used for a API request.
 func (o *Operation) GetSigner() string {
 	if o.AuthType == "v4-unsigned-body" {
 		o.API.imports["github.com/aws/aws-sdk-go/aws/signer/v4"] = true
@@ -66,25 +67,25 @@ func (o *Operation) GetSigner() string {
 
 // tplOperation defines a template for rendering an API Operation
 var tplOperation = template.Must(template.New("operation").Funcs(template.FuncMap{
-	"GetCrosslinkURL": GetCrosslinkURL,
+	"GetCrosslinkURL":       GetCrosslinkURL,
+	"EnableStopOnSameToken": enableStopOnSameToken,
 }).Parse(`
 const op{{ .ExportedName }} = "{{ .Name }}"
 
 // {{ .ExportedName }}Request generates a "aws/request.Request" representing the
 // client's request for the {{ .ExportedName }} operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See {{ .ExportedName }} for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the {{ .ExportedName }} method directly
-// instead.
+// See {{ .ExportedName }} for more information on using the {{ .ExportedName }}
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the {{ .ExportedName }}Request method.
 //    req, resp := client.{{ .ExportedName }}Request(params)
@@ -93,10 +94,10 @@ const op{{ .ExportedName }} = "{{ .Name }}"
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
-{{ $crosslinkURL := GetCrosslinkURL $.API.BaseCrosslinkURL $.API.APIName $.API.Metadata.UID $.ExportedName -}}
+{{ $crosslinkURL := GetCrosslinkURL $.API.BaseCrosslinkURL $.API.Metadata.UID $.ExportedName -}}
 {{ if ne $crosslinkURL "" -}} 
 //
-// Please also see {{ $crosslinkURL }}
+// See also, {{ $crosslinkURL }}
 {{ end -}}
 func (c *{{ .API.StructName }}) {{ .ExportedName }}Request(` +
 	`input {{ .InputRef.GoType }}) (req *request.Request, output {{ .OutputRef.GoType }}) {
@@ -121,10 +122,16 @@ func (c *{{ .API.StructName }}) {{ .ExportedName }}Request(` +
 	}
 
 	output = &{{ .OutputRef.GoTypeElem }}{}
-	req = c.newRequest(op, input, output){{ if eq .OutputRef.Shape.Placeholder true }}
-	req.Handlers.Unmarshal.Remove({{ .API.ProtocolPackage }}.UnmarshalHandler)
-	req.Handlers.Unmarshal.PushBackNamed(protocol.UnmarshalDiscardBodyHandler){{ end }}
+	req = c.newRequest(op, input, output)
+	{{ if eq .OutputRef.Shape.Placeholder true -}}
+		req.Handlers.Unmarshal.Remove({{ .API.ProtocolPackage }}.UnmarshalHandler)
+		req.Handlers.Unmarshal.PushBackNamed(protocol.UnmarshalDiscardBodyHandler)
+	{{ end -}}
 	{{ if ne .AuthType "" }}{{ .GetSigner }}{{ end -}}
+	{{ if .OutputRef.Shape.EventStreamsMemberName -}}
+		req.Handlers.Unmarshal.Swap({{ .API.ProtocolPackage }}.UnmarshalHandler.Name, rest.UnmarshalHandler)
+		req.Handlers.Unmarshal.PushBack(output.runEventStreamLoop)
+	{{ end -}}
 	return
 }
 
@@ -151,9 +158,9 @@ func (c *{{ .API.StructName }}) {{ .ExportedName }}Request(` +
 //
 {{ end -}}
 {{ end -}}
-{{ $crosslinkURL := GetCrosslinkURL $.API.BaseCrosslinkURL $.API.APIName $.API.Metadata.UID $.ExportedName -}}
+{{ $crosslinkURL := GetCrosslinkURL $.API.BaseCrosslinkURL $.API.Metadata.UID $.ExportedName -}}
 {{ if ne $crosslinkURL "" -}} 
-// Please also see {{ $crosslinkURL }}
+// See also, {{ $crosslinkURL }}
 {{ end -}}
 func (c *{{ .API.StructName }}) {{ .ExportedName }}(` +
 	`input {{ .InputRef.GoType }}) ({{ .OutputRef.GoType }}, error) {
@@ -215,6 +222,8 @@ func (c *{{ .API.StructName }}) {{ .ExportedName }}PagesWithContext(` +
 	`fn func({{ .OutputRef.GoType }}, bool) bool, ` +
 	`opts ...request.Option) error {
 	p := request.Pagination {
+		{{ if EnableStopOnSameToken .API.PackageName -}}EndPageOnSameToken: true,
+		{{ end -}}
 		NewRequest: func() (*request.Request, error) {
 			var inCpy {{ .InputRef.GoType }}
 			if input != nil  {
@@ -240,6 +249,12 @@ func (c *{{ .API.StructName }}) {{ .ExportedName }}PagesWithContext(` +
 // GoCode returns a string of rendered GoCode for this Operation
 func (o *Operation) GoCode() string {
 	var buf bytes.Buffer
+
+	if len(o.OutputRef.Shape.EventStreamsMemberName) != 0 {
+		// TODO need better was of updating protocol unmarshalers
+		o.API.imports["github.com/aws/aws-sdk-go/private/protocol/rest"] = true
+	}
+
 	err := tplOperation.Execute(&buf, o)
 	if err != nil {
 		panic(err)

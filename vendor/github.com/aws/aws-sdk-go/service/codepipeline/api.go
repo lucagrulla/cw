@@ -17,19 +17,18 @@ const opAcknowledgeJob = "AcknowledgeJob"
 
 // AcknowledgeJobRequest generates a "aws/request.Request" representing the
 // client's request for the AcknowledgeJob operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See AcknowledgeJob for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the AcknowledgeJob method directly
-// instead.
+// See AcknowledgeJob for more information on using the AcknowledgeJob
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the AcknowledgeJobRequest method.
 //    req, resp := client.AcknowledgeJobRequest(params)
@@ -39,7 +38,7 @@ const opAcknowledgeJob = "AcknowledgeJob"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeJob
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeJob
 func (c *CodePipeline) AcknowledgeJobRequest(input *AcknowledgeJobInput) (req *request.Request, output *AcknowledgeJobOutput) {
 	op := &request.Operation{
 		Name:       opAcknowledgeJob,
@@ -78,7 +77,7 @@ func (c *CodePipeline) AcknowledgeJobRequest(input *AcknowledgeJobInput) (req *r
 //   * ErrCodeJobNotFoundException "JobNotFoundException"
 //   The specified job was specified in an invalid format or cannot be found.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeJob
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeJob
 func (c *CodePipeline) AcknowledgeJob(input *AcknowledgeJobInput) (*AcknowledgeJobOutput, error) {
 	req, out := c.AcknowledgeJobRequest(input)
 	return out, req.Send()
@@ -104,19 +103,18 @@ const opAcknowledgeThirdPartyJob = "AcknowledgeThirdPartyJob"
 
 // AcknowledgeThirdPartyJobRequest generates a "aws/request.Request" representing the
 // client's request for the AcknowledgeThirdPartyJob operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See AcknowledgeThirdPartyJob for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the AcknowledgeThirdPartyJob method directly
-// instead.
+// See AcknowledgeThirdPartyJob for more information on using the AcknowledgeThirdPartyJob
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the AcknowledgeThirdPartyJobRequest method.
 //    req, resp := client.AcknowledgeThirdPartyJobRequest(params)
@@ -126,7 +124,7 @@ const opAcknowledgeThirdPartyJob = "AcknowledgeThirdPartyJob"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeThirdPartyJob
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeThirdPartyJob
 func (c *CodePipeline) AcknowledgeThirdPartyJobRequest(input *AcknowledgeThirdPartyJobInput) (req *request.Request, output *AcknowledgeThirdPartyJobOutput) {
 	op := &request.Operation{
 		Name:       opAcknowledgeThirdPartyJob,
@@ -168,7 +166,7 @@ func (c *CodePipeline) AcknowledgeThirdPartyJobRequest(input *AcknowledgeThirdPa
 //   * ErrCodeInvalidClientTokenException "InvalidClientTokenException"
 //   The client token was specified in an invalid format
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeThirdPartyJob
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeThirdPartyJob
 func (c *CodePipeline) AcknowledgeThirdPartyJob(input *AcknowledgeThirdPartyJobInput) (*AcknowledgeThirdPartyJobOutput, error) {
 	req, out := c.AcknowledgeThirdPartyJobRequest(input)
 	return out, req.Send()
@@ -194,19 +192,18 @@ const opCreateCustomActionType = "CreateCustomActionType"
 
 // CreateCustomActionTypeRequest generates a "aws/request.Request" representing the
 // client's request for the CreateCustomActionType operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See CreateCustomActionType for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the CreateCustomActionType method directly
-// instead.
+// See CreateCustomActionType for more information on using the CreateCustomActionType
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the CreateCustomActionTypeRequest method.
 //    req, resp := client.CreateCustomActionTypeRequest(params)
@@ -216,7 +213,7 @@ const opCreateCustomActionType = "CreateCustomActionType"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreateCustomActionType
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreateCustomActionType
 func (c *CodePipeline) CreateCustomActionTypeRequest(input *CreateCustomActionTypeInput) (req *request.Request, output *CreateCustomActionTypeOutput) {
 	op := &request.Operation{
 		Name:       opCreateCustomActionType,
@@ -253,7 +250,7 @@ func (c *CodePipeline) CreateCustomActionTypeRequest(input *CreateCustomActionTy
 //   The number of pipelines associated with the AWS account has exceeded the
 //   limit allowed for the account.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreateCustomActionType
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreateCustomActionType
 func (c *CodePipeline) CreateCustomActionType(input *CreateCustomActionTypeInput) (*CreateCustomActionTypeOutput, error) {
 	req, out := c.CreateCustomActionTypeRequest(input)
 	return out, req.Send()
@@ -279,19 +276,18 @@ const opCreatePipeline = "CreatePipeline"
 
 // CreatePipelineRequest generates a "aws/request.Request" representing the
 // client's request for the CreatePipeline operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See CreatePipeline for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the CreatePipeline method directly
-// instead.
+// See CreatePipeline for more information on using the CreatePipeline
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the CreatePipelineRequest method.
 //    req, resp := client.CreatePipelineRequest(params)
@@ -301,7 +297,7 @@ const opCreatePipeline = "CreatePipeline"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreatePipeline
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreatePipeline
 func (c *CodePipeline) CreatePipelineRequest(input *CreatePipelineInput) (req *request.Request, output *CreatePipelineOutput) {
 	op := &request.Operation{
 		Name:       opCreatePipeline,
@@ -352,7 +348,7 @@ func (c *CodePipeline) CreatePipelineRequest(input *CreatePipelineInput) (req *r
 //   The number of pipelines associated with the AWS account has exceeded the
 //   limit allowed for the account.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreatePipeline
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreatePipeline
 func (c *CodePipeline) CreatePipeline(input *CreatePipelineInput) (*CreatePipelineOutput, error) {
 	req, out := c.CreatePipelineRequest(input)
 	return out, req.Send()
@@ -378,19 +374,18 @@ const opDeleteCustomActionType = "DeleteCustomActionType"
 
 // DeleteCustomActionTypeRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteCustomActionType operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See DeleteCustomActionType for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the DeleteCustomActionType method directly
-// instead.
+// See DeleteCustomActionType for more information on using the DeleteCustomActionType
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the DeleteCustomActionTypeRequest method.
 //    req, resp := client.DeleteCustomActionTypeRequest(params)
@@ -400,7 +395,7 @@ const opDeleteCustomActionType = "DeleteCustomActionType"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeleteCustomActionType
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeleteCustomActionType
 func (c *CodePipeline) DeleteCustomActionTypeRequest(input *DeleteCustomActionTypeInput) (req *request.Request, output *DeleteCustomActionTypeOutput) {
 	op := &request.Operation{
 		Name:       opDeleteCustomActionType,
@@ -424,8 +419,11 @@ func (c *CodePipeline) DeleteCustomActionTypeRequest(input *DeleteCustomActionTy
 // Marks a custom action as deleted. PollForJobs for the custom action will
 // fail after the action is marked for deletion. Only used for custom actions.
 //
-// You cannot recreate a custom action after it has been deleted unless you
-// increase the version number of the action.
+// To re-create a custom action after it has been deleted you must use a string
+// in the version field that has never been used before. This string can be
+// an incremented version number, for example. To restore a deleted custom action,
+// use a JSON file that is identical to the deleted action, including the original
+// string in the version field.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -438,7 +436,7 @@ func (c *CodePipeline) DeleteCustomActionTypeRequest(input *DeleteCustomActionTy
 //   * ErrCodeValidationException "ValidationException"
 //   The validation was specified in an invalid format.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeleteCustomActionType
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeleteCustomActionType
 func (c *CodePipeline) DeleteCustomActionType(input *DeleteCustomActionTypeInput) (*DeleteCustomActionTypeOutput, error) {
 	req, out := c.DeleteCustomActionTypeRequest(input)
 	return out, req.Send()
@@ -464,19 +462,18 @@ const opDeletePipeline = "DeletePipeline"
 
 // DeletePipelineRequest generates a "aws/request.Request" representing the
 // client's request for the DeletePipeline operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See DeletePipeline for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the DeletePipeline method directly
-// instead.
+// See DeletePipeline for more information on using the DeletePipeline
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the DeletePipelineRequest method.
 //    req, resp := client.DeletePipelineRequest(params)
@@ -486,7 +483,7 @@ const opDeletePipeline = "DeletePipeline"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeletePipeline
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeletePipeline
 func (c *CodePipeline) DeletePipelineRequest(input *DeletePipelineInput) (req *request.Request, output *DeletePipelineOutput) {
 	op := &request.Operation{
 		Name:       opDeletePipeline,
@@ -520,7 +517,7 @@ func (c *CodePipeline) DeletePipelineRequest(input *DeletePipelineInput) (req *r
 //   * ErrCodeValidationException "ValidationException"
 //   The validation was specified in an invalid format.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeletePipeline
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeletePipeline
 func (c *CodePipeline) DeletePipeline(input *DeletePipelineInput) (*DeletePipelineOutput, error) {
 	req, out := c.DeletePipelineRequest(input)
 	return out, req.Send()
@@ -542,23 +539,189 @@ func (c *CodePipeline) DeletePipelineWithContext(ctx aws.Context, input *DeleteP
 	return out, req.Send()
 }
 
+const opDeleteWebhook = "DeleteWebhook"
+
+// DeleteWebhookRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteWebhook operation. The "output" return
+// value will be populated with the request's response once the request completes
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteWebhook for more information on using the DeleteWebhook
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the DeleteWebhookRequest method.
+//    req, resp := client.DeleteWebhookRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeleteWebhook
+func (c *CodePipeline) DeleteWebhookRequest(input *DeleteWebhookInput) (req *request.Request, output *DeleteWebhookOutput) {
+	op := &request.Operation{
+		Name:       opDeleteWebhook,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &DeleteWebhookInput{}
+	}
+
+	output = &DeleteWebhookOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// DeleteWebhook API operation for AWS CodePipeline.
+//
+// Deletes a previously created webhook by name. Deleting the webhook stops
+// AWS CodePipeline from starting a pipeline every time an external event occurs.
+// The API will return successfully when trying to delete a webhook that is
+// already deleted. If a deleted webhook is re-created by calling PutWebhook
+// with the same name, it will have a different URL.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for AWS CodePipeline's
+// API operation DeleteWebhook for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeValidationException "ValidationException"
+//   The validation was specified in an invalid format.
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeleteWebhook
+func (c *CodePipeline) DeleteWebhook(input *DeleteWebhookInput) (*DeleteWebhookOutput, error) {
+	req, out := c.DeleteWebhookRequest(input)
+	return out, req.Send()
+}
+
+// DeleteWebhookWithContext is the same as DeleteWebhook with the addition of
+// the ability to pass a context and additional request options.
+//
+// See DeleteWebhook for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CodePipeline) DeleteWebhookWithContext(ctx aws.Context, input *DeleteWebhookInput, opts ...request.Option) (*DeleteWebhookOutput, error) {
+	req, out := c.DeleteWebhookRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opDeregisterWebhookWithThirdParty = "DeregisterWebhookWithThirdParty"
+
+// DeregisterWebhookWithThirdPartyRequest generates a "aws/request.Request" representing the
+// client's request for the DeregisterWebhookWithThirdParty operation. The "output" return
+// value will be populated with the request's response once the request completes
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeregisterWebhookWithThirdParty for more information on using the DeregisterWebhookWithThirdParty
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the DeregisterWebhookWithThirdPartyRequest method.
+//    req, resp := client.DeregisterWebhookWithThirdPartyRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeregisterWebhookWithThirdParty
+func (c *CodePipeline) DeregisterWebhookWithThirdPartyRequest(input *DeregisterWebhookWithThirdPartyInput) (req *request.Request, output *DeregisterWebhookWithThirdPartyOutput) {
+	op := &request.Operation{
+		Name:       opDeregisterWebhookWithThirdParty,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &DeregisterWebhookWithThirdPartyInput{}
+	}
+
+	output = &DeregisterWebhookWithThirdPartyOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// DeregisterWebhookWithThirdParty API operation for AWS CodePipeline.
+//
+// Removes the connection between the webhook that was created by CodePipeline
+// and the external tool with events to be detected. Currently only supported
+// for webhooks that target an action type of GitHub.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for AWS CodePipeline's
+// API operation DeregisterWebhookWithThirdParty for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeValidationException "ValidationException"
+//   The validation was specified in an invalid format.
+//
+//   * ErrCodeWebhookNotFoundException "WebhookNotFoundException"
+//   The specified webhook was entered in an invalid format or cannot be found.
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeregisterWebhookWithThirdParty
+func (c *CodePipeline) DeregisterWebhookWithThirdParty(input *DeregisterWebhookWithThirdPartyInput) (*DeregisterWebhookWithThirdPartyOutput, error) {
+	req, out := c.DeregisterWebhookWithThirdPartyRequest(input)
+	return out, req.Send()
+}
+
+// DeregisterWebhookWithThirdPartyWithContext is the same as DeregisterWebhookWithThirdParty with the addition of
+// the ability to pass a context and additional request options.
+//
+// See DeregisterWebhookWithThirdParty for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CodePipeline) DeregisterWebhookWithThirdPartyWithContext(ctx aws.Context, input *DeregisterWebhookWithThirdPartyInput, opts ...request.Option) (*DeregisterWebhookWithThirdPartyOutput, error) {
+	req, out := c.DeregisterWebhookWithThirdPartyRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
 const opDisableStageTransition = "DisableStageTransition"
 
 // DisableStageTransitionRequest generates a "aws/request.Request" representing the
 // client's request for the DisableStageTransition operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See DisableStageTransition for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the DisableStageTransition method directly
-// instead.
+// See DisableStageTransition for more information on using the DisableStageTransition
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the DisableStageTransitionRequest method.
 //    req, resp := client.DisableStageTransitionRequest(params)
@@ -568,7 +731,7 @@ const opDisableStageTransition = "DisableStageTransition"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DisableStageTransition
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DisableStageTransition
 func (c *CodePipeline) DisableStageTransitionRequest(input *DisableStageTransitionInput) (req *request.Request, output *DisableStageTransitionOutput) {
 	op := &request.Operation{
 		Name:       opDisableStageTransition,
@@ -609,7 +772,7 @@ func (c *CodePipeline) DisableStageTransitionRequest(input *DisableStageTransiti
 //   * ErrCodeStageNotFoundException "StageNotFoundException"
 //   The specified stage was specified in an invalid format or cannot be found.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DisableStageTransition
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DisableStageTransition
 func (c *CodePipeline) DisableStageTransition(input *DisableStageTransitionInput) (*DisableStageTransitionOutput, error) {
 	req, out := c.DisableStageTransitionRequest(input)
 	return out, req.Send()
@@ -635,19 +798,18 @@ const opEnableStageTransition = "EnableStageTransition"
 
 // EnableStageTransitionRequest generates a "aws/request.Request" representing the
 // client's request for the EnableStageTransition operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See EnableStageTransition for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the EnableStageTransition method directly
-// instead.
+// See EnableStageTransition for more information on using the EnableStageTransition
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the EnableStageTransitionRequest method.
 //    req, resp := client.EnableStageTransitionRequest(params)
@@ -657,7 +819,7 @@ const opEnableStageTransition = "EnableStageTransition"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/EnableStageTransition
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/EnableStageTransition
 func (c *CodePipeline) EnableStageTransitionRequest(input *EnableStageTransitionInput) (req *request.Request, output *EnableStageTransitionOutput) {
 	op := &request.Operation{
 		Name:       opEnableStageTransition,
@@ -697,7 +859,7 @@ func (c *CodePipeline) EnableStageTransitionRequest(input *EnableStageTransition
 //   * ErrCodeStageNotFoundException "StageNotFoundException"
 //   The specified stage was specified in an invalid format or cannot be found.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/EnableStageTransition
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/EnableStageTransition
 func (c *CodePipeline) EnableStageTransition(input *EnableStageTransitionInput) (*EnableStageTransitionOutput, error) {
 	req, out := c.EnableStageTransitionRequest(input)
 	return out, req.Send()
@@ -723,19 +885,18 @@ const opGetJobDetails = "GetJobDetails"
 
 // GetJobDetailsRequest generates a "aws/request.Request" representing the
 // client's request for the GetJobDetails operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See GetJobDetails for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the GetJobDetails method directly
-// instead.
+// See GetJobDetails for more information on using the GetJobDetails
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the GetJobDetailsRequest method.
 //    req, resp := client.GetJobDetailsRequest(params)
@@ -745,7 +906,7 @@ const opGetJobDetails = "GetJobDetails"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetJobDetails
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetJobDetails
 func (c *CodePipeline) GetJobDetailsRequest(input *GetJobDetailsInput) (req *request.Request, output *GetJobDetailsOutput) {
 	op := &request.Operation{
 		Name:       opGetJobDetails,
@@ -785,7 +946,7 @@ func (c *CodePipeline) GetJobDetailsRequest(input *GetJobDetailsInput) (req *req
 //   * ErrCodeJobNotFoundException "JobNotFoundException"
 //   The specified job was specified in an invalid format or cannot be found.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetJobDetails
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetJobDetails
 func (c *CodePipeline) GetJobDetails(input *GetJobDetailsInput) (*GetJobDetailsOutput, error) {
 	req, out := c.GetJobDetailsRequest(input)
 	return out, req.Send()
@@ -811,19 +972,18 @@ const opGetPipeline = "GetPipeline"
 
 // GetPipelineRequest generates a "aws/request.Request" representing the
 // client's request for the GetPipeline operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See GetPipeline for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the GetPipeline method directly
-// instead.
+// See GetPipeline for more information on using the GetPipeline
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the GetPipelineRequest method.
 //    req, resp := client.GetPipelineRequest(params)
@@ -833,7 +993,7 @@ const opGetPipeline = "GetPipeline"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipeline
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipeline
 func (c *CodePipeline) GetPipelineRequest(input *GetPipelineInput) (req *request.Request, output *GetPipelineOutput) {
 	op := &request.Operation{
 		Name:       opGetPipeline,
@@ -874,7 +1034,7 @@ func (c *CodePipeline) GetPipelineRequest(input *GetPipelineInput) (req *request
 //   The specified pipeline version was specified in an invalid format or cannot
 //   be found.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipeline
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipeline
 func (c *CodePipeline) GetPipeline(input *GetPipelineInput) (*GetPipelineOutput, error) {
 	req, out := c.GetPipelineRequest(input)
 	return out, req.Send()
@@ -900,19 +1060,18 @@ const opGetPipelineExecution = "GetPipelineExecution"
 
 // GetPipelineExecutionRequest generates a "aws/request.Request" representing the
 // client's request for the GetPipelineExecution operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See GetPipelineExecution for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the GetPipelineExecution method directly
-// instead.
+// See GetPipelineExecution for more information on using the GetPipelineExecution
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the GetPipelineExecutionRequest method.
 //    req, resp := client.GetPipelineExecutionRequest(params)
@@ -922,7 +1081,7 @@ const opGetPipelineExecution = "GetPipelineExecution"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineExecution
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineExecution
 func (c *CodePipeline) GetPipelineExecutionRequest(input *GetPipelineExecutionInput) (req *request.Request, output *GetPipelineExecutionOutput) {
 	op := &request.Operation{
 		Name:       opGetPipelineExecution,
@@ -963,7 +1122,7 @@ func (c *CodePipeline) GetPipelineExecutionRequest(input *GetPipelineExecutionIn
 //   The pipeline execution was specified in an invalid format or cannot be found,
 //   or an execution ID does not belong to the specified pipeline.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineExecution
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineExecution
 func (c *CodePipeline) GetPipelineExecution(input *GetPipelineExecutionInput) (*GetPipelineExecutionOutput, error) {
 	req, out := c.GetPipelineExecutionRequest(input)
 	return out, req.Send()
@@ -989,19 +1148,18 @@ const opGetPipelineState = "GetPipelineState"
 
 // GetPipelineStateRequest generates a "aws/request.Request" representing the
 // client's request for the GetPipelineState operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See GetPipelineState for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the GetPipelineState method directly
-// instead.
+// See GetPipelineState for more information on using the GetPipelineState
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the GetPipelineStateRequest method.
 //    req, resp := client.GetPipelineStateRequest(params)
@@ -1011,7 +1169,7 @@ const opGetPipelineState = "GetPipelineState"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineState
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineState
 func (c *CodePipeline) GetPipelineStateRequest(input *GetPipelineStateInput) (req *request.Request, output *GetPipelineStateOutput) {
 	op := &request.Operation{
 		Name:       opGetPipelineState,
@@ -1047,7 +1205,7 @@ func (c *CodePipeline) GetPipelineStateRequest(input *GetPipelineStateInput) (re
 //   * ErrCodePipelineNotFoundException "PipelineNotFoundException"
 //   The specified pipeline was specified in an invalid format or cannot be found.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineState
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineState
 func (c *CodePipeline) GetPipelineState(input *GetPipelineStateInput) (*GetPipelineStateOutput, error) {
 	req, out := c.GetPipelineStateRequest(input)
 	return out, req.Send()
@@ -1073,19 +1231,18 @@ const opGetThirdPartyJobDetails = "GetThirdPartyJobDetails"
 
 // GetThirdPartyJobDetailsRequest generates a "aws/request.Request" representing the
 // client's request for the GetThirdPartyJobDetails operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See GetThirdPartyJobDetails for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the GetThirdPartyJobDetails method directly
-// instead.
+// See GetThirdPartyJobDetails for more information on using the GetThirdPartyJobDetails
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the GetThirdPartyJobDetailsRequest method.
 //    req, resp := client.GetThirdPartyJobDetailsRequest(params)
@@ -1095,7 +1252,7 @@ const opGetThirdPartyJobDetails = "GetThirdPartyJobDetails"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetThirdPartyJobDetails
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetThirdPartyJobDetails
 func (c *CodePipeline) GetThirdPartyJobDetailsRequest(input *GetThirdPartyJobDetailsInput) (req *request.Request, output *GetThirdPartyJobDetailsOutput) {
 	op := &request.Operation{
 		Name:       opGetThirdPartyJobDetails,
@@ -1142,7 +1299,7 @@ func (c *CodePipeline) GetThirdPartyJobDetailsRequest(input *GetThirdPartyJobDet
 //   * ErrCodeInvalidJobException "InvalidJobException"
 //   The specified job was specified in an invalid format or cannot be found.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetThirdPartyJobDetails
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetThirdPartyJobDetails
 func (c *CodePipeline) GetThirdPartyJobDetails(input *GetThirdPartyJobDetailsInput) (*GetThirdPartyJobDetailsOutput, error) {
 	req, out := c.GetThirdPartyJobDetailsRequest(input)
 	return out, req.Send()
@@ -1168,19 +1325,18 @@ const opListActionTypes = "ListActionTypes"
 
 // ListActionTypesRequest generates a "aws/request.Request" representing the
 // client's request for the ListActionTypes operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See ListActionTypes for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the ListActionTypes method directly
-// instead.
+// See ListActionTypes for more information on using the ListActionTypes
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the ListActionTypesRequest method.
 //    req, resp := client.ListActionTypesRequest(params)
@@ -1190,7 +1346,7 @@ const opListActionTypes = "ListActionTypes"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListActionTypes
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListActionTypes
 func (c *CodePipeline) ListActionTypesRequest(input *ListActionTypesInput) (req *request.Request, output *ListActionTypesOutput) {
 	op := &request.Operation{
 		Name:       opListActionTypes,
@@ -1227,7 +1383,7 @@ func (c *CodePipeline) ListActionTypesRequest(input *ListActionTypesInput) (req 
 //   The next token was specified in an invalid format. Make sure that the next
 //   token you provided is the token returned by a previous call.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListActionTypes
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListActionTypes
 func (c *CodePipeline) ListActionTypes(input *ListActionTypesInput) (*ListActionTypesOutput, error) {
 	req, out := c.ListActionTypesRequest(input)
 	return out, req.Send()
@@ -1253,19 +1409,18 @@ const opListPipelineExecutions = "ListPipelineExecutions"
 
 // ListPipelineExecutionsRequest generates a "aws/request.Request" representing the
 // client's request for the ListPipelineExecutions operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See ListPipelineExecutions for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the ListPipelineExecutions method directly
-// instead.
+// See ListPipelineExecutions for more information on using the ListPipelineExecutions
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the ListPipelineExecutionsRequest method.
 //    req, resp := client.ListPipelineExecutionsRequest(params)
@@ -1275,7 +1430,7 @@ const opListPipelineExecutions = "ListPipelineExecutions"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelineExecutions
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelineExecutions
 func (c *CodePipeline) ListPipelineExecutionsRequest(input *ListPipelineExecutionsInput) (req *request.Request, output *ListPipelineExecutionsOutput) {
 	op := &request.Operation{
 		Name:       opListPipelineExecutions,
@@ -1314,7 +1469,7 @@ func (c *CodePipeline) ListPipelineExecutionsRequest(input *ListPipelineExecutio
 //   The next token was specified in an invalid format. Make sure that the next
 //   token you provided is the token returned by a previous call.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelineExecutions
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelineExecutions
 func (c *CodePipeline) ListPipelineExecutions(input *ListPipelineExecutionsInput) (*ListPipelineExecutionsOutput, error) {
 	req, out := c.ListPipelineExecutionsRequest(input)
 	return out, req.Send()
@@ -1340,19 +1495,18 @@ const opListPipelines = "ListPipelines"
 
 // ListPipelinesRequest generates a "aws/request.Request" representing the
 // client's request for the ListPipelines operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See ListPipelines for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the ListPipelines method directly
-// instead.
+// See ListPipelines for more information on using the ListPipelines
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the ListPipelinesRequest method.
 //    req, resp := client.ListPipelinesRequest(params)
@@ -1362,7 +1516,7 @@ const opListPipelines = "ListPipelines"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelines
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelines
 func (c *CodePipeline) ListPipelinesRequest(input *ListPipelinesInput) (req *request.Request, output *ListPipelinesOutput) {
 	op := &request.Operation{
 		Name:       opListPipelines,
@@ -1391,11 +1545,14 @@ func (c *CodePipeline) ListPipelinesRequest(input *ListPipelinesInput) (req *req
 // API operation ListPipelines for usage and error information.
 //
 // Returned Error Codes:
+//   * ErrCodeValidationException "ValidationException"
+//   The validation was specified in an invalid format.
+//
 //   * ErrCodeInvalidNextTokenException "InvalidNextTokenException"
 //   The next token was specified in an invalid format. Make sure that the next
 //   token you provided is the token returned by a previous call.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelines
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelines
 func (c *CodePipeline) ListPipelines(input *ListPipelinesInput) (*ListPipelinesOutput, error) {
 	req, out := c.ListPipelinesRequest(input)
 	return out, req.Send()
@@ -1417,23 +1574,107 @@ func (c *CodePipeline) ListPipelinesWithContext(ctx aws.Context, input *ListPipe
 	return out, req.Send()
 }
 
+const opListWebhooks = "ListWebhooks"
+
+// ListWebhooksRequest generates a "aws/request.Request" representing the
+// client's request for the ListWebhooks operation. The "output" return
+// value will be populated with the request's response once the request completes
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListWebhooks for more information on using the ListWebhooks
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the ListWebhooksRequest method.
+//    req, resp := client.ListWebhooksRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListWebhooks
+func (c *CodePipeline) ListWebhooksRequest(input *ListWebhooksInput) (req *request.Request, output *ListWebhooksOutput) {
+	op := &request.Operation{
+		Name:       opListWebhooks,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &ListWebhooksInput{}
+	}
+
+	output = &ListWebhooksOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// ListWebhooks API operation for AWS CodePipeline.
+//
+// Gets a listing of all the webhooks in this region for this account. The output
+// lists all webhooks and includes the webhook URL and ARN, as well the configuration
+// for each webhook.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for AWS CodePipeline's
+// API operation ListWebhooks for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeValidationException "ValidationException"
+//   The validation was specified in an invalid format.
+//
+//   * ErrCodeInvalidNextTokenException "InvalidNextTokenException"
+//   The next token was specified in an invalid format. Make sure that the next
+//   token you provided is the token returned by a previous call.
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListWebhooks
+func (c *CodePipeline) ListWebhooks(input *ListWebhooksInput) (*ListWebhooksOutput, error) {
+	req, out := c.ListWebhooksRequest(input)
+	return out, req.Send()
+}
+
+// ListWebhooksWithContext is the same as ListWebhooks with the addition of
+// the ability to pass a context and additional request options.
+//
+// See ListWebhooks for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CodePipeline) ListWebhooksWithContext(ctx aws.Context, input *ListWebhooksInput, opts ...request.Option) (*ListWebhooksOutput, error) {
+	req, out := c.ListWebhooksRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
 const opPollForJobs = "PollForJobs"
 
 // PollForJobsRequest generates a "aws/request.Request" representing the
 // client's request for the PollForJobs operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See PollForJobs for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the PollForJobs method directly
-// instead.
+// See PollForJobs for more information on using the PollForJobs
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the PollForJobsRequest method.
 //    req, resp := client.PollForJobsRequest(params)
@@ -1443,7 +1684,7 @@ const opPollForJobs = "PollForJobs"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForJobs
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForJobs
 func (c *CodePipeline) PollForJobsRequest(input *PollForJobsInput) (req *request.Request, output *PollForJobsOutput) {
 	op := &request.Operation{
 		Name:       opPollForJobs,
@@ -1462,7 +1703,10 @@ func (c *CodePipeline) PollForJobsRequest(input *PollForJobsInput) (req *request
 
 // PollForJobs API operation for AWS CodePipeline.
 //
-// Returns information about any jobs for AWS CodePipeline to act upon.
+// Returns information about any jobs for AWS CodePipeline to act upon. PollForJobs
+// is only valid for action types with "Custom" in the owner field. If the action
+// type contains "AWS" or "ThirdParty" in the owner field, the PollForJobs action
+// returns an error.
 //
 // When this API is called, AWS CodePipeline returns temporary credentials for
 // the Amazon S3 bucket used to store artifacts for the pipeline, if the action
@@ -1483,7 +1727,7 @@ func (c *CodePipeline) PollForJobsRequest(input *PollForJobsInput) (req *request
 //   * ErrCodeActionTypeNotFoundException "ActionTypeNotFoundException"
 //   The specified action type cannot be found.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForJobs
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForJobs
 func (c *CodePipeline) PollForJobs(input *PollForJobsInput) (*PollForJobsOutput, error) {
 	req, out := c.PollForJobsRequest(input)
 	return out, req.Send()
@@ -1509,19 +1753,18 @@ const opPollForThirdPartyJobs = "PollForThirdPartyJobs"
 
 // PollForThirdPartyJobsRequest generates a "aws/request.Request" representing the
 // client's request for the PollForThirdPartyJobs operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See PollForThirdPartyJobs for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the PollForThirdPartyJobs method directly
-// instead.
+// See PollForThirdPartyJobs for more information on using the PollForThirdPartyJobs
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the PollForThirdPartyJobsRequest method.
 //    req, resp := client.PollForThirdPartyJobsRequest(params)
@@ -1531,7 +1774,7 @@ const opPollForThirdPartyJobs = "PollForThirdPartyJobs"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForThirdPartyJobs
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForThirdPartyJobs
 func (c *CodePipeline) PollForThirdPartyJobsRequest(input *PollForThirdPartyJobsInput) (req *request.Request, output *PollForThirdPartyJobsOutput) {
 	op := &request.Operation{
 		Name:       opPollForThirdPartyJobs,
@@ -1571,7 +1814,7 @@ func (c *CodePipeline) PollForThirdPartyJobsRequest(input *PollForThirdPartyJobs
 //   * ErrCodeValidationException "ValidationException"
 //   The validation was specified in an invalid format.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForThirdPartyJobs
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForThirdPartyJobs
 func (c *CodePipeline) PollForThirdPartyJobs(input *PollForThirdPartyJobsInput) (*PollForThirdPartyJobsOutput, error) {
 	req, out := c.PollForThirdPartyJobsRequest(input)
 	return out, req.Send()
@@ -1597,19 +1840,18 @@ const opPutActionRevision = "PutActionRevision"
 
 // PutActionRevisionRequest generates a "aws/request.Request" representing the
 // client's request for the PutActionRevision operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See PutActionRevision for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the PutActionRevision method directly
-// instead.
+// See PutActionRevision for more information on using the PutActionRevision
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the PutActionRevisionRequest method.
 //    req, resp := client.PutActionRevisionRequest(params)
@@ -1619,7 +1861,7 @@ const opPutActionRevision = "PutActionRevision"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutActionRevision
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutActionRevision
 func (c *CodePipeline) PutActionRevisionRequest(input *PutActionRevisionInput) (req *request.Request, output *PutActionRevisionOutput) {
 	op := &request.Operation{
 		Name:       opPutActionRevision,
@@ -1660,7 +1902,7 @@ func (c *CodePipeline) PutActionRevisionRequest(input *PutActionRevisionInput) (
 //   * ErrCodeValidationException "ValidationException"
 //   The validation was specified in an invalid format.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutActionRevision
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutActionRevision
 func (c *CodePipeline) PutActionRevision(input *PutActionRevisionInput) (*PutActionRevisionOutput, error) {
 	req, out := c.PutActionRevisionRequest(input)
 	return out, req.Send()
@@ -1686,19 +1928,18 @@ const opPutApprovalResult = "PutApprovalResult"
 
 // PutApprovalResultRequest generates a "aws/request.Request" representing the
 // client's request for the PutApprovalResult operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See PutApprovalResult for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the PutApprovalResult method directly
-// instead.
+// See PutApprovalResult for more information on using the PutApprovalResult
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the PutApprovalResultRequest method.
 //    req, resp := client.PutApprovalResultRequest(params)
@@ -1708,7 +1949,7 @@ const opPutApprovalResult = "PutApprovalResult"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutApprovalResult
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutApprovalResult
 func (c *CodePipeline) PutApprovalResultRequest(input *PutApprovalResultInput) (req *request.Request, output *PutApprovalResultOutput) {
 	op := &request.Operation{
 		Name:       opPutApprovalResult,
@@ -1756,7 +1997,7 @@ func (c *CodePipeline) PutApprovalResultRequest(input *PutApprovalResultInput) (
 //   * ErrCodeValidationException "ValidationException"
 //   The validation was specified in an invalid format.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutApprovalResult
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutApprovalResult
 func (c *CodePipeline) PutApprovalResult(input *PutApprovalResultInput) (*PutApprovalResultOutput, error) {
 	req, out := c.PutApprovalResultRequest(input)
 	return out, req.Send()
@@ -1782,19 +2023,18 @@ const opPutJobFailureResult = "PutJobFailureResult"
 
 // PutJobFailureResultRequest generates a "aws/request.Request" representing the
 // client's request for the PutJobFailureResult operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See PutJobFailureResult for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the PutJobFailureResult method directly
-// instead.
+// See PutJobFailureResult for more information on using the PutJobFailureResult
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the PutJobFailureResultRequest method.
 //    req, resp := client.PutJobFailureResultRequest(params)
@@ -1804,7 +2044,7 @@ const opPutJobFailureResult = "PutJobFailureResult"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobFailureResult
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobFailureResult
 func (c *CodePipeline) PutJobFailureResultRequest(input *PutJobFailureResultInput) (req *request.Request, output *PutJobFailureResultOutput) {
 	op := &request.Operation{
 		Name:       opPutJobFailureResult,
@@ -1845,7 +2085,7 @@ func (c *CodePipeline) PutJobFailureResultRequest(input *PutJobFailureResultInpu
 //   * ErrCodeInvalidJobStateException "InvalidJobStateException"
 //   The specified job state was specified in an invalid format.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobFailureResult
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobFailureResult
 func (c *CodePipeline) PutJobFailureResult(input *PutJobFailureResultInput) (*PutJobFailureResultOutput, error) {
 	req, out := c.PutJobFailureResultRequest(input)
 	return out, req.Send()
@@ -1871,19 +2111,18 @@ const opPutJobSuccessResult = "PutJobSuccessResult"
 
 // PutJobSuccessResultRequest generates a "aws/request.Request" representing the
 // client's request for the PutJobSuccessResult operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See PutJobSuccessResult for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the PutJobSuccessResult method directly
-// instead.
+// See PutJobSuccessResult for more information on using the PutJobSuccessResult
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the PutJobSuccessResultRequest method.
 //    req, resp := client.PutJobSuccessResultRequest(params)
@@ -1893,7 +2132,7 @@ const opPutJobSuccessResult = "PutJobSuccessResult"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobSuccessResult
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobSuccessResult
 func (c *CodePipeline) PutJobSuccessResultRequest(input *PutJobSuccessResultInput) (req *request.Request, output *PutJobSuccessResultOutput) {
 	op := &request.Operation{
 		Name:       opPutJobSuccessResult,
@@ -1934,7 +2173,7 @@ func (c *CodePipeline) PutJobSuccessResultRequest(input *PutJobSuccessResultInpu
 //   * ErrCodeInvalidJobStateException "InvalidJobStateException"
 //   The specified job state was specified in an invalid format.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobSuccessResult
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobSuccessResult
 func (c *CodePipeline) PutJobSuccessResult(input *PutJobSuccessResultInput) (*PutJobSuccessResultOutput, error) {
 	req, out := c.PutJobSuccessResultRequest(input)
 	return out, req.Send()
@@ -1960,19 +2199,18 @@ const opPutThirdPartyJobFailureResult = "PutThirdPartyJobFailureResult"
 
 // PutThirdPartyJobFailureResultRequest generates a "aws/request.Request" representing the
 // client's request for the PutThirdPartyJobFailureResult operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See PutThirdPartyJobFailureResult for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the PutThirdPartyJobFailureResult method directly
-// instead.
+// See PutThirdPartyJobFailureResult for more information on using the PutThirdPartyJobFailureResult
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the PutThirdPartyJobFailureResultRequest method.
 //    req, resp := client.PutThirdPartyJobFailureResultRequest(params)
@@ -1982,7 +2220,7 @@ const opPutThirdPartyJobFailureResult = "PutThirdPartyJobFailureResult"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobFailureResult
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobFailureResult
 func (c *CodePipeline) PutThirdPartyJobFailureResultRequest(input *PutThirdPartyJobFailureResultInput) (req *request.Request, output *PutThirdPartyJobFailureResultOutput) {
 	op := &request.Operation{
 		Name:       opPutThirdPartyJobFailureResult,
@@ -2026,7 +2264,7 @@ func (c *CodePipeline) PutThirdPartyJobFailureResultRequest(input *PutThirdParty
 //   * ErrCodeInvalidClientTokenException "InvalidClientTokenException"
 //   The client token was specified in an invalid format
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobFailureResult
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobFailureResult
 func (c *CodePipeline) PutThirdPartyJobFailureResult(input *PutThirdPartyJobFailureResultInput) (*PutThirdPartyJobFailureResultOutput, error) {
 	req, out := c.PutThirdPartyJobFailureResultRequest(input)
 	return out, req.Send()
@@ -2052,19 +2290,18 @@ const opPutThirdPartyJobSuccessResult = "PutThirdPartyJobSuccessResult"
 
 // PutThirdPartyJobSuccessResultRequest generates a "aws/request.Request" representing the
 // client's request for the PutThirdPartyJobSuccessResult operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See PutThirdPartyJobSuccessResult for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the PutThirdPartyJobSuccessResult method directly
-// instead.
+// See PutThirdPartyJobSuccessResult for more information on using the PutThirdPartyJobSuccessResult
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the PutThirdPartyJobSuccessResultRequest method.
 //    req, resp := client.PutThirdPartyJobSuccessResultRequest(params)
@@ -2074,7 +2311,7 @@ const opPutThirdPartyJobSuccessResult = "PutThirdPartyJobSuccessResult"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobSuccessResult
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobSuccessResult
 func (c *CodePipeline) PutThirdPartyJobSuccessResultRequest(input *PutThirdPartyJobSuccessResultInput) (req *request.Request, output *PutThirdPartyJobSuccessResultOutput) {
 	op := &request.Operation{
 		Name:       opPutThirdPartyJobSuccessResult,
@@ -2118,7 +2355,7 @@ func (c *CodePipeline) PutThirdPartyJobSuccessResultRequest(input *PutThirdParty
 //   * ErrCodeInvalidClientTokenException "InvalidClientTokenException"
 //   The client token was specified in an invalid format
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobSuccessResult
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobSuccessResult
 func (c *CodePipeline) PutThirdPartyJobSuccessResult(input *PutThirdPartyJobSuccessResultInput) (*PutThirdPartyJobSuccessResultOutput, error) {
 	req, out := c.PutThirdPartyJobSuccessResultRequest(input)
 	return out, req.Send()
@@ -2140,23 +2377,204 @@ func (c *CodePipeline) PutThirdPartyJobSuccessResultWithContext(ctx aws.Context,
 	return out, req.Send()
 }
 
+const opPutWebhook = "PutWebhook"
+
+// PutWebhookRequest generates a "aws/request.Request" representing the
+// client's request for the PutWebhook operation. The "output" return
+// value will be populated with the request's response once the request completes
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See PutWebhook for more information on using the PutWebhook
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the PutWebhookRequest method.
+//    req, resp := client.PutWebhookRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutWebhook
+func (c *CodePipeline) PutWebhookRequest(input *PutWebhookInput) (req *request.Request, output *PutWebhookOutput) {
+	op := &request.Operation{
+		Name:       opPutWebhook,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &PutWebhookInput{}
+	}
+
+	output = &PutWebhookOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// PutWebhook API operation for AWS CodePipeline.
+//
+// Defines a webhook and returns a unique webhook URL generated by CodePipeline.
+// This URL can be supplied to third party source hosting providers to call
+// every time there's a code change. When CodePipeline receives a POST request
+// on this URL, the pipeline defined in the webhook is started as long as the
+// POST request satisfied the authentication and filtering requirements supplied
+// when defining the webhook. RegisterWebhookWithThirdParty and DeregisterWebhookWithThirdParty
+// APIs can be used to automatically configure supported third parties to call
+// the generated webhook URL.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for AWS CodePipeline's
+// API operation PutWebhook for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeValidationException "ValidationException"
+//   The validation was specified in an invalid format.
+//
+//   * ErrCodeLimitExceededException "LimitExceededException"
+//   The number of pipelines associated with the AWS account has exceeded the
+//   limit allowed for the account.
+//
+//   * ErrCodeInvalidWebhookFilterPatternException "InvalidWebhookFilterPatternException"
+//   The specified event filter rule is in an invalid format.
+//
+//   * ErrCodeInvalidWebhookAuthenticationParametersException "InvalidWebhookAuthenticationParametersException"
+//   The specified authentication type is in an invalid format.
+//
+//   * ErrCodePipelineNotFoundException "PipelineNotFoundException"
+//   The specified pipeline was specified in an invalid format or cannot be found.
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutWebhook
+func (c *CodePipeline) PutWebhook(input *PutWebhookInput) (*PutWebhookOutput, error) {
+	req, out := c.PutWebhookRequest(input)
+	return out, req.Send()
+}
+
+// PutWebhookWithContext is the same as PutWebhook with the addition of
+// the ability to pass a context and additional request options.
+//
+// See PutWebhook for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CodePipeline) PutWebhookWithContext(ctx aws.Context, input *PutWebhookInput, opts ...request.Option) (*PutWebhookOutput, error) {
+	req, out := c.PutWebhookRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opRegisterWebhookWithThirdParty = "RegisterWebhookWithThirdParty"
+
+// RegisterWebhookWithThirdPartyRequest generates a "aws/request.Request" representing the
+// client's request for the RegisterWebhookWithThirdParty operation. The "output" return
+// value will be populated with the request's response once the request completes
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RegisterWebhookWithThirdParty for more information on using the RegisterWebhookWithThirdParty
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the RegisterWebhookWithThirdPartyRequest method.
+//    req, resp := client.RegisterWebhookWithThirdPartyRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RegisterWebhookWithThirdParty
+func (c *CodePipeline) RegisterWebhookWithThirdPartyRequest(input *RegisterWebhookWithThirdPartyInput) (req *request.Request, output *RegisterWebhookWithThirdPartyOutput) {
+	op := &request.Operation{
+		Name:       opRegisterWebhookWithThirdParty,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &RegisterWebhookWithThirdPartyInput{}
+	}
+
+	output = &RegisterWebhookWithThirdPartyOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// RegisterWebhookWithThirdParty API operation for AWS CodePipeline.
+//
+// Configures a connection between the webhook that was created and the external
+// tool with events to be detected.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for AWS CodePipeline's
+// API operation RegisterWebhookWithThirdParty for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeValidationException "ValidationException"
+//   The validation was specified in an invalid format.
+//
+//   * ErrCodeWebhookNotFoundException "WebhookNotFoundException"
+//   The specified webhook was entered in an invalid format or cannot be found.
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RegisterWebhookWithThirdParty
+func (c *CodePipeline) RegisterWebhookWithThirdParty(input *RegisterWebhookWithThirdPartyInput) (*RegisterWebhookWithThirdPartyOutput, error) {
+	req, out := c.RegisterWebhookWithThirdPartyRequest(input)
+	return out, req.Send()
+}
+
+// RegisterWebhookWithThirdPartyWithContext is the same as RegisterWebhookWithThirdParty with the addition of
+// the ability to pass a context and additional request options.
+//
+// See RegisterWebhookWithThirdParty for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CodePipeline) RegisterWebhookWithThirdPartyWithContext(ctx aws.Context, input *RegisterWebhookWithThirdPartyInput, opts ...request.Option) (*RegisterWebhookWithThirdPartyOutput, error) {
+	req, out := c.RegisterWebhookWithThirdPartyRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
 const opRetryStageExecution = "RetryStageExecution"
 
 // RetryStageExecutionRequest generates a "aws/request.Request" representing the
 // client's request for the RetryStageExecution operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See RetryStageExecution for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the RetryStageExecution method directly
-// instead.
+// See RetryStageExecution for more information on using the RetryStageExecution
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the RetryStageExecutionRequest method.
 //    req, resp := client.RetryStageExecutionRequest(params)
@@ -2166,7 +2584,7 @@ const opRetryStageExecution = "RetryStageExecution"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RetryStageExecution
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RetryStageExecution
 func (c *CodePipeline) RetryStageExecutionRequest(input *RetryStageExecutionInput) (req *request.Request, output *RetryStageExecutionOutput) {
 	op := &request.Operation{
 		Name:       opRetryStageExecution,
@@ -2214,7 +2632,7 @@ func (c *CodePipeline) RetryStageExecutionRequest(input *RetryStageExecutionInpu
 //   The stage has failed in a later run of the pipeline and the pipelineExecutionId
 //   associated with the request is out of date.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RetryStageExecution
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RetryStageExecution
 func (c *CodePipeline) RetryStageExecution(input *RetryStageExecutionInput) (*RetryStageExecutionOutput, error) {
 	req, out := c.RetryStageExecutionRequest(input)
 	return out, req.Send()
@@ -2240,19 +2658,18 @@ const opStartPipelineExecution = "StartPipelineExecution"
 
 // StartPipelineExecutionRequest generates a "aws/request.Request" representing the
 // client's request for the StartPipelineExecution operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See StartPipelineExecution for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the StartPipelineExecution method directly
-// instead.
+// See StartPipelineExecution for more information on using the StartPipelineExecution
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the StartPipelineExecutionRequest method.
 //    req, resp := client.StartPipelineExecutionRequest(params)
@@ -2262,7 +2679,7 @@ const opStartPipelineExecution = "StartPipelineExecution"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StartPipelineExecution
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StartPipelineExecution
 func (c *CodePipeline) StartPipelineExecutionRequest(input *StartPipelineExecutionInput) (req *request.Request, output *StartPipelineExecutionOutput) {
 	op := &request.Operation{
 		Name:       opStartPipelineExecution,
@@ -2298,7 +2715,7 @@ func (c *CodePipeline) StartPipelineExecutionRequest(input *StartPipelineExecuti
 //   * ErrCodePipelineNotFoundException "PipelineNotFoundException"
 //   The specified pipeline was specified in an invalid format or cannot be found.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StartPipelineExecution
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StartPipelineExecution
 func (c *CodePipeline) StartPipelineExecution(input *StartPipelineExecutionInput) (*StartPipelineExecutionOutput, error) {
 	req, out := c.StartPipelineExecutionRequest(input)
 	return out, req.Send()
@@ -2324,19 +2741,18 @@ const opUpdatePipeline = "UpdatePipeline"
 
 // UpdatePipelineRequest generates a "aws/request.Request" representing the
 // client's request for the UpdatePipeline operation. The "output" return
-// value can be used to capture response data after the request's "Send" method
-// is called.
+// value will be populated with the request's response once the request completes
+// successfuly.
 //
-// See UpdatePipeline for usage and error information.
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
 //
-// Creating a request object using this method should be used when you want to inject
-// custom logic into the request's lifecycle using a custom handler, or if you want to
-// access properties on the request object before or after sending the request. If
-// you just want the service response, call the UpdatePipeline method directly
-// instead.
+// See UpdatePipeline for more information on using the UpdatePipeline
+// API call, and error handling.
 //
-// Note: You must call the "Send" method on the returned request object in order
-// to execute the request.
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the UpdatePipelineRequest method.
 //    req, resp := client.UpdatePipelineRequest(params)
@@ -2346,7 +2762,7 @@ const opUpdatePipeline = "UpdatePipeline"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/UpdatePipeline
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/UpdatePipeline
 func (c *CodePipeline) UpdatePipelineRequest(input *UpdatePipelineInput) (req *request.Request, output *UpdatePipelineOutput) {
 	op := &request.Operation{
 		Name:       opUpdatePipeline,
@@ -2393,7 +2809,7 @@ func (c *CodePipeline) UpdatePipelineRequest(input *UpdatePipelineInput) (req *r
 //   * ErrCodeInvalidStructureException "InvalidStructureException"
 //   The specified structure was specified in an invalid format.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/UpdatePipeline
+// See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/UpdatePipeline
 func (c *CodePipeline) UpdatePipeline(input *UpdatePipelineInput) (*UpdatePipelineOutput, error) {
 	req, out := c.UpdatePipelineRequest(input)
 	return out, req.Send()
@@ -2419,7 +2835,6 @@ func (c *CodePipeline) UpdatePipelineWithContext(ctx aws.Context, input *UpdateP
 // credentials that are issued by AWS Secure Token Service (STS). They can be
 // used to access input and output artifacts in the Amazon S3 bucket used to
 // store artifact for the pipeline in AWS CodePipeline.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AWSSessionCredentials
 type AWSSessionCredentials struct {
 	_ struct{} `type:"structure"`
 
@@ -2467,8 +2882,7 @@ func (s *AWSSessionCredentials) SetSessionToken(v string) *AWSSessionCredentials
 	return s
 }
 
-// Represents the input of an acknowledge job action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeJobInput
+// Represents the input of an AcknowledgeJob action.
 type AcknowledgeJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2482,7 +2896,7 @@ type AcknowledgeJobInput struct {
 	// response of the PollForJobs request that returned this job.
 	//
 	// Nonce is a required field
-	Nonce *string `locationName:"nonce" type:"string" required:"true"`
+	Nonce *string `locationName:"nonce" min:"1" type:"string" required:"true"`
 }
 
 // String returns the string representation
@@ -2504,6 +2918,9 @@ func (s *AcknowledgeJobInput) Validate() error {
 	if s.Nonce == nil {
 		invalidParams.Add(request.NewErrParamRequired("Nonce"))
 	}
+	if s.Nonce != nil && len(*s.Nonce) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Nonce", 1))
+	}
 
 	if invalidParams.Len() > 0 {
 		return invalidParams
@@ -2523,8 +2940,7 @@ func (s *AcknowledgeJobInput) SetNonce(v string) *AcknowledgeJobInput {
 	return s
 }
 
-// Represents the output of an acknowledge job action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeJobOutput
+// Represents the output of an AcknowledgeJob action.
 type AcknowledgeJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2548,8 +2964,7 @@ func (s *AcknowledgeJobOutput) SetStatus(v string) *AcknowledgeJobOutput {
 	return s
 }
 
-// Represents the input of an acknowledge third party job action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeThirdPartyJobInput
+// Represents the input of an AcknowledgeThirdPartyJob action.
 type AcknowledgeThirdPartyJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2557,7 +2972,7 @@ type AcknowledgeThirdPartyJobInput struct {
 	// that the calling entity is allowed access to the job and its details.
 	//
 	// ClientToken is a required field
-	ClientToken *string `locationName:"clientToken" type:"string" required:"true"`
+	ClientToken *string `locationName:"clientToken" min:"1" type:"string" required:"true"`
 
 	// The unique system-generated ID of the job.
 	//
@@ -2569,7 +2984,7 @@ type AcknowledgeThirdPartyJobInput struct {
 	// response to a GetThirdPartyJobDetails request.
 	//
 	// Nonce is a required field
-	Nonce *string `locationName:"nonce" type:"string" required:"true"`
+	Nonce *string `locationName:"nonce" min:"1" type:"string" required:"true"`
 }
 
 // String returns the string representation
@@ -2588,6 +3003,9 @@ func (s *AcknowledgeThirdPartyJobInput) Validate() error {
 	if s.ClientToken == nil {
 		invalidParams.Add(request.NewErrParamRequired("ClientToken"))
 	}
+	if s.ClientToken != nil && len(*s.ClientToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ClientToken", 1))
+	}
 	if s.JobId == nil {
 		invalidParams.Add(request.NewErrParamRequired("JobId"))
 	}
@@ -2596,6 +3014,9 @@ func (s *AcknowledgeThirdPartyJobInput) Validate() error {
 	}
 	if s.Nonce == nil {
 		invalidParams.Add(request.NewErrParamRequired("Nonce"))
+	}
+	if s.Nonce != nil && len(*s.Nonce) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Nonce", 1))
 	}
 
 	if invalidParams.Len() > 0 {
@@ -2622,8 +3043,7 @@ func (s *AcknowledgeThirdPartyJobInput) SetNonce(v string) *AcknowledgeThirdPart
 	return s
 }
 
-// Represents the output of an acknowledge third party job action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeThirdPartyJobOutput
+// Represents the output of an AcknowledgeThirdPartyJob action.
 type AcknowledgeThirdPartyJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2648,7 +3068,6 @@ func (s *AcknowledgeThirdPartyJobOutput) SetStatus(v string) *AcknowledgeThirdPa
 }
 
 // Represents information about an action configuration.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ActionConfiguration
 type ActionConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -2673,7 +3092,6 @@ func (s *ActionConfiguration) SetConfiguration(v map[string]*string) *ActionConf
 }
 
 // Represents information about an action configuration property.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ActionConfigurationProperty
 type ActionConfigurationProperty struct {
 	_ struct{} `type:"structure"`
 
@@ -2691,7 +3109,7 @@ type ActionConfigurationProperty struct {
 	// Name is a required field
 	Name *string `locationName:"name" min:"1" type:"string" required:"true"`
 
-	// Indicates that the proprety will be used in conjunction with PollForJobs.
+	// Indicates that the property will be used in conjunction with PollForJobs.
 	// When creating a custom action, an action can have up to one queryable property.
 	// If it has one, that property must be both required and not secret.
 	//
@@ -2803,7 +3221,6 @@ func (s *ActionConfigurationProperty) SetType(v string) *ActionConfigurationProp
 
 // Represents the context of an action within the stage of a pipeline to a job
 // worker.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ActionContext
 type ActionContext struct {
 	_ struct{} `type:"structure"`
 
@@ -2828,7 +3245,6 @@ func (s *ActionContext) SetName(v string) *ActionContext {
 }
 
 // Represents information about an action declaration.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ActionDeclaration
 type ActionDeclaration struct {
 	_ struct{} `type:"structure"`
 
@@ -2961,7 +3377,6 @@ func (s *ActionDeclaration) SetRunOrder(v int64) *ActionDeclaration {
 }
 
 // Represents information about the run of an action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ActionExecution
 type ActionExecution struct {
 	_ struct{} `type:"structure"`
 
@@ -2989,7 +3404,7 @@ type ActionExecution struct {
 	Status *string `locationName:"status" type:"string" enum:"ActionExecutionStatus"`
 
 	// A summary of the run of the action.
-	Summary *string `locationName:"summary" type:"string"`
+	Summary *string `locationName:"summary" min:"1" type:"string"`
 
 	// The system-generated token used to identify a unique approval request. The
 	// token for each open approval request can be obtained using the GetPipelineState
@@ -3063,7 +3478,6 @@ func (s *ActionExecution) SetToken(v string) *ActionExecution {
 }
 
 // Represents information about the version (or revision) of an action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ActionRevision
 type ActionRevision struct {
 	_ struct{} `type:"structure"`
 
@@ -3140,7 +3554,6 @@ func (s *ActionRevision) SetRevisionId(v string) *ActionRevision {
 }
 
 // Represents information about the state of an action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ActionState
 type ActionState struct {
 	_ struct{} `type:"structure"`
 
@@ -3203,7 +3616,6 @@ func (s *ActionState) SetRevisionUrl(v string) *ActionState {
 }
 
 // Returns information about the details of an action type.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ActionType
 type ActionType struct {
 	_ struct{} `type:"structure"`
 
@@ -3270,7 +3682,6 @@ func (s *ActionType) SetSettings(v *ActionTypeSettings) *ActionType {
 }
 
 // Represents information about an action type.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ActionTypeId
 type ActionTypeId struct {
 	_ struct{} `type:"structure"`
 
@@ -3294,7 +3705,7 @@ type ActionTypeId struct {
 	// Provider is a required field
 	Provider *string `locationName:"provider" min:"1" type:"string" required:"true"`
 
-	// A string that identifies the action type.
+	// A string that describes the action version.
 	//
 	// Version is a required field
 	Version *string `locationName:"version" min:"1" type:"string" required:"true"`
@@ -3363,7 +3774,6 @@ func (s *ActionTypeId) SetVersion(v string) *ActionTypeId {
 }
 
 // Returns information about the settings for an action type.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ActionTypeSettings
 type ActionTypeSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -3447,7 +3857,6 @@ func (s *ActionTypeSettings) SetThirdPartyConfigurationUrl(v string) *ActionType
 }
 
 // Represents information about the result of an approval request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ApprovalResult
 type ApprovalResult struct {
 	_ struct{} `type:"structure"`
 
@@ -3502,7 +3911,6 @@ func (s *ApprovalResult) SetSummary(v string) *ApprovalResult {
 
 // Represents information about an artifact that will be worked upon by actions
 // in the pipeline.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/Artifact
 type Artifact struct {
 	_ struct{} `type:"structure"`
 
@@ -3546,7 +3954,6 @@ func (s *Artifact) SetRevision(v string) *Artifact {
 }
 
 // Returns information about the details of an artifact.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ArtifactDetails
 type ArtifactDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -3600,7 +4007,6 @@ func (s *ArtifactDetails) SetMinimumCount(v int64) *ArtifactDetails {
 }
 
 // Represents information about the location of an artifact.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ArtifactLocation
 type ArtifactLocation struct {
 	_ struct{} `type:"structure"`
 
@@ -3634,7 +4040,6 @@ func (s *ArtifactLocation) SetType(v string) *ArtifactLocation {
 }
 
 // Represents revision details of an artifact.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ArtifactRevision
 type ArtifactRevision struct {
 	_ struct{} `type:"structure"`
 
@@ -3712,7 +4117,6 @@ func (s *ArtifactRevision) SetRevisionUrl(v string) *ArtifactRevision {
 }
 
 // The Amazon S3 bucket where artifacts are stored for the pipeline.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ArtifactStore
 type ArtifactStore struct {
 	_ struct{} `type:"structure"`
 
@@ -3789,7 +4193,6 @@ func (s *ArtifactStore) SetType(v string) *ArtifactStore {
 }
 
 // Reserved for future use.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/BlockerDeclaration
 type BlockerDeclaration struct {
 	_ struct{} `type:"structure"`
 
@@ -3845,8 +4248,7 @@ func (s *BlockerDeclaration) SetType(v string) *BlockerDeclaration {
 	return s
 }
 
-// Represents the input of a create custom action operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreateCustomActionTypeInput
+// Represents the input of a CreateCustomActionType operation.
 type CreateCustomActionTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3998,8 +4400,7 @@ func (s *CreateCustomActionTypeInput) SetVersion(v string) *CreateCustomActionTy
 	return s
 }
 
-// Represents the output of a create custom action operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreateCustomActionTypeOutput
+// Represents the output of a CreateCustomActionType operation.
 type CreateCustomActionTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4025,8 +4426,7 @@ func (s *CreateCustomActionTypeOutput) SetActionType(v *ActionType) *CreateCusto
 	return s
 }
 
-// Represents the input of a create pipeline action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreatePipelineInput
+// Represents the input of a CreatePipeline action.
 type CreatePipelineInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4070,8 +4470,7 @@ func (s *CreatePipelineInput) SetPipeline(v *PipelineDeclaration) *CreatePipelin
 	return s
 }
 
-// Represents the output of a create pipeline action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreatePipelineOutput
+// Represents the output of a CreatePipeline action.
 type CreatePipelineOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4096,7 +4495,6 @@ func (s *CreatePipelineOutput) SetPipeline(v *PipelineDeclaration) *CreatePipeli
 }
 
 // Represents information about a current revision.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CurrentRevision
 type CurrentRevision struct {
 	_ struct{} `type:"structure"`
 
@@ -4177,9 +4575,8 @@ func (s *CurrentRevision) SetRevisionSummary(v string) *CurrentRevision {
 	return s
 }
 
-// Represents the input of a delete custom action operation. The custom action
+// Represents the input of a DeleteCustomActionType operation. The custom action
 // will be marked as deleted.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeleteCustomActionTypeInput
 type DeleteCustomActionTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4253,7 +4650,6 @@ func (s *DeleteCustomActionTypeInput) SetVersion(v string) *DeleteCustomActionTy
 	return s
 }
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeleteCustomActionTypeOutput
 type DeleteCustomActionTypeOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4268,8 +4664,7 @@ func (s DeleteCustomActionTypeOutput) GoString() string {
 	return s.String()
 }
 
-// Represents the input of a delete pipeline action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeletePipelineInput
+// Represents the input of a DeletePipeline action.
 type DeletePipelineInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4311,7 +4706,6 @@ func (s *DeletePipelineInput) SetName(v string) *DeletePipelineInput {
 	return s
 }
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeletePipelineOutput
 type DeletePipelineOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4326,8 +4720,112 @@ func (s DeletePipelineOutput) GoString() string {
 	return s.String()
 }
 
-// Represents the input of a disable stage transition input action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DisableStageTransitionInput
+type DeleteWebhookInput struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the webhook you want to delete.
+	//
+	// Name is a required field
+	Name *string `locationName:"name" min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DeleteWebhookInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteWebhookInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeleteWebhookInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteWebhookInput"}
+	if s.Name == nil {
+		invalidParams.Add(request.NewErrParamRequired("Name"))
+	}
+	if s.Name != nil && len(*s.Name) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Name", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetName sets the Name field's value.
+func (s *DeleteWebhookInput) SetName(v string) *DeleteWebhookInput {
+	s.Name = &v
+	return s
+}
+
+type DeleteWebhookOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteWebhookOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteWebhookOutput) GoString() string {
+	return s.String()
+}
+
+type DeregisterWebhookWithThirdPartyInput struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the webhook you want to deregister.
+	WebhookName *string `locationName:"webhookName" min:"1" type:"string"`
+}
+
+// String returns the string representation
+func (s DeregisterWebhookWithThirdPartyInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeregisterWebhookWithThirdPartyInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeregisterWebhookWithThirdPartyInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeregisterWebhookWithThirdPartyInput"}
+	if s.WebhookName != nil && len(*s.WebhookName) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("WebhookName", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetWebhookName sets the WebhookName field's value.
+func (s *DeregisterWebhookWithThirdPartyInput) SetWebhookName(v string) *DeregisterWebhookWithThirdPartyInput {
+	s.WebhookName = &v
+	return s
+}
+
+type DeregisterWebhookWithThirdPartyOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeregisterWebhookWithThirdPartyOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeregisterWebhookWithThirdPartyOutput) GoString() string {
+	return s.String()
+}
+
+// Represents the input of a DisableStageTransition action.
 type DisableStageTransitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4424,7 +4922,6 @@ func (s *DisableStageTransitionInput) SetTransitionType(v string) *DisableStageT
 	return s
 }
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DisableStageTransitionOutput
 type DisableStageTransitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4439,8 +4936,7 @@ func (s DisableStageTransitionOutput) GoString() string {
 	return s.String()
 }
 
-// Represents the input of an enable stage transition action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/EnableStageTransitionInput
+// Represents the input of an EnableStageTransition action.
 type EnableStageTransitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4517,7 +5013,6 @@ func (s *EnableStageTransitionInput) SetTransitionType(v string) *EnableStageTra
 	return s
 }
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/EnableStageTransitionOutput
 type EnableStageTransitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4534,7 +5029,6 @@ func (s EnableStageTransitionOutput) GoString() string {
 
 // Represents information about the key used to encrypt data in the artifact
 // store, such as an AWS Key Management Service (AWS KMS) key.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/EncryptionKey
 type EncryptionKey struct {
 	_ struct{} `type:"structure"`
 
@@ -4593,7 +5087,6 @@ func (s *EncryptionKey) SetType(v string) *EncryptionKey {
 }
 
 // Represents information about an error in AWS CodePipeline.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ErrorDetails
 type ErrorDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -4601,7 +5094,7 @@ type ErrorDetails struct {
 	Code *string `locationName:"code" type:"string"`
 
 	// The text of the error message.
-	Message *string `locationName:"message" type:"string"`
+	Message *string `locationName:"message" min:"1" type:"string"`
 }
 
 // String returns the string representation
@@ -4628,7 +5121,6 @@ func (s *ErrorDetails) SetMessage(v string) *ErrorDetails {
 
 // The details of the actions taken and results produced on an artifact as it
 // passes through stages in the pipeline.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ExecutionDetails
 type ExecutionDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -4641,7 +5133,7 @@ type ExecutionDetails struct {
 	PercentComplete *int64 `locationName:"percentComplete" type:"integer"`
 
 	// The summary of the current status of the actions.
-	Summary *string `locationName:"summary" type:"string"`
+	Summary *string `locationName:"summary" min:"1" type:"string"`
 }
 
 // String returns the string representation
@@ -4659,6 +5151,9 @@ func (s *ExecutionDetails) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "ExecutionDetails"}
 	if s.ExternalExecutionId != nil && len(*s.ExternalExecutionId) < 1 {
 		invalidParams.Add(request.NewErrParamMinLen("ExternalExecutionId", 1))
+	}
+	if s.Summary != nil && len(*s.Summary) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Summary", 1))
 	}
 
 	if invalidParams.Len() > 0 {
@@ -4686,7 +5181,6 @@ func (s *ExecutionDetails) SetSummary(v string) *ExecutionDetails {
 }
 
 // Represents information about failure details.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/FailureDetails
 type FailureDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -4696,7 +5190,7 @@ type FailureDetails struct {
 	// The message about the failure.
 	//
 	// Message is a required field
-	Message *string `locationName:"message" type:"string" required:"true"`
+	Message *string `locationName:"message" min:"1" type:"string" required:"true"`
 
 	// The type of the failure.
 	//
@@ -4722,6 +5216,9 @@ func (s *FailureDetails) Validate() error {
 	}
 	if s.Message == nil {
 		invalidParams.Add(request.NewErrParamRequired("Message"))
+	}
+	if s.Message != nil && len(*s.Message) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Message", 1))
 	}
 	if s.Type == nil {
 		invalidParams.Add(request.NewErrParamRequired("Type"))
@@ -4751,8 +5248,7 @@ func (s *FailureDetails) SetType(v string) *FailureDetails {
 	return s
 }
 
-// Represents the input of a get job details action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetJobDetailsInput
+// Represents the input of a GetJobDetails action.
 type GetJobDetailsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4791,8 +5287,7 @@ func (s *GetJobDetailsInput) SetJobId(v string) *GetJobDetailsInput {
 	return s
 }
 
-// Represents the output of a get job details action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetJobDetailsOutput
+// Represents the output of a GetJobDetails action.
 type GetJobDetailsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4819,8 +5314,7 @@ func (s *GetJobDetailsOutput) SetJobDetails(v *JobDetails) *GetJobDetailsOutput 
 	return s
 }
 
-// Represents the input of a get pipeline execution action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineExecutionInput
+// Represents the input of a GetPipelineExecution action.
 type GetPipelineExecutionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4876,8 +5370,7 @@ func (s *GetPipelineExecutionInput) SetPipelineName(v string) *GetPipelineExecut
 	return s
 }
 
-// Represents the output of a get pipeline execution action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineExecutionOutput
+// Represents the output of a GetPipelineExecution action.
 type GetPipelineExecutionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4901,8 +5394,7 @@ func (s *GetPipelineExecutionOutput) SetPipelineExecution(v *PipelineExecution) 
 	return s
 }
 
-// Represents the input of a get pipeline action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineInput
+// Represents the input of a GetPipeline action.
 type GetPipelineInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4958,10 +5450,13 @@ func (s *GetPipelineInput) SetVersion(v int64) *GetPipelineInput {
 	return s
 }
 
-// Represents the output of a get pipeline action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineOutput
+// Represents the output of a GetPipeline action.
 type GetPipelineOutput struct {
 	_ struct{} `type:"structure"`
+
+	// Represents the pipeline metadata information returned as part of the output
+	// of a GetPipeline action.
+	Metadata *PipelineMetadata `locationName:"metadata" type:"structure"`
 
 	// Represents the structure of actions and stages to be performed in the pipeline.
 	Pipeline *PipelineDeclaration `locationName:"pipeline" type:"structure"`
@@ -4977,14 +5472,19 @@ func (s GetPipelineOutput) GoString() string {
 	return s.String()
 }
 
+// SetMetadata sets the Metadata field's value.
+func (s *GetPipelineOutput) SetMetadata(v *PipelineMetadata) *GetPipelineOutput {
+	s.Metadata = v
+	return s
+}
+
 // SetPipeline sets the Pipeline field's value.
 func (s *GetPipelineOutput) SetPipeline(v *PipelineDeclaration) *GetPipelineOutput {
 	s.Pipeline = v
 	return s
 }
 
-// Represents the input of a get pipeline state action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineStateInput
+// Represents the input of a GetPipelineState action.
 type GetPipelineStateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5026,8 +5526,7 @@ func (s *GetPipelineStateInput) SetName(v string) *GetPipelineStateInput {
 	return s
 }
 
-// Represents the output of a get pipeline state action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineStateOutput
+// Represents the output of a GetPipelineState action.
 type GetPipelineStateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5090,8 +5589,7 @@ func (s *GetPipelineStateOutput) SetUpdated(v time.Time) *GetPipelineStateOutput
 	return s
 }
 
-// Represents the input of a get third party job details action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetThirdPartyJobDetailsInput
+// Represents the input of a GetThirdPartyJobDetails action.
 type GetThirdPartyJobDetailsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5099,7 +5597,7 @@ type GetThirdPartyJobDetailsInput struct {
 	// that the calling entity is allowed access to the job and its details.
 	//
 	// ClientToken is a required field
-	ClientToken *string `locationName:"clientToken" type:"string" required:"true"`
+	ClientToken *string `locationName:"clientToken" min:"1" type:"string" required:"true"`
 
 	// The unique system-generated ID used for identifying the job.
 	//
@@ -5122,6 +5620,9 @@ func (s *GetThirdPartyJobDetailsInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "GetThirdPartyJobDetailsInput"}
 	if s.ClientToken == nil {
 		invalidParams.Add(request.NewErrParamRequired("ClientToken"))
+	}
+	if s.ClientToken != nil && len(*s.ClientToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ClientToken", 1))
 	}
 	if s.JobId == nil {
 		invalidParams.Add(request.NewErrParamRequired("JobId"))
@@ -5148,8 +5649,7 @@ func (s *GetThirdPartyJobDetailsInput) SetJobId(v string) *GetThirdPartyJobDetai
 	return s
 }
 
-// Represents the output of a get third party job details action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetThirdPartyJobDetailsOutput
+// Represents the output of a GetThirdPartyJobDetails action.
 type GetThirdPartyJobDetailsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5175,7 +5675,6 @@ func (s *GetThirdPartyJobDetailsOutput) SetJobDetails(v *ThirdPartyJobDetails) *
 
 // Represents information about an artifact to be worked on, such as a test
 // or build artifact.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/InputArtifact
 type InputArtifact struct {
 	_ struct{} `type:"structure"`
 
@@ -5224,7 +5723,6 @@ func (s *InputArtifact) SetName(v string) *InputArtifact {
 }
 
 // Represents information about a job.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/Job
 type Job struct {
 	_ struct{} `type:"structure"`
 
@@ -5240,7 +5738,7 @@ type Job struct {
 	// A system-generated random number that AWS CodePipeline uses to ensure that
 	// the job is being worked on by only one job worker. Use this number in an
 	// AcknowledgeJob request.
-	Nonce *string `locationName:"nonce" type:"string"`
+	Nonce *string `locationName:"nonce" min:"1" type:"string"`
 }
 
 // String returns the string representation
@@ -5279,7 +5777,6 @@ func (s *Job) SetNonce(v string) *Job {
 
 // Represents additional information about a job required for a job worker to
 // complete the job.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/JobData
 type JobData struct {
 	_ struct{} `type:"structure"`
 
@@ -5297,7 +5794,7 @@ type JobData struct {
 
 	// A system-generated token, such as a AWS CodeDeploy deployment ID, that a
 	// job requires in order to continue the job asynchronously.
-	ContinuationToken *string `locationName:"continuationToken" type:"string"`
+	ContinuationToken *string `locationName:"continuationToken" min:"1" type:"string"`
 
 	// Represents information about the key used to encrypt data in the artifact
 	// store, such as an AWS Key Management Service (AWS KMS) key.
@@ -5372,7 +5869,6 @@ func (s *JobData) SetPipelineContext(v *PipelineContext) *JobData {
 }
 
 // Represents information about the details of a job.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/JobDetails
 type JobDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -5415,8 +5911,7 @@ func (s *JobDetails) SetId(v string) *JobDetails {
 	return s
 }
 
-// Represents the input of a list action types action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListActionTypesInput
+// Represents the input of a ListActionTypes action.
 type ListActionTypesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5425,7 +5920,7 @@ type ListActionTypesInput struct {
 
 	// An identifier that was returned from the previous list action types call,
 	// which can be used to return the next set of action types in the list.
-	NextToken *string `locationName:"nextToken" type:"string"`
+	NextToken *string `locationName:"nextToken" min:"1" type:"string"`
 }
 
 // String returns the string representation
@@ -5436,6 +5931,19 @@ func (s ListActionTypesInput) String() string {
 // GoString returns the string representation
 func (s ListActionTypesInput) GoString() string {
 	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ListActionTypesInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ListActionTypesInput"}
+	if s.NextToken != nil && len(*s.NextToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("NextToken", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
 }
 
 // SetActionOwnerFilter sets the ActionOwnerFilter field's value.
@@ -5450,8 +5958,7 @@ func (s *ListActionTypesInput) SetNextToken(v string) *ListActionTypesInput {
 	return s
 }
 
-// Represents the output of a list action types action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListActionTypesOutput
+// Represents the output of a ListActionTypes action.
 type ListActionTypesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5463,7 +5970,7 @@ type ListActionTypesOutput struct {
 	// If the amount of returned information is significantly large, an identifier
 	// is also returned which can be used in a subsequent list action types call
 	// to return the next set of action types in the list.
-	NextToken *string `locationName:"nextToken" type:"string"`
+	NextToken *string `locationName:"nextToken" min:"1" type:"string"`
 }
 
 // String returns the string representation
@@ -5488,8 +5995,7 @@ func (s *ListActionTypesOutput) SetNextToken(v string) *ListActionTypesOutput {
 	return s
 }
 
-// Represents the input of a list pipeline executions action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelineExecutionsInput
+// Represents the input of a ListPipelineExecutions action.
 type ListPipelineExecutionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5499,9 +6005,9 @@ type ListPipelineExecutionsInput struct {
 	// based on pipeline execution start times. Default value is 100.
 	MaxResults *int64 `locationName:"maxResults" min:"1" type:"integer"`
 
-	// The token that was returned from the previous list pipeline executions call,
+	// The token that was returned from the previous ListPipelineExecutions call,
 	// which can be used to return the next set of pipeline executions in the list.
-	NextToken *string `locationName:"nextToken" type:"string"`
+	NextToken *string `locationName:"nextToken" min:"1" type:"string"`
 
 	// The name of the pipeline for which you want to get execution summary information.
 	//
@@ -5524,6 +6030,9 @@ func (s *ListPipelineExecutionsInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "ListPipelineExecutionsInput"}
 	if s.MaxResults != nil && *s.MaxResults < 1 {
 		invalidParams.Add(request.NewErrParamMinValue("MaxResults", 1))
+	}
+	if s.NextToken != nil && len(*s.NextToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("NextToken", 1))
 	}
 	if s.PipelineName == nil {
 		invalidParams.Add(request.NewErrParamRequired("PipelineName"))
@@ -5556,16 +6065,14 @@ func (s *ListPipelineExecutionsInput) SetPipelineName(v string) *ListPipelineExe
 	return s
 }
 
-// Represents the output of a list pipeline executions action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelineExecutionsOutput
+// Represents the output of a ListPipelineExecutions action.
 type ListPipelineExecutionsOutput struct {
 	_ struct{} `type:"structure"`
 
-	// A token that can be used in the next list pipeline executions call to return
-	// the next set of pipeline executions. To view all items in the list, continue
-	// to call this operation with each subsequent token until no more nextToken
-	// values are returned.
-	NextToken *string `locationName:"nextToken" type:"string"`
+	// A token that can be used in the next ListPipelineExecutions call. To view
+	// all items in the list, continue to call this operation with each subsequent
+	// token until no more nextToken values are returned.
+	NextToken *string `locationName:"nextToken" min:"1" type:"string"`
 
 	// A list of executions in the history of a pipeline.
 	PipelineExecutionSummaries []*PipelineExecutionSummary `locationName:"pipelineExecutionSummaries" type:"list"`
@@ -5593,14 +6100,13 @@ func (s *ListPipelineExecutionsOutput) SetPipelineExecutionSummaries(v []*Pipeli
 	return s
 }
 
-// Represents the input of a list pipelines action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelinesInput
+// Represents the input of a ListPipelines action.
 type ListPipelinesInput struct {
 	_ struct{} `type:"structure"`
 
 	// An identifier that was returned from the previous list pipelines call, which
 	// can be used to return the next set of pipelines in the list.
-	NextToken *string `locationName:"nextToken" type:"string"`
+	NextToken *string `locationName:"nextToken" min:"1" type:"string"`
 }
 
 // String returns the string representation
@@ -5613,21 +6119,33 @@ func (s ListPipelinesInput) GoString() string {
 	return s.String()
 }
 
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ListPipelinesInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ListPipelinesInput"}
+	if s.NextToken != nil && len(*s.NextToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("NextToken", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
 // SetNextToken sets the NextToken field's value.
 func (s *ListPipelinesInput) SetNextToken(v string) *ListPipelinesInput {
 	s.NextToken = &v
 	return s
 }
 
-// Represents the output of a list pipelines action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelinesOutput
+// Represents the output of a ListPipelines action.
 type ListPipelinesOutput struct {
 	_ struct{} `type:"structure"`
 
 	// If the amount of returned information is significantly large, an identifier
 	// is also returned which can be used in a subsequent list pipelines call to
 	// return the next set of pipelines in the list.
-	NextToken *string `locationName:"nextToken" type:"string"`
+	NextToken *string `locationName:"nextToken" min:"1" type:"string"`
 
 	// The list of pipelines.
 	Pipelines []*PipelineSummary `locationName:"pipelines" type:"list"`
@@ -5655,8 +6173,171 @@ func (s *ListPipelinesOutput) SetPipelines(v []*PipelineSummary) *ListPipelinesO
 	return s
 }
 
+// The detail returned for each webhook after listing webhooks, such as the
+// webhook URL, the webhook name, and the webhook ARN.
+type ListWebhookItem struct {
+	_ struct{} `type:"structure"`
+
+	// The Amazon Resource Name (ARN) of the webhook.
+	Arn *string `locationName:"arn" type:"string"`
+
+	// The detail returned for each webhook, such as the webhook authentication
+	// type and filter rules.
+	//
+	// Definition is a required field
+	Definition *WebhookDefinition `locationName:"definition" type:"structure" required:"true"`
+
+	// The number code of the error.
+	ErrorCode *string `locationName:"errorCode" type:"string"`
+
+	// The text of the error message about the webhook.
+	ErrorMessage *string `locationName:"errorMessage" type:"string"`
+
+	// The date and time a webhook was last successfully triggered, in timestamp
+	// format.
+	LastTriggered *time.Time `locationName:"lastTriggered" type:"timestamp" timestampFormat:"unix"`
+
+	// A unique URL generated by CodePipeline. When a POST request is made to this
+	// URL, the defined pipeline is started as long as the body of the post request
+	// satisfies the defined authentication and filtering conditions. Deleting and
+	// re-creating a webhook will make the old URL invalid and generate a new URL.
+	//
+	// Url is a required field
+	Url *string `locationName:"url" min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s ListWebhookItem) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ListWebhookItem) GoString() string {
+	return s.String()
+}
+
+// SetArn sets the Arn field's value.
+func (s *ListWebhookItem) SetArn(v string) *ListWebhookItem {
+	s.Arn = &v
+	return s
+}
+
+// SetDefinition sets the Definition field's value.
+func (s *ListWebhookItem) SetDefinition(v *WebhookDefinition) *ListWebhookItem {
+	s.Definition = v
+	return s
+}
+
+// SetErrorCode sets the ErrorCode field's value.
+func (s *ListWebhookItem) SetErrorCode(v string) *ListWebhookItem {
+	s.ErrorCode = &v
+	return s
+}
+
+// SetErrorMessage sets the ErrorMessage field's value.
+func (s *ListWebhookItem) SetErrorMessage(v string) *ListWebhookItem {
+	s.ErrorMessage = &v
+	return s
+}
+
+// SetLastTriggered sets the LastTriggered field's value.
+func (s *ListWebhookItem) SetLastTriggered(v time.Time) *ListWebhookItem {
+	s.LastTriggered = &v
+	return s
+}
+
+// SetUrl sets the Url field's value.
+func (s *ListWebhookItem) SetUrl(v string) *ListWebhookItem {
+	s.Url = &v
+	return s
+}
+
+type ListWebhooksInput struct {
+	_ struct{} `type:"structure"`
+
+	// The maximum number of results to return in a single call. To retrieve the
+	// remaining results, make another call with the returned nextToken value.
+	MaxResults *int64 `min:"1" type:"integer"`
+
+	// The token that was returned from the previous ListWebhooks call, which can
+	// be used to return the next set of webhooks in the list.
+	NextToken *string `min:"1" type:"string"`
+}
+
+// String returns the string representation
+func (s ListWebhooksInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ListWebhooksInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ListWebhooksInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ListWebhooksInput"}
+	if s.MaxResults != nil && *s.MaxResults < 1 {
+		invalidParams.Add(request.NewErrParamMinValue("MaxResults", 1))
+	}
+	if s.NextToken != nil && len(*s.NextToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("NextToken", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetMaxResults sets the MaxResults field's value.
+func (s *ListWebhooksInput) SetMaxResults(v int64) *ListWebhooksInput {
+	s.MaxResults = &v
+	return s
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListWebhooksInput) SetNextToken(v string) *ListWebhooksInput {
+	s.NextToken = &v
+	return s
+}
+
+type ListWebhooksOutput struct {
+	_ struct{} `type:"structure"`
+
+	// If the amount of returned information is significantly large, an identifier
+	// is also returned and can be used in a subsequent ListWebhooks call to return
+	// the next set of webhooks in the list.
+	NextToken *string `min:"1" type:"string"`
+
+	// The JSON detail returned for each webhook in the list output for the ListWebhooks
+	// call.
+	Webhooks []*ListWebhookItem `locationName:"webhooks" type:"list"`
+}
+
+// String returns the string representation
+func (s ListWebhooksOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ListWebhooksOutput) GoString() string {
+	return s.String()
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListWebhooksOutput) SetNextToken(v string) *ListWebhooksOutput {
+	s.NextToken = &v
+	return s
+}
+
+// SetWebhooks sets the Webhooks field's value.
+func (s *ListWebhooksOutput) SetWebhooks(v []*ListWebhookItem) *ListWebhooksOutput {
+	s.Webhooks = v
+	return s
+}
+
 // Represents information about the output of an action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/OutputArtifact
 type OutputArtifact struct {
 	_ struct{} `type:"structure"`
 
@@ -5707,12 +6388,10 @@ func (s *OutputArtifact) SetName(v string) *OutputArtifact {
 }
 
 // Represents information about a pipeline to a job worker.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PipelineContext
 type PipelineContext struct {
 	_ struct{} `type:"structure"`
 
-	// Represents the context of an action within the stage of a pipeline to a job
-	// worker.
+	// The context of an action to a job worker within the stage of a pipeline.
 	Action *ActionContext `locationName:"action" type:"structure"`
 
 	// The name of the pipeline. This is a user-specified value. Pipeline names
@@ -5752,12 +6431,11 @@ func (s *PipelineContext) SetStage(v *StageContext) *PipelineContext {
 }
 
 // Represents the structure of actions and stages to be performed in the pipeline.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PipelineDeclaration
 type PipelineDeclaration struct {
 	_ struct{} `type:"structure"`
 
-	// Represents the context of an action within the stage of a pipeline to a job
-	// worker.
+	// Represents information about the Amazon S3 bucket where artifacts are stored
+	// for the pipeline.
 	//
 	// ArtifactStore is a required field
 	ArtifactStore *ArtifactStore `locationName:"artifactStore" type:"structure" required:"true"`
@@ -5868,7 +6546,6 @@ func (s *PipelineDeclaration) SetVersion(v int64) *PipelineDeclaration {
 }
 
 // Represents information about an execution of a pipeline.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PipelineExecution
 type PipelineExecution struct {
 	_ struct{} `type:"structure"`
 
@@ -5888,13 +6565,13 @@ type PipelineExecution struct {
 	//
 	//    * InProgress: The pipeline execution is currently running.
 	//
-	//    * Succeeded: The pipeline execution completed successfully.
+	//    * Succeeded: The pipeline execution was completed successfully.
 	//
 	//    * Superseded: While this pipeline execution was waiting for the next stage
-	//    to be completed, a newer pipeline execution caught up and continued through
+	//    to be completed, a newer pipeline execution advanced and continued through
 	//    the pipeline instead.
 	//
-	//    * Failed: The pipeline execution did not complete successfully.
+	//    * Failed: The pipeline execution was not completed successfully.
 	Status *string `locationName:"status" type:"string" enum:"PipelineExecutionStatus"`
 }
 
@@ -5939,7 +6616,6 @@ func (s *PipelineExecution) SetStatus(v string) *PipelineExecution {
 }
 
 // Summary information about a pipeline execution.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PipelineExecutionSummary
 type PipelineExecutionSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -5950,6 +6626,8 @@ type PipelineExecutionSummary struct {
 	// The ID of the pipeline execution.
 	PipelineExecutionId *string `locationName:"pipelineExecutionId" type:"string"`
 
+	SourceRevisions []*SourceRevision `locationName:"sourceRevisions" type:"list"`
+
 	// The date and time when the pipeline execution began, in timestamp format.
 	StartTime *time.Time `locationName:"startTime" type:"timestamp" timestampFormat:"unix"`
 
@@ -5957,13 +6635,13 @@ type PipelineExecutionSummary struct {
 	//
 	//    * InProgress: The pipeline execution is currently running.
 	//
-	//    * Succeeded: The pipeline execution completed successfully.
+	//    * Succeeded: The pipeline execution was completed successfully.
 	//
 	//    * Superseded: While this pipeline execution was waiting for the next stage
-	//    to be completed, a newer pipeline execution caught up and continued through
+	//    to be completed, a newer pipeline execution advanced and continued through
 	//    the pipeline instead.
 	//
-	//    * Failed: The pipeline execution did not complete successfully.
+	//    * Failed: The pipeline execution was not completed successfully.
 	Status *string `locationName:"status" type:"string" enum:"PipelineExecutionStatus"`
 }
 
@@ -5989,6 +6667,12 @@ func (s *PipelineExecutionSummary) SetPipelineExecutionId(v string) *PipelineExe
 	return s
 }
 
+// SetSourceRevisions sets the SourceRevisions field's value.
+func (s *PipelineExecutionSummary) SetSourceRevisions(v []*SourceRevision) *PipelineExecutionSummary {
+	s.SourceRevisions = v
+	return s
+}
+
 // SetStartTime sets the StartTime field's value.
 func (s *PipelineExecutionSummary) SetStartTime(v time.Time) *PipelineExecutionSummary {
 	s.StartTime = &v
@@ -6001,8 +6685,49 @@ func (s *PipelineExecutionSummary) SetStatus(v string) *PipelineExecutionSummary
 	return s
 }
 
+// Information about a pipeline.
+type PipelineMetadata struct {
+	_ struct{} `type:"structure"`
+
+	// The date and time the pipeline was created, in timestamp format.
+	Created *time.Time `locationName:"created" type:"timestamp" timestampFormat:"unix"`
+
+	// The Amazon Resource Name (ARN) of the pipeline.
+	PipelineArn *string `locationName:"pipelineArn" type:"string"`
+
+	// The date and time the pipeline was last updated, in timestamp format.
+	Updated *time.Time `locationName:"updated" type:"timestamp" timestampFormat:"unix"`
+}
+
+// String returns the string representation
+func (s PipelineMetadata) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s PipelineMetadata) GoString() string {
+	return s.String()
+}
+
+// SetCreated sets the Created field's value.
+func (s *PipelineMetadata) SetCreated(v time.Time) *PipelineMetadata {
+	s.Created = &v
+	return s
+}
+
+// SetPipelineArn sets the PipelineArn field's value.
+func (s *PipelineMetadata) SetPipelineArn(v string) *PipelineMetadata {
+	s.PipelineArn = &v
+	return s
+}
+
+// SetUpdated sets the Updated field's value.
+func (s *PipelineMetadata) SetUpdated(v time.Time) *PipelineMetadata {
+	s.Updated = &v
+	return s
+}
+
 // Returns a summary of a pipeline.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PipelineSummary
 type PipelineSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -6053,8 +6778,7 @@ func (s *PipelineSummary) SetVersion(v int64) *PipelineSummary {
 	return s
 }
 
-// Represents the input of a poll for jobs action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForJobsInput
+// Represents the input of a PollForJobs action.
 type PollForJobsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6122,8 +6846,7 @@ func (s *PollForJobsInput) SetQueryParam(v map[string]*string) *PollForJobsInput
 	return s
 }
 
-// Represents the output of a poll for jobs action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForJobsOutput
+// Represents the output of a PollForJobs action.
 type PollForJobsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6147,8 +6870,7 @@ func (s *PollForJobsOutput) SetJobs(v []*Job) *PollForJobsOutput {
 	return s
 }
 
-// Represents the input of a poll for third party jobs action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForThirdPartyJobsInput
+// Represents the input of a PollForThirdPartyJobs action.
 type PollForThirdPartyJobsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6204,8 +6926,7 @@ func (s *PollForThirdPartyJobsInput) SetMaxBatchSize(v int64) *PollForThirdParty
 	return s
 }
 
-// Represents the output of a poll for third party jobs action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForThirdPartyJobsOutput
+// Represents the output of a PollForThirdPartyJobs action.
 type PollForThirdPartyJobsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6229,8 +6950,7 @@ func (s *PollForThirdPartyJobsOutput) SetJobs(v []*ThirdPartyJob) *PollForThirdP
 	return s
 }
 
-// Represents the input of a put action revision action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutActionRevisionInput
+// Represents the input of a PutActionRevision action.
 type PutActionRevisionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6325,8 +7045,7 @@ func (s *PutActionRevisionInput) SetStageName(v string) *PutActionRevisionInput 
 	return s
 }
 
-// Represents the output of a put action revision action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutActionRevisionOutput
+// Represents the output of a PutActionRevision action.
 type PutActionRevisionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6360,8 +7079,7 @@ func (s *PutActionRevisionOutput) SetPipelineExecutionId(v string) *PutActionRev
 	return s
 }
 
-// Represents the input of a put approval result action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutApprovalResultInput
+// Represents the input of a PutApprovalResult action.
 type PutApprovalResultInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6473,8 +7191,7 @@ func (s *PutApprovalResultInput) SetToken(v string) *PutApprovalResultInput {
 	return s
 }
 
-// Represents the output of a put approval result action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutApprovalResultOutput
+// Represents the output of a PutApprovalResult action.
 type PutApprovalResultOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6498,8 +7215,7 @@ func (s *PutApprovalResultOutput) SetApprovedAt(v time.Time) *PutApprovalResultO
 	return s
 }
 
-// Represents the input of a put job failure result action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobFailureResultInput
+// Represents the input of a PutJobFailureResult action.
 type PutJobFailureResultInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6558,7 +7274,6 @@ func (s *PutJobFailureResultInput) SetJobId(v string) *PutJobFailureResultInput 
 	return s
 }
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobFailureResultOutput
 type PutJobFailureResultOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6573,8 +7288,7 @@ func (s PutJobFailureResultOutput) GoString() string {
 	return s.String()
 }
 
-// Represents the input of a put job success result action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobSuccessResultInput
+// Represents the input of a PutJobSuccessResult action.
 type PutJobSuccessResultInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6584,7 +7298,7 @@ type PutJobSuccessResultInput struct {
 	// action. It can be reused to return additional information about the progress
 	// of the custom action. When the action is complete, no continuation token
 	// should be supplied.
-	ContinuationToken *string `locationName:"continuationToken" type:"string"`
+	ContinuationToken *string `locationName:"continuationToken" min:"1" type:"string"`
 
 	// The ID of the current revision of the artifact successfully worked upon by
 	// the job.
@@ -6614,6 +7328,9 @@ func (s PutJobSuccessResultInput) GoString() string {
 // Validate inspects the fields of the type to determine if they are valid.
 func (s *PutJobSuccessResultInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "PutJobSuccessResultInput"}
+	if s.ContinuationToken != nil && len(*s.ContinuationToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ContinuationToken", 1))
+	}
 	if s.JobId == nil {
 		invalidParams.Add(request.NewErrParamRequired("JobId"))
 	}
@@ -6658,7 +7375,6 @@ func (s *PutJobSuccessResultInput) SetJobId(v string) *PutJobSuccessResultInput 
 	return s
 }
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobSuccessResultOutput
 type PutJobSuccessResultOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6673,8 +7389,7 @@ func (s PutJobSuccessResultOutput) GoString() string {
 	return s.String()
 }
 
-// Represents the input of a third party job failure result action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobFailureResultInput
+// Represents the input of a PutThirdPartyJobFailureResult action.
 type PutThirdPartyJobFailureResultInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6682,7 +7397,7 @@ type PutThirdPartyJobFailureResultInput struct {
 	// that the calling entity is allowed access to the job and its details.
 	//
 	// ClientToken is a required field
-	ClientToken *string `locationName:"clientToken" type:"string" required:"true"`
+	ClientToken *string `locationName:"clientToken" min:"1" type:"string" required:"true"`
 
 	// Represents information about failure details.
 	//
@@ -6710,6 +7425,9 @@ func (s *PutThirdPartyJobFailureResultInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "PutThirdPartyJobFailureResultInput"}
 	if s.ClientToken == nil {
 		invalidParams.Add(request.NewErrParamRequired("ClientToken"))
+	}
+	if s.ClientToken != nil && len(*s.ClientToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ClientToken", 1))
 	}
 	if s.FailureDetails == nil {
 		invalidParams.Add(request.NewErrParamRequired("FailureDetails"))
@@ -6750,7 +7468,6 @@ func (s *PutThirdPartyJobFailureResultInput) SetJobId(v string) *PutThirdPartyJo
 	return s
 }
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobFailureResultOutput
 type PutThirdPartyJobFailureResultOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6765,8 +7482,7 @@ func (s PutThirdPartyJobFailureResultOutput) GoString() string {
 	return s.String()
 }
 
-// Represents the input of a put third party job success result action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobSuccessResultInput
+// Represents the input of a PutThirdPartyJobSuccessResult action.
 type PutThirdPartyJobSuccessResultInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6774,7 +7490,7 @@ type PutThirdPartyJobSuccessResultInput struct {
 	// that the calling entity is allowed access to the job and its details.
 	//
 	// ClientToken is a required field
-	ClientToken *string `locationName:"clientToken" type:"string" required:"true"`
+	ClientToken *string `locationName:"clientToken" min:"1" type:"string" required:"true"`
 
 	// A token generated by a job worker, such as an AWS CodeDeploy deployment ID,
 	// that a successful job provides to identify a partner action in progress.
@@ -6782,7 +7498,7 @@ type PutThirdPartyJobSuccessResultInput struct {
 	// of the action. It can be reused to return additional information about the
 	// progress of the partner action. When the action is complete, no continuation
 	// token should be supplied.
-	ContinuationToken *string `locationName:"continuationToken" type:"string"`
+	ContinuationToken *string `locationName:"continuationToken" min:"1" type:"string"`
 
 	// Represents information about a current revision.
 	CurrentRevision *CurrentRevision `locationName:"currentRevision" type:"structure"`
@@ -6813,6 +7529,12 @@ func (s *PutThirdPartyJobSuccessResultInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "PutThirdPartyJobSuccessResultInput"}
 	if s.ClientToken == nil {
 		invalidParams.Add(request.NewErrParamRequired("ClientToken"))
+	}
+	if s.ClientToken != nil && len(*s.ClientToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ClientToken", 1))
+	}
+	if s.ContinuationToken != nil && len(*s.ContinuationToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ContinuationToken", 1))
 	}
 	if s.JobId == nil {
 		invalidParams.Add(request.NewErrParamRequired("JobId"))
@@ -6867,7 +7589,6 @@ func (s *PutThirdPartyJobSuccessResultInput) SetJobId(v string) *PutThirdPartyJo
 	return s
 }
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobSuccessResultOutput
 type PutThirdPartyJobSuccessResultOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6882,8 +7603,129 @@ func (s PutThirdPartyJobSuccessResultOutput) GoString() string {
 	return s.String()
 }
 
-// Represents the input of a retry stage execution action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RetryStageExecutionInput
+type PutWebhookInput struct {
+	_ struct{} `type:"structure"`
+
+	// The detail provided in an input file to create the webhook, such as the webhook
+	// name, the pipeline name, and the action name. Give the webhook a unique name
+	// which identifies the webhook being defined. You may choose to name the webhook
+	// after the pipeline and action it targets so that you can easily recognize
+	// what it's used for later.
+	//
+	// Webhook is a required field
+	Webhook *WebhookDefinition `locationName:"webhook" type:"structure" required:"true"`
+}
+
+// String returns the string representation
+func (s PutWebhookInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s PutWebhookInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *PutWebhookInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "PutWebhookInput"}
+	if s.Webhook == nil {
+		invalidParams.Add(request.NewErrParamRequired("Webhook"))
+	}
+	if s.Webhook != nil {
+		if err := s.Webhook.Validate(); err != nil {
+			invalidParams.AddNested("Webhook", err.(request.ErrInvalidParams))
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetWebhook sets the Webhook field's value.
+func (s *PutWebhookInput) SetWebhook(v *WebhookDefinition) *PutWebhookInput {
+	s.Webhook = v
+	return s
+}
+
+type PutWebhookOutput struct {
+	_ struct{} `type:"structure"`
+
+	// The detail returned from creating the webhook, such as the webhook name,
+	// webhook URL, and webhook ARN.
+	Webhook *ListWebhookItem `locationName:"webhook" type:"structure"`
+}
+
+// String returns the string representation
+func (s PutWebhookOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s PutWebhookOutput) GoString() string {
+	return s.String()
+}
+
+// SetWebhook sets the Webhook field's value.
+func (s *PutWebhookOutput) SetWebhook(v *ListWebhookItem) *PutWebhookOutput {
+	s.Webhook = v
+	return s
+}
+
+type RegisterWebhookWithThirdPartyInput struct {
+	_ struct{} `type:"structure"`
+
+	// The name of an existing webhook created with PutWebhook to register with
+	// a supported third party.
+	WebhookName *string `locationName:"webhookName" min:"1" type:"string"`
+}
+
+// String returns the string representation
+func (s RegisterWebhookWithThirdPartyInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s RegisterWebhookWithThirdPartyInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *RegisterWebhookWithThirdPartyInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "RegisterWebhookWithThirdPartyInput"}
+	if s.WebhookName != nil && len(*s.WebhookName) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("WebhookName", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetWebhookName sets the WebhookName field's value.
+func (s *RegisterWebhookWithThirdPartyInput) SetWebhookName(v string) *RegisterWebhookWithThirdPartyInput {
+	s.WebhookName = &v
+	return s
+}
+
+type RegisterWebhookWithThirdPartyOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s RegisterWebhookWithThirdPartyOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s RegisterWebhookWithThirdPartyOutput) GoString() string {
+	return s.String()
+}
+
+// Represents the input of a RetryStageExecution action.
 type RetryStageExecutionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6972,8 +7814,7 @@ func (s *RetryStageExecutionInput) SetStageName(v string) *RetryStageExecutionIn
 	return s
 }
 
-// Represents the output of a retry stage execution action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RetryStageExecutionOutput
+// Represents the output of a RetryStageExecution action.
 type RetryStageExecutionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6998,7 +7839,6 @@ func (s *RetryStageExecutionOutput) SetPipelineExecutionId(v string) *RetryStage
 }
 
 // The location of the Amazon S3 bucket that contains a revision.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/S3ArtifactLocation
 type S3ArtifactLocation struct {
 	_ struct{} `type:"structure"`
 
@@ -7036,8 +7876,54 @@ func (s *S3ArtifactLocation) SetObjectKey(v string) *S3ArtifactLocation {
 	return s
 }
 
+type SourceRevision struct {
+	_ struct{} `type:"structure"`
+
+	// ActionName is a required field
+	ActionName *string `locationName:"actionName" min:"1" type:"string" required:"true"`
+
+	RevisionId *string `locationName:"revisionId" min:"1" type:"string"`
+
+	RevisionSummary *string `locationName:"revisionSummary" min:"1" type:"string"`
+
+	RevisionUrl *string `locationName:"revisionUrl" min:"1" type:"string"`
+}
+
+// String returns the string representation
+func (s SourceRevision) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s SourceRevision) GoString() string {
+	return s.String()
+}
+
+// SetActionName sets the ActionName field's value.
+func (s *SourceRevision) SetActionName(v string) *SourceRevision {
+	s.ActionName = &v
+	return s
+}
+
+// SetRevisionId sets the RevisionId field's value.
+func (s *SourceRevision) SetRevisionId(v string) *SourceRevision {
+	s.RevisionId = &v
+	return s
+}
+
+// SetRevisionSummary sets the RevisionSummary field's value.
+func (s *SourceRevision) SetRevisionSummary(v string) *SourceRevision {
+	s.RevisionSummary = &v
+	return s
+}
+
+// SetRevisionUrl sets the RevisionUrl field's value.
+func (s *SourceRevision) SetRevisionUrl(v string) *SourceRevision {
+	s.RevisionUrl = &v
+	return s
+}
+
 // Represents information about a stage to a job worker.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StageContext
 type StageContext struct {
 	_ struct{} `type:"structure"`
 
@@ -7062,7 +7948,6 @@ func (s *StageContext) SetName(v string) *StageContext {
 }
 
 // Represents information about a stage and its definition.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StageDeclaration
 type StageDeclaration struct {
 	_ struct{} `type:"structure"`
 
@@ -7148,7 +8033,6 @@ func (s *StageDeclaration) SetName(v string) *StageDeclaration {
 }
 
 // Represents information about the run of a stage.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StageExecution
 type StageExecution struct {
 	_ struct{} `type:"structure"`
 
@@ -7187,7 +8071,6 @@ func (s *StageExecution) SetStatus(v string) *StageExecution {
 }
 
 // Represents information about the state of the stage.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StageState
 type StageState struct {
 	_ struct{} `type:"structure"`
 
@@ -7239,8 +8122,7 @@ func (s *StageState) SetStageName(v string) *StageState {
 	return s
 }
 
-// Represents the input of a start pipeline execution action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StartPipelineExecutionInput
+// Represents the input of a StartPipelineExecution action.
 type StartPipelineExecutionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7282,8 +8164,7 @@ func (s *StartPipelineExecutionInput) SetName(v string) *StartPipelineExecutionI
 	return s
 }
 
-// Represents the output of a start pipeline execution action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StartPipelineExecutionOutput
+// Represents the output of a StartPipelineExecution action.
 type StartPipelineExecutionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7309,7 +8190,6 @@ func (s *StartPipelineExecutionOutput) SetPipelineExecutionId(v string) *StartPi
 
 // A response to a PollForThirdPartyJobs request returned by AWS CodePipeline
 // when there is a job to be worked upon by a partner action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ThirdPartyJob
 type ThirdPartyJob struct {
 	_ struct{} `type:"structure"`
 
@@ -7344,7 +8224,6 @@ func (s *ThirdPartyJob) SetJobId(v string) *ThirdPartyJob {
 }
 
 // Represents information about the job data for a partner action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ThirdPartyJobData
 type ThirdPartyJobData struct {
 	_ struct{} `type:"structure"`
 
@@ -7362,7 +8241,7 @@ type ThirdPartyJobData struct {
 
 	// A system-generated token, such as a AWS CodeDeploy deployment ID, that a
 	// job requires in order to continue the job asynchronously.
-	ContinuationToken *string `locationName:"continuationToken" type:"string"`
+	ContinuationToken *string `locationName:"continuationToken" min:"1" type:"string"`
 
 	// The encryption key used to encrypt and decrypt data in the artifact store
 	// for the pipeline, such as an AWS Key Management Service (AWS KMS) key. This
@@ -7444,7 +8323,6 @@ func (s *ThirdPartyJobData) SetPipelineContext(v *PipelineContext) *ThirdPartyJo
 }
 
 // The details of a job sent in response to a GetThirdPartyJobDetails request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ThirdPartyJobDetails
 type ThirdPartyJobDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -7457,7 +8335,7 @@ type ThirdPartyJobDetails struct {
 	// A system-generated random number that AWS CodePipeline uses to ensure that
 	// the job is being worked on by only one job worker. Use this number in an
 	// AcknowledgeThirdPartyJob request.
-	Nonce *string `locationName:"nonce" type:"string"`
+	Nonce *string `locationName:"nonce" min:"1" type:"string"`
 }
 
 // String returns the string representation
@@ -7490,7 +8368,6 @@ func (s *ThirdPartyJobDetails) SetNonce(v string) *ThirdPartyJobDetails {
 
 // Represents information about the state of transitions between one stage and
 // another stage.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/TransitionState
 type TransitionState struct {
 	_ struct{} `type:"structure"`
 
@@ -7542,8 +8419,7 @@ func (s *TransitionState) SetLastChangedBy(v string) *TransitionState {
 	return s
 }
 
-// Represents the input of an update pipeline action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/UpdatePipelineInput
+// Represents the input of an UpdatePipeline action.
 type UpdatePipelineInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7587,8 +8463,7 @@ func (s *UpdatePipelineInput) SetPipeline(v *PipelineDeclaration) *UpdatePipelin
 	return s
 }
 
-// Represents the output of an update pipeline action.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/UpdatePipelineOutput
+// Represents the output of an UpdatePipeline action.
 type UpdatePipelineOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7609,6 +8484,266 @@ func (s UpdatePipelineOutput) GoString() string {
 // SetPipeline sets the Pipeline field's value.
 func (s *UpdatePipelineOutput) SetPipeline(v *PipelineDeclaration) *UpdatePipelineOutput {
 	s.Pipeline = v
+	return s
+}
+
+type WebhookAuthConfiguration struct {
+	_ struct{} `type:"structure"`
+
+	AllowedIPRange *string `min:"1" type:"string"`
+
+	SecretToken *string `min:"1" type:"string"`
+}
+
+// String returns the string representation
+func (s WebhookAuthConfiguration) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s WebhookAuthConfiguration) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *WebhookAuthConfiguration) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "WebhookAuthConfiguration"}
+	if s.AllowedIPRange != nil && len(*s.AllowedIPRange) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("AllowedIPRange", 1))
+	}
+	if s.SecretToken != nil && len(*s.SecretToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("SecretToken", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetAllowedIPRange sets the AllowedIPRange field's value.
+func (s *WebhookAuthConfiguration) SetAllowedIPRange(v string) *WebhookAuthConfiguration {
+	s.AllowedIPRange = &v
+	return s
+}
+
+// SetSecretToken sets the SecretToken field's value.
+func (s *WebhookAuthConfiguration) SetSecretToken(v string) *WebhookAuthConfiguration {
+	s.SecretToken = &v
+	return s
+}
+
+// Represents information about a webhook and its definition.
+type WebhookDefinition struct {
+	_ struct{} `type:"structure"`
+
+	// Supported options are GITHUB_HMAC, IP and UNAUTHENTICATED.
+	//
+	//    *  GITHUB_HMAC implements the authentication scheme described here: https://developer.github.com/webhooks/securing/
+	//
+	//    *  IP will reject webhooks trigger requests unless they originate from
+	//    an IP within the IP range whitelisted in the authentication configuration.
+	//
+	//    *  UNAUTHENTICATED will accept all webhook trigger requests regardless
+	//    of origin.
+	//
+	// Authentication is a required field
+	Authentication *string `locationName:"authentication" type:"string" required:"true" enum:"WebhookAuthenticationType"`
+
+	// Properties that configure the authentication applied to incoming webhook
+	// trigger requests. The required properties depend on the authentication type.
+	// For GITHUB_HMAC, only the SecretToken property must be set. For IP, only
+	// the AllowedIPRange property must be set to a valid CIDR range. For UNAUTHENTICATED,
+	// no properties can be set.
+	//
+	// AuthenticationConfiguration is a required field
+	AuthenticationConfiguration *WebhookAuthConfiguration `locationName:"authenticationConfiguration" type:"structure" required:"true"`
+
+	// A list of rules applied to the body/payload sent in the POST request to a
+	// webhook URL. All defined rules must pass for the request to be accepted and
+	// the pipeline started.
+	//
+	// Filters is a required field
+	Filters []*WebhookFilterRule `locationName:"filters" type:"list" required:"true"`
+
+	// The name of the webhook.
+	//
+	// Name is a required field
+	Name *string `locationName:"name" min:"1" type:"string" required:"true"`
+
+	// The name of the action in a pipeline you want to connect to the webhook.
+	// The action must be from the source (first) stage of the pipeline.
+	//
+	// TargetAction is a required field
+	TargetAction *string `locationName:"targetAction" min:"1" type:"string" required:"true"`
+
+	// The name of the pipeline you want to connect to the webhook.
+	//
+	// TargetPipeline is a required field
+	TargetPipeline *string `locationName:"targetPipeline" min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s WebhookDefinition) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s WebhookDefinition) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *WebhookDefinition) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "WebhookDefinition"}
+	if s.Authentication == nil {
+		invalidParams.Add(request.NewErrParamRequired("Authentication"))
+	}
+	if s.AuthenticationConfiguration == nil {
+		invalidParams.Add(request.NewErrParamRequired("AuthenticationConfiguration"))
+	}
+	if s.Filters == nil {
+		invalidParams.Add(request.NewErrParamRequired("Filters"))
+	}
+	if s.Name == nil {
+		invalidParams.Add(request.NewErrParamRequired("Name"))
+	}
+	if s.Name != nil && len(*s.Name) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Name", 1))
+	}
+	if s.TargetAction == nil {
+		invalidParams.Add(request.NewErrParamRequired("TargetAction"))
+	}
+	if s.TargetAction != nil && len(*s.TargetAction) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("TargetAction", 1))
+	}
+	if s.TargetPipeline == nil {
+		invalidParams.Add(request.NewErrParamRequired("TargetPipeline"))
+	}
+	if s.TargetPipeline != nil && len(*s.TargetPipeline) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("TargetPipeline", 1))
+	}
+	if s.AuthenticationConfiguration != nil {
+		if err := s.AuthenticationConfiguration.Validate(); err != nil {
+			invalidParams.AddNested("AuthenticationConfiguration", err.(request.ErrInvalidParams))
+		}
+	}
+	if s.Filters != nil {
+		for i, v := range s.Filters {
+			if v == nil {
+				continue
+			}
+			if err := v.Validate(); err != nil {
+				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "Filters", i), err.(request.ErrInvalidParams))
+			}
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetAuthentication sets the Authentication field's value.
+func (s *WebhookDefinition) SetAuthentication(v string) *WebhookDefinition {
+	s.Authentication = &v
+	return s
+}
+
+// SetAuthenticationConfiguration sets the AuthenticationConfiguration field's value.
+func (s *WebhookDefinition) SetAuthenticationConfiguration(v *WebhookAuthConfiguration) *WebhookDefinition {
+	s.AuthenticationConfiguration = v
+	return s
+}
+
+// SetFilters sets the Filters field's value.
+func (s *WebhookDefinition) SetFilters(v []*WebhookFilterRule) *WebhookDefinition {
+	s.Filters = v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *WebhookDefinition) SetName(v string) *WebhookDefinition {
+	s.Name = &v
+	return s
+}
+
+// SetTargetAction sets the TargetAction field's value.
+func (s *WebhookDefinition) SetTargetAction(v string) *WebhookDefinition {
+	s.TargetAction = &v
+	return s
+}
+
+// SetTargetPipeline sets the TargetPipeline field's value.
+func (s *WebhookDefinition) SetTargetPipeline(v string) *WebhookDefinition {
+	s.TargetPipeline = &v
+	return s
+}
+
+// The event criteria that specify when a webhook notification is sent to your
+// URL.
+type WebhookFilterRule struct {
+	_ struct{} `type:"structure"`
+
+	// A JsonPath expression that will be applied to the body/payload of the webhook.
+	// The value selected by JsonPath expression must match the value specified
+	// in the matchEquals field, otherwise the request will be ignored. More information
+	// on JsonPath expressions can be found here: https://github.com/json-path/JsonPath.
+	//
+	// JsonPath is a required field
+	JsonPath *string `locationName:"jsonPath" min:"1" type:"string" required:"true"`
+
+	// The value selected by the JsonPath expression must match what is supplied
+	// in the MatchEquals field, otherwise the request will be ignored. Properties
+	// from the target action configuration can be included as placeholders in this
+	// value by surrounding the action configuration key with curly braces. For
+	// example, if the value supplied here is "refs/heads/{Branch}" and the target
+	// action has an action configuration property called "Branch" with a value
+	// of "master", the MatchEquals value will be evaluated as "refs/heads/master".
+	// A list of action configuration properties for built-in action types can be
+	// found here: Pipeline Structure Reference Action Requirements (http://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements).
+	MatchEquals *string `locationName:"matchEquals" min:"1" type:"string"`
+}
+
+// String returns the string representation
+func (s WebhookFilterRule) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s WebhookFilterRule) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *WebhookFilterRule) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "WebhookFilterRule"}
+	if s.JsonPath == nil {
+		invalidParams.Add(request.NewErrParamRequired("JsonPath"))
+	}
+	if s.JsonPath != nil && len(*s.JsonPath) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("JsonPath", 1))
+	}
+	if s.MatchEquals != nil && len(*s.MatchEquals) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("MatchEquals", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetJsonPath sets the JsonPath field's value.
+func (s *WebhookFilterRule) SetJsonPath(v string) *WebhookFilterRule {
+	s.JsonPath = &v
+	return s
+}
+
+// SetMatchEquals sets the MatchEquals field's value.
+func (s *WebhookFilterRule) SetMatchEquals(v string) *WebhookFilterRule {
+	s.MatchEquals = &v
 	return s
 }
 
@@ -7772,4 +8907,15 @@ const (
 
 	// StageTransitionTypeOutbound is a StageTransitionType enum value
 	StageTransitionTypeOutbound = "Outbound"
+)
+
+const (
+	// WebhookAuthenticationTypeGithubHmac is a WebhookAuthenticationType enum value
+	WebhookAuthenticationTypeGithubHmac = "GITHUB_HMAC"
+
+	// WebhookAuthenticationTypeIp is a WebhookAuthenticationType enum value
+	WebhookAuthenticationTypeIp = "IP"
+
+	// WebhookAuthenticationTypeUnauthenticated is a WebhookAuthenticationType enum value
+	WebhookAuthenticationTypeUnauthenticated = "UNAUTHENTICATED"
 )
