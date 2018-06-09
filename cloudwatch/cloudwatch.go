@@ -61,6 +61,12 @@ func (c *eventCache) Add(eventID string) {
 	c.seen[eventID] = true
 }
 
+func (c *eventCache) Size() int {
+	c.RLock()
+	defer c.RUnlock()
+	return len(c.seen)
+}
+
 func (c *eventCache) Reset() {
 	c.Lock()
 	defer c.Unlock()
@@ -88,7 +94,10 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			eventTimestamp := *event.Timestamp / 1000
 			if eventTimestamp != lastSeenTimestamp {
 				lastSeenTimestamp = eventTimestamp
-				cache.Reset()
+				if cache.Size() >= 1000 {
+					cache.Reset()
+				}
+
 			}
 
 			if !cache.Has(*event.EventId) {
@@ -116,8 +125,9 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			if !*follow {
 				close(ch)
 			} else {
-				//AWS API will take 5 reqs/sec
-				timer.Reset(time.Millisecond * 250)
+				//fmt.Println("LAST PAGE")
+				//AWS API accepts 5 reqs/sec
+				timer.Reset(time.Millisecond * 205)
 			}
 		}
 		return !lastPage

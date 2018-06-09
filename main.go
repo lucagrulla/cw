@@ -21,7 +21,7 @@ var (
 
 	follow          = tailCommand.Flag("follow", "Don't stop when the end of stream is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
 	printTimestamp  = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
-	printEventId    = tailCommand.Flag("event Id", "Print the event Id").Short('i').Default("false").Bool()
+	printEventID    = tailCommand.Flag("event Id", "Print the event Id").Short('i').Default("false").Bool()
 	printStreamName = tailCommand.Flag("stream name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
 	grep            = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").Short('g').Default("").String()
 	logGroupName    = tailCommand.Arg("group", "The log group name.").Required().HintAction(groupsCompletion).String()
@@ -49,16 +49,16 @@ func streamsCompletion() []string {
 }
 
 func timestampToUTC(timeStamp *string) time.Time {
-	if regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}$").MatchString(*timeStamp) {
+	if regexp.MustCompile(`^\d{4}-\d{2}-\d{2}$`).MatchString(*timeStamp) {
 		t, _ := time.ParseInLocation("2006-01-02", *timeStamp, time.UTC)
 		return t
-	} else if regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}T\\d{2}$").MatchString(*timeStamp) {
+	} else if regexp.MustCompile(`^\d{4}-\d{2}-\d{2}T\d{2}$`).MatchString(*timeStamp) {
 		t, _ := time.ParseInLocation("2006-01-02T15", *timeStamp, time.UTC)
 		return t
-	} else if regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}$").MatchString(*timeStamp) {
+	} else if regexp.MustCompile(`^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$`).MatchString(*timeStamp) {
 		t, _ := time.ParseInLocation("2006-01-02T15:04", *timeStamp, time.UTC)
 		return t
-	} else if regexp.MustCompile("^\\d{1,2}$").MatchString(*timeStamp) {
+	} else if regexp.MustCompile(`^\d{1,2}$`).MatchString(*timeStamp) {
 		y, m, d := time.Now().Date()
 		t, _ := strconv.Atoi(*timeStamp)
 		return time.Date(y, m, d, t, 0, 0, 0, time.UTC)
@@ -77,7 +77,7 @@ func timestampToUTC(timeStamp *string) time.Time {
 }
 
 func main() {
-	kingpin.Version("1.3.3").Author("Luca Grulla")
+	kingpin.Version("1.3.4").Author("Luca Grulla")
 	command := kingpin.Parse()
 
 	switch command {
@@ -96,7 +96,7 @@ func main() {
 			et = timestampToUTC(endTime)
 		}
 
-		for msg := range cloudwatch.Tail(logGroupName, logStreamName, follow, &st, &et, grep, printTimestamp, printStreamName, printEventId) {
+		for msg := range cloudwatch.Tail(logGroupName, logStreamName, follow, &st, &et, grep, printTimestamp, printStreamName, printEventID) {
 			fmt.Println(*msg)
 		}
 	}
