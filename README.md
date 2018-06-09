@@ -3,7 +3,7 @@
 [![Software License](https://img.shields.io/badge/license-apache2-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 
-The best way to tail AWS Cloudwatch Logs from your terminal
+The **best** way to tail AWS Cloudwatch Logs from your terminal.
 
 Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.com](https://www.lucagrulla.com)
 
