@@ -1,4 +1,6 @@
-# cw
+# cw 
+[![Release](https://img.shields.io/github/release/lucagrulla/cw.svg?style=flat-square)](https://github.com/lucagrulla/cw/releases/latest)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 The best way to tail AWS Cloudwatch Logs from your terminal
 
