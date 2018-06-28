@@ -118,7 +118,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			}
 			if len(streams) == 0 {
 				fmt.Println("No such log stream(s).")
-				os.Exit(1)
+				close(ch)
 			}
 			if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
 				streams = streams[0:100]
@@ -205,7 +205,7 @@ func LsGroups() <-chan *string {
 		if err != nil {
 			if awsErr, ok := err.(awserr.Error); ok {
 				fmt.Println(awsErr.Message())
-				os.Exit(1)
+				close(ch)
 			}
 		}
 	}()
@@ -238,7 +238,7 @@ func LsStreams(groupName *string, streamName *string) <-chan *string {
 		if err != nil {
 			if awsErr, ok := err.(awserr.Error); ok {
 				fmt.Println(awsErr.Message())
-				os.Exit(1)
+				close(ch)
 			}
 		}
 	}()
