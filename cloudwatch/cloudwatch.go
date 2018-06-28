@@ -12,7 +12,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-	"github.com/fatih/color"
 )
 
 func cwClient() *cloudwatchlogs.CloudWatchLogs {
@@ -74,8 +73,10 @@ func (c *eventCache) Reset() {
 }
 
 //Tail tails the given stream names in the specified log group name
+//To tail all the available streams logStreamName has to be '*'
 //It returns a channel where logs line are published
-func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, printTimestamp *bool, printStreamName *bool, printEventID *bool) <-chan *string {
+//Unless the follow flag is true the channel is closed once there are no more events available
+func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string) <-chan *cloudwatchlogs.FilteredLogEvent {
 	cwl := cwClient()
 
 	startTimeEpoch := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix()
@@ -86,7 +87,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 		endTimeEpoch = timeutil.ParseTime(endTime.Format(timeutil.TimeFormat)).Unix()
 	}
 
-	ch := make(chan *string)
+	ch := make(chan *cloudwatchlogs.FilteredLogEvent)
 	timer := time.NewTimer(time.Millisecond * 250)
 
 	cache := &eventCache{seen: make(map[string]bool)}
@@ -104,20 +105,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 
 			if !cache.Has(*event.EventId) {
 				cache.Add(*event.EventId)
-
-				msg := *event.Message
-				if *printEventID {
-					msg = fmt.Sprintf("%s - %s", color.YellowString(*event.EventId), msg)
-				}
-				if *printStreamName {
-					msg = fmt.Sprintf("%s - %s", color.BlueString(*event.LogStreamName), msg)
-				}
-				if *printTimestamp {
-					msg = fmt.Sprintf("%s - %s", color.GreenString(timeutil.FormatTimestamp(eventTimestamp)), msg)
-				}
-
-				ch <- &msg
-
+				ch <- event
 			} else {
 				//fmt.Printf("%s already seen\n", *event.EventId)
 			}

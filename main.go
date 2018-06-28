@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/lucagrulla/cw/cloudwatch"
 	"github.com/lucagrulla/cw/timeutil"
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -96,8 +97,19 @@ func main() {
 			et = timestampToUTC(endTime)
 		}
 
-		for msg := range cloudwatch.Tail(logGroupName, logStreamName, follow, &st, &et, grep, printTimestamp, printStreamName, printEventID) {
-			fmt.Println(*msg)
+		for event := range cloudwatch.Tail(logGroupName, logStreamName, follow, &st, &et, grep) {
+			msg := *event.Message
+			eventTimestamp := *event.Timestamp / 1000
+			if *printEventID {
+				msg = fmt.Sprintf("%s - %s", color.YellowString(*event.EventId), msg)
+			}
+			if *printStreamName {
+				msg = fmt.Sprintf("%s - %s", color.BlueString(*event.LogStreamName), msg)
+			}
+			if *printTimestamp {
+				msg = fmt.Sprintf("%s - %s", color.GreenString(timeutil.FormatTimestamp(eventTimestamp)), msg)
+			}
+			fmt.Println(msg)
 		}
 	}
 }
