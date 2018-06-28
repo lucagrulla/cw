@@ -73,7 +73,9 @@ func (c *eventCache) Reset() {
 	c.seen = make(map[string]bool)
 }
 
-func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, printTimestamp *bool, printStreamName *bool, printEventId *bool) <-chan *string {
+//Tail tails the given stream names in the specified log group name
+//It returns a channel where logs line are published
+func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, printTimestamp *bool, printStreamName *bool, printEventID *bool) <-chan *string {
 	cwl := cwClient()
 
 	startTimeEpoch := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix()
@@ -104,7 +106,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 				cache.Add(*event.EventId)
 
 				msg := *event.Message
-				if *printEventId {
+				if *printEventID {
 					msg = fmt.Sprintf("%s - %s", color.YellowString(*event.EventId), msg)
 				}
 				if *printStreamName {
@@ -163,11 +165,13 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 	return ch
 }
 
+//LsGroups lists the stream groups
+//It returns a channel where the stream groups are published
 func LsGroups() <-chan *string {
 	cwl := cwClient()
 	ch := make(chan *string)
 	params := &cloudwatchlogs.DescribeLogGroupsInput{
-	//		LogGroupNamePrefix: aws.String("LogGroupName"),
+		//		LogGroupNamePrefix: aws.String("LogGroupName"),
 	}
 
 	handler := func(res *cloudwatchlogs.DescribeLogGroupsOutput, lastPage bool) bool {
@@ -191,6 +195,8 @@ func LsGroups() <-chan *string {
 	return ch
 }
 
+//LsStreams lists the streams of a given stream group
+//It returns a channel where the stream names are published
 func LsStreams(groupName *string, streamName *string) <-chan *string {
 	cwl := cwClient()
 	ch := make(chan *string)
