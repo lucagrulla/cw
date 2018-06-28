@@ -72,6 +72,23 @@ func (c *eventCache) Reset() {
 	c.seen = make(map[string]bool)
 }
 
+type logStreams struct {
+	groupStreams []*string
+	sync.RWMutex
+}
+
+func (s *logStreams) reset(groupStreams []*string) {
+	s.Lock()
+	defer s.Unlock()
+	s.groupStreams = groupStreams
+}
+
+func (s *logStreams) get() []*string {
+	s.Lock()
+	defer s.Unlock()
+	return s.groupStreams
+}
+
 //Tail tails the given stream names in the specified log group name
 //To tail all the available streams logStreamName has to be '*'
 //It returns a channel where logs line are published
@@ -91,6 +108,32 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 	timer := time.NewTimer(time.Millisecond * 250)
 
 	cache := &eventCache{seen: make(map[string]bool)}
+	logStreams := &logStreams{}
+
+	if *logStreamName != "*" {
+		getStreams := func(logGroupName *string, logStreamName *string) []*string {
+			var streams []*string
+			for stream := range LsStreams(logGroupName, logStreamName) {
+				streams = append(streams, stream)
+			}
+			if len(streams) == 0 {
+				fmt.Println("No such log stream(s).")
+				os.Exit(1)
+			}
+			if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
+				streams = streams[0:100]
+			}
+			return streams
+		}
+		logStreams.reset(getStreams(logGroupName, logStreamName))
+
+		ticker := time.NewTicker(time.Second * 5)
+		go func() {
+			for range ticker.C {
+				logStreams.reset(getStreams(logGroupName, logStreamName))
+			}
+		}()
+	}
 
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
@@ -100,7 +143,6 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 				if cache.Size() >= 1000 {
 					cache.Reset()
 				}
-
 			}
 
 			if !cache.Has(*event.EventId) {
@@ -122,24 +164,11 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 		}
 		return !lastPage
 	}
-	var streams []*string
-	if *logStreamName != "*" {
-		for stream := range LsStreams(logGroupName, logStreamName) {
-			streams = append(streams, stream)
-		}
-		if len(streams) == 0 {
-			fmt.Println("No such log stream.")
-			os.Exit(1)
-		}
-		if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
-			streams = streams[0:100]
-		}
-	}
 	if *follow || lastSeenTimestamp == startTimeEpoch {
 		go func() {
 			for range timer.C {
 				//FilterLogEventPages won't take more than 100 stream names
-				logParam := params(*logGroupName, streams, lastSeenTimestamp, endTimeEpoch, grep, follow)
+				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeEpoch, grep, follow)
 				error := cwl.FilterLogEventsPages(logParam, pageHandler)
 				if error != nil {
 					if awsErr, ok := error.(awserr.Error); ok {
