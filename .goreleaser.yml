@@ -20,3 +20,17 @@ changelog:
     exclude:
     - '^docs:'
     - '^test:'
+brew:
+  github:
+    owner: lucagrulla
+    name: homebrew-cw
+  commit_author:
+    name: lucagrulla
+    email:
+  homepage: "https://www.lucagrulla.com/cw"
+  description: "The best way to tail AWS Cloudwatch Logs from your terminal"
+  caveats: "In order to get cw completion,
+        [bash] you need to install `bash-completion` with brew.
+        OR
+        [zsh], add the following line to your ~/.zshrc:
+          source #{HOMEBREW_PREFIX}/share/zsh/site-functions/cw"
