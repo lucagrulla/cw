@@ -1,3 +1,4 @@
+// Package cloudwatch provides primitives to interact with Cloudwatch logs
 package cloudwatch
 
 import (
