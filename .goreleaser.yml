@@ -27,6 +27,7 @@ brew:
   commit_author:
     name: lucagrulla
     email:
+  folder: Formula
   homepage: "https://www.lucagrulla.com/cw"
   description: "The best way to tail AWS Cloudwatch Logs from your terminal"
   caveats: "In order to get cw completion,
