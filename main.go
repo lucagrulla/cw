@@ -2,8 +2,12 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"os"
+	"os/signal"
 	"regexp"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -77,9 +81,43 @@ func timestampToUTC(timeStamp *string) time.Time {
 	return t
 }
 
+func fetchLatestVersion(latestVersionChannel chan string) {
+	r, _ := http.Get("https://github.com/lucagrulla/cw/releases/latest")
+
+	finalURL := r.Request.URL.String()
+	tokens := strings.Split(finalURL, "/")
+	latestVersionChannel <- tokens[len(tokens)-1]
+}
+
+func newVersionMsg(currentVersion string, latestVersionChannel chan string) {
+	latestVersion := <-latestVersionChannel
+	if latestVersion != currentVersion {
+		fmt.Println("")
+		fmt.Println("")
+		msg := fmt.Sprintf("%s - %s -> %s", color.GreenString("A new version of cw is available!"), color.YellowString(currentVersion), color.GreenString(latestVersion))
+		fmt.Println(msg)
+	}
+}
+
+func versionCheckOnSigterm(version string, latestVersionChannel chan string) {
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	go func() {
+		<-c
+		newVersionMsg(version, latestVersionChannel)
+		os.Exit(0)
+	}()
+}
+
 func main() {
-	kingpin.Version("1.4.0").Author("Luca Grulla")
+	version := "1.4.1"
+	kingpin.Version(version).Author("Luca Grulla")
 	command := kingpin.Parse()
+
+	latestVersionChannel := make(chan string, 1)
+	go fetchLatestVersion(latestVersionChannel)
+
+	versionCheckOnSigterm(version, latestVersionChannel)
 
 	switch command {
 	case "ls groups":
@@ -112,4 +150,5 @@ func main() {
 			fmt.Println(msg)
 		}
 	}
+	newVersionMsg(version, latestVersionChannel)
 }
