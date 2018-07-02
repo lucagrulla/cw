@@ -17,7 +17,6 @@
   revision = "2efee857e7cfd4f3d0138cc3cbb1b4966962b93a"
 
 [[projects]]
-  branch = "master"
   name = "github.com/aws/aws-sdk-go"
   packages = [
     "aws",
@@ -50,8 +49,8 @@
     "service/cloudwatchlogs",
     "service/sts"
   ]
-  revision = "188b472c942900b21391cd177852a41c74694d88"
-  source = "github.com/aws/aws-sdk-go"
+  revision = "852052a10992d92f68b9a60862a3312292524903"
+  version = "v1.14.17"
 
 [[projects]]
   name = "github.com/davecgh/go-spew"
@@ -115,6 +114,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "abb14c82f238c2ecbb5899ed849fbeefc345538e25c825df4714173b5e58e601"
+  inputs-digest = "30e3c958943f3d3fff78aad61c0b49c8491c77024f2e1eb3bf4640489a5186f6"
   solver-name = "gps-cdcl"
   solver-version = 1
