@@ -81,12 +81,16 @@ func timestampToUTC(timeStamp *string) time.Time {
 	return t
 }
 
-func fetchLatestVersion(latestVersionChannel chan string) {
-	r, _ := http.Get("https://github.com/lucagrulla/cw/releases/latest")
+func fetchLatestVersion() chan string {
+	latestVersionChannel := make(chan string, 1)
+	go func() {
+		r, _ := http.Get("https://github.com/lucagrulla/cw/releases/latest")
 
-	finalURL := r.Request.URL.String()
-	tokens := strings.Split(finalURL, "/")
-	latestVersionChannel <- tokens[len(tokens)-1]
+		finalURL := r.Request.URL.String()
+		tokens := strings.Split(finalURL, "/")
+		latestVersionChannel <- tokens[len(tokens)-1]
+	}()
+	return latestVersionChannel
 }
 
 func newVersionMsg(currentVersion string, latestVersionChannel chan string) {
@@ -114,8 +118,7 @@ func main() {
 	kingpin.Version(version).Author("Luca Grulla")
 	command := kingpin.Parse()
 
-	latestVersionChannel := make(chan string, 1)
-	go fetchLatestVersion(latestVersionChannel)
+	latestVersionChannel := fetchLatestVersion()
 
 	versionCheckOnSigterm(version, latestVersionChannel)
 
