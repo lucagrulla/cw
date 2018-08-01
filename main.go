@@ -47,7 +47,7 @@ func groupsCompletion() []string {
 
 func streamsCompletion() []string {
 	var streams []string
-	for msg := range cloudwatch.LsStreams(logGroupName, nil) {
+	for msg := range cloudwatch.LsStreams(logGroupName, nil, 0, 0) {
 		streams = append(streams, *msg)
 	}
 	return streams
@@ -128,7 +128,7 @@ func main() {
 			fmt.Println(*msg)
 		}
 	case "ls streams":
-		for msg := range cloudwatch.LsStreams(lsLogGroupName, nil) {
+		for msg := range cloudwatch.LsStreams(lsLogGroupName, nil, 0, 0) {
 			fmt.Println(*msg)
 		}
 	case "tail":
