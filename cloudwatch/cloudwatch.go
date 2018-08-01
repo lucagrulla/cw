@@ -15,6 +15,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 )
 
+const SecondInMillis = 1000
+const MinuteInMillis = 60 * SecondInMillis
+
 func cwClient() *cloudwatchlogs.CloudWatchLogs {
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
@@ -23,8 +26,8 @@ func cwClient() *cloudwatchlogs.CloudWatchLogs {
 }
 
 func params(logGroupName string, streamNames []*string, epochStartTime int64, epochEndTime int64, grep *string, follow *bool) *cloudwatchlogs.FilterLogEventsInput {
-	startTimeInt64 := epochStartTime * 1000
-	endTimeInt64 := epochEndTime * 1000
+	startTimeInt64 := epochStartTime * SecondInMillis
+	endTimeInt64 := epochEndTime * SecondInMillis
 	params := &cloudwatchlogs.FilterLogEventsInput{
 		LogGroupName: &logGroupName,
 		Interleaved:  aws.Bool(true),
@@ -114,7 +117,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 	if *logStreamName != "*" {
 		getStreams := func(logGroupName *string, logStreamName *string) []*string {
 			var streams []*string
-			for stream := range LsStreams(logGroupName, logStreamName) {
+			for stream := range LsStreams(logGroupName, logStreamName, lastSeenTimestamp*SecondInMillis, endTimeEpoch*SecondInMillis) {
 				streams = append(streams, stream)
 			}
 			if len(streams) == 0 {
@@ -138,7 +141,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
-			eventTimestamp := *event.Timestamp / 1000
+			eventTimestamp := *event.Timestamp / SecondInMillis
 			if eventTimestamp != lastSeenTimestamp {
 				lastSeenTimestamp = eventTimestamp
 				if cache.Size() >= 1000 {
@@ -213,9 +216,21 @@ func LsGroups() <-chan *string {
 	return ch
 }
 
+func logStreamMatchesTimeRange(logStream *cloudwatchlogs.LogStream, startTimeMillis int64, endTimeMillis int64) bool {
+	if startTimeMillis == 0 {
+		return true
+	}
+	if logStream.CreationTime == nil || logStream.LastIngestionTime == nil {
+		return false
+	}
+	lastIngestionAfterStartTime := *logStream.LastIngestionTime >= startTimeMillis-5*MinuteInMillis
+	creationTimeBeforeEndTime := endTimeMillis == 0 || *logStream.CreationTime <= endTimeMillis
+	return lastIngestionAfterStartTime && creationTimeBeforeEndTime
+}
+
 //LsStreams lists the streams of a given stream group
 //It returns a channel where the stream names are published
-func LsStreams(groupName *string, streamName *string) <-chan *string {
+func LsStreams(groupName *string, streamName *string, startTimeMillis int64, endTimeMillis int64) <-chan *string {
 	cwl := cwClient()
 	ch := make(chan *string)
 
@@ -226,7 +241,10 @@ func LsStreams(groupName *string, streamName *string) <-chan *string {
 	}
 	handler := func(res *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
 		for _, logStream := range res.LogStreams {
-			ch <- logStream.LogStreamName
+			if logStreamMatchesTimeRange(logStream, startTimeMillis, endTimeMillis) {
+				ch <- logStream.LogStreamName
+				// fmt.Println(*logStream.LogStreamName)
+			}
 		}
 		if lastPage {
 			close(ch)
