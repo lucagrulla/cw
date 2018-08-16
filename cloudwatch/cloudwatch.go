@@ -4,6 +4,7 @@ package cloudwatch
 import (
 	"fmt"
 	"os"
+	"regexp"
 	"sync"
 	"time"
 
@@ -15,8 +16,8 @@ import (
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 )
 
-const SecondInMillis = 1000
-const MinuteInMillis = 60 * SecondInMillis
+const secondInMillis = 1000
+const minuteInMillis = 60 * secondInMillis
 
 func cwClient() *cloudwatchlogs.CloudWatchLogs {
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
@@ -26,8 +27,8 @@ func cwClient() *cloudwatchlogs.CloudWatchLogs {
 }
 
 func params(logGroupName string, streamNames []*string, epochStartTime int64, epochEndTime int64, grep *string, follow *bool) *cloudwatchlogs.FilterLogEventsInput {
-	startTimeInt64 := epochStartTime * SecondInMillis
-	endTimeInt64 := epochEndTime * SecondInMillis
+	startTimeInt64 := epochStartTime * secondInMillis
+	endTimeInt64 := epochEndTime * secondInMillis
 	params := &cloudwatchlogs.FilterLogEventsInput{
 		LogGroupName: &logGroupName,
 		Interleaved:  aws.Bool(true),
@@ -97,7 +98,7 @@ func (s *logStreams) get() []*string {
 //To tail all the available streams logStreamName has to be '*'
 //It returns a channel where logs line are published
 //Unless the follow flag is true the channel is closed once there are no more events available
-func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string) <-chan *cloudwatchlogs.FilteredLogEvent {
+func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, grepv *string) <-chan *cloudwatchlogs.FilteredLogEvent {
 	cwl := cwClient()
 
 	startTimeEpoch := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix()
@@ -117,7 +118,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 	if *logStreamName != "*" {
 		getStreams := func(logGroupName *string, logStreamName *string) []*string {
 			var streams []*string
-			for stream := range LsStreams(logGroupName, logStreamName, lastSeenTimestamp*SecondInMillis, endTimeEpoch*SecondInMillis) {
+			for stream := range LsStreams(logGroupName, logStreamName, lastSeenTimestamp*secondInMillis, endTimeEpoch*secondInMillis) {
 				streams = append(streams, stream)
 			}
 			if len(streams) == 0 {
@@ -139,21 +140,24 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 		}()
 	}
 
+	re := regexp.MustCompile(*grepv)
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
-			eventTimestamp := *event.Timestamp / SecondInMillis
-			if eventTimestamp != lastSeenTimestamp {
-				lastSeenTimestamp = eventTimestamp
-				if cache.Size() >= 1000 {
-					cache.Reset()
+			if *grepv == "" || !re.MatchString(*event.Message) {
+				eventTimestamp := *event.Timestamp / secondInMillis
+				if eventTimestamp != lastSeenTimestamp {
+					lastSeenTimestamp = eventTimestamp
+					if cache.Size() >= 1000 {
+						cache.Reset()
+					}
 				}
-			}
 
-			if !cache.Has(*event.EventId) {
-				cache.Add(*event.EventId)
-				ch <- event
-			} else {
-				//fmt.Printf("%s already seen\n", *event.EventId)
+				if !cache.Has(*event.EventId) {
+					cache.Add(*event.EventId)
+					ch <- event
+				} else {
+					//fmt.Printf("%s already seen\n", *event.EventId)
+				}
 			}
 		}
 
@@ -192,7 +196,7 @@ func LsGroups() <-chan *string {
 	cwl := cwClient()
 	ch := make(chan *string)
 	params := &cloudwatchlogs.DescribeLogGroupsInput{
-		//		LogGroupNamePrefix: aws.String("LogGroupName"),
+	//		LogGroupNamePrefix: aws.String("LogGroupName"),
 	}
 
 	handler := func(res *cloudwatchlogs.DescribeLogGroupsOutput, lastPage bool) bool {
@@ -223,7 +227,7 @@ func logStreamMatchesTimeRange(logStream *cloudwatchlogs.LogStream, startTimeMil
 	if logStream.CreationTime == nil || logStream.LastIngestionTime == nil {
 		return false
 	}
-	lastIngestionAfterStartTime := *logStream.LastIngestionTime >= startTimeMillis-5*MinuteInMillis
+	lastIngestionAfterStartTime := *logStream.LastIngestionTime >= startTimeMillis-5*minuteInMillis
 	creationTimeBeforeEndTime := endTimeMillis == 0 || *logStream.CreationTime <= endTimeMillis
 	return lastIngestionAfterStartTime && creationTimeBeforeEndTime
 }
