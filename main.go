@@ -115,7 +115,7 @@ func versionCheckOnSigterm(version string, latestVersionChannel chan string) {
 }
 
 func main() {
-	version := "1.5.2"
+	version := "1.6.0"
 	kingpin.Version(version).Author("Luca Grulla")
 	command := kingpin.Parse()
 
