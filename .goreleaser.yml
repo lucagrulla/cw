@@ -41,5 +41,9 @@ brew:
     system bin/"cw --completion-script-bash > cw.bash"
     bash_completion.install "cw.bash"
 
+    system bin/"cw --help-man > cw.1"
+    man1.install "cw.1"
+
+
     # system bin/"cw completion zsh > cw.zsh"
     # zsh_completion.install "cw.zsh"

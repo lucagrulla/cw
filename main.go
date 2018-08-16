@@ -17,12 +17,15 @@ import (
 )
 
 var (
-	lsCommand      = kingpin.Command("ls", "Show an entity")
+	version = "1.6.0"
+	kp      = kingpin.New("cw", "The best way to tail AWS Cloudwatch Logs from your terminal.")
+
+	lsCommand      = kp.Command("ls", "Show an entity")
 	lsGroups       = lsCommand.Command("groups", "Show all groups.")
 	lsStreams      = lsCommand.Command("streams", "Show all streams in a given log group.")
 	lsLogGroupName = lsStreams.Arg("group", "the group name").HintAction(groupsCompletion).Required().String()
 
-	tailCommand = kingpin.Command("tail", "Tail a log group.")
+	tailCommand = kp.Command("tail", "Tail a log group.")
 
 	follow          = tailCommand.Flag("follow", "Don't stop when the end of stream is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
 	printTimestamp  = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
@@ -115,15 +118,12 @@ func versionCheckOnSigterm(version string, latestVersionChannel chan string) {
 }
 
 func main() {
-	version := "1.6.0"
-	kingpin.Version(version).Author("Luca Grulla")
-	command := kingpin.Parse()
-
+	kp.Version(version).Author("Luca Grulla")
 	latestVersionChannel := fetchLatestVersion()
 
 	versionCheckOnSigterm(version, latestVersionChannel)
 
-	switch command {
+	switch kingpin.MustParse(kp.Parse(os.Args[1:])) {
 	case "ls groups":
 		for msg := range cloudwatch.LsGroups() {
 			fmt.Println(*msg)
