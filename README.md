@@ -14,8 +14,10 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 	* flags
 		*  `-f`, `--follow`       Don't stop when the end of stream is reached, but rather wait for additional data to be appended.
 		*  `-t`, `--timestamp`    Print the event timestamp.
+    *  `-i`, `--event Id`     Print the event Id.
 		*  `-s`, `--stream name`  Print the log stream name this event belongs to.
 		*  `-g`, `--grep=""`      Pattern to filter logs by.
+    *  `-v`, `--grepv=""`     Invert-match logs filter (as per grep -v).
 
 ## Examples
 
