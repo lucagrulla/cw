@@ -31,9 +31,13 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
   * `cw tail -f my-log-group my-log-stream-prefix 2017-01-01T08:10:10 2017-01-01T08:05:00`  
   * `cw tail -f my-log-group \* 9:00 9:01` The use of the \* wildchar will let you tail all the log streams in my-log-group. 
 
+Time and dates are always treated in UTC.
+
+
+## AWS credentials and configuration
+
 `cw` uses the default credentials profile(stored in ./aws/credentials) for authentication and shared config(.aws/config) for identifying the target AWS region. 
 
-Time and dates are always treated in UTC.
  
 ## Installation
 
