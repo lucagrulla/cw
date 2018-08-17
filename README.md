@@ -36,7 +36,7 @@ Time and dates are always treated in UTC.
 
 ## AWS credentials and configuration
 
-`cw` uses the default credentials profile(stored in ./aws/credentials) for authentication and shared config(.aws/config) for identifying the target AWS region. 
+`cw` uses the default credentials profile (stored in ./aws/credentials) for authentication and shared config (.aws/config) for identifying the target AWS region. 
 
  
 ## Installation
