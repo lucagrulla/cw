@@ -1,4 +1,3 @@
-// Package cloudwatch provides primitives to interact with Cloudwatch logs
 package cloudwatch
 
 import (
@@ -8,23 +7,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/lucagrulla/cw/timeutil"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
+	"github.com/lucagrulla/cw/timeutil"
 )
-
-const secondInMillis = 1000
-const minuteInMillis = 60 * secondInMillis
-
-func cwClient() *cloudwatchlogs.CloudWatchLogs {
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
-	return cloudwatchlogs.New(sess)
-}
 
 func params(logGroupName string, streamNames []*string, epochStartTime int64, epochEndTime int64, grep *string, follow *bool) *cloudwatchlogs.FilterLogEventsInput {
 	startTimeInt64 := epochStartTime * secondInMillis
@@ -187,83 +174,5 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			}
 		}()
 	}
-	return ch
-}
-
-//LsGroups lists the stream groups
-//It returns a channel where the stream groups are published
-func LsGroups() <-chan *string {
-	cwl := cwClient()
-	ch := make(chan *string)
-	params := &cloudwatchlogs.DescribeLogGroupsInput{
-	//		LogGroupNamePrefix: aws.String("LogGroupName"),
-	}
-
-	handler := func(res *cloudwatchlogs.DescribeLogGroupsOutput, lastPage bool) bool {
-		for _, logGroup := range res.LogGroups {
-			ch <- logGroup.LogGroupName
-		}
-		if lastPage {
-			close(ch)
-		}
-		return !lastPage
-	}
-	go func() {
-		err := cwl.DescribeLogGroupsPages(params, handler)
-		if err != nil {
-			if awsErr, ok := err.(awserr.Error); ok {
-				fmt.Println(awsErr.Message())
-				close(ch)
-			}
-		}
-	}()
-	return ch
-}
-
-func logStreamMatchesTimeRange(logStream *cloudwatchlogs.LogStream, startTimeMillis int64, endTimeMillis int64) bool {
-	if startTimeMillis == 0 {
-		return true
-	}
-	if logStream.CreationTime == nil || logStream.LastIngestionTime == nil {
-		return false
-	}
-	lastIngestionAfterStartTime := *logStream.LastIngestionTime >= startTimeMillis-5*minuteInMillis
-	creationTimeBeforeEndTime := endTimeMillis == 0 || *logStream.CreationTime <= endTimeMillis
-	return lastIngestionAfterStartTime && creationTimeBeforeEndTime
-}
-
-//LsStreams lists the streams of a given stream group
-//It returns a channel where the stream names are published
-func LsStreams(groupName *string, streamName *string, startTimeMillis int64, endTimeMillis int64) <-chan *string {
-	cwl := cwClient()
-	ch := make(chan *string)
-
-	params := &cloudwatchlogs.DescribeLogStreamsInput{
-		LogGroupName: groupName}
-	if streamName != nil {
-		params.LogStreamNamePrefix = streamName
-	}
-	handler := func(res *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
-		for _, logStream := range res.LogStreams {
-			if logStreamMatchesTimeRange(logStream, startTimeMillis, endTimeMillis) {
-				ch <- logStream.LogStreamName
-				// fmt.Println(*logStream.LogStreamName)
-			}
-		}
-		if lastPage {
-			close(ch)
-		}
-		return !lastPage
-	}
-
-	go func() {
-		err := cwl.DescribeLogStreamsPages(params, handler)
-		if err != nil {
-			if awsErr, ok := err.(awserr.Error); ok {
-				fmt.Println(awsErr.Message())
-				close(ch)
-			}
-		}
-	}()
 	return ch
 }
