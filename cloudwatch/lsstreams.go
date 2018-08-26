@@ -1,7 +1,7 @@
 package cloudwatch
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
@@ -50,8 +50,7 @@ func LsStreams(groupName *string, streamName *string, startTimeMillis int64, end
 		err := cwl.DescribeLogStreamsPages(params, handler)
 		if err != nil {
 			if awsErr, ok := err.(awserr.Error); ok {
-				fmt.Println(awsErr.Message())
-				close(ch)
+				log.Fatalf(awsErr.Message())
 			}
 		}
 	}()

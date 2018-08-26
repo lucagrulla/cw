@@ -2,7 +2,7 @@ package cloudwatch
 
 import (
 	"fmt"
-	"os"
+	"log"
 	"regexp"
 	"sync"
 	"time"
@@ -119,8 +119,8 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 		}
 		logStreams.reset(getStreams(logGroupName, logStreamName))
 
-		ticker := time.NewTicker(time.Second * 5)
 		go func() {
+			ticker := time.NewTicker(time.Second * 5)
 			for range ticker.C {
 				logStreams.reset(getStreams(logGroupName, logStreamName))
 			}
@@ -167,8 +167,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 				error := cwl.FilterLogEventsPages(logParam, pageHandler)
 				if error != nil {
 					if awsErr, ok := error.(awserr.Error); ok {
-						fmt.Println(awsErr.Message())
-						os.Exit(1)
+						log.Fatalf(awsErr.Message())
 					}
 				}
 			}
