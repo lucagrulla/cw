@@ -100,6 +100,16 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 	timer := time.NewTimer(time.Millisecond * 250)
 
 	cache := &eventCache{seen: make(map[string]bool)}
+	go func() { //check cache size every 250ms and eventually purge
+		cacheTicker := time.NewTicker(250 * time.Millisecond)
+		for range cacheTicker.C {
+			size := cache.Size()
+			if size >= 5000 {
+				// fmt.Printf(">>>cache reset:%d,\n ", size)
+				cache.Reset()
+			}
+		}
+	}()
 	logStreams := &logStreams{}
 
 	if *logStreamName != "*" {
@@ -131,15 +141,16 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
 			if *grepv == "" || !re.MatchString(*event.Message) {
-				eventTimestamp := *event.Timestamp / secondInMillis
-				if eventTimestamp != lastSeenTimestamp {
-					lastSeenTimestamp = eventTimestamp
-					if cache.Size() >= 1000 {
-						cache.Reset()
-					}
-				}
 
 				if !cache.Has(*event.EventId) {
+					eventTimestamp := *event.Timestamp / secondInMillis
+
+					if eventTimestamp != lastSeenTimestamp {
+						if eventTimestamp < lastSeenTimestamp {
+							// fmt.Printf("OLD EVENT:%s, evTS:%d, lTS:%d, cache size:%d \n", event, eventTimestamp, lastSeenTimestamp, cache.Size())
+						}
+						lastSeenTimestamp = eventTimestamp
+					}
 					cache.Add(*event.EventId)
 					ch <- event
 				} else {
