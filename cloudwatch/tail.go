@@ -13,28 +13,6 @@ import (
 	"github.com/lucagrulla/cw/timeutil"
 )
 
-func params(logGroupName string, streamNames []*string, epochStartTime int64, epochEndTime int64, grep *string, follow *bool) *cloudwatchlogs.FilterLogEventsInput {
-	startTimeInt64 := epochStartTime * secondInMillis
-	endTimeInt64 := epochEndTime * secondInMillis
-	params := &cloudwatchlogs.FilterLogEventsInput{
-		LogGroupName: &logGroupName,
-		Interleaved:  aws.Bool(true),
-		StartTime:    &startTimeInt64}
-
-	if *grep != "" {
-		params.FilterPattern = grep
-	}
-
-	if streamNames != nil {
-		params.LogStreamNames = streamNames
-	}
-
-	if !*follow && endTimeInt64 != 0 {
-		params.EndTime = &endTimeInt64
-	}
-	return params
-}
-
 type eventCache struct {
 	seen map[string]bool
 	sync.RWMutex
@@ -81,6 +59,26 @@ func (s *logStreams) get() []*string {
 	return s.groupStreams
 }
 
+func params(logGroupName string, streamNames []*string, startTimeInMillis int64, endTimeInMillis int64, grep *string, follow *bool) *cloudwatchlogs.FilterLogEventsInput {
+	params := &cloudwatchlogs.FilterLogEventsInput{
+		LogGroupName: &logGroupName,
+		Interleaved:  aws.Bool(true),
+		StartTime:    &startTimeInMillis}
+
+	if *grep != "" {
+		params.FilterPattern = grep
+	}
+
+	if streamNames != nil {
+		params.LogStreamNames = streamNames
+	}
+
+	if !*follow && endTimeInMillis != 0 {
+		params.EndTime = &endTimeInMillis
+	}
+	return params
+}
+
 //Tail tails the given stream names in the specified log group name
 //To tail all the available streams logStreamName has to be '*'
 //It returns a channel where logs line are published
@@ -88,16 +86,15 @@ func (s *logStreams) get() []*string {
 func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, grepv *string) <-chan *cloudwatchlogs.FilteredLogEvent {
 	cwl := cwClient()
 
-	startTimeEpoch := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix()
-	lastSeenTimestamp := startTimeEpoch
+	lastSeenTimestamp := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix() * 1000
 
-	var endTimeEpoch int64
+	var endTimeInMillis int64
 	if !endTime.IsZero() {
-		endTimeEpoch = timeutil.ParseTime(endTime.Format(timeutil.TimeFormat)).Unix()
+		endTimeInMillis = timeutil.ParseTime(endTime.Format(timeutil.TimeFormat)).Unix() * 1000
 	}
 
 	ch := make(chan *cloudwatchlogs.FilteredLogEvent)
-	timer := time.NewTimer(time.Millisecond * 250)
+	timer := time.NewTimer(time.Millisecond * 5)
 
 	cache := &eventCache{seen: make(map[string]bool)}
 	go func() { //check cache size every 250ms and eventually purge
@@ -115,7 +112,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 	if *logStreamName != "*" {
 		getStreams := func(logGroupName *string, logStreamName *string) []*string {
 			var streams []*string
-			for stream := range LsStreams(logGroupName, logStreamName, lastSeenTimestamp*secondInMillis, endTimeEpoch*secondInMillis) {
+			for stream := range LsStreams(logGroupName, logStreamName, lastSeenTimestamp, endTimeInMillis) {
 				streams = append(streams, stream)
 			}
 			if len(streams) == 0 {
@@ -143,7 +140,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			if *grepv == "" || !re.MatchString(*event.Message) {
 
 				if !cache.Has(*event.EventId) {
-					eventTimestamp := *event.Timestamp / secondInMillis
+					eventTimestamp := *event.Timestamp
 
 					if eventTimestamp != lastSeenTimestamp {
 						if eventTimestamp < lastSeenTimestamp {
@@ -170,11 +167,13 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 		}
 		return !lastPage
 	}
-	if *follow || lastSeenTimestamp == startTimeEpoch {
+	first := true
+	if *follow || first {
+		first = false
 		go func() {
 			for range timer.C {
 				//FilterLogEventPages won't take more than 100 stream names
-				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeEpoch, grep, follow)
+				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
 				error := cwl.FilterLogEventsPages(logParam, pageHandler)
 				if error != nil {
 					if awsErr, ok := error.(awserr.Error); ok {
