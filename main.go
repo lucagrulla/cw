@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	version = "1.6.0"
+	version = "1.6.1"
 	kp      = kingpin.New("cw", "The best way to tail AWS Cloudwatch Logs from your terminal.")
 
 	lsCommand      = kp.Command("ls", "Show an entity")
