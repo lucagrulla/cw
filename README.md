@@ -7,7 +7,13 @@ The **best** way to tail AWS Cloudwatch Logs from your terminal.
 
 Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.com](https://www.lucagrulla.com)
 
-## Commands
+## Commands and flags
+
+### Global flags
+* `-p`, `--profile=profile-name` Override the AWS profile used for connection
+* `-r`, `--region=aws-region` Override the target AWS region 
+
+### Commands
 
 * `cw ls` list all the log groups/log streams within a group
 * `cw tail` tail a given log group/log stream
@@ -36,7 +42,7 @@ Time and dates are always treated in UTC.
 
 ## AWS credentials and configuration
 
-`cw` uses the default credentials profile (stored in ./aws/credentials) for authentication and shared config (.aws/config) for identifying the target AWS region. 
+`cw` uses the default credentials profile (stored in ./aws/credentials) for authentication and shared config (.aws/config) for identifying the target AWS region. Both profile and region are overridable with the  `profile` and `region` global flags.
 
  
 ## Installation
