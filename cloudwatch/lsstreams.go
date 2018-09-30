@@ -24,8 +24,7 @@ func logStreamMatchesTimeRange(logStream *cloudwatchlogs.LogStream, startTimeMil
 
 //LsStreams lists the streams of a given stream group
 //It returns a channel where the stream names are published
-func LsStreams(groupName *string, streamName *string, startTimeMillis int64, endTimeMillis int64) <-chan *string {
-	cwl := cwClient()
+func (cwl *CW) LsStreams(groupName *string, streamName *string, startTimeMillis int64, endTimeMillis int64) <-chan *string {
 	ch := make(chan *string)
 
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
@@ -47,7 +46,7 @@ func LsStreams(groupName *string, streamName *string, startTimeMillis int64, end
 	}
 
 	go func() {
-		err := cwl.DescribeLogStreamsPages(params, handler)
+		err := cwl.awsClwClient.DescribeLogStreamsPages(params, handler)
 		if err != nil {
 			if awsErr, ok := err.(awserr.Error); ok {
 				log.Fatalf(awsErr.Message())

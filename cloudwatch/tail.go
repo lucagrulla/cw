@@ -83,9 +83,7 @@ func params(logGroupName string, streamNames []*string, startTimeInMillis int64,
 //To tail all the available streams logStreamName has to be '*'
 //It returns a channel where logs line are published
 //Unless the follow flag is true the channel is closed once there are no more events available
-func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, grepv *string) <-chan *cloudwatchlogs.FilteredLogEvent {
-	cwl := cwClient()
-
+func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, grepv *string) <-chan *cloudwatchlogs.FilteredLogEvent {
 	lastSeenTimestamp := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix() * 1000
 
 	var endTimeInMillis int64
@@ -112,7 +110,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 	if *logStreamName != "*" {
 		getStreams := func(logGroupName *string, logStreamName *string) []*string {
 			var streams []*string
-			for stream := range LsStreams(logGroupName, logStreamName, lastSeenTimestamp, endTimeInMillis) {
+			for stream := range cwl.LsStreams(logGroupName, logStreamName, lastSeenTimestamp, endTimeInMillis) {
 				streams = append(streams, stream)
 			}
 			if len(streams) == 0 {
@@ -174,7 +172,7 @@ func Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *
 			for range timer.C {
 				//FilterLogEventPages won't take more than 100 stream names
 				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
-				error := cwl.FilterLogEventsPages(logParam, pageHandler)
+				error := cwl.awsClwClient.FilterLogEventsPages(logParam, pageHandler)
 				if error != nil {
 					if awsErr, ok := error.(awserr.Error); ok {
 						log.Fatalf(awsErr.Message())

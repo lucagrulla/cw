@@ -20,6 +20,9 @@ var (
 	version = "1.6.1"
 	kp      = kingpin.New("cw", "The best way to tail AWS Cloudwatch Logs from your terminal.")
 
+	awsProfile = kp.Flag("profile", "The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.").Short('p').String()
+	awsRegion  = kp.Flag("region", "The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.").Short('r').String()
+
 	lsCommand      = kp.Command("ls", "Show an entity")
 	lsGroups       = lsCommand.Command("groups", "Show all groups.")
 	lsStreams      = lsCommand.Command("streams", "Show all streams in a given log group.")
@@ -42,7 +45,8 @@ var (
 
 func groupsCompletion() []string {
 	var groups []string
-	for msg := range cloudwatch.LsGroups() {
+	c := cloudwatch.New(awsProfile, awsRegion)
+	for msg := range c.LsGroups(awsProfile) {
 		groups = append(groups, *msg)
 	}
 	return groups
@@ -51,7 +55,11 @@ func groupsCompletion() []string {
 
 func streamsCompletion() []string {
 	var streams []string
-	for msg := range cloudwatch.LsStreams(logGroupName, nil, 0, 0) {
+	kingpin.MustParse(kp.Parse(os.Args[1:]))
+	c := cloudwatch.New(awsProfile, awsRegion)
+	fmt.Println(">>", awsProfile)
+
+	for msg := range c.LsStreams(logGroupName, nil, 0, 0) {
 		streams = append(streams, *msg)
 	}
 	return streams
@@ -123,13 +131,15 @@ func main() {
 
 	versionCheckOnSigterm(version, latestVersionChannel)
 
+	c := cloudwatch.New(awsProfile, awsRegion)
+
 	switch kingpin.MustParse(kp.Parse(os.Args[1:])) {
 	case "ls groups":
-		for msg := range cloudwatch.LsGroups() {
+		for msg := range c.LsGroups(awsProfile) {
 			fmt.Println(*msg)
 		}
 	case "ls streams":
-		for msg := range cloudwatch.LsStreams(lsLogGroupName, nil, 0, 0) {
+		for msg := range c.LsStreams(lsLogGroupName, nil, 0, 0) {
 			fmt.Println(*msg)
 		}
 	case "tail":
@@ -139,7 +149,7 @@ func main() {
 			et = timestampToUTC(endTime)
 		}
 
-		for event := range cloudwatch.Tail(logGroupName, logStreamName, follow, &st, &et, grep, grepv) {
+		for event := range c.Tail(logGroupName, logStreamName, follow, &st, &et, grep, grepv) {
 			msg := *event.Message
 			eventTimestamp := *event.Timestamp / 1000
 			if *printEventID {
