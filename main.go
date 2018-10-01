@@ -106,7 +106,7 @@ func fetchLatestVersion() chan string {
 
 func newVersionMsg(currentVersion string, latestVersionChannel chan string) {
 	latestVersion := <-latestVersionChannel
-	if fmt.Sprintf("v%s", latestVersion) != currentVersion {
+	if latestVersion != fmt.Sprintf("v%s", currentVersion) {
 		fmt.Println("")
 		fmt.Println("")
 		msg := fmt.Sprintf("%s - %s -> %s", color.GreenString("A new version of cw is available!"), color.YellowString(currentVersion), color.GreenString(latestVersion))
