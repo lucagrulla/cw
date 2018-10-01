@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	version = "1.7.0"
+	version = "1.7.1"
 	kp      = kingpin.New("cw", "The best way to tail AWS Cloudwatch Logs from your terminal.")
 
 	awsProfile = kp.Flag("profile", "The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.").Short('p').String()
@@ -57,7 +57,6 @@ func streamsCompletion() []string {
 	var streams []string
 	kingpin.MustParse(kp.Parse(os.Args[1:]))
 	c := cloudwatch.New(awsProfile, awsRegion)
-	fmt.Println(">>", awsProfile)
 
 	for msg := range c.LsStreams(logGroupName, nil, 0, 0) {
 		streams = append(streams, *msg)
@@ -107,7 +106,7 @@ func fetchLatestVersion() chan string {
 
 func newVersionMsg(currentVersion string, latestVersionChannel chan string) {
 	latestVersion := <-latestVersionChannel
-	if latestVersion != currentVersion {
+	if fmt.Sprintf("v%s", latestVersion) != currentVersion {
 		fmt.Println("")
 		fmt.Println("")
 		msg := fmt.Sprintf("%s - %s -> %s", color.GreenString("A new version of cw is available!"), color.YellowString(currentVersion), color.GreenString(latestVersion))
@@ -131,18 +130,22 @@ func main() {
 
 	versionCheckOnSigterm(version, latestVersionChannel)
 
-	c := cloudwatch.New(awsProfile, awsRegion)
-
 	switch kingpin.MustParse(kp.Parse(os.Args[1:])) {
 	case "ls groups":
+		c := cloudwatch.New(awsProfile, awsRegion)
+
 		for msg := range c.LsGroups(awsProfile) {
 			fmt.Println(*msg)
 		}
 	case "ls streams":
+		c := cloudwatch.New(awsProfile, awsRegion)
+
 		for msg := range c.LsStreams(lsLogGroupName, nil, 0, 0) {
 			fmt.Println(*msg)
 		}
 	case "tail":
+		c := cloudwatch.New(awsProfile, awsRegion)
+
 		st := timestampToUTC(startTime)
 		var et time.Time
 		if *endTime != "" {
