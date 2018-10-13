@@ -22,6 +22,7 @@ var (
 
 	awsProfile = kp.Flag("profile", "The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.").Short('p').String()
 	awsRegion  = kp.Flag("region", "The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.").Short('r').String()
+	noneColor  = kp.Flag("none-color", "Disable coloured output").Short('c').Default("false").Bool()
 
 	lsCommand      = kp.Command("ls", "Show an entity")
 	lsGroups       = lsCommand.Command("groups", "Show all groups.")
@@ -109,8 +110,13 @@ func newVersionMsg(currentVersion string, latestVersionChannel chan string) {
 	if latestVersion != fmt.Sprintf("v%s", currentVersion) {
 		fmt.Println("")
 		fmt.Println("")
-		msg := fmt.Sprintf("%s - %s -> %s", color.GreenString("A new version of cw is available!"), color.YellowString(currentVersion), color.GreenString(latestVersion))
-		fmt.Println(msg)
+		if *noneColor {
+			msg := fmt.Sprintf("%s - %s -> %s", "A new version of cw is available!", currentVersion, latestVersion)
+			fmt.Println(msg)
+		} else {
+			msg := fmt.Sprintf("%s - %s -> %s", color.GreenString("A new version of cw is available!"), color.YellowString(currentVersion), color.GreenString(latestVersion))
+			fmt.Println(msg)
+		}
 	}
 }
 
@@ -156,13 +162,25 @@ func main() {
 			msg := *event.Message
 			eventTimestamp := *event.Timestamp / 1000
 			if *printEventID {
-				msg = fmt.Sprintf("%s - %s", color.YellowString(*event.EventId), msg)
+				if *noneColor {
+					msg = fmt.Sprintf("%s - %s", *event.EventId, msg)
+				} else {
+					msg = fmt.Sprintf("%s - %s", color.YellowString(*event.EventId), msg)
+				}
 			}
 			if *printStreamName {
-				msg = fmt.Sprintf("%s - %s", color.BlueString(*event.LogStreamName), msg)
+				if *noneColor {
+					msg = fmt.Sprintf("%s - %s", *event.LogStreamName, msg)
+				} else {
+					msg = fmt.Sprintf("%s - %s", color.BlueString(*event.LogStreamName), msg)
+				}
 			}
 			if *printTimestamp {
-				msg = fmt.Sprintf("%s - %s", color.GreenString(timeutil.FormatTimestamp(eventTimestamp)), msg)
+				if *noneColor {
+					msg = fmt.Sprintf("%s - %s", timeutil.FormatTimestamp(eventTimestamp), msg)
+				} else {
+					msg = fmt.Sprintf("%s - %s", color.GreenString(timeutil.FormatTimestamp(eventTimestamp)), msg)
+				}
 			}
 			fmt.Println(msg)
 		}
