@@ -55,8 +55,10 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
         Args:
         <group>     The log group name.
         [<stream>]  The log stream name. Use \* for tail all the group streams.
-        [<start>]   The start time. Passed as either UTC or human-friendly format. The human-friendly version accepts a number of hours and mninutes ago from now. Use 'h' to identify                 hours. 'm' to identify minutes. i.e. 4h30m If a timestamp is passed (format: hh[:mm]) it is expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].
-        [<end>]     The end time. Passed as either UTC or human-friendly format. The human-friendly version accepts a number of hours and mninutes ago from now. Use 'h' to identify                    hours. 'm' to identify minutes. i.e. 4h30m. If a timestamp is passed (format: hh[:mm]) it is expanded to today at the given time. Full format: 2017-02-27[T09:00[:00].
+        [<start>]   The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with 'h' and
+                    minutes with 'm' i.e. 80m, 4h30m. If time is passed (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]].
+        [<end>]     The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with 'h' and
+                    minutes with 'm' i.e. 80m, 4h30m. If time is passed (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]]
     ```
 
 ## Examples
