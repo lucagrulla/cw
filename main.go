@@ -17,12 +17,12 @@ import (
 )
 
 var (
-	version = "1.7.2"
+	version = "1.8.0"
 	kp      = kingpin.New("cw", "The best way to tail AWS Cloudwatch Logs from your terminal.")
 
 	awsProfile = kp.Flag("profile", "The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.").Short('p').String()
 	awsRegion  = kp.Flag("region", "The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.").Short('r').String()
-	noneColor  = kp.Flag("none-color", "Disable coloured output").Short('c').Default("false").Bool()
+	noColor    = kp.Flag("no-color", "Disable coloured output").Short('c').Default("false").Bool()
 
 	lsCommand      = kp.Command("ls", "Show an entity")
 	lsGroups       = lsCommand.Command("groups", "Show all groups.")
@@ -39,11 +39,11 @@ var (
 	grepv           = tailCommand.Flag("grepv", "equivalent of grep --invert-match. Invert match pattern to filter logs by.").Short('v').Default("").String()
 	logGroupName    = tailCommand.Arg("group", "The log group name.").Required().HintAction(groupsCompletion).String()
 	logStreamName   = tailCommand.Arg("stream", "The log stream name. Use \\* for tail all the group streams.").Default("*").HintAction(streamsCompletion).String()
-	startTime       = tailCommand.Arg("start", `The start time. Passed  as either UTC or human-friendly format. The human-friendly version accepts a number of hours and mninutes ago from now. Use 'h' to identify hours. 'm' to identify minutes. i.e. 4h30m If a timestamp is passed (format: hh[:mm]) it is expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].`).
+	startTime       = tailCommand.Arg("start", `The start time. Passed  as either UTC or human-friendly format. The human-friendly format accepts the number of hours and minutes ago from now. Use 'h' to identify hours. 'm' to identify minutes. i.e. 4h30m If a timestamp is passed (format: hh[:mm]) it is expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].`).
 		// startTime       = tailCommand.Arg("start", "The tailing start time in UTC. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").
 		Default(time.Now().UTC().Add(-30 * time.Second).Format(timeutil.TimeFormat)).String()
 	// endTime = tailCommand.Arg("end", "The tailing end time in UTC. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").String()
-	endTime = tailCommand.Arg("end", "The end time. Passed  as either UTC or human-friendly format. The human-friendly version accepts a number of hours and mninutes ago from now. Use 'h' to identify hours. 'm' to identify minutes. i.e. 4h30m. If a timestamp is passed (format: hh[:mm]) it is expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").String()
+	endTime = tailCommand.Arg("end", "The end time. Passed  as either UTC or human-friendly format. The human-friendly format accepts the number of hours and minutes ago from now. Use 'h' to identify hours. 'm' to identify minutes. i.e. 4h30m. If a timestamp is passed (format: hh[:mm]) it is expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").String()
 )
 
 func groupsCompletion() []string {
@@ -118,7 +118,7 @@ func newVersionMsg(currentVersion string, latestVersionChannel chan string) {
 	if latestVersion != fmt.Sprintf("v%s", currentVersion) {
 		fmt.Println("")
 		fmt.Println("")
-		if *noneColor {
+		if *noColor {
 			msg := fmt.Sprintf("%s - %s -> %s", "A new version of cw is available!", currentVersion, latestVersion)
 			fmt.Println(msg)
 		} else {
@@ -170,21 +170,21 @@ func main() {
 			msg := *event.Message
 			eventTimestamp := *event.Timestamp / 1000
 			if *printEventID {
-				if *noneColor {
+				if *noColor {
 					msg = fmt.Sprintf("%s - %s", *event.EventId, msg)
 				} else {
 					msg = fmt.Sprintf("%s - %s", color.YellowString(*event.EventId), msg)
 				}
 			}
 			if *printStreamName {
-				if *noneColor {
+				if *noColor {
 					msg = fmt.Sprintf("%s - %s", *event.LogStreamName, msg)
 				} else {
 					msg = fmt.Sprintf("%s - %s", color.BlueString(*event.LogStreamName), msg)
 				}
 			}
 			if *printTimestamp {
-				if *noneColor {
+				if *noColor {
 					msg = fmt.Sprintf("%s - %s", timeutil.FormatTimestamp(eventTimestamp), msg)
 				} else {
 					msg = fmt.Sprintf("%s - %s", color.GreenString(timeutil.FormatTimestamp(eventTimestamp)), msg)
