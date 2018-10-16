@@ -1,7 +1,7 @@
-# cw 
+# cw
+
 [![Release](https://img.shields.io/github/release/lucagrulla/cw.svg?style=flat-square)](https://github.com/lucagrulla/cw/releases/latest)
 [![Software License](https://img.shields.io/badge/license-apache2-brightgreen.svg?style=flat-square)](LICENSE.md)
-
 
 The **best** way to tail AWS Cloudwatch Logs from your terminal.
 
@@ -80,12 +80,10 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 
 Time and dates are always treated in UTC.
 
-
 ## AWS credentials and configuration
 
 `cw` uses the default credentials profile (stored in ./aws/credentials) for authentication and shared config (.aws/config) for identifying the target AWS region. Both profile and region are overridable with the  `profile` and `region` global flags.
 
- 
 ## Installation
 
 On Mac OSX:
