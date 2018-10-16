@@ -10,8 +10,9 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 ## Commands and flags
 
 ### Global flags
+
 * `-p`, `--profile=profile-name` Override the AWS profile used for connection
-* `-r`, `--region=aws-region` Override the target AWS region 
+* `-r`, `--region=aws-region` Override the target AWS region
 
 ### Commands
 
