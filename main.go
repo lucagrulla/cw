@@ -22,7 +22,7 @@ var (
 
 	awsProfile = kp.Flag("profile", "The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.").Short('p').String()
 	awsRegion  = kp.Flag("region", "The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.").Short('r').String()
-	noColor    = kp.Flag("no-color", "Disable coloured output").Short('c').Default("false").Bool()
+	noColor    = kp.Flag("no-color", "Disable coloured output.").Short('c').Default("false").Bool()
 
 	lsCommand      = kp.Command("ls", "Show an entity")
 	lsGroups       = lsCommand.Command("groups", "Show all groups.")
