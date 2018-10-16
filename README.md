@@ -26,6 +26,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
         --help             Show context-sensitive help (also try --help-long and --help-man).
     -p, --profile=PROFILE  The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.
     -r, --region=REGION    The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.
+    -c, --no-color         Disable coloured output.
         --version          Show application version.
 
     Subcommands:
@@ -40,16 +41,16 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
         usage: cw tail [<flags>] <group> [<stream>] [<start>] [<end>]
 
         Tail a log group.
-
         Flags:
             --help             Show context-sensitive help (also try --help-long and --help-man).
         -p, --profile=PROFILE  The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.
         -r, --region=REGION    The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.
+        -c, --no-color         Disable coloured output
             --version          Show application version.
         -f, --follow           Don't stop when the end of stream is reached, but rather wait for additional data to be appended.
         -t, --timestamp        Print the event timestamp.
-        -i, --event Id         Print the event Id
-        -s, --stream name      Print the log stream name this event belongs to.
+        -i, --event-id         Print the event Id
+        -s, --stream-name      Print the log stream name this event belongs to.
         -g, --grep=""          Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.
         -v, --grepv=""         equivalent of grep --invert-match. Invert match pattern to filter logs by.
 
