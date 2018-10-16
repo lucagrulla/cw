@@ -39,9 +39,11 @@ var (
 	grepv           = tailCommand.Flag("grepv", "equivalent of grep --invert-match. Invert match pattern to filter logs by.").Short('v').Default("").String()
 	logGroupName    = tailCommand.Arg("group", "The log group name.").Required().HintAction(groupsCompletion).String()
 	logStreamName   = tailCommand.Arg("stream", "The log stream name. Use \\* for tail all the group streams.").Default("*").HintAction(streamsCompletion).String()
-	startTime       = tailCommand.Arg("start", "The tailing start time in UTC. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").
-			Default(time.Now().UTC().Add(-30 * time.Second).Format(timeutil.TimeFormat)).String()
-	endTime = tailCommand.Arg("end", "The tailing end time in UTC. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").String()
+	startTime       = tailCommand.Arg("start", `The start time. Passed  as either UTC or human-friendly format. The human-friendly version accepts a number of hours and mninutes ago from now. Use 'h' to identify hours. 'm' to identify minutes. i.e. 4h30m If a timestamp is passed (format: hh[:mm]) it is expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].`).
+		// startTime       = tailCommand.Arg("start", "The tailing start time in UTC. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").
+		Default(time.Now().UTC().Add(-30 * time.Second).Format(timeutil.TimeFormat)).String()
+	// endTime = tailCommand.Arg("end", "The tailing end time in UTC. If a timestamp is passed(format: hh[:mm]) it's expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").String()
+	endTime = tailCommand.Arg("end", "The end time. Passed  as either UTC or human-friendly format. The human-friendly version accepts a number of hours and mninutes ago from now. Use 'h' to identify hours. 'm' to identify minutes. i.e. 4h30m. If a timestamp is passed (format: hh[:mm]) it is expanded to today at the given time. Full format: 2017-02-27[T09:00[:00]].").String()
 )
 
 func groupsCompletion() []string {
@@ -86,8 +88,14 @@ func timestampToUTC(timeStamp *string) time.Time {
 		mm, _ := strconv.Atoi(res[2])
 
 		return time.Date(y, m, d, t, mm, 0, 0, time.UTC)
+	} else if regexp.MustCompile(`^\d{1,}h$|^\d{1,}m$|^\d{1,}h\d{1,}m$`).MatchString(*timeStamp) {
+		d, _ := time.ParseDuration(*timeStamp)
 
+		t := time.Now().Add(-d)
+		y, m, dd := t.Date()
+		return time.Date(y, m, dd, t.Hour(), t.Minute(), 0, 0, time.UTC)
 	}
+
 	//TODO check even last scenario and if it's not a recognized pattern throw an error
 	t, _ := time.ParseInLocation("2006-01-02T15:04:05", *timeStamp, time.UTC)
 	return t

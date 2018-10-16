@@ -37,3 +37,31 @@ func TestTimestampToUTC(t *testing.T) {
 	assert.Equal(timestampToUTC(&a), time.Date(y, m, d, 18, 31, 0, 0, time.UTC),
 		"wrong parsing for input %s", a)
 }
+
+func TestHumanReadableTimeToUTC(t *testing.T) {
+	assert := assert.New(t)
+
+	s := "32h"
+	dd, _ := time.ParseDuration(s)
+	x := time.Now().Add(-dd)
+
+	y, m, d := x.Date()
+
+	assert.Equal(timestampToUTC(&s), time.Date(y, m, d, x.Hour(), x.Minute(), 0, 0, time.UTC), "wrong parsing for input %s", s)
+
+	s = "50m"
+	dd, _ = time.ParseDuration(s)
+	x = time.Now().Add(-dd)
+
+	y, m, d = x.Date()
+
+	assert.Equal(timestampToUTC(&s), time.Date(y, m, d, x.Hour(), x.Minute(), 0, 0, time.UTC), "wrong parsing for input %s", s)
+
+	s = "2h30m"
+	dd, _ = time.ParseDuration(s)
+	x = time.Now().Add(-dd)
+
+	y, m, d = x.Date()
+
+	assert.Equal(timestampToUTC(&s), time.Date(y, m, d, x.Hour(), x.Minute(), 0, 0, time.UTC), "wrong parsing for input %s", s)
+}
