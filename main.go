@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	version = "2.0.0"
+	version = "2.0.1"
 	kp      = kingpin.New("cw", "The best way to tail AWS Cloudwatch Logs from your terminal.")
 
 	awsProfile = kp.Flag("profile", "The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.").Short('p').String()
