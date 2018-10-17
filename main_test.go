@@ -2,8 +2,7 @@ package main
 
 import (
 	//"fmt"
-	"github.com/stretchr/testify/assert"
-	//"reflect"
+	"github.com/stretchr/testify/assert" //"reflect"
 	"testing"
 	"time"
 )
@@ -43,7 +42,7 @@ func TestHumanReadableTimeToUTC(t *testing.T) {
 
 	s := "32h"
 	dd, _ := time.ParseDuration(s)
-	x := time.Now().Add(-dd)
+	x := time.Now().UTC().Add(-dd)
 
 	y, m, d := x.Date()
 
@@ -51,7 +50,7 @@ func TestHumanReadableTimeToUTC(t *testing.T) {
 
 	s = "50m"
 	dd, _ = time.ParseDuration(s)
-	x = time.Now().Add(-dd)
+	x = time.Now().UTC().Add(-dd)
 
 	y, m, d = x.Date()
 
@@ -59,7 +58,7 @@ func TestHumanReadableTimeToUTC(t *testing.T) {
 
 	s = "2h30m"
 	dd, _ = time.ParseDuration(s)
-	x = time.Now().Add(-dd)
+	x = time.Now().UTC().Add(-dd)
 
 	y, m, d = x.Date()
 
