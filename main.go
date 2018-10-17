@@ -75,7 +75,7 @@ func timestampToUTC(timeStamp *string) time.Time {
 		t, _ := time.ParseInLocation("2006-01-02T15:04", *timeStamp, time.UTC)
 		return t
 	} else if regexp.MustCompile(`^\d{1,2}$`).MatchString(*timeStamp) {
-		y, m, d := time.Now().Date()
+		y, m, d := time.Now().UTC().Date()
 		t, _ := strconv.Atoi(*timeStamp)
 		return time.Date(y, m, d, t, 0, 0, 0, time.UTC)
 	} else if res := regexp.MustCompile(`^(?P<Hour>\d{1,2}):(?P<Minute>\d{2})$`).FindStringSubmatch(*timeStamp); res != nil {
@@ -88,7 +88,7 @@ func timestampToUTC(timeStamp *string) time.Time {
 	} else if regexp.MustCompile(`^\d{1,}h$|^\d{1,}m$|^\d{1,}h\d{1,}m$`).MatchString(*timeStamp) {
 		d, _ := time.ParseDuration(*timeStamp)
 
-		t := time.Now().Add(-d)
+		t := time.Now().UTC().Add(-d)
 		y, m, dd := t.Date()
 		return time.Date(y, m, dd, t.Hour(), t.Minute(), 0, 0, time.UTC)
 	}
