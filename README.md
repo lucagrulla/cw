@@ -9,9 +9,11 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 
 ## Features
 
-* No external dependencies (no pip, npm, rubygems). cw is a native executable targeting your OS.
-* Fast. cw is written in golang and compiled against your architecture, there are  no intermediate VMs.
-* Powerful and flexible date and time parser.
+* **No external dependencies** (no pip, npm, rubygems) and easy installation.
+  * cw is a native executable targeting your OS.
+  * If you use MACOS the installation is just a `brew install`.
+* **Fast**. cw is written in golang and compiled against your architecture, there are  no intermediate VMs.
+* **Powerful and flexible date and time parser**.
   * You can work with either `Local` timezone or `UTC` (default).
   * Flexible parsing.
     * Human friendly formats, i.e. `1h20m`  to indicate 1 hour and 20 minutes ago.
@@ -20,10 +22,8 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 * Built-in grep (`--grep`) and grepv (`--grepv`).
 * Work smoothly with piping, i.e. `cw tail -f my-stream >> myfile.txt`.
 * Coloured output (but see `--no-color` flag to disable if needed).
-* Flexibile profile control.
-  * It works with AWS .credentials and .profile files as well as with specific profile and region declaration (see `--profile` and `--region` flags).
-* Easy installation.
-  * If you use MAC OS is just a `brew install`.
+* Flexibile credentials control.
+  * It works with **AWS .credentials and .profile** files as well as with specific profile and region declaration (see `--profile` and `--region` flags).
 
 ## Commands and flags
 
