@@ -17,18 +17,18 @@ import (
 
 var (
 	timeFormat = "2006-01-02T15:04:05"
-	version    = "2.0.1"
+	version    = "2.1.0"
 
 	kp = kingpin.New("cw", "The best way to tail AWS Cloudwatch Logs from your terminal.")
 
 	awsProfile = kp.Flag("profile", "The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.").Short('p').String()
-	awsRegion  = kp.Flag("region", "The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.").Short('r').String()
+	awsRegion  = kp.Flag("region", "The target AWS region. By default cw will use the default region defined in the .aws/credentials file.").Short('r').String()
 	noColor    = kp.Flag("no-color", "Disable coloured output.").Short('c').Default("false").Bool()
 
-	lsCommand      = kp.Command("ls", "Show an entity")
+	lsCommand      = kp.Command("ls", "Show an entity.")
 	lsGroups       = lsCommand.Command("groups", "Show all groups.")
 	lsStreams      = lsCommand.Command("streams", "Show all streams in a given log group.")
-	lsLogGroupName = lsStreams.Arg("group", "the group name").HintAction(groupsCompletion).Required().String()
+	lsLogGroupName = lsStreams.Arg("group", "The group name").HintAction(groupsCompletion).Required().String()
 
 	tailCommand     = kp.Command("tail", "Tail a log group.")
 	follow          = tailCommand.Flag("follow", "Don't stop when the end of stream is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
