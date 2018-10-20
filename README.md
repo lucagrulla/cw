@@ -52,7 +52,8 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
         -i, --event-id         Print the event Id
         -s, --stream-name      Print the log stream name this event belongs to.
         -g, --grep=""          Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.
-        -v, --grepv=""         equivalent of grep --invert-match. Invert match pattern to filter logs by.
+        -v, --grepv=""         Equivalent of grep --invert-match. Invert match pattern to filter logs by.
+        -l, --local            Treat date and time in the Local timezone.
 
         Args:
         <group>     The log group name.
@@ -78,7 +79,10 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
   * `cw tail -f my-log-group my-log-stream-prefix 2h30m`  to start from 2 hours and 30 minutes ago.
   * `cw tail -f my-log-group \* 9:00 9:01` The use of the \* wildchar will let you tail all the log streams in my-log-group.
 
-Time and dates are always treated in UTC.
+## Time and Dates
+
+Time and dates are treated as UTC by default.
+If you prefer to use Local zone just set the ```--local``` flag.
 
 ## AWS credentials and configuration
 

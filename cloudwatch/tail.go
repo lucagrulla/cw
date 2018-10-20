@@ -10,7 +10,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-	"github.com/lucagrulla/cw/timeutil"
 )
 
 type eventCache struct {
@@ -84,11 +83,11 @@ func params(logGroupName string, streamNames []*string, startTimeInMillis int64,
 //It returns a channel where logs line are published
 //Unless the follow flag is true the channel is closed once there are no more events available
 func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, grepv *string) <-chan *cloudwatchlogs.FilteredLogEvent {
-	lastSeenTimestamp := timeutil.ParseTime(startTime.Format(timeutil.TimeFormat)).Unix() * 1000
+	lastSeenTimestamp := startTime.Unix() * 1000
 
 	var endTimeInMillis int64
 	if !endTime.IsZero() {
-		endTimeInMillis = timeutil.ParseTime(endTime.Format(timeutil.TimeFormat)).Unix() * 1000
+		endTimeInMillis = endTime.Unix() * 1000
 	}
 
 	ch := make(chan *cloudwatchlogs.FilteredLogEvent)
