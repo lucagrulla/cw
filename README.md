@@ -7,6 +7,24 @@ The **best** way to tail AWS Cloudwatch Logs from your terminal.
 
 Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.com](https://www.lucagrulla.com)
 
+## Features
+
+* No external dependencies (no pip, npm, rubygems). cw is a native executable targeting your OS.
+* Fast. cw is written in golang and compiled against your architecture, there are  no intermediate VMs.
+* Powerful and flexible date and time parser.
+  * You can work with either `Local` timezone or `UTC` (default).
+  * Flexible parsing.
+    * Human friendly formats, i.e. `1h20m`  to indicate 1 hour and 20 minutes ago.
+    * a specific hour, i.e. `13:10` to indicate 13:10 of today.
+    * a full timestamp `2018-10-20T8:53`.
+* Built-in grep (`--grep`) and grepv (`--grepv`).
+* Work smoothly with piping, i.e. `cw tail -f my-stream >> myfile.txt`.
+* Coloured output (but see `--no-color` flag to disable if needed).
+* Flexibile profile control.
+  * It works with AWS .credentials and .profile files as well as with specific profile and region declaration (see `--profile` and `--region` flags).
+* Easy installation.
+  * If you use MAC OS is just a `brew install`.
+
 ## Commands and flags
 
 ### Global flags
