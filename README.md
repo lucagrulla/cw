@@ -22,7 +22,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
     * a full timestamp `2018-10-20T8:53`.
 * Built-in grep (`--grep`) and grepv (`--grepv`).
 * Work smoothly with piping, i.e. `cw tail -f my-stream >> myfile.txt`.
-* Coloured output (but see `--no-color` flag to disable if needed).
+* Coloured output (but use `--no-color` to disable if needed).
 * Flexibile credentials control.
   * It works with **AWS .credentials and .profile** files as well as with specific profile and region declaration (see `--profile` and `--region` flags).
 
