@@ -14,13 +14,13 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
   * cw is a native executable targeting your OS.
   * On macOS the installation is just a `brew install`.
 * **Fast**. cw is written in golang and compiled against your architecture, there are  no intermediate VMs.
-* **Powerful and flexible date and time parser**.
+* **Flexible date and time parser**.
   * You can work with either `Local` timezone or `UTC` (default).
   * Flexible parsing.
     * Human friendly formats, i.e. `1h20m`  to indicate 1 hour and 20 minutes ago.
     * a specific hour, i.e. `13:10` to indicate 13:10 of today.
     * a full timestamp `2018-10-20T8:53`.
-* Built-in grep (`--grep`) and grepv (`--grepv`).
+* Powerful built-in **grep** (`--grep`) and **grepv** (`--grepv`).
 * Work smoothly with piping, i.e. `cw tail -f my-stream >> myfile.txt`.
 * Coloured output (but use `--no-color` to disable if needed).
 * Flexibile credentials control.
