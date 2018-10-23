@@ -24,7 +24,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 * Work smoothly with piping, i.e. `cw tail -f my-stream >> myfile.txt`.
 * Coloured output (but use `--no-color` to disable if needed).
 * Flexibile credentials control.
-  * It works with **AWS .credentials and .profile** files as well as with specific profile and region declaration (see `--profile` and `--region` flags).
+  * It works by default with your **AWS .aws/credentials and .aws/profile** files, but specific overrides can be done (see `--profile` and `--region` flags).
 
 ## Commands and flags
 
