@@ -12,7 +12,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 
 * **No external dependencies** (no pip, npm, rubygems) and easy installation.
   * cw is a native executable targeting your OS.
-  * On macOS the installation is just a `brew install`.
+  * On Mac OSX the installation is just a `brew install`.
 * **Fast**. cw is written in golang and compiled against your architecture, there are  no intermediate VMs.
 * **Flexible date and time parser**.
   * You can work with either `Local` timezone or `UTC` (default).
