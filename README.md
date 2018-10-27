@@ -127,14 +127,3 @@ If you prefer to use Local zone just set the ```--local``` flag.
 ## AWS credentials and configuration
 
 `cw` uses the default credentials profile (stored in ./aws/credentials) for authentication and shared config (.aws/config) for identifying the target AWS region. Both profile and region are overridable with the  `profile` and `region` global flags.
-
-## Installation
-
-On Mac OSX:
-
-* `brew tap lucagrulla/cw`
-* `brew install cw`
-
-Using go tools:
-
-`go get github.com/lucagrulla/cw`
