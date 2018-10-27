@@ -17,7 +17,7 @@ import (
 
 var (
 	timeFormat = "2006-01-02T15:04:05"
-	version    = "2.1.0"
+	version    = "2.1.1"
 
 	kp = kingpin.New("cw", "The best way to tail AWS Cloudwatch Logs from your terminal.")
 
@@ -28,19 +28,19 @@ var (
 	lsCommand      = kp.Command("ls", "Show an entity.")
 	lsGroups       = lsCommand.Command("groups", "Show all groups.")
 	lsStreams      = lsCommand.Command("streams", "Show all streams in a given log group.")
-	lsLogGroupName = lsStreams.Arg("group", "The group name").HintAction(groupsCompletion).Required().String()
+	lsLogGroupName = lsStreams.Arg("group", "The group name.").HintAction(groupsCompletion).Required().String()
 
 	tailCommand     = kp.Command("tail", "Tail a log group.")
 	follow          = tailCommand.Flag("follow", "Don't stop when the end of stream is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
 	printTimestamp  = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
-	printEventID    = tailCommand.Flag("event-id", "Print the event Id").Short('i').Default("false").Bool()
+	printEventID    = tailCommand.Flag("event-id", "Print the event Id.").Short('i').Default("false").Bool()
 	printStreamName = tailCommand.Flag("stream-name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
 	grep            = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").Short('g').Default("").String()
 	grepv           = tailCommand.Flag("grepv", "Equivalent of grep --invert-match. Invert match pattern to filter logs by.").Short('v').Default("").String()
 	logGroupName    = tailCommand.Arg("group", "The log group name.").Required().HintAction(groupsCompletion).String()
 	logStreamName   = tailCommand.Arg("stream", "The log stream name. Use \\* for tail all the group streams.").Default("*").HintAction(streamsCompletion).String()
 	startTime       = tailCommand.Arg("start", "The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m. If time is passed (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]].").Default(time.Now().UTC().Add(-30 * time.Second).Format(timeFormat)).String()
-	endTime         = tailCommand.Arg("end", "The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m. If time is passed (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]]").String()
+	endTime         = tailCommand.Arg("end", "The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m. If time is passed (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]].").String()
 	local           = tailCommand.Flag("local", "Treat date and time in Local zone.").Short('l').Default("false").Bool()
 )
 
