@@ -45,3 +45,16 @@ brew:
 
     # system bin/"cw completion zsh > cw.zsh"
     # zsh_completion.install "cw.zsh"
+scoop:
+  bucket:
+    owner: lucagrulla
+    name: cw-scoop-bucket
+  homepage: "https://www.lucagrulla.com/cw"
+  commit_author:
+    name: lucagrulla
+    email:
+  description: "The best way to tail AWS Cloudwatch Logs from your terminal"
+  license: Apache-2.0
+  persist:
+    - "data"
+    - "config.toml"
