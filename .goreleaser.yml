@@ -1,6 +1,8 @@
 builds:
 - env:
   - CGO_ENABLED=0
+- goos:
+  - windows
 archive:
   replacements:
     darwin: Darwin
@@ -41,7 +43,6 @@ brew:
 
     system bin/"cw --help-man > cw.1"
     man1.install "cw.1"
-
 
     # system bin/"cw completion zsh > cw.zsh"
     # zsh_completion.install "cw.zsh"
