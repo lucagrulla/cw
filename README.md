@@ -12,7 +12,6 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 
 * **No external dependencies** (no pip, npm, rubygems) and easy installation.
   * cw is a native executable targeting your OS.
-  * On Mac OSX the installation is just a `brew install`.
 * **Fast**. cw is written in golang and compiled against your architecture, there are  no intermediate VMs.
 * **Flexible date and time parser**.
   * You can work with either `Local` timezone or `UTC` (default).
@@ -25,6 +24,28 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 * Coloured output (but use `--no-color` to disable if needed).
 * Flexibile credentials control.
   * It works by default with your **AWS .aws/credentials and .aws/profile** files, but specific overrides can be done (see `--profile` and `--region` flags).
+
+## Installation
+
+### On Mac OSX using [Homebrew](https://brew.sh)
+
+```bash
+brew tap lucagrulla/cw
+brew install cw
+```
+
+### On Windows using Scoop.sh
+
+```bash
+scoop bucket add cw https://github.com/lucagrulla/cw-scoop-bucket.git
+scoop install cw
+```
+
+### Using Go tools
+
+```bash
+go get github.com/lucagrulla/cw
+```
 
 ## Commands and flags
 
