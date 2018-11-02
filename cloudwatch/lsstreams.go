@@ -17,7 +17,7 @@ func logStreamMatchesTimeRange(logStream *cloudwatchlogs.LogStream, startTimeMil
 	if logStream.CreationTime == nil || logStream.LastIngestionTime == nil {
 		return false
 	}
-	lastIngestionAfterStartTime := *logStream.LastIngestionTime >= startTimeMillis-5*minuteInMillis
+	lastIngestionAfterStartTime := *logStream.LastIngestionTime >= (startTimeMillis-5)*minuteInMillis
 	creationTimeBeforeEndTime := endTimeMillis == 0 || *logStream.CreationTime <= endTimeMillis
 	return lastIngestionAfterStartTime && creationTimeBeforeEndTime
 }
