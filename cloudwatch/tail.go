@@ -111,7 +111,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	if *logStreamName != "*" {
 		getStreams := func(logGroupName *string, logStreamName *string) []*string {
 			var streams []*string
-			for stream := range cwl.LsStreams(logGroupName, logStreamName, lastSeenTimestamp, endTimeInMillis) {
+			for stream := range cwl.LsStreams(logGroupName, logStreamName) {
 				streams = append(streams, stream)
 			}
 			if len(streams) == 0 {
@@ -119,7 +119,8 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 				close(ch)
 			}
 			if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
-				streams = streams[0:100]
+				start := len(streams) - 100
+				streams = streams[start:]
 			}
 			return streams
 		}

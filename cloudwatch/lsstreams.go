@@ -2,6 +2,7 @@ package cloudwatch
 
 import (
 	"log"
+	"sort"
 
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
@@ -10,21 +11,9 @@ import (
 const secondInMillis = 1000
 const minuteInMillis = 60 * secondInMillis
 
-func logStreamMatchesTimeRange(logStream *cloudwatchlogs.LogStream, startTimeMillis int64, endTimeMillis int64) bool {
-	if startTimeMillis == 0 {
-		return true
-	}
-	if logStream.CreationTime == nil || logStream.LastIngestionTime == nil {
-		return false
-	}
-	lastIngestionAfterStartTime := *logStream.LastIngestionTime >= (startTimeMillis-5)*minuteInMillis
-	creationTimeBeforeEndTime := endTimeMillis == 0 || *logStream.CreationTime <= endTimeMillis
-	return lastIngestionAfterStartTime && creationTimeBeforeEndTime
-}
-
 //LsStreams lists the streams of a given stream group
-//It returns a channel where the stream names are published
-func (cwl *CW) LsStreams(groupName *string, streamName *string, startTimeMillis int64, endTimeMillis int64) <-chan *string {
+//It returns a channel where the stream names are published in order of Last Ingestion Time (the first stream is the one with older Last Ingestion Time)
+func (cwl *CW) LsStreams(groupName *string, streamName *string) <-chan *string {
 	ch := make(chan *string)
 
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
@@ -33,11 +22,12 @@ func (cwl *CW) LsStreams(groupName *string, streamName *string, startTimeMillis 
 		params.LogStreamNamePrefix = streamName
 	}
 	handler := func(res *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
+		sort.SliceStable(res.LogStreams, func(i, j int) bool {
+			return *res.LogStreams[i].LastIngestionTime < *res.LogStreams[j].LastIngestionTime
+		})
+
 		for _, logStream := range res.LogStreams {
-			if logStreamMatchesTimeRange(logStream, startTimeMillis, endTimeMillis) {
-				ch <- logStream.LogStreamName
-				// fmt.Println(*logStream.LogStreamName)
-			}
+			ch <- logStream.LogStreamName
 		}
 		if lastPage {
 			close(ch)

@@ -59,7 +59,7 @@ func streamsCompletion() []string {
 	var streams []string
 	kingpin.MustParse(kp.Parse(os.Args[1:]))
 
-	for msg := range cloudwatch.New(awsProfile, awsRegion, debug).LsStreams(logGroupName, nil, 0, 0) {
+	for msg := range cloudwatch.New(awsProfile, awsRegion, debug).LsStreams(logGroupName, nil) {
 		streams = append(streams, *msg)
 	}
 	return streams
@@ -157,7 +157,7 @@ func main() {
 			fmt.Println(*msg)
 		}
 	case "ls streams":
-		for msg := range c.LsStreams(lsLogGroupName, nil, 0, 0) {
+		for msg := range c.LsStreams(lsLogGroupName, nil) {
 			fmt.Println(*msg)
 		}
 	case "tail":
