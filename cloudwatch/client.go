@@ -2,6 +2,8 @@
 package cloudwatch
 
 import (
+	"fmt"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
@@ -10,11 +12,15 @@ import (
 //CW provides the APIo peration methods for making requests to AWS cloudwatch logs.
 type CW struct {
 	awsClwClient *cloudwatchlogs.CloudWatchLogs
+	debug        *bool
 }
 
 // New creates a new instance of the CW client
-func New(awsProfile *string, awsRegion *string) *CW {
-	// fmt.Printf("awsProfile: %s, awsRegion: %s\n", *awsProfile, *awsRegion)
+func New(awsProfile *string, awsRegion *string, d *bool) *CW {
+	if *d {
+		fmt.Printf("awsProfile: %s, awsRegion: %s\n", *awsProfile, *awsRegion)
+	}
+
 	opts := session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}
@@ -28,5 +34,6 @@ func New(awsProfile *string, awsRegion *string) *CW {
 	}
 
 	sess := session.Must(session.NewSessionWithOptions(opts))
-	return &CW{awsClwClient: cloudwatchlogs.New(sess)}
+	return &CW{awsClwClient: cloudwatchlogs.New(sess),
+		debug: d}
 }

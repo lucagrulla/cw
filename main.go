@@ -24,6 +24,7 @@ var (
 	awsProfile = kp.Flag("profile", "The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.").Short('p').String()
 	awsRegion  = kp.Flag("region", "The target AWS region. By default cw will use the default region defined in the .aws/credentials file.").Short('r').String()
 	noColor    = kp.Flag("no-color", "Disable coloured output.").Short('c').Default("false").Bool()
+	debug      = kp.Flag("debug", "Enable debug logging.").Short('d').Default("false").Hidden().Bool()
 
 	lsCommand      = kp.Command("ls", "Show an entity.")
 	lsGroups       = lsCommand.Command("groups", "Show all groups.")
@@ -46,20 +47,19 @@ var (
 
 func groupsCompletion() []string {
 	var groups []string
-	c := cloudwatch.New(awsProfile, awsRegion)
-	for msg := range c.LsGroups(awsProfile) {
+	kingpin.MustParse(kp.Parse(os.Args[1:]))
+
+	for msg := range cloudwatch.New(awsProfile, awsRegion, debug).LsGroups() {
 		groups = append(groups, *msg)
 	}
 	return groups
-
 }
 
 func streamsCompletion() []string {
 	var streams []string
 	kingpin.MustParse(kp.Parse(os.Args[1:]))
-	c := cloudwatch.New(awsProfile, awsRegion)
 
-	for msg := range c.LsStreams(logGroupName, nil, 0, 0) {
+	for msg := range cloudwatch.New(awsProfile, awsRegion, debug).LsStreams(logGroupName, nil) {
 		streams = append(streams, *msg)
 	}
 	return streams
@@ -132,38 +132,35 @@ func newVersionMsg(currentVersion string, latestVersionChannel chan string) {
 	}
 }
 
-func versionCheckOnSigterm(version string, latestVersionChannel chan string) {
+func versionCheckOnSigterm(versionMsgFunc func()) {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
-	go func() {
-		<-c
-		newVersionMsg(version, latestVersionChannel)
-		os.Exit(0)
-	}()
+
+	<-c
+	versionMsgFunc()
+	os.Exit(0)
 }
 
 func main() {
 	kp.Version(version).Author("Luca Grulla")
-	latestVersionChannel := fetchLatestVersion()
 
-	versionCheckOnSigterm(version, latestVersionChannel)
+	versionMsgFunc := func() { newVersionMsg(version, fetchLatestVersion()) }
+	defer versionMsgFunc()
+	go versionCheckOnSigterm(versionMsgFunc)
 
-	switch kingpin.MustParse(kp.Parse(os.Args[1:])) {
+	cmd := kingpin.MustParse(kp.Parse(os.Args[1:]))
+	c := cloudwatch.New(awsProfile, awsRegion, debug)
+	switch cmd {
 	case "ls groups":
-		c := cloudwatch.New(awsProfile, awsRegion)
 
-		for msg := range c.LsGroups(awsProfile) {
+		for msg := range c.LsGroups() {
 			fmt.Println(*msg)
 		}
 	case "ls streams":
-		c := cloudwatch.New(awsProfile, awsRegion)
-
-		for msg := range c.LsStreams(lsLogGroupName, nil, 0, 0) {
+		for msg := range c.LsStreams(lsLogGroupName, nil) {
 			fmt.Println(*msg)
 		}
 	case "tail":
-		c := cloudwatch.New(awsProfile, awsRegion)
-
 		st := timestampToTime(startTime)
 		var et time.Time
 		if *endTime != "" {
@@ -197,5 +194,4 @@ func main() {
 			fmt.Println(msg)
 		}
 	}
-	newVersionMsg(version, latestVersionChannel)
 }

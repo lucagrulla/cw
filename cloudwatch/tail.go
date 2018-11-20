@@ -99,7 +99,9 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 		for range cacheTicker.C {
 			size := cache.Size()
 			if size >= 5000 {
-				// fmt.Printf(">>>cache reset:%d,\n ", size)
+				if *cwl.debug {
+					fmt.Printf(">>>cache reset:%d,\n ", size)
+				}
 				cache.Reset()
 			}
 		}
@@ -109,7 +111,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	if *logStreamName != "*" {
 		getStreams := func(logGroupName *string, logStreamName *string) []*string {
 			var streams []*string
-			for stream := range cwl.LsStreams(logGroupName, logStreamName, lastSeenTimestamp, endTimeInMillis) {
+			for stream := range cwl.LsStreams(logGroupName, logStreamName) {
 				streams = append(streams, stream)
 			}
 			if len(streams) == 0 {
@@ -117,7 +119,8 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 				close(ch)
 			}
 			if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
-				streams = streams[0:100]
+				start := len(streams) - 100
+				streams = streams[start:]
 			}
 			return streams
 		}
@@ -141,14 +144,18 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 
 					if eventTimestamp != lastSeenTimestamp {
 						if eventTimestamp < lastSeenTimestamp {
-							// fmt.Printf("OLD EVENT:%s, evTS:%d, lTS:%d, cache size:%d \n", event, eventTimestamp, lastSeenTimestamp, cache.Size())
+							if *cwl.debug {
+								fmt.Printf("OLD EVENT:%s, evTS:%d, lTS:%d, cache size:%d \n", event, eventTimestamp, lastSeenTimestamp, cache.Size())
+							}
 						}
 						lastSeenTimestamp = eventTimestamp
 					}
 					cache.Add(*event.EventId)
 					ch <- event
 				} else {
-					//fmt.Printf("%s already seen\n", *event.EventId)
+					if *cwl.debug {
+						fmt.Printf("%s already seen\n", *event.EventId)
+					}
 				}
 			}
 		}
@@ -157,7 +164,9 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 			if !*follow {
 				close(ch)
 			} else {
-				//fmt.Println("LAST PAGE")
+				if *cwl.debug {
+					fmt.Println("LAST PAGE")
+				}
 				//AWS API accepts 5 reqs/sec
 				timer.Reset(time.Millisecond * 205)
 			}

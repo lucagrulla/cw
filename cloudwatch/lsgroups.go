@@ -9,8 +9,7 @@ import (
 
 //LsGroups lists the stream groups
 //It returns a channel where the stream groups are published
-func (cwl *CW) LsGroups(awsProfile *string) <-chan *string {
-	// cwl := CwClient(awsProfile)
+func (cwl *CW) LsGroups() <-chan *string {
 	ch := make(chan *string)
 	params := &cloudwatchlogs.DescribeLogGroupsInput{
 		//		LogGroupNamePrefix: aws.String("LogGroupName"),
