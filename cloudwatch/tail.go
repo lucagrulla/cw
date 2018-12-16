@@ -108,7 +108,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	}()
 	logStreams := &logStreams{}
 
-	if *logStreamName != "*" {
+	if logStreamName != nil {
 		getStreams := func(logGroupName *string, logStreamName *string) []*string {
 			var streams []*string
 			for stream := range cwl.LsStreams(logGroupName, logStreamName) {
