@@ -44,12 +44,12 @@ var (
 											Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m. 
 											If time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]].`).
 		Short('b').Default(time.Now().UTC().Add(-30 * time.Second).Format(timeFormat)).String()
-	endTime = tailCommand.Flag("end", `The UTC start time. Passed as either date/time or human-friendly format. 
+	endTime = tailCommand.Flag("end", `The UTC end time. Passed as either date/time or human-friendly format. 
 										The human-friendly format accepts the number of hours and minutes prior to the present. 
 										Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m. 
 										If time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]].`).
 		Short('e').Default("").String()
-	local = tailCommand.Flag("local", "Treat date and time in Local zone.").Short('l').Default("false").Bool()
+	local = tailCommand.Flag("local", "Treat date and time in Local timezone.").Short('l').Default("false").Bool()
 
 	logGroupName  = tailCommand.Arg("group", "The log group name.").Required().HintAction(groupsCompletion).String()
 	logStreamName = tailCommand.Arg("stream", "The log stream name. If not specified all stream names in the given group will be tailed.").HintAction(streamsCompletion).String()
