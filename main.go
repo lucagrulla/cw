@@ -217,7 +217,7 @@ func main() {
 		triggerChannels := make([]chan<- time.Time, len(*plogGroupName))
 
 		for idx, gs := range *plogGroupName {
-			trigger := make(chan time.Time)
+			trigger := make(chan time.Time, 1)
 			go func(groupStream string) {
 				tokens := strings.Split(groupStream, ":")
 				var prefix string
@@ -251,7 +251,6 @@ func main() {
 }
 
 type tailCoordinator struct {
-	ticker  *time.Ticker
 	targets *ring.Ring
 }
 
@@ -261,9 +260,10 @@ func (f *tailCoordinator) start(targets []chan<- time.Time) {
 		f.targets.Value = targets[i]
 		f.targets = f.targets.Next()
 	}
-	f.ticker = time.NewTicker(205 * time.Millisecond)
+	//AWS API accepts 5 reqs/sec x account
+	ticker := time.NewTicker(205 * time.Millisecond)
 	go func() {
-		for range f.ticker.C {
+		for range ticker.C {
 			x := f.targets.Value.(chan<- time.Time)
 			x <- time.Now()
 			f.targets = f.targets.Next()

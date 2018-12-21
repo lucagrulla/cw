@@ -90,9 +90,9 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 		endTimeInMillis = endTime.Unix() * 1000
 	}
 
-	ch := make(chan *cloudwatchlogs.FilteredLogEvent)
-	// timer := time.NewTimer(time.Millisecond * 5)
-	running := false
+	ch := make(chan *cloudwatchlogs.FilteredLogEvent, 1000)
+	idle := make(chan bool, 1)
+	idle <- true
 
 	cache := &eventCache{seen: make(map[string]bool)}
 	go func() { //check cache size every 250ms and eventually purge
@@ -168,9 +168,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 				if *cwl.debug {
 					fmt.Println("LAST PAGE")
 				}
-				//AWS API accepts 5 reqs/sec
-				// timer.Reset(time.Millisecond * 205)
-				running = false
+				idle <- true
 			}
 		}
 		return !lastPage
@@ -179,17 +177,19 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	go func() {
 		for range limiter {
 			//FilterLogEventPages won't take more than 100 stream names
-			if !running { //avoid concurrent request if each one is longer than limit
+			select {
+			case <-idle:
 				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
-				running = true // TODO mutex
 				error := cwl.awsClwClient.FilterLogEventsPages(logParam, pageHandler)
 				if error != nil {
 					if awsErr, ok := error.(awserr.Error); ok {
 						log.Fatalf(awsErr.Message())
 					}
 				}
-			} else {
-				fmt.Printf("%s is still running. Skipping one round", *logGroupName)
+			case <-time.After(5 * time.Millisecond):
+				if *cwl.debug {
+					fmt.Printf("%s still tailing, Skip.\n", *logGroupName)
+				}
 			}
 		}
 	}()
