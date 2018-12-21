@@ -1,6 +1,7 @@
 package main
 
 import (
+	"container/ring"
 	"fmt"
 	"os"
 	"regexp"
@@ -210,11 +211,13 @@ func main() {
 			et = timestampToTime(pendTime)
 		}
 		out := make(chan *logEvent)
-		limiter := time.NewTicker(205 * time.Millisecond)
 
 		var wg sync.WaitGroup
-		for _, gs := range *plogGroupName {
-			wg.Add(1)
+
+		triggerChannels := make([]chan<- time.Time, len(*plogGroupName))
+
+		for idx, gs := range *plogGroupName {
+			trigger := make(chan time.Time)
 			go func(groupStream string) {
 				tokens := strings.Split(groupStream, ":")
 				var prefix string
@@ -222,14 +225,22 @@ func main() {
 				if len(tokens) > 1 && tokens[1] != "*" {
 					prefix = tokens[1]
 				}
-				for c := range c.Tail(&group, &prefix, pFollow, &st, &et, pgrep, pgrepv, limiter.C) {
+				for c := range c.Tail(&group, &prefix, pFollow, &st, &et, pgrep, pgrepv, trigger) {
 					out <- &logEvent{logEvent: *c, logGroup: group}
 				}
 				wg.Done()
 			}(gs)
+			triggerChannels[idx] = trigger
 		}
+		wg.Add(1)
+		coordinator := &tailCoordinator{}
+		coordinator.start(triggerChannels)
+
 		go func() {
 			wg.Wait()
+			if *debug {
+				fmt.Println("close main channel")
+			}
 			close(out)
 		}()
 
@@ -237,6 +248,28 @@ func main() {
 			fmt.Println(formatLogMsg(*logEv, pPrintTimestamp, pPrintStreamName, pPrintGroupName))
 		}
 	}
+}
+
+type tailCoordinator struct {
+	ticker  *time.Ticker
+	targets *ring.Ring
+}
+
+func (f *tailCoordinator) start(targets []chan<- time.Time) {
+	f.targets = ring.New(len(targets))
+	for i := 0; i < f.targets.Len(); i++ {
+		f.targets.Value = targets[i]
+		f.targets = f.targets.Next()
+	}
+	f.ticker = time.NewTicker(205 * time.Millisecond)
+	go func() {
+		for range f.ticker.C {
+			x := f.targets.Value.(chan<- time.Time)
+			x <- time.Now()
+			f.targets = f.targets.Next()
+		}
+	}()
+
 }
 
 //TODO validate new group:prefix syntax

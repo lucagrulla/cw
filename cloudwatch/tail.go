@@ -188,6 +188,8 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 						log.Fatalf(awsErr.Message())
 					}
 				}
+			} else {
+				fmt.Printf("%s is still running. Skipping one round", *logGroupName)
 			}
 		}
 	}()

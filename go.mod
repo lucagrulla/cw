@@ -12,6 +12,8 @@ require (
 	github.com/fatih/gomodifytags v0.0.0-20180914191908-141225bf62b6 // indirect
 	github.com/go-ini/ini v1.37.0 // indirect
 	github.com/golang/lint v0.0.0-20180702182130-06c8688daad7 // indirect
+	github.com/google/pprof v0.0.0-20181206194817-3ea8567a2e57 // indirect
+	github.com/ianlancetaylor/demangle v0.0.0-20181102032728-5e5cf60278f6 // indirect
 	github.com/jmespath/go-jmespath v0.0.0-20160202185014-0b12d6b521d8 // indirect
 	github.com/karrick/godirwalk v1.7.3 // indirect
 	github.com/mattn/go-colorable v0.0.9 // indirect
