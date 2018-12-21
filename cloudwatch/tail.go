@@ -108,7 +108,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	}()
 	logStreams := &logStreams{}
 
-	if logStreamName != nil {
+	if logStreamName != nil && *logStreamName != "" {
 		getStreams := func(logGroupName *string, logStreamName *string) []*string {
 			var streams []*string
 			for stream := range cwl.LsStreams(logGroupName, logStreamName) {
@@ -133,7 +133,6 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 			}
 		}()
 	}
-
 	re := regexp.MustCompile(*grepv)
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
@@ -180,6 +179,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 			for range timer.C {
 				//FilterLogEventPages won't take more than 100 stream names
 				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
+				// fmt.Println(">>", logParam)
 				error := cwl.awsClwClient.FilterLogEventsPages(logParam, pageHandler)
 				if error != nil {
 					if awsErr, ok := error.(awserr.Error); ok {

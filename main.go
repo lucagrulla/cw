@@ -5,8 +5,10 @@ import (
 	"os"
 	"regexp"
 	"strconv"
+	"strings"
 	"time"
 
+	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 	"github.com/fatih/color"
 	"github.com/lucagrulla/cw/cloudwatch"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
@@ -53,6 +55,20 @@ var (
 
 	logGroupName  = tailCommand.Arg("group", "The log group name.").Required().HintAction(groupsCompletion).String()
 	logStreamName = tailCommand.Arg("stream", "The log stream name. If not specified all stream names in the given group will be tailed.").HintAction(streamsCompletion).String()
+
+	pTailCommand  = kp.Command("ptail", "Tail multiple log groups")
+	plogGroupName = pTailCommand.Arg("group", "group:prefix").Required().Strings()
+
+	pFollow          = pTailCommand.Flag("follow", "Don't stop when the end of streams is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
+	pPrintTimestamp  = pTailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
+	pprintEventID    = pTailCommand.Flag("event-id", "Print the event Id.").Short('i').Default("false").Bool()
+	pPrintStreamName = pTailCommand.Flag("stream-name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
+	pPrintGroupName  = pTailCommand.Flag("group-name", "Print the log stream name this event belongs to.").Short('o').Default("false").Bool()
+	pstartTime       = pTailCommand.Flag("start", `pstart`).Short('b').Default(time.Now().UTC().Add(-30 * time.Second).Format(timeFormat)).String()
+	pendTime         = pTailCommand.Flag("end", `pend`).Short('e').Default("").String()
+	pgrep            = pTailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").
+				Short('g').Default("").String()
+	pgrepv = pTailCommand.Flag("grepv", "Equivalent of grep --invert-match. Invert match pattern to filter logs by.").Short('v').Default("").String()
 )
 
 func groupsCompletion() []string {
@@ -115,6 +131,48 @@ func timestampToTime(timeStamp *string) time.Time {
 	return t
 }
 
+type logEvent struct {
+	logEvent cloudwatchlogs.FilteredLogEvent
+	logGroup string
+}
+
+func formatLogMsg(ev logEvent, printTime *bool, printStreamName *bool, printGroupName *bool) string {
+	msg := *ev.logEvent.Message
+	if *printEventID {
+		if *noColor {
+			msg = fmt.Sprintf("%s - %s", *ev.logEvent.EventId, msg)
+		} else {
+			msg = fmt.Sprintf("%s - %s", color.YellowString(*ev.logEvent.EventId), msg)
+		}
+	}
+	if *printStreamName {
+		if *noColor {
+			msg = fmt.Sprintf("%s - %s", *ev.logEvent.LogStreamName, msg)
+		} else {
+			msg = fmt.Sprintf("%s - %s", color.BlueString(*ev.logEvent.LogStreamName), msg)
+		}
+	}
+
+	if *printGroupName {
+		if *noColor {
+			msg = fmt.Sprintf("%s - %s", ev.logGroup, msg)
+		} else {
+			msg = fmt.Sprintf("%s - %s", color.CyanString(ev.logGroup), msg)
+		}
+	}
+
+	if *printTime {
+		eventTimestamp := *ev.logEvent.Timestamp / 1000
+		ts := time.Unix(eventTimestamp, 0).Format(timeFormat)
+		if *noColor {
+			msg = fmt.Sprintf("%s - %s", ts, msg)
+		} else {
+			msg = fmt.Sprintf("%s - %s", color.GreenString(ts), msg)
+		}
+	}
+	return msg
+}
+
 func main() {
 	kp.Version(version).Author("Luca Grulla")
 
@@ -140,31 +198,36 @@ func main() {
 			et = timestampToTime(endTime)
 		}
 		for event := range c.Tail(logGroupName, logStreamName, follow, &st, &et, grep, grepv) {
-			msg := *event.Message
-			if *printEventID {
-				if *noColor {
-					msg = fmt.Sprintf("%s - %s", *event.EventId, msg)
-				} else {
-					msg = fmt.Sprintf("%s - %s", color.YellowString(*event.EventId), msg)
+			evt := &logEvent{logEvent: *event, logGroup: *logGroupName}
+			fmt.Println(formatLogMsg(*evt, printTimestamp, printStreamName, nil))
+		}
+	case "ptail":
+		st := timestampToTime(pstartTime)
+		var et time.Time
+		if *endTime != "" {
+			et = timestampToTime(pendTime)
+		}
+		out := make(chan *logEvent)
+		for _, x := range *plogGroupName {
+			go func(groupStream string) {
+				tokens := strings.Split(groupStream, ":")
+				var prefix string
+				group := tokens[0]
+				if len(tokens) > 1 && tokens[1] != "*" {
+					prefix = tokens[1]
 				}
-			}
-			if *printStreamName {
-				if *noColor {
-					msg = fmt.Sprintf("%s - %s", *event.LogStreamName, msg)
-				} else {
-					msg = fmt.Sprintf("%s - %s", color.BlueString(*event.LogStreamName), msg)
+				for c := range c.Tail(&group, &prefix, pFollow, &st, &et, pgrep, pgrepv) {
+					out <- &logEvent{logEvent: *c, logGroup: group}
 				}
-			}
-			if *printTimestamp {
-				eventTimestamp := *event.Timestamp / 1000
-				ts := time.Unix(eventTimestamp, 0).Format(timeFormat)
-				if *noColor {
-					msg = fmt.Sprintf("%s - %s", ts, msg)
-				} else {
-					msg = fmt.Sprintf("%s - %s", color.GreenString(ts), msg)
-				}
-			}
-			fmt.Println(msg)
+			}(x)
+		}
+
+		for logEv := range out {
+			fmt.Println(formatLogMsg(*logEv, pPrintTimestamp, pPrintStreamName, pPrintGroupName))
 		}
 	}
 }
+
+//how to manage rate limit when multiple groups are tailed?
+//TODO validate new group:prefix syntax
+//TODO see if we can absorb old syntax for a while
