@@ -6,6 +6,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
@@ -192,12 +193,13 @@ func main() {
 			fmt.Println(*msg)
 		}
 	case "tail":
+		limiter := time.NewTicker(205 * time.Millisecond)
 		st := timestampToTime(startTime)
 		var et time.Time
 		if *endTime != "" {
 			et = timestampToTime(endTime)
 		}
-		for event := range c.Tail(logGroupName, logStreamName, follow, &st, &et, grep, grepv) {
+		for event := range c.Tail(logGroupName, logStreamName, follow, &st, &et, grep, grepv, limiter.C) {
 			evt := &logEvent{logEvent: *event, logGroup: *logGroupName}
 			fmt.Println(formatLogMsg(*evt, printTimestamp, printStreamName, nil))
 		}
@@ -208,7 +210,11 @@ func main() {
 			et = timestampToTime(pendTime)
 		}
 		out := make(chan *logEvent)
-		for _, x := range *plogGroupName {
+		limiter := time.NewTicker(205 * time.Millisecond)
+
+		var wg sync.WaitGroup
+		for _, gs := range *plogGroupName {
+			wg.Add(1)
 			go func(groupStream string) {
 				tokens := strings.Split(groupStream, ":")
 				var prefix string
@@ -216,11 +222,16 @@ func main() {
 				if len(tokens) > 1 && tokens[1] != "*" {
 					prefix = tokens[1]
 				}
-				for c := range c.Tail(&group, &prefix, pFollow, &st, &et, pgrep, pgrepv) {
+				for c := range c.Tail(&group, &prefix, pFollow, &st, &et, pgrep, pgrepv, limiter.C) {
 					out <- &logEvent{logEvent: *c, logGroup: group}
 				}
-			}(x)
+				wg.Done()
+			}(gs)
 		}
+		go func() {
+			wg.Wait()
+			close(out)
+		}()
 
 		for logEv := range out {
 			fmt.Println(formatLogMsg(*logEv, pPrintTimestamp, pPrintStreamName, pPrintGroupName))
@@ -228,6 +239,6 @@ func main() {
 	}
 }
 
-//how to manage rate limit when multiple groups are tailed?
 //TODO validate new group:prefix syntax
 //TODO see if we can absorb old syntax for a while
+//TODO use Context for graceful shutdown of each tail activity
