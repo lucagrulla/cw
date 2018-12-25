@@ -27,71 +27,40 @@ var (
 	noColor    = kp.Flag("no-color", "Disable coloured output.").Short('c').Default("false").Bool()
 	debug      = kp.Flag("debug", "Enable debug logging.").Short('d').Default("false").Hidden().Bool()
 
-	lsCommand      = kp.Command("ls", "Show an entity.")
-	lsGroups       = lsCommand.Command("groups", "Show all groups.")
+	lsCommand = kp.Command("ls", "Show an entity.")
+
+	lsGroups = lsCommand.Command("groups", "Show all groups.")
+
 	lsStreams      = lsCommand.Command("streams", "Show all streams in a given log group.")
-	lsLogGroupName = lsStreams.Arg("group", "The group name.").HintAction(groupsCompletion).Required().String()
+	lsLogGroupName = lsStreams.Arg("group", "The group name.").Required().String()
 
-	tailCommand = kp.Command("tail", "Tail a log group.")
-	follow      = tailCommand.Flag("follow", "Don't stop when the end of stream is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
+	tailCommand        = kp.Command("tail", "Tail log groups/streams.")
+	logGroupStreamName = tailCommand.Arg("groupName:logStreamPrefix...", "The log group and stream name, with group:prefix syntax."+
+		"Stream name can be just the prefix. If no stream name is specified all stream names in the given group will be tailed."+
+		"Multiple group/stream tuple can be passed. e.g. cw tail group1:prefix1 group2:prefix2 group3:prefix3.").
+		Required().Strings()
 
+	follow          = tailCommand.Flag("follow", "Don't stop when the end of streams is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
 	printTimestamp  = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
 	printEventID    = tailCommand.Flag("event-id", "Print the event Id.").Short('i').Default("false").Bool()
 	printStreamName = tailCommand.Flag("stream-name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
-
-	grep = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").
-		Short('g').Default("").String()
-	grepv = tailCommand.Flag("grepv", "Equivalent of grep --invert-match. Invert match pattern to filter logs by.").Short('v').Default("").String()
-
-	startTime = tailCommand.Flag("start", `The UTC start time. Passed as either date/time or human-friendly format. 
-											The human-friendly format accepts the number of hours and minutes prior to the present. 
-											Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m. 
-											If time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]].`).
+	printGroupName  = tailCommand.Flag("group-name", "Print the log log group name this event belongs to.").Short('n').Default("false").Bool()
+	startTime       = tailCommand.Flag("start", "The UTC start time. Passed as either date/time or human-friendly format."+
+		" The human-friendly format accepts the number of hours and minutes prior to the present. "+
+		"Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m."+
+		" If just time is used (format: hh[:mm]) it is expanded to today at the given time."+
+		" Full available date/time format: 2017-02-27[T09[:00[:00]].").
 		Short('b').Default(time.Now().UTC().Add(-30 * time.Second).Format(timeFormat)).String()
-	endTime = tailCommand.Flag("end", `The UTC end time. Passed as either date/time or human-friendly format. 
-										The human-friendly format accepts the number of hours and minutes prior to the present. 
-										Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m. 
-										If time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]].`).
+	endTime = tailCommand.Flag("end", "The UTC end time. Passed as either date/time or human-friendly format. "+
+		"The human-friendly format accepts the number of hours and minutes prior to the present. "+
+		"Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m."+
+		"If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09[:00[:00]].").
 		Short('e').Default("").String()
 	local = tailCommand.Flag("local", "Treat date and time in Local timezone.").Short('l').Default("false").Bool()
-
-	logGroupName  = tailCommand.Arg("group", "The log group name.").Required().HintAction(groupsCompletion).String()
-	logStreamName = tailCommand.Arg("stream", "The log stream name. If not specified all stream names in the given group will be tailed.").HintAction(streamsCompletion).String()
-
-	pTailCommand  = kp.Command("ptail", "Tail multiple log groups")
-	plogGroupName = pTailCommand.Arg("group", "group:prefix").Required().Strings()
-
-	pFollow          = pTailCommand.Flag("follow", "Don't stop when the end of streams is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
-	pPrintTimestamp  = pTailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
-	pprintEventID    = pTailCommand.Flag("event-id", "Print the event Id.").Short('i').Default("false").Bool()
-	pPrintStreamName = pTailCommand.Flag("stream-name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
-	pPrintGroupName  = pTailCommand.Flag("group-name", "Print the log stream name this event belongs to.").Short('o').Default("false").Bool()
-	pstartTime       = pTailCommand.Flag("start", `pstart`).Short('b').Default(time.Now().UTC().Add(-30 * time.Second).Format(timeFormat)).String()
-	pendTime         = pTailCommand.Flag("end", `pend`).Short('e').Default("").String()
-	pgrep            = pTailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").
-				Short('g').Default("").String()
-	pgrepv = pTailCommand.Flag("grepv", "Equivalent of grep --invert-match. Invert match pattern to filter logs by.").Short('v').Default("").String()
+	grep  = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").
+		Short('g').Default("").String()
+	grepv = tailCommand.Flag("grepv", "Equivalent of grep --invert-match. Invert match pattern to filter logs by.").Short('v').Default("").String()
 )
-
-func groupsCompletion() []string {
-	var groups []string
-	kingpin.MustParse(kp.Parse(os.Args[1:]))
-
-	for msg := range cloudwatch.New(awsProfile, awsRegion, debug).LsGroups() {
-		groups = append(groups, *msg)
-	}
-	return groups
-}
-
-func streamsCompletion() []string {
-	var streams []string
-	kingpin.MustParse(kp.Parse(os.Args[1:]))
-
-	for msg := range cloudwatch.New(awsProfile, awsRegion, debug).LsStreams(logGroupName, nil) {
-		streams = append(streams, *msg)
-	}
-	return streams
-}
 
 func timestampToTime(timeStamp *string) time.Time {
 	var zone *time.Location
@@ -194,29 +163,18 @@ func main() {
 			fmt.Println(*msg)
 		}
 	case "tail":
-		limiter := time.NewTicker(205 * time.Millisecond)
 		st := timestampToTime(startTime)
 		var et time.Time
 		if *endTime != "" {
 			et = timestampToTime(endTime)
 		}
-		for event := range c.Tail(logGroupName, logStreamName, follow, &st, &et, grep, grepv, limiter.C) {
-			evt := &logEvent{logEvent: *event, logGroup: *logGroupName}
-			fmt.Println(formatLogMsg(*evt, printTimestamp, printStreamName, nil))
-		}
-	case "ptail":
-		st := timestampToTime(pstartTime)
-		var et time.Time
-		if *endTime != "" {
-			et = timestampToTime(pendTime)
-		}
 		out := make(chan *logEvent)
 
 		var wg sync.WaitGroup
 
-		triggerChannels := make([]chan<- time.Time, len(*plogGroupName))
+		triggerChannels := make([]chan<- time.Time, len(*logGroupStreamName))
 
-		for idx, gs := range *plogGroupName {
+		for idx, gs := range *logGroupStreamName {
 			trigger := make(chan time.Time, 1)
 			go func(groupStream string) {
 				tokens := strings.Split(groupStream, ":")
@@ -225,7 +183,7 @@ func main() {
 				if len(tokens) > 1 && tokens[1] != "*" {
 					prefix = tokens[1]
 				}
-				for c := range c.Tail(&group, &prefix, pFollow, &st, &et, pgrep, pgrepv, trigger) {
+				for c := range c.Tail(&group, &prefix, follow, &st, &et, grep, grepv, trigger) {
 					out <- &logEvent{logEvent: *c, logGroup: group}
 				}
 				wg.Done()
@@ -239,13 +197,13 @@ func main() {
 		go func() {
 			wg.Wait()
 			if *debug {
-				fmt.Println("close main channel")
+				fmt.Println("closing main channel...")
 			}
 			close(out)
 		}()
 
 		for logEv := range out {
-			fmt.Println(formatLogMsg(*logEv, pPrintTimestamp, pPrintStreamName, pPrintGroupName))
+			fmt.Println(formatLogMsg(*logEv, printTimestamp, printStreamName, printGroupName))
 		}
 	}
 }
@@ -260,7 +218,7 @@ func (f *tailCoordinator) start(targets []chan<- time.Time) {
 		f.targets.Value = targets[i]
 		f.targets = f.targets.Next()
 	}
-	//AWS API accepts 5 reqs/sec x account
+	//AWS API accepts 5 reqs/sec for account
 	ticker := time.NewTicker(205 * time.Millisecond)
 	go func() {
 		for range ticker.C {
@@ -273,5 +231,5 @@ func (f *tailCoordinator) start(targets []chan<- time.Time) {
 }
 
 //TODO validate new group:prefix syntax
-//TODO see if we can absorb old syntax for a while
+//TODO fix autocompletion
 //TODO use Context for graceful shutdown of each tail activity

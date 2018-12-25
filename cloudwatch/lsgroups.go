@@ -11,9 +11,7 @@ import (
 //It returns a channel where the stream groups are published
 func (cwl *CW) LsGroups() <-chan *string {
 	ch := make(chan *string)
-	params := &cloudwatchlogs.DescribeLogGroupsInput{
-		//		LogGroupNamePrefix: aws.String("LogGroupName"),
-	}
+	params := &cloudwatchlogs.DescribeLogGroupsInput{}
 
 	handler := func(res *cloudwatchlogs.DescribeLogGroupsOutput, lastPage bool) bool {
 		for _, logGroup := range res.LogGroups {
@@ -24,6 +22,7 @@ func (cwl *CW) LsGroups() <-chan *string {
 		}
 		return !lastPage
 	}
+
 	go func() {
 		err := cwl.awsClwClient.DescribeLogGroupsPages(params, handler)
 		if err != nil {

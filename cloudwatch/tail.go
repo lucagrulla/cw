@@ -188,7 +188,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 				}
 			case <-time.After(5 * time.Millisecond):
 				if *cwl.debug {
-					fmt.Printf("%s still tailing, Skip.\n", *logGroupName)
+					fmt.Printf("%s still tailing, Skip polling.\n", *logGroupName)
 				}
 			}
 		}

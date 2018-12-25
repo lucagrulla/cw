@@ -12,7 +12,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 
 * **No external dependencies** (no pip, npm, rubygems) and easy installation.
   * cw is a native executable targeting your OS.
-* **Fast**. cw is written in golang and compiled against your architecture, there are  no intermediate VMs.
+* **Fast**. cw is written in golang and compiled against your architecture. There is no intermediate runtime.
 * **Flexible date and time parser**.
   * You can work with either `Local` timezone or `UTC` (default).
   * Flexible parsing.
@@ -23,7 +23,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 * Work smoothly with piping, i.e. `cw tail -f my-stream >> myfile.txt`.
 * Coloured output (but use `--no-color` to disable if needed).
 * Flexibile credentials control.
-  * It works by default with your **AWS .aws/credentials and .aws/profile** files, but specific overrides can be done (see `--profile` and `--region` flags).
+  * By default it uses the **AWS .aws/credentials and .aws/profile** files. Overrides can be done with the  `--profile` and `--region` flags.
 
 ## Installation
 
@@ -78,30 +78,36 @@ go get github.com/lucagrulla/cw
     ```
 * `cw tail` tail a given log group/log stream
     ```bash
-        usage: cw tail [<flags>] <group> [<stream>] [<start>] [<end>]
+        usage: cw tail [<flags>] <groupName:logStreamPrefix...>...
 
-        Tail a log group.
+        Tail log groups/streams.
+
         Flags:
             --help             Show context-sensitive help (also try --help-long and --help-man).
         -p, --profile=PROFILE  The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.
-        -r, --region=REGION    The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.
-        -c, --no-color         Disable coloured output
+        -r, --region=REGION    The target AWS region. By default cw will use the default region defined in the .aws/credentials file.
+        -c, --no-color         Disable coloured output.
             --version          Show application version.
-        -f, --follow           Don't stop when the end of stream is reached, but rather wait for additional data to be appended.
+        -f, --follow           Don't stop when the end of streams is reached, but rather wait for additional data to be appended.
         -t, --timestamp        Print the event timestamp.
-        -i, --event-id         Print the event Id
+        -i, --event-id         Print the event Id.
         -s, --stream-name      Print the log stream name this event belongs to.
+        -n, --group-name       Print the log log group name this event belongs to.
+        -b, --start="2018-12-25T09:34:45"
+                                The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with
+                                'h' and minutes with 'm' i.e. 80m, 4h30m. If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format:
+                                2017-02-27[T09[:00[:00]].
+        -e, --end=""           The UTC end time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with
+                                'h' and minutes with 'm' i.e. 80m, 4h30m.If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format:
+                                2017-02-27[T09[:00[:00]].
+        -l, --local            Treat date and time in Local timezone.
         -g, --grep=""          Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.
         -v, --grepv=""         Equivalent of grep --invert-match. Invert match pattern to filter logs by.
-        -l, --local            Treat date and time in the Local timezone.
 
         Args:
-        <group>     The log group name.
-        [<stream>]  The log stream name. Use \* for tail all the group streams.
-        [<start>]   The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with 'h' and
-                    minutes with 'm' i.e. 80m, 4h30m. If time is passed (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]].
-        [<end>]     The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with 'h' and
-                    minutes with 'm' i.e. 80m, 4h30m. If time is passed (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]]
+        <groupName:logStreamPrefix...>
+            The log group and stream name, with group:prefix syntax.Stream name can be just the prefix. If no stream name is specified all stream names in the given group will be tailed.Multiple group/stream
+            tuple can be passed. e.g. cw tail group1:prefix group2:prefix group3:prefix.     
     ```
 
 ## Examples
@@ -112,12 +118,13 @@ go get github.com/lucagrulla/cw
   * `cw ls streams my-log-group`
 * tail and follow a given log group/stream
   * `cw tail -f my-log-group`
-  * `cw tail -f my-log-group my-log-stream-prefix`
-  * `cw tail -f my-log-group my-log-stream-prefix 2017-01-01T08:10:10 2017-01-01T08:05:00`  
-  * `cw tail -f my-log-group my-log-stream-prefix 3h` to start from 3 hours ago.
-  * `cw tail -f my-log-group my-log-stream-prefix 100m`  to start from 100 minutes ago.
-  * `cw tail -f my-log-group my-log-stream-prefix 2h30m`  to start from 2 hours and 30 minutes ago.
-  * `cw tail -f my-log-group \* 9:00 9:01` The use of the \* wildchar will let you tail all the log streams in my-log-group.
+  * `cw tail -f my-log-group:my-log-stream-prefix`
+  * `cw tail -f my-log-group:my-log-stream-prefix my-log-group2`
+  * `cw tail -f my-log-group my-log-stream-prefix -b2017-01-01T08:10:10 -e2017-01-01T08:05:00`  
+  * `cw tail -f my-log-group my-log-stream-prefix -b3h` to start from 3 hours ago.
+  * `cw tail -f my-log-group my-log-stream-prefix -b100m`  to start from 100 minutes ago.
+  * `cw tail -f my-log-group my-log-stream-prefix -b2h30m`  to start from 2 hours and 30 minutes ago.
+  * `cw tail -f my-log-group -b9:00 -e9:01`
 
 ## Time and Dates
 
