@@ -183,7 +183,22 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 				error := cwl.awsClwClient.FilterLogEventsPages(logParam, pageHandler)
 				if error != nil {
 					if awsErr, ok := error.(awserr.Error); ok {
-						log.Fatalf(awsErr.Message())
+						if awsErr.Code() == "ThrottlingException" {
+							if *cwl.debug {
+								fmt.Printf("Rate exceeded for %s. Wait for 250ms then retry.\n", *logGroupName)
+							}
+							//Try again. Wait and fire request again. 1 Retry allowed.
+							time.Sleep(250 * time.Millisecond)
+
+							error := cwl.awsClwClient.FilterLogEventsPages(logParam, pageHandler)
+							if error != nil {
+								if awsErr, ok := error.(awserr.Error); ok {
+									log.Fatalf(awsErr.Message())
+								}
+							}
+						} else {
+							log.Fatalf(awsErr.Message())
+						}
 					}
 				}
 			case <-time.After(5 * time.Millisecond):
