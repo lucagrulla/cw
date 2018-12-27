@@ -189,8 +189,8 @@ func main() {
 				wg.Done()
 			}(gs)
 			triggerChannels[idx] = trigger
+			wg.Add(1)
 		}
-		wg.Add(1)
 		coordinator := &tailCoordinator{}
 		coordinator.start(triggerChannels)
 
