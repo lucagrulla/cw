@@ -35,7 +35,7 @@ var (
 	lsLogGroupName = lsStreams.Arg("group", "The group name.").Required().String()
 
 	tailCommand        = kp.Command("tail", "Tail log groups/streams.")
-	logGroupStreamName = tailCommand.Arg("groupName:logStreamPrefix...", "The log group and stream name, with group:prefix syntax."+
+	logGroupStreamName = tailCommand.Arg("groupName[:logStreamPrefix]", "The log group and stream name, with group:prefix syntax."+
 		"Stream name can be just the prefix. If no stream name is specified all stream names in the given group will be tailed."+
 		"Multiple group/stream tuple can be passed. e.g. cw tail group1:prefix1 group2:prefix2 group3:prefix3.").
 		Required().Strings()
