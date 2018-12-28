@@ -38,7 +38,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 ### On Mac OSX using [Homebrew](https://brew.sh)
 
 ```bash
-brew tap lucagrulla/cw
+brew tap lucagrulla/tap
 brew install cw
 ```
 
