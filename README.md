@@ -8,6 +8,14 @@ The **best** way to tail AWS CloudWatch Logs from your terminal.
 
 Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.com](https://www.lucagrulla.com)
 
+
+* [Features](##features)
+* [Installation](##installation)
+* [Commands and options](#commands-and-options)
+* [Examples](#examples)
+* [AWS credentials and configuration](#AWS-credentials-and-configuration)
+* [v2.* to v3.* command syntax breaking changes](#v2.*-to-v3.*-command-syntax-breaking-changes)
+
 ## Features
 
 * **No external dependencies** (no pip, npm, rubygems) and easy installation.
@@ -47,7 +55,7 @@ scoop install cw
 go get github.com/lucagrulla/cw
 ```
 
-## Commands and flags
+## Commands and options
 
 ### Global flags
 
@@ -116,14 +124,14 @@ go get github.com/lucagrulla/cw
   * `cw ls groups`
 * list of the log streams in a given log group
   * `cw ls streams my-log-group`
-* tail and follow a given log group/stream
+* tail and follow given log groups/streams
   * `cw tail -f my-log-group`
   * `cw tail -f my-log-group:my-log-stream-prefix`
   * `cw tail -f my-log-group:my-log-stream-prefix my-log-group2`
-  * `cw tail -f my-log-group my-log-stream-prefix -b2017-01-01T08:10:10 -e2017-01-01T08:05:00`  
-  * `cw tail -f my-log-group my-log-stream-prefix -b3h` to start from 3 hours ago.
-  * `cw tail -f my-log-group my-log-stream-prefix -b100m`  to start from 100 minutes ago.
-  * `cw tail -f my-log-group my-log-stream-prefix -b2h30m`  to start from 2 hours and 30 minutes ago.
+  * `cw tail -f my-log-group:my-log-stream-prefix -b2017-01-01T08:10:10 -e2017-01-01T08:05:00`  
+  * `cw tail -f my-log-group:my-log-stream-prefix -b3h` to start from 3 hours ago.
+  * `cw tail -f my-log-group:my-log-stream-prefix -b100m`  to start from 100 minutes ago.
+  * `cw tail -f my-log-group:my-log-stream-prefix -b2h30m`  to start from 2 hours and 30 minutes ago.
   * `cw tail -f my-log-group -b9:00 -e9:01`
 
 ## Time and Dates
@@ -134,3 +142,13 @@ If you prefer to use Local zone just set the ```--local``` flag.
 ## AWS credentials and configuration
 
 `cw` uses the default credentials profile (stored in ./aws/credentials) for authentication and shared config (.aws/config) for identifying the target AWS region. Both profile and region are overridable with the  `profile` and `region` global flags.
+
+## v2.* to v3.* command syntax breaking changes 
+
+In v3.x the syntax of the ```tail``` command has changed.
+
+* The optional begin and end tail timestamps are now command flags, `--begin` and `--end`.
+* Log group and optional stream changed from being positional arguments to be a single argument tuple with `:` as a separator: `mygroup:mystream`
+* Example:
+  * old syntax: `cw tail my-group my-stream 2018-12-21:09 2018-12-21:12`
+  * new syntax: `cw tail -b2018-12-21:09 -e2018-12-21:12 mygroup:mystream`
