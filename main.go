@@ -1,18 +1,19 @@
 package main
 
 import (
+	"container/ring"
 	"fmt"
-	"net/http"
 	"os"
-	"os/signal"
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
+	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 	"github.com/fatih/color"
 	"github.com/lucagrulla/cw/cloudwatch"
-	"gopkg.in/alecthomas/kingpin.v2"
+	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 
 var (
@@ -26,44 +27,40 @@ var (
 	noColor    = kp.Flag("no-color", "Disable coloured output.").Short('c').Default("false").Bool()
 	debug      = kp.Flag("debug", "Enable debug logging.").Short('d').Default("false").Hidden().Bool()
 
-	lsCommand      = kp.Command("ls", "Show an entity.")
-	lsGroups       = lsCommand.Command("groups", "Show all groups.")
-	lsStreams      = lsCommand.Command("streams", "Show all streams in a given log group.")
-	lsLogGroupName = lsStreams.Arg("group", "The group name.").HintAction(groupsCompletion).Required().String()
+	lsCommand = kp.Command("ls", "Show an entity.")
 
-	tailCommand     = kp.Command("tail", "Tail a log group.")
-	follow          = tailCommand.Flag("follow", "Don't stop when the end of stream is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
+	lsGroups = lsCommand.Command("groups", "Show all groups.")
+
+	lsStreams      = lsCommand.Command("streams", "Show all streams in a given log group.")
+	lsLogGroupName = lsStreams.Arg("group", "The group name.").Required().String()
+
+	tailCommand        = kp.Command("tail", "Tail log groups/streams.")
+	logGroupStreamName = tailCommand.Arg("groupName[:logStreamPrefix]", "The log group and stream name, with group:prefix syntax."+
+		"Stream name can be just the prefix. If no stream name is specified all stream names in the given group will be tailed."+
+		"Multiple group/stream tuple can be passed. e.g. cw tail group1:prefix1 group2:prefix2 group3:prefix3.").
+		Required().Strings()
+
+	follow          = tailCommand.Flag("follow", "Don't stop when the end of streams is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
 	printTimestamp  = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
 	printEventID    = tailCommand.Flag("event-id", "Print the event Id.").Short('i').Default("false").Bool()
 	printStreamName = tailCommand.Flag("stream-name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
-	grep            = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").Short('g').Default("").String()
-	grepv           = tailCommand.Flag("grepv", "Equivalent of grep --invert-match. Invert match pattern to filter logs by.").Short('v').Default("").String()
-	logGroupName    = tailCommand.Arg("group", "The log group name.").Required().HintAction(groupsCompletion).String()
-	logStreamName   = tailCommand.Arg("stream", "The log stream name. Use \\* for tail all the group streams.").Default("*").HintAction(streamsCompletion).String()
-	startTime       = tailCommand.Arg("start", "The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m. If time is passed (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]].").Default(time.Now().UTC().Add(-30 * time.Second).Format(timeFormat)).String()
-	endTime         = tailCommand.Arg("end", "The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m. If time is passed (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09:00[:00]].").String()
-	local           = tailCommand.Flag("local", "Treat date and time in Local zone.").Short('l').Default("false").Bool()
+	printGroupName  = tailCommand.Flag("group-name", "Print the log log group name this event belongs to.").Short('n').Default("false").Bool()
+	startTime       = tailCommand.Flag("start", "The UTC start time. Passed as either date/time or human-friendly format."+
+		" The human-friendly format accepts the number of hours and minutes prior to the present. "+
+		"Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m."+
+		" If just time is used (format: hh[:mm]) it is expanded to today at the given time."+
+		" Full available date/time format: 2017-02-27[T09[:00[:00]].").
+		Short('b').Default(time.Now().UTC().Add(-30 * time.Second).Format(timeFormat)).String()
+	endTime = tailCommand.Flag("end", "The UTC end time. Passed as either date/time or human-friendly format. "+
+		"The human-friendly format accepts the number of hours and minutes prior to the present. "+
+		"Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m."+
+		"If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09[:00[:00]].").
+		Short('e').Default("").String()
+	local = tailCommand.Flag("local", "Treat date and time in Local timezone.").Short('l').Default("false").Bool()
+	grep  = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").
+		Short('g').Default("").String()
+	grepv = tailCommand.Flag("grepv", "Equivalent of grep --invert-match. Invert match pattern to filter logs by.").Short('v').Default("").String()
 )
-
-func groupsCompletion() []string {
-	var groups []string
-	kingpin.MustParse(kp.Parse(os.Args[1:]))
-
-	for msg := range cloudwatch.New(awsProfile, awsRegion, debug).LsGroups() {
-		groups = append(groups, *msg)
-	}
-	return groups
-}
-
-func streamsCompletion() []string {
-	var streams []string
-	kingpin.MustParse(kp.Parse(os.Args[1:]))
-
-	for msg := range cloudwatch.New(awsProfile, awsRegion, debug).LsStreams(logGroupName, nil) {
-		streams = append(streams, *msg)
-	}
-	return streams
-}
 
 func timestampToTime(timeStamp *string) time.Time {
 	var zone *time.Location
@@ -105,52 +102,52 @@ func timestampToTime(timeStamp *string) time.Time {
 	return t
 }
 
-func fetchLatestVersion() chan string {
-	latestVersionChannel := make(chan string, 1)
-	go func() {
-		r, e := http.Get("https://github.com/lucagrulla/cw/releases/latest")
-
-		if e != nil {
-			close(latestVersionChannel)
-		} else {
-			finalURL := r.Request.URL.String()
-			tokens := strings.Split(finalURL, "/")
-			latestVersionChannel <- tokens[len(tokens)-1]
-		}
-	}()
-	return latestVersionChannel
+type logEvent struct {
+	logEvent cloudwatchlogs.FilteredLogEvent
+	logGroup string
 }
 
-func newVersionMsg(currentVersion string, latestVersionChannel chan string) {
-	latestVersion, ok := <-latestVersionChannel
-	//if the channel is closed it means we failed to fetch the latest version. Ignore the version message.
-	if !ok {
-		if latestVersion != fmt.Sprintf("v%s", currentVersion) {
-			fmt.Println("")
-			fmt.Println("")
-			if *noColor {
-				msg := fmt.Sprintf("%s - %s -> %s", "A new version of cw is available!", currentVersion, latestVersion)
-				fmt.Println(msg)
-			} else {
-				msg := fmt.Sprintf("%s - %s -> %s", color.GreenString("A new version of cw is available!"), color.YellowString(currentVersion), color.GreenString(latestVersion))
-				fmt.Println(msg)
-			}
+func formatLogMsg(ev logEvent, printTime *bool, printStreamName *bool, printGroupName *bool) string {
+	msg := *ev.logEvent.Message
+	if *printEventID {
+		if *noColor {
+			msg = fmt.Sprintf("%s - %s", *ev.logEvent.EventId, msg)
+		} else {
+			msg = fmt.Sprintf("%s - %s", color.YellowString(*ev.logEvent.EventId), msg)
 		}
 	}
-}
+	if *printStreamName {
+		if *noColor {
+			msg = fmt.Sprintf("%s - %s", *ev.logEvent.LogStreamName, msg)
+		} else {
+			msg = fmt.Sprintf("%s - %s", color.BlueString(*ev.logEvent.LogStreamName), msg)
+		}
+	}
 
-func versionCheckOnSigterm() {
-	//only way to avoid print of the signal: interrupt message
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-	<-c
-	os.Exit(0)
+	if *printGroupName {
+		if *noColor {
+			msg = fmt.Sprintf("%s - %s", ev.logGroup, msg)
+		} else {
+			msg = fmt.Sprintf("%s - %s", color.CyanString(ev.logGroup), msg)
+		}
+	}
+
+	if *printTime {
+		eventTimestamp := *ev.logEvent.Timestamp / 1000
+		ts := time.Unix(eventTimestamp, 0).Format(timeFormat)
+		if *noColor {
+			msg = fmt.Sprintf("%s - %s", ts, msg)
+		} else {
+			msg = fmt.Sprintf("%s - %s", color.GreenString(ts), msg)
+		}
+	}
+	return msg
 }
 
 func main() {
 	kp.Version(version).Author("Luca Grulla")
 
-	defer newVersionMsg(version, fetchLatestVersion())
+	defer newVersionMsg(version, fetchLatestVersion(), *noColor)
 	go versionCheckOnSigterm()
 
 	cmd := kingpin.MustParse(kp.Parse(os.Args[1:]))
@@ -171,32 +168,68 @@ func main() {
 		if *endTime != "" {
 			et = timestampToTime(endTime)
 		}
-		for event := range c.Tail(logGroupName, logStreamName, follow, &st, &et, grep, grepv) {
-			msg := *event.Message
-			if *printEventID {
-				if *noColor {
-					msg = fmt.Sprintf("%s - %s", *event.EventId, msg)
-				} else {
-					msg = fmt.Sprintf("%s - %s", color.YellowString(*event.EventId), msg)
+		out := make(chan *logEvent)
+
+		var wg sync.WaitGroup
+
+		triggerChannels := make([]chan<- time.Time, len(*logGroupStreamName))
+
+		for idx, gs := range *logGroupStreamName {
+			trigger := make(chan time.Time, 1)
+			go func(groupStream string) {
+				tokens := strings.Split(groupStream, ":")
+				var prefix string
+				group := tokens[0]
+				if len(tokens) > 1 && tokens[1] != "*" {
+					prefix = tokens[1]
 				}
-			}
-			if *printStreamName {
-				if *noColor {
-					msg = fmt.Sprintf("%s - %s", *event.LogStreamName, msg)
-				} else {
-					msg = fmt.Sprintf("%s - %s", color.BlueString(*event.LogStreamName), msg)
+				for c := range c.Tail(&group, &prefix, follow, &st, &et, grep, grepv, trigger) {
+					out <- &logEvent{logEvent: *c, logGroup: group}
 				}
+				wg.Done()
+			}(gs)
+			triggerChannels[idx] = trigger
+			wg.Add(1)
+		}
+		coordinator := &tailCoordinator{}
+		coordinator.start(triggerChannels)
+
+		go func() {
+			wg.Wait()
+			if *debug {
+				fmt.Println("closing main channel...")
 			}
-			if *printTimestamp {
-				eventTimestamp := *event.Timestamp / 1000
-				ts := time.Unix(eventTimestamp, 0).Format(timeFormat)
-				if *noColor {
-					msg = fmt.Sprintf("%s - %s", ts, msg)
-				} else {
-					msg = fmt.Sprintf("%s - %s", color.GreenString(ts), msg)
-				}
-			}
-			fmt.Println(msg)
+			close(out)
+		}()
+
+		for logEv := range out {
+			fmt.Println(formatLogMsg(*logEv, printTimestamp, printStreamName, printGroupName))
 		}
 	}
 }
+
+type tailCoordinator struct {
+	targets *ring.Ring
+}
+
+func (f *tailCoordinator) start(targets []chan<- time.Time) {
+	f.targets = ring.New(len(targets))
+	for i := 0; i < f.targets.Len(); i++ {
+		f.targets.Value = targets[i]
+		f.targets = f.targets.Next()
+	}
+	//AWS API accepts 5 reqs/sec for account
+	ticker := time.NewTicker(205 * time.Millisecond)
+	go func() {
+		for range ticker.C {
+			x := f.targets.Value.(chan<- time.Time)
+			x <- time.Now()
+			f.targets = f.targets.Next()
+		}
+	}()
+
+}
+
+//TODO validate new group:prefix syntax
+//TODO fix autocompletion
+//TODO use Context for graceful shutdown of each tail activity

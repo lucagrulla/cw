@@ -82,7 +82,7 @@ func params(logGroupName string, streamNames []*string, startTimeInMillis int64,
 //To tail all the available streams logStreamName has to be '*'
 //It returns a channel where logs line are published
 //Unless the follow flag is true the channel is closed once there are no more events available
-func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, grepv *string) <-chan *cloudwatchlogs.FilteredLogEvent {
+func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, grepv *string, limiter <-chan time.Time) <-chan *cloudwatchlogs.FilteredLogEvent {
 	lastSeenTimestamp := startTime.Unix() * 1000
 
 	var endTimeInMillis int64
@@ -90,8 +90,9 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 		endTimeInMillis = endTime.Unix() * 1000
 	}
 
-	ch := make(chan *cloudwatchlogs.FilteredLogEvent)
-	timer := time.NewTimer(time.Millisecond * 5)
+	ch := make(chan *cloudwatchlogs.FilteredLogEvent, 1000)
+	idle := make(chan bool, 1)
+	idle <- true
 
 	cache := &eventCache{seen: make(map[string]bool)}
 	go func() { //check cache size every 250ms and eventually purge
@@ -108,7 +109,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	}()
 	logStreams := &logStreams{}
 
-	if *logStreamName != "*" {
+	if logStreamName != nil && *logStreamName != "" {
 		getStreams := func(logGroupName *string, logStreamName *string) []*string {
 			var streams []*string
 			for stream := range cwl.LsStreams(logGroupName, logStreamName) {
@@ -167,27 +168,46 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 				if *cwl.debug {
 					fmt.Println("LAST PAGE")
 				}
-				//AWS API accepts 5 reqs/sec
-				timer.Reset(time.Millisecond * 205)
+				idle <- true
 			}
 		}
 		return !lastPage
 	}
-	first := true
-	if *follow || first {
-		first = false
-		go func() {
-			for range timer.C {
-				//FilterLogEventPages won't take more than 100 stream names
+
+	go func() {
+		for range limiter {
+			//FilterLogEventPages won't take more than 100 stream names
+			select {
+			case <-idle:
 				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
 				error := cwl.awsClwClient.FilterLogEventsPages(logParam, pageHandler)
 				if error != nil {
 					if awsErr, ok := error.(awserr.Error); ok {
-						log.Fatalf(awsErr.Message())
+						if awsErr.Code() == "ThrottlingException" {
+							if *cwl.debug {
+								fmt.Printf("Rate exceeded for %s. Wait for 250ms then retry.\n", *logGroupName)
+							}
+							//Try again. Wait and fire request again. 1 Retry allowed.
+							time.Sleep(250 * time.Millisecond)
+
+							error := cwl.awsClwClient.FilterLogEventsPages(logParam, pageHandler)
+							if error != nil {
+								if awsErr, ok := error.(awserr.Error); ok {
+									log.Fatalf(awsErr.Message())
+								}
+							}
+						} else {
+							log.Fatalf(awsErr.Message())
+						}
 					}
 				}
+			case <-time.After(5 * time.Millisecond):
+				if *cwl.debug {
+					fmt.Printf("%s still tailing, Skip polling.\n", *logGroupName)
+				}
 			}
-		}()
-	}
+		}
+	}()
+
 	return ch
 }

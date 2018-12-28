@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func TesttimestampToTime(t *testing.T) {
+func TestTimestampToTime(t *testing.T) {
 	assert := assert.New(t)
 
 	a := "2017-03-12"
