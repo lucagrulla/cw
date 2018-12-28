@@ -27,6 +27,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
     * Human friendly formats, i.e. `1h20m`  to indicate 1 hour and 20 minutes ago.
     * a specific hour, i.e. `13:10` to indicate 13:10 of today.
     * a full timestamp `2018-10-20T8:53`.
+* **multi log groups tailing** tail multiple log groups  in parallel: `cw tail tail my-auth-service my-web`
 * Powerful built-in **grep** (`--grep`) and **grepv** (`--grepv`).
 * Work smoothly with piping, i.e. `cw tail -f my-stream >> myfile.txt`.
 * Coloured output (but use `--no-color` to disable if needed).
