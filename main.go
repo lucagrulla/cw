@@ -44,7 +44,7 @@ var (
 	printTimestamp  = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
 	printEventID    = tailCommand.Flag("event-id", "Print the event Id.").Short('i').Default("false").Bool()
 	printStreamName = tailCommand.Flag("stream-name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
-	printGroupName  = tailCommand.Flag("group-name", "Print the log log group name this event belongs to.").Short('n').Default("false").Bool()
+	printGroupName  = tailCommand.Flag("group-name", "Print the log group name this event belongs to.").Short('n').Default("false").Bool()
 	startTime       = tailCommand.Flag("start", "The UTC start time. Passed as either date/time or human-friendly format."+
 		" The human-friendly format accepts the number of hours and minutes prior to the present. "+
 		"Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m."+
