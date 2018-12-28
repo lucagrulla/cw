@@ -26,7 +26,7 @@ changelog:
 brew:
   github:
     owner: lucagrulla
-    name: homebrew-cw
+    name: homebrew-tap
   commit_author:
     name: lucagrulla
     email:
