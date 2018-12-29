@@ -19,7 +19,7 @@ import (
 
 var (
 	timeFormat = "2006-01-02T15:04:05"
-	version    = "2.1.3"
+	version    = "3.0.0"
 
 	kp = kingpin.New("cw", "The best way to tail AWS Cloudwatch Logs from your terminal.")
 
