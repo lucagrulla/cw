@@ -10,7 +10,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 
 
 * [Features](##features)
-* [Installation](##installation)
+* [Installation](#installation)
 * [Commands and options](#commands-and-options)
 * [Examples](#examples)
 * [AWS credentials and configuration](#AWS-credentials-and-configuration)
