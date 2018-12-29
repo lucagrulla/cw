@@ -3,6 +3,7 @@ package main
 import (
 	"container/ring"
 	"fmt"
+	"log"
 	"os"
 	"regexp"
 	"strconv"
@@ -62,7 +63,7 @@ var (
 	grepv = tailCommand.Flag("grepv", "Equivalent of grep --invert-match. Invert match pattern to filter logs by.").Short('v').Default("").String()
 )
 
-func timestampToTime(timeStamp *string) time.Time {
+func timestampToTime(timeStamp *string) (time.Time, error) {
 	var zone *time.Location
 	if *local {
 		zone = time.Local
@@ -71,35 +72,38 @@ func timestampToTime(timeStamp *string) time.Time {
 	}
 	if regexp.MustCompile(`^\d{4}-\d{2}-\d{2}$`).MatchString(*timeStamp) {
 		t, _ := time.ParseInLocation("2006-01-02", *timeStamp, zone)
-		return t
+		return t, nil
 	} else if regexp.MustCompile(`^\d{4}-\d{2}-\d{2}T\d{2}$`).MatchString(*timeStamp) {
 		t, _ := time.ParseInLocation("2006-01-02T15", *timeStamp, zone)
-		return t
+		return t, nil
 	} else if regexp.MustCompile(`^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$`).MatchString(*timeStamp) {
 		t, _ := time.ParseInLocation("2006-01-02T15:04", *timeStamp, zone)
-		return t
+		return t, nil
 	} else if regexp.MustCompile(`^\d{1,2}$`).MatchString(*timeStamp) {
 		y, m, d := time.Now().In(zone).Date()
 		t, _ := strconv.Atoi(*timeStamp)
-		return time.Date(y, m, d, t, 0, 0, 0, zone)
+		return time.Date(y, m, d, t, 0, 0, 0, zone), nil
 	} else if res := regexp.MustCompile(`^(?P<Hour>\d{1,2}):(?P<Minute>\d{2})$`).FindStringSubmatch(*timeStamp); res != nil {
 		y, m, d := time.Now().Date()
 
 		t, _ := strconv.Atoi(res[1])
 		mm, _ := strconv.Atoi(res[2])
 
-		return time.Date(y, m, d, t, mm, 0, 0, zone)
+		return time.Date(y, m, d, t, mm, 0, 0, zone), nil
 	} else if regexp.MustCompile(`^\d{1,}h$|^\d{1,}m$|^\d{1,}h\d{1,}m$`).MatchString(*timeStamp) {
 		d, _ := time.ParseDuration(*timeStamp)
 
 		t := time.Now().In(zone).Add(-d)
 		y, m, dd := t.Date()
-		return time.Date(y, m, dd, t.Hour(), t.Minute(), 0, 0, zone)
+		return time.Date(y, m, dd, t.Hour(), t.Minute(), 0, 0, zone), nil
 	}
 
 	//TODO check even last scenario and if it's not a recognized pattern throw an error
-	t, _ := time.ParseInLocation("2006-01-02T15:04:05", *timeStamp, zone)
-	return t
+	t, err := time.ParseInLocation("2006-01-02T15:04:05", *timeStamp, zone)
+	if err != nil {
+		return t, err
+	}
+	return t, nil
 }
 
 type logEvent struct {
@@ -144,6 +148,23 @@ func formatLogMsg(ev logEvent, printTime *bool, printStreamName *bool, printGrou
 	return msg
 }
 
+func oldSyntaxWarning() {
+	tokenNum := len(*logGroupStreamName)
+	if tokenNum > 1 { //a log stream is also specified
+		if (*logGroupStreamName)[1] == "*" {
+			fmt.Println("WARNING:tail syntax has changed with V3. Please refer to the documentation for the new syntax details: https://www.lucagrulla.com/cw/#v2-to-v3-breaking-changes")
+			os.Exit(0)
+		}
+		if tokenNum > 2 { //group, stream and date
+			ts := (*logGroupStreamName)[2]
+			if _, err := timestampToTime(&ts); err == nil {
+				fmt.Println("WARNING:tail syntax has changed with V3. Please refer to the documentation for the new syntax details: https://www.lucagrulla.com/cw/#v2-to-v3-breaking-changes")
+				os.Exit(0)
+			}
+		}
+	}
+}
+
 func main() {
 	kp.Version(version).Author("Luca Grulla")
 
@@ -163,10 +184,20 @@ func main() {
 			fmt.Println(*msg)
 		}
 	case "tail":
-		st := timestampToTime(startTime)
+		oldSyntaxWarning()
+
+		st, err := timestampToTime(startTime)
+		if err != nil {
+			log.Fatalf("can't parse %s as a valid date/time", *startTime)
+		}
 		var et time.Time
 		if *endTime != "" {
-			et = timestampToTime(endTime)
+			endT, errr := timestampToTime(endTime)
+			if errr != nil {
+				log.Fatalf("can't parse %s as a valid date/time", *endTime)
+			} else {
+				et = endT
+			}
 		}
 		out := make(chan *logEvent)
 
@@ -229,7 +260,3 @@ func (f *tailCoordinator) start(targets []chan<- time.Time) {
 	}()
 
 }
-
-//TODO validate new group:prefix syntax
-//TODO fix autocompletion
-//TODO use Context for graceful shutdown of each tail activity
