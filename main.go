@@ -258,5 +258,4 @@ func (f *tailCoordinator) start(targets []chan<- time.Time) {
 			f.targets = f.targets.Next()
 		}
 	}()
-
 }
