@@ -43,12 +43,21 @@ brew tap lucagrulla/tap
 brew install cw
 ```
 
-### On Windows using Scoop.sh
+### On Windows using [Scoop.sh](https://scoop.sh/)
 
 ```bash
 scoop bucket add cw https://github.com/lucagrulla/cw-scoop-bucket.git
 scoop install cw
 ```
+
+### On Linux using [Snapcraft.io](https://snapcraft.io)
+
+```bash
+snap install cw-sh
+sudo snap alias cw-sh cw
+```
+
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/cw-sh)
 
 ### Using Go tools
 
