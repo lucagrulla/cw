@@ -87,4 +87,4 @@ snapcraft:
   apps:
     cw-sh:
       plugs: ["home", "network"]
-  publish: false
+  publish: true
