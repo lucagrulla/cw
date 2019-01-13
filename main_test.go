@@ -86,3 +86,27 @@ func TestWrongFormat(t *testing.T) {
 	_, err := timestampToTime(&a)
 	assert.Error(err)
 }
+
+func TestCoordinatorRemoveItem(t *testing.T) {
+	a := assert.New(t)
+
+	groupTrigger1 := make(chan time.Time, 1)
+	groupTrigger2 := make(chan time.Time, 1)
+
+	channels := []chan<- time.Time{chan<- time.Time(groupTrigger1),
+		chan<- time.Time(groupTrigger2)}
+
+	coordinator := &tailCoordinator{}
+	coordinator.start(channels)
+
+	coordinator.remove(channels[0])
+
+	select {
+	case _, ok := <-groupTrigger1:
+		if ok {
+			a.Fail("Channel should be closed.")
+		}
+	case <-time.After(1 * time.Second):
+		a.Fail("Timeout")
+	}
+}
