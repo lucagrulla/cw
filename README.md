@@ -29,7 +29,8 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
     * a full timestamp `2018-10-20T8:53`.
 * **multi log groups tailing** tail multiple log groups  in parallel: `cw tail tail my-auth-service my-web`
 * Powerful built-in **grep** (`--grep`) and **grepv** (`--grepv`).
-* Work smoothly with piping, i.e. `cw tail -f my-stream >> myfile.txt`.
+* **piping |** supported i.e. `echo my-group | cw tail` and `cat groups.txt | cw tail` 
+* **Redirection >>** supported i.e. `cw tail -f my-stream >> myfile.txt`.
 * Coloured output (but use `--no-color` to disable if needed).
 * Flexibile credentials control.
   * By default it uses the **AWS .aws/credentials and .aws/profile** files. Overrides can be done with the  `--profile` and `--region` flags.
