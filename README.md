@@ -20,7 +20,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 
 * **No external dependencies** (no pip, npm, rubygems) and easy installation.
   * cw is a native executable targeting your OS.
-* **Fast**. cw is written in golang and compiled against your architecture. There is no intermediate runtime.
+* **Fast**. cw is written in golang and compiled against your architecture.
 * **Flexible date and time parser**.
   * You can work with either `Local` timezone or `UTC` (default).
   * Flexible parsing.
