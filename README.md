@@ -72,6 +72,7 @@ go get github.com/lucagrulla/cw
 
 * `-p`, `--profile=profile-name` Override the AWS profile used for connection
 * `-r`, `--region=aws-region` Override the target AWS region
+* `-c`, `--no-color`         Disable coloured output
 
 ### Commands
 
