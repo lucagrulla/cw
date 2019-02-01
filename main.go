@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"container/ring"
 	"fmt"
 	"log"
@@ -10,6 +11,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"unicode"
 
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 	"github.com/fatih/color"
@@ -38,8 +40,7 @@ var (
 	tailCommand        = kp.Command("tail", "Tail log groups/streams.")
 	logGroupStreamName = tailCommand.Arg("groupName[:logStreamPrefix]", "The log group and stream name, with group:prefix syntax."+
 		"Stream name can be just the prefix. If no stream name is specified all stream names in the given group will be tailed."+
-		"Multiple group/stream tuple can be passed. e.g. cw tail group1:prefix1 group2:prefix2 group3:prefix3.").
-		Required().Strings()
+		"Multiple group/stream tuple can be passed. e.g. cw tail group1:prefix1 group2:prefix2 group3:prefix3.").Strings()
 
 	follow          = tailCommand.Flag("follow", "Don't stop when the end of streams is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
 	printTimestamp  = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
@@ -148,21 +149,22 @@ func formatLogMsg(ev logEvent, printTime *bool, printStreamName *bool, printGrou
 	return msg
 }
 
-func oldSyntaxWarning() {
-	tokenNum := len(*logGroupStreamName)
-	if tokenNum > 1 { //a log stream is also specified
-		if (*logGroupStreamName)[1] == "*" {
-			fmt.Println("WARNING:tail syntax has changed with V3. Please refer to the documentation for the new syntax details: https://www.lucagrulla.com/cw/#v2-to-v3-breaking-changes")
-			os.Exit(0)
-		}
-		if tokenNum > 2 { //group, stream and date
-			ts := (*logGroupStreamName)[2]
-			if _, err := timestampToTime(&ts); err == nil {
-				fmt.Println("WARNING:tail syntax has changed with V3. Please refer to the documentation for the new syntax details: https://www.lucagrulla.com/cw/#v2-to-v3-breaking-changes")
-				os.Exit(0)
+func fromStdin() []string {
+	var groups []string
+	info, _ := os.Stdin.Stat()
+	if info.Mode()&os.ModeNamedPipe != 0 {
+		scanner := bufio.NewScanner(os.Stdin)
+		for scanner.Scan() {
+			input := scanner.Text()
+			if len(input) > 0 {
+				tokens := strings.FieldsFunc(strings.TrimSpace(scanner.Text()), func(c rune) bool {
+					return unicode.IsSpace(c)
+				})
+				groups = append(groups, tokens...)
 			}
 		}
 	}
+	return groups
 }
 
 func main() {
@@ -184,7 +186,12 @@ func main() {
 			fmt.Println(*msg)
 		}
 	case "tail":
-		oldSyntaxWarning()
+		if additionalInput := fromStdin(); additionalInput != nil {
+			*logGroupStreamName = append(*logGroupStreamName, additionalInput...)
+		}
+		if len(*logGroupStreamName) == 0 {
+			log.Fatalf("cw: error: required argument 'groupName[:logStreamPrefix]' not provided, try --help")
+		}
 
 		st, err := timestampToTime(startTime)
 		if err != nil {
