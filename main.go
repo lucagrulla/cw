@@ -2,8 +2,8 @@ package main
 
 import (
 	"bufio"
-	"container/ring"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"regexp"
@@ -168,13 +168,19 @@ func fromStdin() []string {
 }
 
 func main() {
+	log := log.New(ioutil.Discard, "", log.LstdFlags)
 	kp.Version(version).Author("Luca Grulla")
 
 	defer newVersionMsg(version, fetchLatestVersion(), *noColor)
 	go versionCheckOnSigterm()
 
 	cmd := kingpin.MustParse(kp.Parse(os.Args[1:]))
-	c := cloudwatch.New(awsProfile, awsRegion, debug)
+	if *debug {
+		log.SetOutput(os.Stdout)
+		log.Println("Debug mode is on.")
+	}
+	c := cloudwatch.New(awsProfile, awsRegion, log)
+
 	switch cmd {
 	case "ls groups":
 
@@ -212,7 +218,7 @@ func main() {
 
 		triggerChannels := make([]chan<- time.Time, len(*logGroupStreamName))
 
-		coordinator := &tailCoordinator{}
+		coordinator := &tailCoordinator{log: log}
 		for idx, gs := range *logGroupStreamName {
 			trigger := make(chan time.Time, 1)
 			go func(groupStream string) {
@@ -244,76 +250,6 @@ func main() {
 
 		for logEv := range out {
 			fmt.Println(formatLogMsg(*logEv, printTimestamp, printStreamName, printGroupName))
-		}
-	}
-}
-
-type tailCoordinator struct {
-	targets *ring.Ring
-	sync.RWMutex
-}
-
-func (f *tailCoordinator) start(targets []chan<- time.Time) {
-	f.targets = ring.New(len(targets))
-	for i := 0; i < f.targets.Len(); i++ {
-		f.targets.Value = targets[i]
-		f.targets = f.targets.Next()
-	}
-
-	//AWS API accepts 5 reqs/sec for account
-	ticker := time.NewTicker(205 * time.Millisecond)
-	go func() {
-		for range ticker.C {
-			if f.targets == nil {
-				if *debug {
-					fmt.Println("coordinator: ring buffer is empty, exiting scheduler.")
-				}
-				return
-			}
-			f.Lock()
-			x := f.targets.Value.(chan<- time.Time)
-			x <- time.Now()
-			f.targets = f.targets.Next()
-			f.Unlock()
-		}
-	}()
-}
-
-func (f *tailCoordinator) remove(c chan<- time.Time) {
-	f.RLock()
-	initialLen := f.targets.Len()
-	f.RUnlock()
-
-	var visited int
-	f.Lock()
-	defer f.Unlock()
-
-	if f.targets.Len() == 1 {
-		f.targets = ring.New(0)
-		if *debug {
-			fmt.Println("coordinator: single node buffer: reset", f.targets.Len())
-		}
-		return
-	}
-
-	for visited = 0; visited < f.targets.Len(); visited++ {
-		if f.targets.Value == c {
-			targetChan := f.targets.Value.(chan<- time.Time)
-
-			f.targets = f.targets.Prev()
-			f.targets.Unlink(1)
-			close(targetChan)
-			if *debug {
-				fmt.Printf("coordinator: channel found and removed at index: %d\n", visited)
-			}
-			break
-		}
-		f.targets = f.targets.Next()
-	}
-
-	if f.targets.Len() < initialLen {
-		for i := 0; i < visited; i++ {
-			f.targets = f.targets.Prev()
 		}
 	}
 }
