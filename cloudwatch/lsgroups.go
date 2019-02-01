@@ -1,7 +1,8 @@
 package cloudwatch
 
 import (
-	"log"
+	"fmt"
+	"os"
 
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
@@ -27,7 +28,8 @@ func (cwl *CW) LsGroups() <-chan *string {
 		err := cwl.awsClwClient.DescribeLogGroupsPages(params, handler)
 		if err != nil {
 			if awsErr, ok := err.(awserr.Error); ok {
-				log.Fatalf(awsErr.Message())
+				fmt.Fprintln(os.Stderr, awsErr.Message())
+				os.Exit(1)
 				close(ch)
 			}
 		}

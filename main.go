@@ -19,10 +19,12 @@ import (
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 
-var (
+const (
 	timeFormat = "2006-01-02T15:04:05"
 	version    = "3.0.1"
+)
 
+var (
 	kp = kingpin.New("cw", "The best way to tail AWS Cloudwatch Logs from your terminal.")
 
 	awsProfile = kp.Flag("profile", "The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.").Short('p').String()
@@ -196,18 +198,21 @@ func main() {
 			*logGroupStreamName = append(*logGroupStreamName, additionalInput...)
 		}
 		if len(*logGroupStreamName) == 0 {
-			log.Fatalf("cw: error: required argument 'groupName[:logStreamPrefix]' not provided, try --help")
+			fmt.Fprintln(os.Stderr, "cw: error: required argument 'groupName[:logStreamPrefix]' not provided, try --help")
+			os.Exit(1)
 		}
 
 		st, err := timestampToTime(startTime)
 		if err != nil {
-			log.Fatalf("can't parse %s as a valid date/time", *startTime)
+			fmt.Fprintf(os.Stderr, "can't parse %s as a valid date/time\n", *startTime)
+			os.Exit(1)
 		}
 		var et time.Time
 		if *endTime != "" {
 			endT, errr := timestampToTime(endTime)
 			if errr != nil {
-				log.Fatalf("can't parse %s as a valid date/time", *endTime)
+				fmt.Fprintf(os.Stderr, "can't parse %s as a valid date/time\n", *endTime)
+				os.Exit(1)
 			} else {
 				et = endT
 			}
@@ -242,9 +247,8 @@ func main() {
 
 		go func() {
 			wg.Wait()
-			if *debug {
-				fmt.Println("closing main channel...")
-			}
+			log.Println("closing main channel...")
+
 			close(out)
 		}()
 

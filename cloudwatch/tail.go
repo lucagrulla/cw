@@ -2,7 +2,7 @@ package cloudwatch
 
 import (
 	"fmt"
-	"log"
+	"os"
 	"regexp"
 	"sync"
 	"time"
@@ -186,11 +186,13 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 							error := cwl.awsClwClient.FilterLogEventsPages(logParam, pageHandler)
 							if error != nil {
 								if awsErr, ok := error.(awserr.Error); ok {
-									log.Fatalf(awsErr.Message())
+									fmt.Fprintln(os.Stderr, awsErr.Message())
+									os.Exit(1)
 								}
 							}
 						} else {
-							log.Fatalf(awsErr.Message())
+							fmt.Fprintln(os.Stderr, awsErr.Message())
+							os.Exit(1)
 						}
 					}
 				}
