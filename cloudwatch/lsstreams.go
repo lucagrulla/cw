@@ -9,9 +9,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 )
 
-const secondInMillis = 1000
-const minuteInMillis = 60 * secondInMillis
-
 //LsStreams lists the streams of a given stream group
 //It returns a channel where the stream names are published in order of Last Ingestion Time (the first stream is the one with older Last Ingestion Time)
 func (cwl *CW) LsStreams(groupName *string, streamName *string) <-chan *string {

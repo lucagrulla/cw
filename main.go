@@ -117,36 +117,20 @@ type logEvent struct {
 func formatLogMsg(ev logEvent, printTime *bool, printStreamName *bool, printGroupName *bool) string {
 	msg := *ev.logEvent.Message
 	if *printEventID {
-		if *noColor {
-			msg = fmt.Sprintf("%s - %s", *ev.logEvent.EventId, msg)
-		} else {
-			msg = fmt.Sprintf("%s - %s", color.YellowString(*ev.logEvent.EventId), msg)
-		}
+		msg = fmt.Sprintf("%s - %s", color.YellowString(*ev.logEvent.EventId), msg)
 	}
 	if *printStreamName {
-		if *noColor {
-			msg = fmt.Sprintf("%s - %s", *ev.logEvent.LogStreamName, msg)
-		} else {
-			msg = fmt.Sprintf("%s - %s", color.BlueString(*ev.logEvent.LogStreamName), msg)
-		}
+		msg = fmt.Sprintf("%s - %s", color.BlueString(*ev.logEvent.LogStreamName), msg)
 	}
 
 	if *printGroupName {
-		if *noColor {
-			msg = fmt.Sprintf("%s - %s", ev.logGroup, msg)
-		} else {
-			msg = fmt.Sprintf("%s - %s", color.CyanString(ev.logGroup), msg)
-		}
+		msg = fmt.Sprintf("%s - %s", color.CyanString(ev.logGroup), msg)
 	}
 
 	if *printTime {
 		eventTimestamp := *ev.logEvent.Timestamp / 1000
 		ts := time.Unix(eventTimestamp, 0).Format(timeFormat)
-		if *noColor {
-			msg = fmt.Sprintf("%s - %s", ts, msg)
-		} else {
-			msg = fmt.Sprintf("%s - %s", color.GreenString(ts), msg)
-		}
+		msg = fmt.Sprintf("%s - %s", color.GreenString(ts), msg)
 	}
 	return msg
 }
@@ -173,14 +157,18 @@ func main() {
 	log := log.New(ioutil.Discard, "", log.LstdFlags)
 	kp.Version(version).Author("Luca Grulla")
 
-	defer newVersionMsg(version, fetchLatestVersion(), *noColor)
+	defer newVersionMsg(version, fetchLatestVersion())
 	go versionCheckOnSigterm()
 
 	cmd := kingpin.MustParse(kp.Parse(os.Args[1:]))
 	if *debug {
-		log.SetOutput(os.Stdout)
+		log.SetOutput(os.Stderr)
 		log.Println("Debug mode is on.")
 	}
+	if *noColor {
+		color.NoColor = true
+	}
+
 	c := cloudwatch.New(awsProfile, awsRegion, log)
 
 	switch cmd {

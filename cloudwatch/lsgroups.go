@@ -9,7 +9,7 @@ import (
 )
 
 //LsGroups lists the stream groups
-//It returns a channel where the stream groups are published
+//It returns a channel where stream groups are published
 func (cwl *CW) LsGroups() <-chan *string {
 	ch := make(chan *string)
 	params := &cloudwatchlogs.DescribeLogGroupsInput{}
