@@ -4,6 +4,8 @@ import (
 	//"fmt"
 
 	"github.com/stretchr/testify/assert" //"reflect"
+	"io/ioutil"
+	"log"
 	"testing"
 	"time"
 )
@@ -89,6 +91,7 @@ func TestWrongFormat(t *testing.T) {
 
 func TestCoordinatorRemoveItem(t *testing.T) {
 	a := assert.New(t)
+	log := log.New(ioutil.Discard, "", log.LstdFlags)
 
 	groupTrigger1 := make(chan time.Time, 1)
 	groupTrigger2 := make(chan time.Time, 1)
@@ -96,7 +99,7 @@ func TestCoordinatorRemoveItem(t *testing.T) {
 	channels := []chan<- time.Time{chan<- time.Time(groupTrigger1),
 		chan<- time.Time(groupTrigger2)}
 
-	coordinator := &tailCoordinator{}
+	coordinator := &tailCoordinator{log: log}
 	coordinator.start(channels)
 
 	coordinator.remove(channels[0])

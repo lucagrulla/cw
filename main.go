@@ -21,7 +21,7 @@ import (
 
 const (
 	timeFormat = "2006-01-02T15:04:05"
-	version    = "3.1.0"
+	version    = "3.1.1"
 )
 
 var (
