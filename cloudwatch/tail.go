@@ -12,35 +12,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 )
 
-type eventCache struct {
-	seen map[string]bool
-	sync.RWMutex
-}
-
-func (c *eventCache) Has(eventID string) bool {
-	c.RLock()
-	defer c.RUnlock()
-	return c.seen[eventID]
-}
-
-func (c *eventCache) Add(eventID string) {
-	c.Lock()
-	defer c.Unlock()
-	c.seen[eventID] = true
-}
-
-func (c *eventCache) Size() int {
-	c.RLock()
-	defer c.RUnlock()
-	return len(c.seen)
-}
-
-func (c *eventCache) Reset() {
-	c.Lock()
-	defer c.Unlock()
-	c.seen = make(map[string]bool)
-}
-
 type logStreams struct {
 	groupStreams []*string
 	sync.RWMutex
@@ -94,17 +65,9 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	idle := make(chan bool, 1)
 	idle <- true
 
-	cache := &eventCache{seen: make(map[string]bool)}
-	go func() { //check cache size every 250ms and eventually purge
-		cacheTicker := time.NewTicker(250 * time.Millisecond)
-		for range cacheTicker.C {
-			size := cache.Size()
-			if size >= 5000 {
-				cwl.log.Printf(">>>cache reset:%d,\n ", size)
-				cache.Reset()
-			}
-		}
-	}()
+	ttl := 60 * time.Second
+	cache := createCache(ttl, cwl.log)
+
 	logStreams := &logStreams{}
 
 	if logStreamName != nil && *logStreamName != "" {
@@ -114,7 +77,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 				streams = append(streams, stream)
 			}
 			if len(streams) == 0 {
-				fmt.Println("No such log stream(s).")
+				fmt.Fprintln(os.Stderr, "No such log stream(s).")
 				close(ch)
 			}
 			if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
@@ -125,7 +88,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 		}
 		logStreams.reset(getStreams(logGroupName, logStreamName))
 
-		go func() {
+		go func() { //refresh known streams every 5 seconds
 			ticker := time.NewTicker(time.Second * 5)
 			for range ticker.C {
 				logStreams.reset(getStreams(logGroupName, logStreamName))
@@ -143,12 +106,11 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 
 					if eventTimestamp != lastSeenTimestamp {
 						if eventTimestamp < lastSeenTimestamp {
-							cwl.log.Printf("OLD EVENT:%s, evTS:%d, lTS:%d, cache size:%d \n", event, eventTimestamp, lastSeenTimestamp, cache.Size())
-
+							cwl.log.Printf("old event:%s, ev-ts:%d, last-ts:%d, cache-size:%d \n", event, eventTimestamp, lastSeenTimestamp, cache.Size())
 						}
 						lastSeenTimestamp = eventTimestamp
 					}
-					cache.Add(*event.EventId)
+					cache.Add(*event.EventId, *event.Timestamp)
 					ch <- event
 				} else {
 					cwl.log.Printf("%s already seen\n", *event.EventId)
@@ -161,7 +123,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 			if !*follow {
 				close(ch)
 			} else {
-				cwl.log.Println("LAST PAGE")
+				cwl.log.Println("last page")
 				idle <- true
 			}
 		}
@@ -170,7 +132,6 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 
 	go func() {
 		for range limiter {
-			//FilterLogEventPages won't take more than 100 stream names
 			select {
 			case <-idle:
 				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
@@ -180,7 +141,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 						if awsErr.Code() == "ThrottlingException" {
 							cwl.log.Printf("Rate exceeded for %s. Wait for 250ms then retry.\n", *logGroupName)
 
-							//Try again. Wait and fire request again. 1 Retry allowed.
+							//Wait and fire request again. 1 Retry allowed.
 							time.Sleep(250 * time.Millisecond)
 
 							error := cwl.awsClwClient.FilterLogEventsPages(logParam, pageHandler)

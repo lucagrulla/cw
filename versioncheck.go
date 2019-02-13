@@ -26,20 +26,13 @@ func fetchLatestVersion() chan string {
 	return latestVersionChannel
 }
 
-func newVersionMsg(currentVersion string, latestVersionChannel chan string, noColor bool) {
+func newVersionMsg(currentVersion string, latestVersionChannel chan string) {
 	latestVersion, ok := <-latestVersionChannel
-	//if the channel is closed it means we failed to fetch the latest version. Ignore the version message.
+	//if the channel is closed we failed to fetch the latest version. Ignore version message.
 	if !ok {
 		if latestVersion != fmt.Sprintf("v%s", currentVersion) {
-			fmt.Println("")
-			fmt.Println("")
-			if noColor {
-				msg := fmt.Sprintf("%s - %s -> %s", "A new version of cw is available!", currentVersion, latestVersion)
-				fmt.Println(msg)
-			} else {
-				msg := fmt.Sprintf("%s - %s -> %s", color.GreenString("A new version of cw is available!"), color.YellowString(currentVersion), color.GreenString(latestVersion))
-				fmt.Println(msg)
-			}
+			msg := fmt.Sprintf("\n\n%s - %s -> %s", color.GreenString("A new version of cw is available!"), color.YellowString(currentVersion), color.GreenString(latestVersion))
+			fmt.Fprintln(os.Stderr, msg)
 		}
 	}
 }
