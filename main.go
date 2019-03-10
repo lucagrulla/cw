@@ -50,14 +50,14 @@ var (
 	printStreamName = tailCommand.Flag("stream-name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
 	printGroupName  = tailCommand.Flag("group-name", "Print the log group name this event belongs to.").Short('n').Default("false").Bool()
 	startTime       = tailCommand.Flag("start", "The UTC start time. Passed as either date/time or human-friendly format."+
-		" The human-friendly format accepts the number of hours and minutes prior to the present. "+
-		"Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m."+
+		" The human-friendly format accepts the number of days, hours and minutes prior to the present. "+
+		"Denote days with 'd', hours with 'h' and minutes with 'm' i.e. 80m, 4h30m, 2d4h."+
 		" If just time is used (format: hh[:mm]) it is expanded to today at the given time."+
 		" Full available date/time format: 2017-02-27[T09[:00[:00]].").
 		Short('b').Default(time.Now().UTC().Add(-30 * time.Second).Format(timeFormat)).String()
 	endTime = tailCommand.Flag("end", "The UTC end time. Passed as either date/time or human-friendly format. "+
-		"The human-friendly format accepts the number of hours and minutes prior to the present. "+
-		"Denote hours with 'h' and minutes with 'm' i.e. 80m, 4h30m."+
+		" The human-friendly format accepts the number of days, hours and minutes prior to the present. "+
+		"Denote days with 'd', hours with 'h' and minutes with 'm' i.e. 80m, 4h30m, 2d4h."+
 		"If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09[:00[:00]].").
 		Short('e').Default("").String()
 	local = tailCommand.Flag("local", "Treat date and time in Local timezone.").Short('l').Default("false").Bool()
@@ -93,10 +93,14 @@ func timestampToTime(timeStamp *string) (time.Time, error) {
 		mm, _ := strconv.Atoi(res[2])
 
 		return time.Date(y, m, d, t, mm, 0, 0, zone), nil
-	} else if regexp.MustCompile(`^\d{1,}h$|^\d{1,}m$|^\d{1,}h\d{1,}m$`).MatchString(*timeStamp) {
-		d, _ := time.ParseDuration(*timeStamp)
+	} else if res := regexp.MustCompile(
+		`^(?:(?P<Day>\d{1,})(?:d))?(?P<HourMinute>(?:\d{1,}h)?(?:\d{1,}m)?)?$`).FindStringSubmatch(
+		*timeStamp); res != nil {
+		// Unfortunately, ParseDuration does not support day time unit
+		days, _ := strconv.Atoi(res[1])
+		d, _ := time.ParseDuration(res[2])
 
-		t := time.Now().In(zone).Add(-d)
+		t := time.Now().In(zone).AddDate(0, 0, -days).Add(-d)
 		y, m, dd := t.Date()
 		return time.Date(y, m, dd, t.Hour(), t.Minute(), 0, 0, zone), nil
 	}

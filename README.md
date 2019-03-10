@@ -24,7 +24,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 * **Flexible date and time parser**.
   * You can work with either `Local` timezone or `UTC` (default).
   * Flexible parsing.
-    * Human friendly formats, i.e. `1h20m`  to indicate 1 hour and 20 minutes ago.
+    * Human friendly formats, i.e. `2d1h20m` to indicate 2 days, 1 hour and 20 minutes ago.
     * a specific hour, i.e. `13:10` to indicate 13:10 of today.
     * a full timestamp `2018-10-20T8:53`.
 * **multi log groups tailing** tail multiple log groups  in parallel: `cw tail tail my-auth-service my-web`
@@ -114,12 +114,12 @@ go get github.com/lucagrulla/cw
         -s, --stream-name      Print the log stream name this event belongs to.
         -n, --group-name       Print the log log group name this event belongs to.
         -b, --start="2018-12-25T09:34:45"
-                                The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with
-                                'h' and minutes with 'm' i.e. 80m, 4h30m. If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format:
-                                2017-02-27[T09[:00[:00]].
-        -e, --end=""           The UTC end time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of hours and minutes prior to the present. Denote hours with
-                                'h' and minutes with 'm' i.e. 80m, 4h30m.If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format:
-                                2017-02-27[T09[:00[:00]].
+                               The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of days, hours and minutes prior to the present. Denote days with
+                               'd', hours with 'h' and minutes with 'm' i.e. 80m, 4h30m, 2d4h. If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format:
+                               2017-02-27[T09[:00[:00]].
+        -e, --end=""           The UTC end time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of days, hours and minutes prior to the present. Denote days with
+                               'd', hours with 'h' and minutes with 'm' i.e. 80m, 4h30m, 2d4h. If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format:
+                               2017-02-27[T09[:00[:00]].
         -l, --local            Treat date and time in Local timezone.
         -g, --grep=""          Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.
         -v, --grepv=""         Equivalent of grep --invert-match. Invert match pattern to filter logs by.
@@ -141,6 +141,7 @@ go get github.com/lucagrulla/cw
   * `cw tail -f my-log-group:my-log-stream-prefix`
   * `cw tail -f my-log-group:my-log-stream-prefix my-log-group2`
   * `cw tail -f my-log-group:my-log-stream-prefix -b2017-01-01T08:10:10 -e2017-01-01T08:05:00`  
+  * `cw tail -f my-log-group:my-log-stream-prefix -b7d` to start from 7 days ago.
   * `cw tail -f my-log-group:my-log-stream-prefix -b3h` to start from 3 hours ago.
   * `cw tail -f my-log-group:my-log-stream-prefix -b100m`  to start from 100 minutes ago.
   * `cw tail -f my-log-group:my-log-stream-prefix -b2h30m`  to start from 2 hours and 30 minutes ago.

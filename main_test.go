@@ -54,13 +54,32 @@ func TestTimestampToTime(t *testing.T) {
 func TestHumanReadableTimeToTime(t *testing.T) {
 	assert := assert.New(t)
 
-	s := "32h"
-	dd, _ := time.ParseDuration(s)
-	x := time.Now().UTC().Add(-dd)
+	s := "2d"
+	x := time.Now().UTC().AddDate(0, 0, -2)
 
 	y, m, d := x.Date()
 
 	parsedTime, _ := timestampToTime(&s)
+	assert.Equal(time.Date(y, m, d, x.Hour(), x.Minute(), 0, 0, time.UTC),
+		parsedTime, "wrong parsing for input %s", s)
+
+	s = "03d50m"
+	dd, _ := time.ParseDuration(`50m`)
+	x = time.Now().UTC().AddDate(0, 0, -3).Add(-dd)
+
+	y, m, d = x.Date()
+
+	parsedTime, _ = timestampToTime(&s)
+	assert.Equal(time.Date(y, m, d, x.Hour(), x.Minute(), 0, 0, time.UTC),
+		parsedTime, "wrong parsing for input %s", s)
+
+	s = "32h"
+	dd, _ = time.ParseDuration(s)
+	x = time.Now().UTC().Add(-dd)
+
+	y, m, d = x.Date()
+
+	parsedTime, _ = timestampToTime(&s)
 	assert.Equal(time.Date(y, m, d, x.Hour(), x.Minute(), 0, 0, time.UTC), parsedTime, "wrong parsing for input %s", s)
 
 	s = "50m"
