@@ -3,6 +3,7 @@
 [![Release](https://img.shields.io/github/release/lucagrulla/cw.svg?style=flat-square)](https://github.com/lucagrulla/cw/releases/latest)
 [![Software License](https://img.shields.io/badge/license-apache2-brightgreen.svg?style=flat-square)](LICENSE.md)
 ![Github All Releases](https://img.shields.io/github/downloads/lucagrulla/cw/total.svg)
+![CircleCI branch](https://img.shields.io/circleci/project/github/lucagrulla/cw/master.svg?label=CircleCI)
 
 The **best** way to tail AWS CloudWatch Logs from your terminal.
 
@@ -14,7 +15,6 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 * [Commands and options](#commands-and-options)
 * [Examples](#examples)
 * [AWS credentials and configuration](#AWS-credentials-and-configuration)
-* [v2.* to v3.* breaking changes](#v2-to-v3-breaking-changes)
 
 ## Features
 
