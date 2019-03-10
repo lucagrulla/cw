@@ -1,0 +1,9 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.12rc1
+    working_directory: ~/github.com/lucagrulla/cw
+    steps:
+      - checkout
+      - run: go test
