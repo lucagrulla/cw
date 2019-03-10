@@ -15,6 +15,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 * [Commands and options](#commands-and-options)
 * [Examples](#examples)
 * [AWS credentials and configuration](#AWS-credentials-and-configuration)
+* [Release notes](https://github.com/lucagrulla/cw/wiki/Release-notes)
 
 ## Features
 
@@ -156,12 +157,5 @@ If you prefer to use Local zone just set the ```--local``` flag.
 
 `cw` uses the default credentials profile (stored in ./aws/credentials) for authentication and shared config (.aws/config) for identifying the target AWS region. Both profile and region are overridable with the  `profile` and `region` global flags.
 
-## v2 to v3 breaking changes
-
-In v3.x the syntax of the ```tail``` command has changed.
-
-* The optional begin and end tail timestamps are now command flags, `--begin` and `--end`.
-* Log group and optional stream changed from being positional arguments to be a single argument tuple with `:` as a separator: `mygroup:mystream`
-* Example:
-  * old syntax: `cw tail my-group my-stream 2018-12-21:09 2018-12-21:12`
-  * new syntax: `cw tail -b2018-12-21:09 -e2018-12-21:12 mygroup:mystream`
+## Breaking changes notes
+Read [here](https://github.com/lucagrulla/cw/wiki/Breaking-changes-notes)
