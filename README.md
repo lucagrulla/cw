@@ -28,9 +28,9 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
     * Human friendly formats, i.e. `2d1h20m` to indicate 2 days, 1 hour and 20 minutes ago.
     * a specific hour, i.e. `13:10` to indicate 13:10 of today.
     * a full timestamp `2018-10-20T8:53`.
-* **multi log groups tailing** tail multiple log groups  in parallel: `cw tail tail my-auth-service my-web`
+* **multi log groups tailing** tail multiple log groups  in parallel: `cw tail tail my-auth-service my-web`.
 * Powerful built-in **grep** (`--grep`) and **grepv** (`--grepv`).
-* **Pipe operator** | supported:  `echo my-group | cw tail` and `cat groups.txt | cw tail` 
+* **Pipe operator** supported:  `echo my-group | cw tail` and `cat groups.txt | cw tail`. 
 * **Redirection operator** supported: `cw tail -f my-stream >> myfile.txt`.
 * Coloured output (`--no-color` flag to disable if needed).
 * Flexibile credentials control.
