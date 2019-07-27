@@ -6,13 +6,14 @@ builds:
     - windows
     - darwin
     - linux
-archive:
-  replacements:
-    darwin: Darwin
-    linux: Linux
-    windows: Windows
-    386: i386
-    amd64: x86_64
+archives:
+  -
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
 checksum:
   name_template: 'checksums.txt'
 snapshot:
@@ -23,32 +24,33 @@ changelog:
     exclude:
     - '^docs:'
     - '^test:'
-brew:
-  github:
-    owner: lucagrulla
-    name: homebrew-tap
-  commit_author:
-    name: lucagrulla
-    email:
-  folder: Formula
-  homepage: "https://www.lucagrulla.com/cw"
-  description: "The best way to tail AWS Cloudwatch Logs from your terminal"
-  caveats: "In order to get cw completion,
-        [bash] you need to install `bash-completion` with brew.
-        OR
-        [zsh], add the following line to your ~/.zshrc:
-          source #{HOMEBREW_PREFIX}/share/zsh/site-functions/cw"
-  install: |
-    bin.install "cw"
+brews:
+  -
+    github:
+      owner: lucagrulla
+      name: homebrew-tap
+    commit_author:
+      name: lucagrulla
+      email:
+    folder: Formula
+    homepage: "https://www.lucagrulla.com/cw"
+    description: "The best way to tail AWS Cloudwatch Logs from your terminal"
+    caveats: "In order to get cw completion,
+          [bash] you need to install `bash-completion` with brew.
+          OR
+          [zsh], add the following line to your ~/.zshrc:
+            source #{HOMEBREW_PREFIX}/share/zsh/site-functions/cw"
+    install: |
+      bin.install "cw"
 
-    system bin/"cw --completion-script-bash > cw.bash"
-    bash_completion.install "cw.bash"
+      system bin/"cw --completion-script-bash > cw.bash"
+      bash_completion.install "cw.bash"
 
-    system bin/"cw --help-man > cw.1"
-    man1.install "cw.1"
+      system bin/"cw --help-man > cw.1"
+      man1.install "cw.1"
 
-    # system bin/"cw completion zsh > cw.zsh"
-    # zsh_completion.install "cw.zsh"
+      # system bin/"cw completion zsh > cw.zsh"
+      # zsh_completion.install "cw.zsh"
 scoop:
   bucket:
     owner: lucagrulla
@@ -62,29 +64,35 @@ scoop:
   persist:
     - "data"
     - "config.toml"
-nfpm:
-  name_template: '{{ .ProjectName }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
-  homepage:  https://www.lucagrulla.com/cw
-  description: The best way to tail AWS Cloudwatch Logs from your terminal
-  maintainer: Luca Grulla luca.grulla+cw@gmail.com
-  license: Apache2
-  vendor: cw
-  formats:
-  - deb
-  - rpm
-  dependencies:
-  - git
-  recommends:
-  - rpm
-snapcraft:
-  name: cw-sh
-  name_template: '{{ .ProjectName }}-sh_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
-  summary: The best way to tail AWS Cloudwatch Logs from your terminal
-  description: |
-    The best way to tail AWS Cloudwatch Logs from your terminal
-  grade: stable
-  confinement: strict
-  apps:
-    cw-sh:
-      plugs: ["home", "network"]
-  publish: true
+nfpms:
+  -
+    name_template: '{{ .ProjectName }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    homepage:  https://www.lucagrulla.com/cw
+    description: The best way to tail AWS Cloudwatch Logs from your terminal
+    maintainer: Luca Grulla luca.grulla+cw@gmail.com
+    license: Apache2
+    vendor: cw
+    formats:
+    - deb
+    - rpm
+    dependencies:
+    - git
+    recommends:
+    - rpm
+snapcrafts:
+  -
+    name: cw-sh
+    name_template: '{{ .ProjectName }}-sh_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    summary: The best way to tail AWS Cloudwatch Logs from your terminal
+    description: |
+      The best way to tail AWS Cloudwatch Logs from your terminal
+    grade: stable
+    confinement: classic
+    apps:
+      cw-sh:
+        plugs: ["home", "network", "personal-files"]
+    plugs: 
+      personal-files:
+        read: 
+        - $HOME/.aws
+    publish: true
