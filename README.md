@@ -60,6 +60,8 @@ sudo snap connect cw-sh:personal-files
 sudo snap alias cw-sh cw
 ```
 
+`cw` runs with strict confinement; the `personal-files` interface connection is required to have acces to `.aws/config` and `.aws/credentials` files
+
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/cw-sh)
 
 ### Using Go tools
