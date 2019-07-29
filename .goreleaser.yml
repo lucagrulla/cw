@@ -87,11 +87,14 @@ snapcrafts:
     description: |
       The best way to tail AWS Cloudwatch Logs from your terminal
     grade: stable
-    confinement: classic
+    base: core18
+    confinement: strict
     apps:
       cw-sh:
-        plugs: ["home", "network", "personal-files"]
-    plugs: 
+        plugs: [home, network, personal-files]
+    plugs:
+      home:
+      network: 
       personal-files:
         read: 
         - $HOME/.aws

@@ -56,6 +56,7 @@ scoop install cw
 
 ```bash
 snap install cw-sh
+sudo snap connect cw-sh:personal-files
 sudo snap alias cw-sh cw
 ```
 
