@@ -2,7 +2,9 @@
 package cloudwatch
 
 import (
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -17,6 +19,22 @@ type CW struct {
 
 // New creates a new instance of the CW client
 func New(awsProfile *string, awsRegion *string, log *log.Logger) *CW {
+	//workaround to figure out the user actual home dir within a SNAP (rather than the sandboxed one)
+	//and access the  .aws folder in its default location
+	if os.Getenv("SNAP_INSTANCE_NAME") != "" {
+		log.Printf("Snap Identified")
+		realUserHomeDir := fmt.Sprintf("/home/%s", os.Getenv("USER"))
+		if os.Getenv("AWS_SHARED_CREDENTIALS_FILE") == "" {
+			credentialsPath := fmt.Sprintf("%s/.aws/credentials", realUserHomeDir)
+			log.Printf("No custom credentials file location. Overriding to %s", credentialsPath)
+			os.Setenv("AWS_SHARED_CREDENTIALS_FILE", credentialsPath)
+		}
+		if os.Getenv("AWS_CONFIG_FILE") == "" {
+			configPath := fmt.Sprintf("%s/.aws/config", realUserHomeDir)
+			log.Printf("No custom config file location. Overriding to %s", configPath)
+			os.Setenv("AWS_CONFIG_FILE", configPath)
+		}
+	}
 	log.Printf("awsProfile: %s, awsRegion: %s\n", *awsProfile, *awsRegion)
 
 	opts := session.Options{
