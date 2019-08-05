@@ -3,7 +3,7 @@ module github.com/lucagrulla/cw
 require (
 	github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc // indirect
 	github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf // indirect
-	github.com/aws/aws-sdk-go v1.21.6
+	github.com/aws/aws-sdk-go v1.21.9
 	github.com/fatih/color v1.7.0
 	github.com/go-ini/ini v1.42.0 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20190430165422-3e4dfb77656c // indirect
