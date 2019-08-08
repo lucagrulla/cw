@@ -38,19 +38,29 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 
 ## Installation
 
-### On Mac OSX using [Homebrew](https://brew.sh)
+### Mac OSX
+
+#### using [Homebrew](https://brew.sh)
 
 ```bash
 brew tap lucagrulla/tap
 brew install cw
 ```
-### On Linux using [Linuxbrew](https://linuxbrew.sh/brew/)
+
+### Linux
+
+#### using [Linuxbrew](https://linuxbrew.sh/brew/)
+
 ```bash
 brew tap lucagrulla/tap
 brew install cw
 ```
 
-### On Linux using [Snapcraft.io](https://snapcraft.io)
+#### .deb/.rpm
+
+Download the ```.deb``` or ```.rpm``` from the releases page and install with dpkg -i and rpm -i respectively.
+
+### using [Snapcraft.io](https://snapcraft.io)
 
 ```bash
 snap install cw-sh
