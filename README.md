@@ -58,7 +58,7 @@ brew install cw
 
 #### .deb/.rpm
 
-Download the ```.deb``` or ```.rpm``` from the releases page and install with dpkg -i and rpm -i respectively.
+Download the ```.deb``` or ```.rpm``` from the [releases page](https://github.com/lucagrulla/cw/releases/latest) and install with ````dpkg -i```` and ````rpm -i```` respectively.
 
 #### using [Snapcraft.io](https://snapcraft.io)
 
