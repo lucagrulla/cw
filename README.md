@@ -60,7 +60,7 @@ brew install cw
 
 Download the ```.deb``` or ```.rpm``` from the releases page and install with dpkg -i and rpm -i respectively.
 
-### using [Snapcraft.io](https://snapcraft.io)
+#### using [Snapcraft.io](https://snapcraft.io)
 
 ```bash
 snap install cw-sh
@@ -73,14 +73,16 @@ sudo snap alias cw-sh cw
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/cw-sh)
 
-### On Windows using [Scoop.sh](https://scoop.sh/)
+### On Windows
+
+#### using [Scoop.sh](https://scoop.sh/)
 
 ```bash
 scoop bucket add cw https://github.com/lucagrulla/cw-scoop-bucket.git
 scoop install cw
 ```
 
-### Using Go tools
+### Go tools
 
 ```bash
 go get github.com/lucagrulla/cw
