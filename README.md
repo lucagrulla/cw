@@ -44,12 +44,10 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 brew tap lucagrulla/tap
 brew install cw
 ```
-
-### On Windows using [Scoop.sh](https://scoop.sh/)
-
+### On Linux using [Linuxbrew](https://linuxbrew.sh/brew/)
 ```bash
-scoop bucket add cw https://github.com/lucagrulla/cw-scoop-bucket.git
-scoop install cw
+brew tap lucagrulla/tap
+brew install cw
 ```
 
 ### On Linux using [Snapcraft.io](https://snapcraft.io)
@@ -64,6 +62,13 @@ sudo snap alias cw-sh cw
 <!-- `cw` runs with strict confinement; the `personal-files` interface connection is required to have acces to `.aws/config` and `.aws/credentials` files -->
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/cw-sh)
+
+### On Windows using [Scoop.sh](https://scoop.sh/)
+
+```bash
+scoop bucket add cw https://github.com/lucagrulla/cw-scoop-bucket.git
+scoop install cw
+```
 
 ### Using Go tools
 
