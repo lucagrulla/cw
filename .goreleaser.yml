@@ -91,11 +91,12 @@ snapcrafts:
     confinement: strict
     apps:
       cw-sh:
-        plugs: [home, network, personal-files]
+        plugs: [network, dot-aws-config-credentials]
     plugs:
-      home:
       network: 
-      personal-files:
-        read: 
-        - $HOME/.aws
+      dot-aws-config-credentials:
+        interface: personal-files
+        read:
+        - $HOME/.aws/config
+        - $HOME/.aws/credentials
     publish: true
