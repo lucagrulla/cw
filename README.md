@@ -5,6 +5,9 @@
 ![Github All Releases](https://img.shields.io/github/downloads/lucagrulla/cw/total.svg)
 ![CircleCI branch](https://img.shields.io/circleci/project/github/lucagrulla/cw/master.svg?label=CircleCI)
 
+![cw- the best wai to tail AWS CloudWatch Logs](https://github.com/lucagrulla/cw/blob/master/cw-logo1280x640.png "")
+
+
 The **best** way to tail AWS CloudWatch Logs from your terminal.
 
 Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.com](https://www.lucagrulla.com)
