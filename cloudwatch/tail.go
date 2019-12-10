@@ -55,6 +55,7 @@ func params(logGroupName string, streamNames []*string, startTimeInMillis int64,
 //Unless the follow flag is true the channel is closed once there are no more events available
 func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, grepv *string, limiter <-chan time.Time) <-chan *cloudwatchlogs.FilteredLogEvent {
 	lastSeenTimestamp := startTime.Unix() * 1000
+	var lastSeenEvent *cloudwatchlogs.FilteredLogEvent
 
 	var endTimeInMillis int64
 	if !endTime.IsZero() {
@@ -103,12 +104,10 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 
 				if !cache.Has(*event.EventId) {
 					eventTimestamp := *event.Timestamp
+					lastSeenEvent = event
 
-					if eventTimestamp != lastSeenTimestamp {
-						if eventTimestamp < lastSeenTimestamp {
-							cwl.log.Printf("old event:%s, ev-ts:%d, last-ts:%d, cache-size:%d \n", event, eventTimestamp, lastSeenTimestamp, cache.Size())
-						}
-						lastSeenTimestamp = eventTimestamp
+					if eventTimestamp < lastSeenTimestamp {
+						cwl.log.Printf("old event:%s, ev-ts:%d, last-ts:%d, cache-size:%d \n", event, eventTimestamp, lastSeenTimestamp, cache.Size())
 					}
 					cache.Add(*event.EventId, *event.Timestamp)
 					ch <- event
@@ -129,6 +128,15 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 		}
 		return !lastPage
 	}
+
+	go func() {
+		t := time.NewTicker(time.Millisecond * 100)
+		for range t.C {
+			if lastSeenEvent != nil {
+				lastSeenTimestamp = *lastSeenEvent.Timestamp + 1
+			}
+		}
+	}()
 
 	go func() {
 		for range limiter {
