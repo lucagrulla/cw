@@ -130,16 +130,11 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	}
 
 	go func() {
-		t := time.NewTicker(time.Millisecond * 100)
-		for range t.C {
+		for range limiter {
 			if lastSeenEvent != nil {
 				lastSeenTimestamp = *lastSeenEvent.Timestamp + 1
 			}
-		}
-	}()
 
-	go func() {
-		for range limiter {
 			select {
 			case <-idle:
 				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
