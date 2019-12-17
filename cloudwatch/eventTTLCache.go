@@ -9,14 +9,13 @@ import (
 const purgeFreq = 10 * time.Second
 
 type eventCache struct {
-	seen     map[string]bool
-	creation map[string]time.Time
+	seen         map[string]int64
+	mostRecentTS int64
 	sync.RWMutex
 }
 
 func createCache(ttl time.Duration, log *log.Logger) *eventCache {
-	cache := &eventCache{seen: make(map[string]bool),
-		creation: make(map[string]time.Time)}
+	cache := &eventCache{seen: make(map[string]int64)} // creation: make(map[string]time.Time)
 
 	log.Printf("cache: ttl:%s check-time:%s\n", ttl.String(), purgeFreq.String())
 
@@ -27,16 +26,18 @@ func createCache(ttl time.Duration, log *log.Logger) *eventCache {
 
 			var ids []string
 			now := time.Now()
-			for id, ts := range c.creation {
-				purgeCandidate := now.Sub(ts).Seconds() >= ttl.Seconds()
-				if purgeCandidate {
-					ids = append(ids, id)
+			for id, ts := range c.seen {
+				if ts != c.mostRecentTS { //keep logs with latest timestamp to avoid duplication on consecutive calls
+					t := time.Unix(ts/1000, 0)
+					purgeCandidate := now.Sub(t).Seconds() >= ttl.Seconds()
+					if purgeCandidate {
+						ids = append(ids, id)
+					}
 				}
 			}
 			log.Println("entries to purge:", len(ids))
 
 			for _, id := range ids {
-				delete(c.creation, id)
 				delete(c.seen, id)
 			}
 			c.Unlock()
@@ -51,14 +52,14 @@ func createCache(ttl time.Duration, log *log.Logger) *eventCache {
 func (c *eventCache) Has(eventID string) bool {
 	c.RLock()
 	defer c.RUnlock()
-	return c.seen[eventID]
+	return c.seen[eventID] != 0
 }
 
 func (c *eventCache) Add(eventID string, ts int64) {
 	c.Lock()
 	defer c.Unlock()
-	c.seen[eventID] = true
-	c.creation[eventID] = time.Now()
+	c.seen[eventID] = ts
+	c.mostRecentTS = ts
 }
 
 func (c *eventCache) Size() int {
