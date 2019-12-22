@@ -66,7 +66,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	idle <- true
 
 	ttl := 60 * time.Second
-	cache := createCache(ttl, cwl.log)
+	cache := createCache(ttl, defaultPurgeFreq, cwl.log)
 
 	logStreams := &logStreams{}
 
