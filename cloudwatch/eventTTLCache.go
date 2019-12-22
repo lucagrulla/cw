@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const purgeFreq = 10 * time.Second
+const defaultPurgeFreq = 10 * time.Second
 
 type eventCache struct {
 	seen     map[string]bool
@@ -14,7 +14,10 @@ type eventCache struct {
 	sync.RWMutex
 }
 
-func createCache(ttl time.Duration, log *log.Logger) *eventCache {
+func createCache(ttl time.Duration, purgeFreq time.Duration, log *log.Logger) *eventCache {
+	if purgeFreq == 0 {
+		purgeFreq = defaultPurgeFreq
+	}
 	cache := &eventCache{seen: make(map[string]bool),
 		creation: make(map[string]time.Time)}
 
