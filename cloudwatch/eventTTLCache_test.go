@@ -9,8 +9,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const ttl = 5 * time.Second
-const purgeFreq = 6 * time.Second
+const ttl = 1 * time.Second
+const purgeFreq = 2 * time.Second
 
 func TestCache(t *testing.T) {
 	l := log.New(ioutil.Discard, "", log.LstdFlags)
@@ -18,12 +18,19 @@ func TestCache(t *testing.T) {
 	a := assert.New(t)
 	cache := createCache(ttl, purgeFreq, l)
 	cache.Add("1", 1)
+	cache.Add("2", 2)
+	cache.Add("3", 3)
+
 	a.True(cache.Has("1"))
-	a.False(cache.Has("2"))
-	time.Sleep((purgeFreq + (1 * time.Second)))
+	a.True(cache.Has("2"))
+	a.True(cache.Has("3"))
+
+	time.Sleep((purgeFreq + (1 * time.Second))) //wait for the cache janitor to kick in
 
 	a.False(cache.Has("1"))
-	// a.True(cache.Has("2"), "latest item should be retained")
+	a.False(cache.Has("2"))
 
-	a.Equal(cache.Size(), 0)
+	a.True(cache.Has("3"), "last added item should be retained")
+
+	a.Equal(cache.Size(), 1)
 }

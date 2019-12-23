@@ -22,7 +22,7 @@ func createCache(ttl time.Duration, purgeFreq time.Duration, log *log.Logger) *e
 
 	log.Printf("cache: ttl:%s check-time:%s\n", ttl.String(), purgeFreq.String())
 
-	cachePurge := func(c *eventCache, ttl time.Duration, freq time.Duration) {
+	janitor := func(c *eventCache, ttl time.Duration, freq time.Duration) {
 		cacheTicker := time.NewTicker(purgeFreq)
 		for range cacheTicker.C {
 			c.Lock()
@@ -36,6 +36,8 @@ func createCache(ttl time.Duration, purgeFreq time.Duration, log *log.Logger) *e
 					if purgeCandidate {
 						ids = append(ids, id)
 					}
+				} else {
+					log.Printf("%s to be retained with timestamp %d \n", id, ts)
 				}
 			}
 			log.Println("entries to purge:", len(ids))
@@ -47,7 +49,7 @@ func createCache(ttl time.Duration, purgeFreq time.Duration, log *log.Logger) *e
 		}
 	}
 
-	go cachePurge(cache, ttl, purgeFreq)
+	go janitor(cache, ttl, purgeFreq)
 
 	return cache
 }
