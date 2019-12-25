@@ -22,22 +22,27 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 
 ## Features
 
-* **No external dependencies** (no pip, npm, rubygems) and easy installation.
-  * cw is a native executable targeting your OS.
-* **Fast**. cw is written in golang and compiled against your architecture.
+* **No external dependencies** 
+  * cw is a native executable targeting your OS. No pip, npm, rubygems.
+* **Fast**. 
+  * cw is written in golang and compiled against your architecture.
 * **Flexible date and time parser**.
-  * You can work with either `Local` timezone or `UTC` (default).
+  * Work with either `Local` timezone or `UTC` (default).
   * Flexible parsing.
     * Human friendly formats, i.e. `2d1h20m` to indicate 2 days, 1 hour and 20 minutes ago.
     * a specific hour, i.e. `13:10` to indicate 13:10 of today.
     * a full timestamp `2018-10-20T8:53`.
-* **multi log groups tailing** tail multiple log groups  in parallel: `cw tail my-auth-service my-web`.
+* **Multi log groups tailing**
+   * tail multiple log groups  in parallel: `cw tail my-auth-service my-web`.
 * Powerful built-in **grep** (`--grep`) and **grepv** (`--grepv`).
-* **Pipe operator** supported:  `echo my-group | cw tail` and `cat groups.txt | cw tail`. 
-* **Redirection operator** supported: `cw tail -f my-stream >> myfile.txt`.
-* Coloured output (`--no-color` flag to disable if needed).
+* **Pipe operator |** supported  
+   * `echo my-group | cw tail` and `cat groups.txt | cw tail`. 
+* **Redirection operator >>** supported 
+   * `cw tail -f my-stream >> myfile.txt`.
+* Coloured output
+   * `--no-color` flag to disable if needed.
 * Flexibile credentials control.
-  * By default it uses the **AWS .aws/credentials and .aws/profile** files. Overrides can be done with the  `--profile` and `--region` flags.
+   * By default the **AWS .aws/credentials and .aws/profile** files are used. Overrides can be achieved with the  `--profile` and `--region` flags.
 
 ## Installation
 
