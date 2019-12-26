@@ -54,8 +54,8 @@ brews:
       system bin/"cw --help-man > cw.1"
       man1.install "cw.1"
 
-      # system bin/"cw completion zsh > cw.zsh"
-      # zsh_completion.install "cw.zsh"
+      system bin/"cw --completion-script-zsh > cw.zsh"
+      zsh_completion.install "cw.zsh"
 scoop:
   bucket:
     owner: lucagrulla

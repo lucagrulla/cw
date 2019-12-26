@@ -32,7 +32,7 @@ func (s *logStreams) get() []*string {
 func params(logGroupName string, streamNames []*string, startTimeInMillis int64, endTimeInMillis int64, grep *string, follow *bool) *cloudwatchlogs.FilterLogEventsInput {
 	params := &cloudwatchlogs.FilterLogEventsInput{
 		LogGroupName: &logGroupName,
-		Interleaved:  aws.Bool(true), //deprecated, it's always true. Need to delete.
+		Interleaved:  aws.Bool(true), //deprecated, it's always true. To be deleted.
 		StartTime:    &startTimeInMillis}
 
 	if *grep != "" {
