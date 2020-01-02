@@ -9,6 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
+	"github.com/aws/aws-sdk-go/aws/credentials/stscreds"
 )
 
 //CW provides the APIo peration methods for making requests to AWS cloudwatch logs.
@@ -38,6 +39,7 @@ func New(awsProfile *string, awsRegion *string, log *log.Logger) *CW {
 	log.Printf("awsProfile: %s, awsRegion: %s\n", *awsProfile, *awsRegion)
 
 	opts := session.Options{
+		AssumeRoleTokenProvider: stscreds.StdinTokenProvider,
 		SharedConfigState: session.SharedConfigEnable,
 	}
 
