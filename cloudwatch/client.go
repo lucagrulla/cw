@@ -5,10 +5,12 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
+	"github.com/aws/aws-sdk-go/aws/credentials/stscreds"
 )
 
 //CW provides the APIo peration methods for making requests to AWS cloudwatch logs.
@@ -18,7 +20,7 @@ type CW struct {
 }
 
 // New creates a new instance of the CW client
-func New(awsProfile *string, awsRegion *string, log *log.Logger) *CW {
+func New(awsProfile *string, awsRegion *string, mfa *bool, log *log.Logger) *CW {
 	//workaround to figure out the user actual home dir within a SNAP (rather than the sandboxed one)
 	//and access the  .aws folder in its default location
 	if os.Getenv("SNAP_INSTANCE_NAME") != "" {
@@ -47,6 +49,11 @@ func New(awsProfile *string, awsRegion *string, log *log.Logger) *CW {
 
 	if awsRegion != nil {
 		opts.Config = aws.Config{Region: awsRegion}
+	}
+	if *mfa {
+		duration, _ := time.ParseDuration("1h")
+		opts.AssumeRoleTokenProvider = stscreds.StdinTokenProvider
+		opts.AssumeRoleDuration = duration
 	}
 
 	sess := session.Must(session.NewSessionWithOptions(opts))

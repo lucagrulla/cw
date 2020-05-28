@@ -64,6 +64,7 @@ var (
 	grep  = tailCommand.Flag("grep", "Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.").
 		Short('g').Default("").String()
 	grepv = tailCommand.Flag("grepv", "Equivalent of grep --invert-match. Invert match pattern to filter logs by.").Short('v').Default("").String()
+	mfa = kp.Flag("mfa", "When target AWS profile has MFA enabled.").Short('m').Default("false").Bool()
 )
 
 func timestampToTime(timeStamp *string) (time.Time, error) {
@@ -173,7 +174,7 @@ func main() {
 		color.NoColor = true
 	}
 
-	c := cloudwatch.New(awsProfile, awsRegion, log)
+	c := cloudwatch.New(awsProfile, awsRegion, mfa, log)
 
 	switch cmd {
 	case "ls groups":
