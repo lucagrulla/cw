@@ -18,7 +18,7 @@ type CW struct {
 }
 
 // New creates a new instance of the CW client
-func New(awsEndpointUrl *string, awsProfile *string, awsRegion *string, log *log.Logger) *CW {
+func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log.Logger) *CW {
 	//workaround to figure out the user actual home dir within a SNAP (rather than the sandboxed one)
 	//and access the  .aws folder in its default location
 	if os.Getenv("SNAP_INSTANCE_NAME") != "" {
@@ -37,6 +37,9 @@ func New(awsEndpointUrl *string, awsProfile *string, awsRegion *string, log *log
 	}
 	log.Printf("awsProfile: %s, awsRegion: %s\n", *awsProfile, *awsRegion)
 
+	if awsEndpointURL != nil {
+		log.Printf("awsEndpointURL:%s", *awsEndpointURL)
+	}
 	opts := session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}
@@ -45,16 +48,16 @@ func New(awsEndpointUrl *string, awsProfile *string, awsRegion *string, log *log
 		opts.Profile = *awsProfile
 	}
 
-	if awsEndpointUrl == nil {
-		awsEndpointUrl = new(string)
-	}
+	cfg := aws.Config{}
 
+	if awsEndpointURL != nil {
+		cfg.Endpoint = awsEndpointURL
+	}
 	if awsRegion != nil {
-		opts.Config = aws.Config{Region: awsRegion, Endpoint: awsEndpointUrl}
-	} else {
-		opts.Config = aws.Config{Endpoint: awsEndpointUrl}
+		cfg.Region = awsRegion
 	}
 
+	opts.Config = cfg
 	sess := session.Must(session.NewSessionWithOptions(opts))
 	return &CW{awsClwClient: cloudwatchlogs.New(sess),
 		log: log}

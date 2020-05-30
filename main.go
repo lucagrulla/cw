@@ -27,11 +27,11 @@ const (
 var (
 	kp = kingpin.New("cw", "The best way to tail AWS Cloudwatch Logs from your terminal.")
 
-	awsProfile = kp.Flag("profile", "The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.").Short('p').String()
-	awsRegion  = kp.Flag("region", "The target AWS region. By default cw will use the default region defined in the .aws/credentials file.").Short('r').String()
-	awsEndpointUrl  = kp.Flag("endpoint-url", "The target AWS endpoint url. By default cw will use the default aws endpoints.").String()
-	noColor    = kp.Flag("no-color", "Disable coloured output.").Short('c').Default("false").Bool()
-	debug      = kp.Flag("debug", "Enable debug logging.").Short('d').Default("false").Hidden().Bool()
+	awsProfile     = kp.Flag("profile", "The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.").Short('p').String()
+	awsRegion      = kp.Flag("region", "The target AWS region. By default cw will use the default region defined in the .aws/credentials file.").Short('r').String()
+	awsEndpointURL = kp.Flag("endpoint-url", "The target AWS endpoint url. By default cw will use the default aws endpoints.").Short('u').String()
+	noColor        = kp.Flag("no-color", "Disable coloured output.").Short('c').Default("false").Bool()
+	debug          = kp.Flag("debug", "Enable debug logging.").Short('d').Default("false").Hidden().Bool()
 
 	lsCommand = kp.Command("ls", "Show an entity.")
 
@@ -174,7 +174,7 @@ func main() {
 		color.NoColor = true
 	}
 
-	c := cloudwatch.New(awsEndpointUrl, awsProfile, awsRegion, log)
+	c := cloudwatch.New(awsEndpointURL, awsProfile, awsRegion, log)
 
 	switch cmd {
 	case "ls groups":
