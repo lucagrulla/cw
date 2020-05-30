@@ -18,7 +18,7 @@ type CW struct {
 }
 
 // New creates a new instance of the CW client
-func New(awsProfile *string, awsRegion *string, log *log.Logger) *CW {
+func New(awsEndpointUrl *string, awsProfile *string, awsRegion *string, log *log.Logger) *CW {
 	//workaround to figure out the user actual home dir within a SNAP (rather than the sandboxed one)
 	//and access the  .aws folder in its default location
 	if os.Getenv("SNAP_INSTANCE_NAME") != "" {
@@ -45,8 +45,14 @@ func New(awsProfile *string, awsRegion *string, log *log.Logger) *CW {
 		opts.Profile = *awsProfile
 	}
 
+	if awsEndpointUrl == nil {
+		awsEndpointUrl = new(string)
+	}
+
 	if awsRegion != nil {
-		opts.Config = aws.Config{Region: awsRegion}
+		opts.Config = aws.Config{Region: awsRegion, Endpoint: awsEndpointUrl}
+	} else {
+		opts.Config = aws.Config{Endpoint: awsEndpointUrl}
 	}
 
 	sess := session.Must(session.NewSessionWithOptions(opts))
