@@ -18,6 +18,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 * [Commands and options](#commands-and-options)
 * [Examples](#examples)
 * [AWS credentials and configuration](#AWS-credentials-and-configuration)
+* [Miscellaneous] (#miscellaneous)
 * [Release notes](https://github.com/lucagrulla/cw/wiki/Release-notes)
 
 ## Features
@@ -192,6 +193,11 @@ As today (May 2020) AWS Go SDK is not supporting AWS SSO correctly.
 The best approach is to use one of these tools while the SDK is updated:
 https://github.com/benkehoe/aws-sso-credential-process
 https://github.com/victorskl/yawsso
+
+## Miscellaneous
+### CW doesn't work behind a proxy
+Please use ```HTTP_PROXY``` environment variable as required by AWS cli:
+https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-proxy.html
 
 ## Breaking changes notes
 Read [here](https://github.com/lucagrulla/cw/wiki/Breaking-changes-notes)
