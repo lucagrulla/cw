@@ -187,5 +187,11 @@ If you prefer to use Local zone just set the ```--local``` flag.
 
 `cw` uses the default credentials profile (stored in ./aws/credentials) for authentication and shared config (.aws/config) for identifying the target AWS region. Both profile and region are overridable with the  `profile` and `region` global flags.
 
+### AWS SSO
+As today (May 2020) AWS Go SDK is not supporting AWS SSO correctly. 
+The best approach is to use one of these tools while the SDK is updated:
+https://github.com/benkehoe/aws-sso-credential-process
+https://github.com/victorskl/yawsso
+
 ## Breaking changes notes
 Read [here](https://github.com/lucagrulla/cw/wiki/Breaking-changes-notes)
