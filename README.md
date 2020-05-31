@@ -69,7 +69,7 @@ brew install cw
 Download the ```.deb``` or ```.rpm``` from the [releases page](https://github.com/lucagrulla/cw/releases/latest) and install with ````dpkg -i```` and ````rpm -i```` respectively.
 
 #### using [Snapcraft.io](https://snapcraft.io)
-*Note*: If you upgrade to 3.3.0 blease note the new alias command.This is required to comply with snapcraft new release rules.
+*Note*: If you upgrade to 3.3.0 please note the new alias command.This is required to comply with snapcraft new release rules.
 ```bash
 snap install cw-sh
 sudo snap connect cw-sh:dot-aws-config-credentials
@@ -115,6 +115,8 @@ go get github.com/lucagrulla/cw
         --help             Show context-sensitive help (also try --help-long and --help-man).
     -p, --profile=PROFILE  The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.
     -r, --region=REGION    The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.
+    -u, --endpoint-url=ENDPOINT-URL The target AWS endpoint url. By default cw will use the default aws
+                         endpoints.
     -c, --no-color         Disable coloured output.
         --version          Show application version.
 
