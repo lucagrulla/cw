@@ -95,7 +95,7 @@ snapcrafts:
     base: core18
     confinement: strict
     apps:
-      cw-sh:
+      bin/cw-sh:
         plugs: [network, dot-aws-config-credentials]
     plugs:
       network: 
