@@ -18,7 +18,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 * [Commands and options](#commands-and-options)
 * [Examples](#examples)
 * [AWS credentials and configuration](#AWS-credentials-and-configuration)
-* [Miscellaneous] (#miscellaneous)
+* [Miscellaneous](#miscellaneous)
 * [Release notes](https://github.com/lucagrulla/cw/wiki/Release-notes)
 
 ## Features
