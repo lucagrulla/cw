@@ -69,11 +69,11 @@ brew install cw
 Download the ```.deb``` or ```.rpm``` from the [releases page](https://github.com/lucagrulla/cw/releases/latest) and install with ````dpkg -i```` and ````rpm -i```` respectively.
 
 #### using [Snapcraft.io](https://snapcraft.io)
-
+*Note*: If you upgrade to 3.3.0 blease note the new alias command.This is required to comply with snapcraft new release rules.
 ```bash
 snap install cw-sh
 sudo snap connect cw-sh:dot-aws-config-credentials
-sudo snap alias cw-sh cw
+sudo snap alias cw-sh.cw cw
 ```
 
 `cw` runs with strict confinement; the `dot-aws-config-credentials` interface connection is required to have acces to `.aws/config` and `.aws/credentials` files
