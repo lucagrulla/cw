@@ -6,7 +6,7 @@ require (
 	github.com/aws/aws-sdk-go v1.31.7
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fatih/color v1.9.0
-	github.com/stretchr/testify v1.5.1
+	github.com/stretchr/testify v1.6.0
 	golang.org/x/text v0.3.2 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
