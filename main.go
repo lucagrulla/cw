@@ -32,6 +32,7 @@ var (
 	awsEndpointURL = kp.Flag("endpoint-url", "The target AWS endpoint url. By default cw will use the default aws endpoints.").Short('u').String()
 	noColor        = kp.Flag("no-color", "Disable coloured output.").Short('c').Default("false").Bool()
 	debug          = kp.Flag("debug", "Enable debug logging.").Short('d').Default("false").Hidden().Bool()
+	retry          = kp.Flag("retry", "Keep trying to open a log group if it does not exist.").Short('R').Default("false").Hidden().Bool()
 
 	lsCommand = kp.Command("ls", "Show an entity.")
 
@@ -172,6 +173,9 @@ func main() {
 	}
 	if *noColor {
 		color.NoColor = true
+	}
+	if *retry {
+		retry = true
 	}
 
 	c := cloudwatch.New(awsEndpointURL, awsProfile, awsRegion, log)

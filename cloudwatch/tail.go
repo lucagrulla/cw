@@ -78,7 +78,12 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 			}
 			if len(streams) == 0 {
 				fmt.Fprintln(os.Stderr, "No such log stream(s).")
-				close(ch)
+				if retry == false {
+					close(ch)
+				} else {
+					sleep 2
+					getStreams
+				}
 			}
 			if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
 				start := len(streams) - 100
