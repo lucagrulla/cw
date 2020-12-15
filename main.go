@@ -183,7 +183,7 @@ func main() {
 			fmt.Println(*msg)
 		}
 	case "ls streams":
-		for msg := range c.LsStreams(lsLogGroupName, nil) {
+		for msg := range c.LsStreams(lsLogGroupName, nil, nil) {
 			fmt.Println(*msg)
 		}
 	case "tail":

@@ -11,7 +11,7 @@ import (
 
 //LsStreams lists the streams of a given stream group
 //It returns a channel where the stream names are published in order of Last Ingestion Time (the first stream is the one with older Last Ingestion Time)
-func (cwl *CW) LsStreams(groupName *string, streamName *string) <-chan *string {
+func (cwl *CW) LsStreams(groupName *string, streamName *string, timeCutoff *int64) <-chan *string {
 	ch := make(chan *string)
 
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
@@ -36,7 +36,11 @@ func (cwl *CW) LsStreams(groupName *string, streamName *string) <-chan *string {
 		})
 
 		for _, logStream := range res.LogStreams {
-			ch <- logStream.LogStreamName
+			//If timeCutoff is unset, append the log stream name
+			//If timeCutoff is set, check that the LastIngestionTime is more recent than the timeCutoff time
+			if timeCutoff == nil || (logStream.LastIngestionTime != nil && *logStream.LastIngestionTime > *timeCutoff) {
+				ch <- logStream.LogStreamName
+			}
 		}
 		if lastPage {
 			close(ch)

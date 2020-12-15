@@ -73,7 +73,7 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	if logStreamName != nil && *logStreamName != "" {
 		getStreams := func(logGroupName *string, logStreamName *string) []*string {
 			var streams []*string
-			for stream := range cwl.LsStreams(logGroupName, logStreamName) {
+			for stream := range cwl.LsStreams(logGroupName, logStreamName, &lastSeenTimestamp) {
 				streams = append(streams, stream)
 			}
 			if len(streams) == 0 {
@@ -100,7 +100,6 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {
 			if *grepv == "" || !re.MatchString(*event.Message) {
-
 				if !cache.Has(*event.EventId) {
 					eventTimestamp := *event.Timestamp
 
