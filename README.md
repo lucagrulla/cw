@@ -42,7 +42,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
    * `cw tail -f my-stream >> myfile.txt`.
 * Coloured output
    * `--no-color` flag to disable if needed.
-* Flexibile credentials control.
+* Flexible credentials control.
    * By default the **AWS .aws/credentials and .aws/profile** files are used. Overrides can be achieved with the  `--profile` and `--region` flags.
 
 ## Installation
@@ -77,7 +77,7 @@ sudo snap connect cw-sh:dot-aws-config-credentials
 sudo snap alias cw-sh.cw cw
 ```
 
-`cw` runs with strict confinement; the `dot-aws-config-credentials` interface connection is required to have acces to `.aws/config` and `.aws/credentials` files
+`cw` runs with strict confinement; the `dot-aws-config-credentials` interface connection is required to have access to `.aws/config` and `.aws/credentials` files
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/cw-sh)
 
