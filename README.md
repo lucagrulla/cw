@@ -107,7 +107,7 @@ go get github.com/lucagrulla/cw
 ### Commands
 
 * `cw ls` list all the log groups/log streams within a group
-    ```bash
+    ```console
     usage: cw ls <command> [<args> ...]
 
     Show an entity
@@ -129,7 +129,7 @@ go get github.com/lucagrulla/cw
         Show all streams in a given log group.
     ```
 * `cw tail` tail a given log group/log stream
-    ```bash
+    ```console
         usage: cw tail [<flags>] <groupName:logStreamPrefix...>...
 
         Tail log groups/streams.
