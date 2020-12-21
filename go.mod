@@ -5,7 +5,7 @@ require (
 	github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf // indirect
 	github.com/aws/aws-sdk-go v1.36.12
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/fatih/color v1.9.0
+	github.com/fatih/color v1.10.0
 	github.com/stretchr/testify v1.6.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
