@@ -53,7 +53,7 @@ func params(logGroupName string, streamNames []*string, startTimeInMillis int64,
 //To tail all the available streams logStreamName has to be '*'
 //It returns a channel where logs line are published
 //Unless the follow flag is true the channel is closed once there are no more events available
-func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, startTime *time.Time, endTime *time.Time, grep *string, grepv *string, limiter <-chan time.Time) <-chan *cloudwatchlogs.FilteredLogEvent {
+func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, retry *bool, startTime *time.Time, endTime *time.Time, grep *string, grepv *string, limiter <-chan time.Time) <-chan *cloudwatchlogs.FilteredLogEvent {
 	lastSeenTimestamp := startTime.Unix() * 1000
 
 	var endTimeInMillis int64
@@ -71,31 +71,42 @@ func (cwl *CW) Tail(logGroupName *string, logStreamName *string, follow *bool, s
 	logStreams := &logStreams{}
 
 	if logStreamName != nil && *logStreamName != "" {
-		getStreams := func(logGroupName *string, logStreamName *string) []*string {
-			var streams []*string
-			for stream := range cwl.LsStreams(logGroupName, logStreamName) {
-				streams = append(streams, stream)
+		go func() {
+			getStreams := func(logGroupName *string, logStreamName *string) []*string {
+				var streams []*string
+				for stream := range cwl.LsStreams(logGroupName, logStreamName) {
+					streams = append(streams, stream)
+				}
+				if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
+					start := len(streams) - 100
+					streams = streams[start:]
+				}
+				return streams
 			}
-			if len(streams) == 0 {
-				fmt.Fprintln(os.Stderr, "No such log stream(s).")
-				close(ch)
+			input := make(chan time.Time, 1)
+			input <- time.Now()
+			for range input {
+				s := getStreams(logGroupName, logStreamName)
+				if len(s) == 0 {
+					if *follow {
+						timer := time.NewTimer(time.Millisecond * 150)
+						input <- <-timer.C
+					} else {
+						fmt.Fprintln(os.Stderr, "No such log stream(s).")
+						close(ch)
+						close(input)
+					}
+				} else {
+					logStreams.reset(s)
+					close(input)
+				}
 			}
-			if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
-				start := len(streams) - 100
-				streams = streams[start:]
-			}
-			return streams
-		}
-		logStreams.reset(getStreams(logGroupName, logStreamName))
-
-		go func() { //refresh known streams every 5 seconds
-			ticker := time.NewTicker(time.Second * 5)
-			for range ticker.C {
+			t := time.NewTicker(time.Second * 5)
+			for range t.C {
 				logStreams.reset(getStreams(logGroupName, logStreamName))
 			}
 		}()
 	}
-
 	re := regexp.MustCompile(*grepv)
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
 		for _, event := range res.Events {

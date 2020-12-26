@@ -46,6 +46,7 @@ var (
 		"Multiple group/stream tuple can be passed. e.g. cw tail group1:prefix1 group2:prefix2 group3:prefix3.").Strings()
 
 	follow          = tailCommand.Flag("follow", "Don't stop when the end of streams is reached, but rather wait for additional data to be appended.").Short('f').Default("false").Bool()
+	retry           = tailCommand.Flag("retry", "retry if groups/streams not avaialble").Short('e').Default("false").Bool()
 	printTimestamp  = tailCommand.Flag("timestamp", "Print the event timestamp.").Short('t').Default("false").Bool()
 	printEventID    = tailCommand.Flag("event-id", "Print the event Id.").Short('i').Default("false").Bool()
 	printStreamName = tailCommand.Flag("stream-name", "Print the log stream name this event belongs to.").Short('s').Default("false").Bool()
@@ -226,7 +227,7 @@ func main() {
 				if len(tokens) > 1 && tokens[1] != "*" {
 					prefix = tokens[1]
 				}
-				for c := range c.Tail(&group, &prefix, follow, &st, &et, grep, grepv, trigger) {
+				for c := range c.Tail(&group, &prefix, follow, retry, &st, &et, grep, grepv, trigger) {
 					out <- &logEvent{logEvent: *c, logGroup: group}
 				}
 				coordinator.remove(trigger)
