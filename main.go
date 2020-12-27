@@ -180,11 +180,11 @@ func main() {
 	switch cmd {
 	case "ls groups":
 
-		for msg := range c.LsGroups() {
+		for msg := range cloudwatch.LsGroups(c) {
 			fmt.Println(*msg)
 		}
 	case "ls streams":
-		for msg := range c.LsStreams(lsLogGroupName, nil) {
+		for msg := range cloudwatch.LsStreams(c, lsLogGroupName, nil) {
 			fmt.Println(*msg)
 		}
 	case "tail":
@@ -227,7 +227,11 @@ func main() {
 				if len(tokens) > 1 && tokens[1] != "*" {
 					prefix = tokens[1]
 				}
-				for c := range c.Tail(&group, &prefix, follow, retry, &st, &et, grep, grepv, trigger) {
+				ch, e := cloudwatch.Tail(c, &group, &prefix, follow, retry, &st, &et, grep, grepv, trigger, log)
+				if e != nil {
+					fmt.Fprintln(os.Stderr, e.Error())
+				}
+				for c := range ch {
 					out <- &logEvent{logEvent: *c, logGroup: group}
 				}
 				coordinator.remove(trigger)

@@ -7,11 +7,12 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
+	"github.com/aws/aws-sdk-go/service/cloudwatchlogs/cloudwatchlogsiface"
 )
 
 //LsStreams lists the streams of a given stream group
 //It returns a channel where the stream names are published in order of Last Ingestion Time (the first stream is the one with older Last Ingestion Time)
-func (cwl *CW) LsStreams(groupName *string, streamName *string) <-chan *string {
+func LsStreams(cwl cloudwatchlogsiface.CloudWatchLogsAPI, groupName *string, streamName *string) <-chan *string {
 	ch := make(chan *string)
 
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
@@ -21,18 +22,18 @@ func (cwl *CW) LsStreams(groupName *string, streamName *string) <-chan *string {
 	}
 	handler := func(res *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
 		sort.SliceStable(res.LogStreams, func(i, j int) bool {
-			var streamALastIngestionTime int64 = 0;
-			var streamBLastIngestionTime int64 = 0;
+			var streamALastIngestionTime int64 = 0
+			var streamBLastIngestionTime int64 = 0
 
 			if ingestionTime := res.LogStreams[i].LastIngestionTime; ingestionTime != nil {
-				streamALastIngestionTime = *ingestionTime;
+				streamALastIngestionTime = *ingestionTime
 			}
 
 			if ingestionTime := res.LogStreams[j].LastIngestionTime; ingestionTime != nil {
-				streamBLastIngestionTime = *ingestionTime;
+				streamBLastIngestionTime = *ingestionTime
 			}
 
-			return streamALastIngestionTime < streamBLastIngestionTime;
+			return streamALastIngestionTime < streamBLastIngestionTime
 		})
 
 		for _, logStream := range res.LogStreams {
@@ -45,7 +46,7 @@ func (cwl *CW) LsStreams(groupName *string, streamName *string) <-chan *string {
 	}
 
 	go func() {
-		err := cwl.awsClwClient.DescribeLogStreamsPages(params, handler)
+		err := cwl.DescribeLogStreamsPages(params, handler)
 		if err != nil {
 			if awsErr, ok := err.(awserr.Error); ok {
 				fmt.Fprintln(os.Stderr, awsErr.Message())
