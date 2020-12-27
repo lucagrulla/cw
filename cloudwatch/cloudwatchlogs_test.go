@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs/cloudwatchlogsiface"
 	"github.com/stretchr/testify/assert"
@@ -29,6 +30,22 @@ var (
 
 func (m *mockCloudWatchLogsClient) DescribeLogStreamsPages(input *cloudwatchlogs.DescribeLogStreamsInput,
 	fn func(*cloudwatchlogs.DescribeLogStreamsOutput, bool) bool) error {
+	// s := []*cloudwatchlogs.LogStream{}
+	// for _, t := range m.streams {
+	// 	s = append(s, &cloudwatchlogs.LogStream{LogStreamName: aws.String(t)})
+	// }
+	// o := &cloudwatchlogs.DescribeLogStreamsOutput{LogStreams: s}
+	// fn(o, true)
+	return awserr.New("ResourceNotFoundException", "", nil)
+}
+
+type mockCloudWatchLogsClientLsStreams struct {
+	cloudwatchlogsiface.CloudWatchLogsAPI
+	streams []string
+}
+
+func (m *mockCloudWatchLogsClientLsStreams) DescribeLogStreamsPages(input *cloudwatchlogs.DescribeLogStreamsInput,
+	fn func(*cloudwatchlogs.DescribeLogStreamsOutput, bool) bool) error {
 	s := []*cloudwatchlogs.LogStream{}
 	for _, t := range m.streams {
 		s = append(s, &cloudwatchlogs.LogStream{LogStreamName: aws.String(t)})
@@ -37,12 +54,11 @@ func (m *mockCloudWatchLogsClient) DescribeLogStreamsPages(input *cloudwatchlogs
 	fn(o, true)
 	return nil
 }
-
 func TestLsStreams(t *testing.T) {
-	mockSvc := &mockCloudWatchLogsClient{
+	mockSvc := &mockCloudWatchLogsClientLsStreams{
 		streams: streams,
 	}
-	ch := LsStreams(mockSvc, aws.String("a"), aws.String("b"))
+	ch, _ := LsStreams(mockSvc, aws.String("a"), aws.String("b"))
 	for l := range ch {
 		assert.Contains(t, streams, *l)
 	}

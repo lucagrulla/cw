@@ -13,6 +13,7 @@ import (
 	"time"
 	"unicode"
 
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 	"github.com/fatih/color"
 	"github.com/lucagrulla/cw/cloudwatch"
@@ -179,13 +180,26 @@ func main() {
 
 	switch cmd {
 	case "ls groups":
-
 		for msg := range cloudwatch.LsGroups(c) {
 			fmt.Println(*msg)
 		}
 	case "ls streams":
-		for msg := range cloudwatch.LsStreams(c, lsLogGroupName, nil) {
-			fmt.Println(*msg)
+		foundStreams, errors := cloudwatch.LsStreams(c, lsLogGroupName, aws.String(""))
+		for {
+			select {
+			case e := <-errors:
+				fmt.Fprintln(os.Stderr, e.Message())
+				os.Exit(1)
+			case msg, ok := <-foundStreams:
+				if ok {
+					fmt.Println(*msg)
+				} else {
+					return
+				}
+			case <-time.After(5 * time.Second):
+				fmt.Fprintln(os.Stderr, "Unable to fetch log streams.")
+				os.Exit(1)
+			}
 		}
 	case "tail":
 		if additionalInput := fromStdin(); additionalInput != nil {
@@ -230,6 +244,7 @@ func main() {
 				ch, e := cloudwatch.Tail(c, &group, &prefix, follow, retry, &st, &et, grep, grepv, trigger, log)
 				if e != nil {
 					fmt.Fprintln(os.Stderr, e.Error())
+					os.Exit(1)
 				}
 				for c := range ch {
 					out <- &logEvent{logEvent: *c, logGroup: group}

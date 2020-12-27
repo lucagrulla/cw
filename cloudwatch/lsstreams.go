@@ -1,8 +1,6 @@
 package cloudwatch
 
 import (
-	"fmt"
-	"os"
 	"sort"
 
 	"github.com/aws/aws-sdk-go/aws/awserr"
@@ -12,12 +10,13 @@ import (
 
 //LsStreams lists the streams of a given stream group
 //It returns a channel where the stream names are published in order of Last Ingestion Time (the first stream is the one with older Last Ingestion Time)
-func LsStreams(cwl cloudwatchlogsiface.CloudWatchLogsAPI, groupName *string, streamName *string) <-chan *string {
+func LsStreams(cwl cloudwatchlogsiface.CloudWatchLogsAPI, groupName *string, streamName *string) (<-chan *string, <-chan awserr.Error) {
 	ch := make(chan *string)
+	errCh := make(chan awserr.Error)
 
 	params := &cloudwatchlogs.DescribeLogStreamsInput{
 		LogGroupName: groupName}
-	if streamName != nil {
+	if streamName != nil && *streamName != "" {
 		params.LogStreamNamePrefix = streamName
 	}
 	handler := func(res *cloudwatchlogs.DescribeLogStreamsOutput, lastPage bool) bool {
@@ -49,10 +48,11 @@ func LsStreams(cwl cloudwatchlogsiface.CloudWatchLogsAPI, groupName *string, str
 		err := cwl.DescribeLogStreamsPages(params, handler)
 		if err != nil {
 			if awsErr, ok := err.(awserr.Error); ok {
-				fmt.Fprintln(os.Stderr, awsErr.Message())
-				os.Exit(1)
+				errCh <- awsErr
+				// fmt.Fprintln(os.Stderr, "ffff", awsErr.Message())
+				// os.Exit(1)
 			}
 		}
 	}()
-	return ch
+	return ch, errCh
 }
