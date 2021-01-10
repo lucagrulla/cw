@@ -92,7 +92,7 @@ func Tail(cwl cloudwatchlogsiface.CloudWatchLogsAPI,
 						break outerLoop
 					}
 				case <-time.After(5 * time.Second):
-					//TODO manage deadlock scenario
+					//TODO better handling of deadlock scenario
 				}
 			}
 			if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
@@ -132,6 +132,8 @@ func Tail(cwl cloudwatchlogsiface.CloudWatchLogsAPI,
 				}
 			}
 		}()
+	} else {
+		idle <- true
 	}
 	re := regexp.MustCompile(*grepv)
 	pageHandler := func(res *cloudwatchlogs.FilterLogEventsOutput, lastPage bool) bool {
@@ -172,7 +174,6 @@ func Tail(cwl cloudwatchlogsiface.CloudWatchLogsAPI,
 			select {
 			case <-idle:
 				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
-				log.Println("logP", *logParam)
 				error := cwl.FilterLogEventsPages(logParam, pageHandler)
 				if error != nil {
 					fmt.Println("BIG ERROR", error)
