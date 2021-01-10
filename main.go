@@ -120,7 +120,7 @@ func fromStdin() []string {
 type context struct {
 	Debug bool
 	C     cloudwatchlogsiface.CloudWatchLogsAPI
-	Log   log.Logger
+	Log   *log.Logger
 }
 
 type lsGroupsCmd struct {
@@ -174,7 +174,7 @@ func (t *tailCmd) Run(ctx *context) error {
 
 	triggerChannels := make([]chan<- time.Time, len(t.LogGroupStreamName))
 
-	coordinator := &tailCoordinator{log: &ctx.Log}
+	coordinator := &tailCoordinator{log: ctx.Log}
 	for idx, gs := range t.LogGroupStreamName {
 		trigger := make(chan time.Time, 1)
 		go func(groupStream string) {
@@ -184,7 +184,7 @@ func (t *tailCmd) Run(ctx *context) error {
 			if len(tokens) > 1 && tokens[1] != "*" {
 				prefix = tokens[1]
 			}
-			ch, e := cloudwatch.Tail(ctx.C, &group, &prefix, &t.Follow, &t.Retry, &st, &et, &t.Grep, &t.Grepv, trigger, &ctx.Log)
+			ch, e := cloudwatch.Tail(ctx.C, &group, &prefix, &t.Follow, &t.Retry, &st, &et, &t.Grep, &t.Grepv, trigger, ctx.Log)
 			if e != nil {
 				fmt.Fprintln(os.Stderr, e.Error())
 				os.Exit(1)
@@ -290,6 +290,6 @@ func main() {
 		color.NoColor = true
 	}
 	c := cloudwatch.New(&cli.AwsEndpointURL, &cli.AwsProfile, &cli.AwsRegion, log)
-	err := ctx.Run(&context{Debug: cli.Debug, C: c, Log: *log})
+	err := ctx.Run(&context{Debug: cli.Debug, C: c, Log: log})
 	ctx.FatalIfErrorf(err)
 }
