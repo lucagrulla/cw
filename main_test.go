@@ -14,38 +14,38 @@ func TestTimestampToTime(t *testing.T) {
 	assert := assert.New(t)
 
 	a := "2017-03-12"
-	parsedTime, _ := timestampToTime(&a)
+	parsedTime, _ := timestampToTime(&a, false)
 	assert.Equal(time.Date(2017, 3, 12, 0, 0, 0, 0, time.UTC), parsedTime,
 		"wrong parsing for input %s", a)
 
 	a = "2017-03-12T18"
-	parsedTime, _ = timestampToTime(&a)
+	parsedTime, _ = timestampToTime(&a, false)
 
 	assert.Equal(time.Date(2017, 3, 12, 18, 0, 0, 0, time.UTC), parsedTime,
 		"wrong parsing for input %s", a)
 
 	a = "2017-03-12T18:22"
-	parsedTime, _ = timestampToTime(&a)
+	parsedTime, _ = timestampToTime(&a, false)
 
 	assert.Equal(time.Date(2017, 3, 12, 18, 22, 0, 0, time.UTC), parsedTime,
 		"wrong parsing for input %s", a)
 
 	a = "2017-03-12T18:22:23"
-	parsedTime, _ = timestampToTime(&a)
+	parsedTime, _ = timestampToTime(&a, false)
 
 	assert.Equal(time.Date(2017, 3, 12, 18, 22, 23, 0, time.UTC), parsedTime,
 		"wrong parsing for input %s", a)
 
 	a = "18"
 	y, m, d := time.Now().Date()
-	parsedTime, _ = timestampToTime(&a)
+	parsedTime, _ = timestampToTime(&a, false)
 
 	assert.Equal(time.Date(y, m, d, 18, 0, 0, 0, time.UTC), parsedTime,
 		"wrong parsing for input %s", a)
 
 	a = "18:31"
 	y, m, d = time.Now().Date()
-	parsedTime, _ = timestampToTime(&a)
+	parsedTime, _ = timestampToTime(&a, false)
 
 	assert.Equal(time.Date(y, m, d, 18, 31, 0, 0, time.UTC), parsedTime,
 		"wrong parsing for input %s", a)
@@ -59,7 +59,7 @@ func TestHumanReadableTimeToTime(t *testing.T) {
 
 	y, m, d := x.Date()
 
-	parsedTime, _ := timestampToTime(&s)
+	parsedTime, _ := timestampToTime(&s, false)
 	assert.Equal(time.Date(y, m, d, x.Hour(), x.Minute(), 0, 0, time.UTC),
 		parsedTime, "wrong parsing for input %s", s)
 
@@ -69,7 +69,7 @@ func TestHumanReadableTimeToTime(t *testing.T) {
 
 	y, m, d = x.Date()
 
-	parsedTime, _ = timestampToTime(&s)
+	parsedTime, _ = timestampToTime(&s, false)
 	assert.Equal(time.Date(y, m, d, x.Hour(), x.Minute(), 0, 0, time.UTC),
 		parsedTime, "wrong parsing for input %s", s)
 
@@ -79,7 +79,7 @@ func TestHumanReadableTimeToTime(t *testing.T) {
 
 	y, m, d = x.Date()
 
-	parsedTime, _ = timestampToTime(&s)
+	parsedTime, _ = timestampToTime(&s, false)
 	assert.Equal(time.Date(y, m, d, x.Hour(), x.Minute(), 0, 0, time.UTC), parsedTime, "wrong parsing for input %s", s)
 
 	s = "50m"
@@ -88,7 +88,7 @@ func TestHumanReadableTimeToTime(t *testing.T) {
 
 	y, m, d = x.Date()
 
-	parsedTime, _ = timestampToTime(&s)
+	parsedTime, _ = timestampToTime(&s, false)
 	assert.Equal(time.Date(y, m, d, x.Hour(), x.Minute(), 0, 0, time.UTC), parsedTime, "wrong parsing for input %s", s)
 
 	s = "2h30m"
@@ -97,14 +97,14 @@ func TestHumanReadableTimeToTime(t *testing.T) {
 
 	y, m, d = x.Date()
 
-	parsedTime, _ = timestampToTime(&s)
+	parsedTime, _ = timestampToTime(&s, false)
 	assert.Equal(time.Date(y, m, d, x.Hour(), x.Minute(), 0, 0, time.UTC), parsedTime, "wrong parsing for input %s", s)
 }
 
 func TestWrongFormat(t *testing.T) {
 	assert := assert.New(t)
 	a := "log-group"
-	_, err := timestampToTime(&a)
+	_, err := timestampToTime(&a, false)
 	assert.Error(err)
 }
 
