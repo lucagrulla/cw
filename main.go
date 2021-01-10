@@ -237,10 +237,6 @@ func (l *lsStreamsCmd) Run(ctx *context) error {
 			os.Exit(1)
 		}
 	}
-	// for msg := range ctx.C.LsStreams(&l.GroupName, nil) {
-	// 	fmt.Println(*msg)
-	// }
-	// return nil
 }
 
 func (r *lsGroupsCmd) Run(ctx *context) error {
@@ -248,18 +244,16 @@ func (r *lsGroupsCmd) Run(ctx *context) error {
 		fmt.Println(*msg)
 	}
 	return nil
-	// for msg := range ctx.C.LsGroups() {
-	// 	fmt.Println(*msg)
-	// }
-	// return nil
 }
 
 var cli struct {
-	Debug          bool   `hidden help:"Enable debug mode."`
-	AwsProfile     string `help:"The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file." name:"profile" placeholder:"PROFILE"`
-	AwsRegion      string `name:"region" help:"The target AWS region. By default cw will use the default region defined in the .aws/credentials file." placeholder:"REGION"`
-	AwsEndpointURL string `name:"endpoint-url" help:"The target AWS endpoint url. By default cw will use the default aws endpoints." placeholder:"URL"`
-	NoColor        bool   `name:"no-color" help:"Disable coloured output." default:"false"`
+	Debug bool `hidden help:"Enable debug mode."`
+
+	AwsEndpointURL string           `name:"endpoint-url" help:"The target AWS endpoint url. By default cw will use the default aws endpoints." placeholder:"URL"`
+	AwsProfile     string           `help:"The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file." name:"profile" placeholder:"PROFILE"`
+	AwsRegion      string           `name:"region" help:"The target AWS region. By default cw will use the default region defined in the .aws/credentials file." placeholder:"REGION"`
+	NoColor        bool             `name:"no-color" help:"Disable coloured output." default:"false"`
+	Version        kong.VersionFlag `name:"version" help:"Print version information and quit"`
 
 	Ls   lsCmd   `cmd help:"show an entity"`
 	Tail tailCmd `cmd help:"Tail log groups/streams."`
@@ -272,7 +266,7 @@ func main() {
 
 	//TODO add author, version and remove error msg on no command call
 	ctx := kong.Parse(&cli,
-		kong.Vars{"now": time.Now().UTC().Add(-45 * time.Second).Format(timeFormat)},
+		kong.Vars{"now": time.Now().UTC().Add(-45 * time.Second).Format(timeFormat), "version": version},
 		kong.UsageOnError(),
 		kong.Name("cw"),
 		kong.Description("The best way to tail AWS Cloudwatch Logs from your terminal."))
