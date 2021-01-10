@@ -136,7 +136,7 @@ type tailCmd struct {
 	PrintEventID       bool     `name:"event-id" help:"Print the event Id." short:"i" default:"false"`
 	PrintStreamName    bool     `name:"stream-name" help:"Print the log stream name this event belongs to." short:"s" default:"false"`
 	PrintGroupName     bool     `name:"group-name" help:"Print the log group name this event belongs to." short:"n" default:"false"`
-	Retry              bool     `name:"retry" help:"if groups/streams not avaialble" short:"r" default:"false"`
+	Retry              bool     `name:"retry" help:"Keep trying to open a log group/log stream if it is inaccessible." short:"r" default:"false"`
 	StartTime          string   `name:"start" help:"The UTC start time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of days, hours and minutes prior to the present. Denote days with 'd', hours with 'h' and minutes with 'm' i.e. 80m, 4h30m, 2d4h. If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09[:00[:00]]." short:"b" default:"${now}"`
 	EndTime            string   `name:"end" help:"The UTC end time. Passed as either date/time or human-friendly format. The human-friendly format accepts the number of days, hours and minutes prior to the present. Denote days with 'd', hours with 'h' and minutes with 'm' i.e. 80m, 4h30m, 2d4h. If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format: 2017-02-27[T09[:00[:00]]." short:"e" default:""`
 	Local              bool     `name:"local" help:"Treat date and time in Local timezone." short:"l" default:"false"`
@@ -192,9 +192,6 @@ func (t *tailCmd) Run(ctx *context) error {
 			for c := range ch {
 				out <- &logEvent{logEvent: *c, logGroup: group}
 			}
-			// for c := range ctx.C.Tail(&group, &prefix, &t.Follow, &st, &et, &t.Grep, &t.Grepv, trigger) {
-			// 				out <- &logEvent{logEvent: *c, logGroup: group}
-			// 			}
 			coordinator.remove(trigger)
 			wg.Done()
 		}(gs)

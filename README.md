@@ -114,9 +114,9 @@ go get github.com/lucagrulla/cw
 
     Flags:
         --help             Show context-sensitive help (also try --help-long and --help-man).
-    -p, --profile=PROFILE  The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.
-    -r, --region=REGION    The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.
-    -u, --endpoint-url=ENDPOINT-URL The target AWS endpoint url. By default cw will use the default aws
+        --profile=PROFILE  The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.
+        --region=REGION    The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.
+        --endpoint-url=ENDPOINT-URL The target AWS endpoint url. By default cw will use the default aws
                          endpoints.
     -c, --no-color         Disable coloured output.
         --version          Show application version.
@@ -153,6 +153,7 @@ go get github.com/lucagrulla/cw
                                'd', hours with 'h' and minutes with 'm' i.e. 80m, 4h30m, 2d4h. If just time is used (format: hh[:mm]) it is expanded to today at the given time. Full available date/time format:
                                2017-02-27[T09[:00[:00]].
         -l, --local            Treat date and time in Local timezone.
+        -r --retry             Keep trying to open a log group/log stream if it is inaccessible.
         -g, --grep=""          Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax.
         -v, --grepv=""         Equivalent of grep --invert-match. Invert match pattern to filter logs by.
 
