@@ -6,11 +6,12 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
+	"github.com/aws/aws-sdk-go/service/cloudwatchlogs/cloudwatchlogsiface"
 )
 
 //LsGroups lists the stream groups
 //It returns a channel where stream groups are published
-func (cwl *CW) LsGroups() <-chan *string {
+func LsGroups(cwl cloudwatchlogsiface.CloudWatchLogsAPI) <-chan *string {
 	ch := make(chan *string)
 	params := &cloudwatchlogs.DescribeLogGroupsInput{}
 
@@ -25,7 +26,7 @@ func (cwl *CW) LsGroups() <-chan *string {
 	}
 
 	go func() {
-		err := cwl.awsClwClient.DescribeLogGroupsPages(params, handler)
+		err := cwl.DescribeLogGroupsPages(params, handler)
 		if err != nil {
 			if awsErr, ok := err.(awserr.Error); ok {
 				fmt.Fprintln(os.Stderr, awsErr.Message())

@@ -5,20 +5,25 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
+	"github.com/aws/aws-sdk-go/service/cloudwatchlogs/cloudwatchlogsiface"
 )
 
-//CW provides the APIo peration methods for making requests to AWS cloudwatch logs.
-type CW struct {
-	awsClwClient *cloudwatchlogs.CloudWatchLogs
-	log          *log.Logger
+type cwl interface {
+	Tail(cwl cloudwatchlogsiface.CloudWatchLogsAPI,
+		logGroupName *string, logStreamName *string, follow *bool, retry *bool,
+		startTime *time.Time, endTime *time.Time,
+		grep *string, grepv *string,
+		limiter <-chan time.Time, log *log.Logger) <-chan *cloudwatchlogs.FilteredLogEvent
+	LsStreams(cwl cloudwatchlogsiface.CloudWatchLogsAPI, groupName *string, streamName *string) <-chan *string
 }
 
-// New creates a new instance of the CW client
-func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log.Logger) *CW {
+// New creates a new instance of the cloudwatchlogs client
+func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log.Logger) *cloudwatchlogs.CloudWatchLogs {
 	//workaround to figure out the user actual home dir within a SNAP (rather than the sandboxed one)
 	//and access the  .aws folder in its default location
 	if os.Getenv("SNAP_INSTANCE_NAME") != "" {
@@ -59,6 +64,5 @@ func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log
 
 	opts.Config = cfg
 	sess := session.Must(session.NewSessionWithOptions(opts))
-	return &CW{awsClwClient: cloudwatchlogs.New(sess),
-		log: log}
+	return cloudwatchlogs.New(sess)
 }
