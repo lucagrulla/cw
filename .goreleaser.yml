@@ -19,9 +19,11 @@ archives:
       windows: Windows
       386: i386
       amd64: x86_64
-  files:
-    - cw.bash
-    - cw.zsh
+    files:
+      - cw.bash
+      - cw.zsh
+      - LICENSE
+      - README_{{.Os}}.md
 checksum:
   name_template: 'checksums.txt'
 snapshot:
