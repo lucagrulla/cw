@@ -23,7 +23,7 @@ archives:
       - cw.bash
       - cw.zsh
       - LICENSE
-      - README_{{.Os}}.md
+      - README.md
 checksum:
   name_template: 'checksums.txt'
 snapshot:
