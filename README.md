@@ -100,9 +100,10 @@ go get github.com/lucagrulla/cw
 
 ### Global flags
 
-* `-p`, `--profile=profile-name` Override the AWS profile used for connection
-* `-r`, `--region=aws-region` Override the target AWS region
-* `-c`, `--no-color`         Disable coloured output
+* `--profile=profile-name` Override the AWS profile used for connection.
+* `--region=aws-region` Override the target AWS region.
+* `--no-color`         Disable coloured output.
+* `--endpooint`         The target AWS endpoint url. By default cw will use the default aws endpoints.
 
 ### Commands
 
@@ -116,7 +117,7 @@ go get github.com/lucagrulla/cw
         --help             Show context-sensitive help (also try --help-long and --help-man).
         --profile=PROFILE  The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.
         --region=REGION    The target AWS region.. By default cw will use the default region defined in the .aws/credentials file.
-        --endpoint-url=ENDPOINT-URL The target AWS endpoint url. By default cw will use the default aws
+        --endpoint=ENDPOINT-URL The target AWS endpoint url. By default cw will use the default aws
                          endpoints.
     -c, --no-color         Disable coloured output.
         --version          Show application version.
@@ -136,9 +137,9 @@ go get github.com/lucagrulla/cw
 
         Flags:
             --help             Show context-sensitive help (also try --help-long and --help-man).
-        -p, --profile=PROFILE  The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.
-        -r, --region=REGION    The target AWS region. By default cw will use the default region defined in the .aws/credentials file.
-        -c, --no-color         Disable coloured output.
+            --profile=PROFILE  The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file.
+            --region=REGION    The target AWS region. By default cw will use the default region defined in the .aws/credentials file.
+            --no-color         Disable coloured output.
             --version          Show application version.
         -f, --follow           Don't stop when the end of streams is reached, but rather wait for additional data to be appended.
         -t, --timestamp        Print the event timestamp.
