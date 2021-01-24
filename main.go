@@ -249,10 +249,10 @@ func (r *lsGroupsCmd) Run(ctx *context) error {
 var cli struct {
 	Debug bool `hidden help:"Enable debug mode."`
 
-	AwsEndpointURL string           `name:"endpoint-url" help:"The target AWS endpoint url. By default cw will use the default aws endpoints." placeholder:"URL"`
-	AwsProfile     string           `help:"The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file." name:"profile" placeholder:"PROFILE"`
-	AwsRegion      string           `name:"region" help:"The target AWS region. By default cw will use the default region defined in the .aws/credentials file." placeholder:"REGION"`
-	NoColor        bool             `name:"no-color" help:"Disable coloured output." default:"false"`
+	AwsEndpointURL string           `name:"endpoint" help:"The target AWS endpoint url. By default cw will use the default aws endpoints. NOTE: v4.0.0 dropped the flag short version." placeholder:"URL"`
+	AwsProfile     string           `help:"The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file. NOTE: v4.0.0 dropped the flag short version." name:"profile" placeholder:"PROFILE"`
+	AwsRegion      string           `name:"region" help:"The target AWS region. By default cw will use the default region defined in the .aws/credentials file. NOTE: v4.0.0 dropped the flag short version." placeholder:"REGION"`
+	NoColor        bool             `name:"no-color" help:"Disable coloured output.NOTE: v4.0.0 dropped the flag short version. " default:"false"`
 	Version        kong.VersionFlag `name:"version" help:"Print version information and quit"`
 
 	Ls   lsCmd   `cmd help:"show an entity"`
