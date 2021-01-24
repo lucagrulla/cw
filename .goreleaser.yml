@@ -31,12 +31,13 @@ changelog:
     - '^test:'
 brews:
   -
-    github:
+    name: cw
+    tap:
       owner: lucagrulla
       name: homebrew-tap
     commit_author:
       name: lucagrulla
-      email:
+      email: luca@lucagrulla.com
     folder: Formula
     homepage: "https://www.lucagrulla.com/cw"
     description: "The best way to tail AWS Cloudwatch Logs from your terminal"
@@ -71,6 +72,7 @@ scoop:
     - "config.toml"
 nfpms:
   -
+    id: cw
     file_name_template: '{{ .ProjectName }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
     homepage:  https://www.lucagrulla.com/cw
     description: The best way to tail AWS Cloudwatch Logs from your terminal
@@ -84,6 +86,7 @@ nfpms:
     recommends:
     - rpm
   -
+    id: cw-tail
     package_name: cw-tail  # Use the package name "cw-tail" to avoid conflicts with https://launchpad.net/ubuntu/bionic/amd64/cw
     replaces:
     - cw (<< 3.3.0)
