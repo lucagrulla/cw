@@ -2,28 +2,17 @@
 package cloudwatch
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
-	"time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs/cloudwatchlogsiface"
+	"github.com/aws/aws-sdk-go-v2/config"
+	cloudwatchlogsV2 "github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
 )
 
-type cwl interface {
-	Tail(cwl cloudwatchlogsiface.CloudWatchLogsAPI,
-		logGroupName *string, logStreamName *string, follow *bool, retry *bool,
-		startTime *time.Time, endTime *time.Time,
-		grep *string, grepv *string,
-		limiter <-chan time.Time, log *log.Logger) <-chan *cloudwatchlogs.FilteredLogEvent
-	LsStreams(cwl cloudwatchlogsiface.CloudWatchLogsAPI, groupName *string, streamName *string) <-chan *string
-}
-
 // New creates a new instance of the cloudwatchlogs client
-func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log.Logger) *cloudwatchlogs.CloudWatchLogs {
+func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log.Logger) *cloudwatchlogsV2.Client {
 	//workaround to figure out the user actual home dir within a SNAP (rather than the sandboxed one)
 	//and access the  .aws folder in its default location
 	if os.Getenv("SNAP_INSTANCE_NAME") != "" {
@@ -44,25 +33,35 @@ func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log
 
 	if awsEndpointURL != nil {
 		log.Printf("awsEndpointURL:%s", *awsEndpointURL)
+		//TODO: fix endpoint
 	}
-	opts := session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}
+	// opts := session.Options{
+	// 	SharedConfigState: session.SharedConfigEnable,
+	// }
 
 	if awsProfile != nil {
-		opts.Profile = *awsProfile
+		// opts.Profile = *awsProfile
+		config.WithSharedConfigProfile(*awsProfile)
 	}
 
-	cfg := aws.Config{}
+	// cfg := aws.Config{}
+	// cfgV2 := awsV2.Config{}
 
 	if awsEndpointURL != nil {
-		cfg.Endpoint = awsEndpointURL
+		// cfg.Endpoint = awsEndpointURL
+		// cfgV2.Endpoint = awsEndpointURL
+
 	}
 	if awsRegion != nil {
-		cfg.Region = awsRegion
+		// cfg.Region = awsRegion
+		// cfgV2.Region = *awsRegion
+		config.WithRegion(*awsRegion)
 	}
 
-	opts.Config = cfg
-	sess := session.Must(session.NewSessionWithOptions(opts))
-	return cloudwatchlogs.New(sess)
+	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithSharedConfigProfile(""))
+	if err != nil {
+		//TODO
+		os.Exit(1)
+	}
+	return cloudwatchlogsV2.NewFromConfig(cfg)
 }

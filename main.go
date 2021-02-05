@@ -14,9 +14,10 @@ import (
 	"unicode"
 
 	"github.com/alecthomas/kong"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs/cloudwatchlogsiface"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	cloudwatchlogsV2 "github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs/types"
+
 	"github.com/fatih/color"
 	"github.com/lucagrulla/cw/cloudwatch"
 )
@@ -74,7 +75,8 @@ func timestampToTime(timeStamp *string, local bool) (time.Time, error) {
 }
 
 type logEvent struct {
-	logEvent cloudwatchlogs.FilteredLogEvent
+	// logEvent cloudwatchlogs.FilteredLogEvent
+	logEvent types.FilteredLogEvent
 	logGroup string
 }
 
@@ -119,7 +121,7 @@ func fromStdin() []string {
 
 type context struct {
 	Debug bool
-	C     cloudwatchlogsiface.CloudWatchLogsAPI
+	CV2   cloudwatchlogsV2.Client
 	Log   *log.Logger
 }
 
@@ -184,13 +186,13 @@ func (t *tailCmd) Run(ctx *context) error {
 			if len(tokens) > 1 && tokens[1] != "*" {
 				prefix = tokens[1]
 			}
-			ch, e := cloudwatch.Tail(ctx.C, &group, &prefix, &t.Follow, &t.Retry, &st, &et, &t.Grep, &t.Grepv, trigger, ctx.Log)
+			ch, e := cloudwatch.Tail(&ctx.CV2, &group, &prefix, &t.Follow, &t.Retry, &st, &et, &t.Grep, &t.Grepv, trigger, ctx.Log)
 			if e != nil {
 				fmt.Fprintln(os.Stderr, e.Error())
 				os.Exit(1)
 			}
-			for c := range ch {
-				out <- &logEvent{logEvent: *c, logGroup: group}
+			for le := range ch {
+				out <- &logEvent{logEvent: le, logGroup: group}
 			}
 			coordinator.remove(trigger)
 			wg.Done()
@@ -220,12 +222,14 @@ type lsCmd struct {
 }
 
 func (l *lsStreamsCmd) Run(ctx *context) error {
-	foundStreams, errors := cloudwatch.LsStreams(ctx.C, &l.GroupName, aws.String(""))
+	foundStreams, errors := cloudwatch.LsStreams(nil, &ctx.CV2, &l.GroupName, aws.String(""))
 	for {
 		select {
 		case e := <-errors:
-			fmt.Fprintln(os.Stderr, e.Message())
-			os.Exit(1)
+			if e != nil {
+				fmt.Fprintln(os.Stderr, e.Error())
+				os.Exit(1)
+			}
 		case msg, ok := <-foundStreams:
 			if ok {
 				fmt.Println(*msg)
@@ -240,7 +244,7 @@ func (l *lsStreamsCmd) Run(ctx *context) error {
 }
 
 func (r *lsGroupsCmd) Run(ctx *context) error {
-	for msg := range cloudwatch.LsGroups(ctx.C) {
+	for msg := range cloudwatch.LsGroups(nil, &ctx.CV2) {
 		fmt.Println(*msg)
 	}
 	return nil
@@ -280,7 +284,7 @@ func main() {
 	if *&cli.NoColor {
 		color.NoColor = true
 	}
-	c := cloudwatch.New(&cli.AwsEndpointURL, &cli.AwsProfile, &cli.AwsRegion, log)
-	err := ctx.Run(&context{Debug: cli.Debug, C: c, Log: log})
+	client := cloudwatch.New(&cli.AwsEndpointURL, &cli.AwsProfile, &cli.AwsRegion, log)
+	err := ctx.Run(&context{Debug: cli.Debug, CV2: *client, Log: log})
 	ctx.FatalIfErrorf(err)
 }
