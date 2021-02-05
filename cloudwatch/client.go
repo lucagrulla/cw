@@ -7,12 +7,13 @@ import (
 	"log"
 	"os"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
-	cloudwatchlogsV2 "github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
 )
 
 // New creates a new instance of the cloudwatchlogs client
-func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log.Logger) *cloudwatchlogsV2.Client {
+func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log.Logger) *cloudwatchlogs.Client {
 	//workaround to figure out the user actual home dir within a SNAP (rather than the sandboxed one)
 	//and access the  .aws folder in its default location
 	if os.Getenv("SNAP_INSTANCE_NAME") != "" {
@@ -29,39 +30,36 @@ func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log
 			os.Setenv("AWS_CONFIG_FILE", configPath)
 		}
 	}
-	log.Printf("awsProfile: %s, awsRegion: %s\n", *awsProfile, *awsRegion)
 
-	if awsEndpointURL != nil {
-		log.Printf("awsEndpointURL:%s", *awsEndpointURL)
-		//TODO: fix endpoint
+	profile := ""
+	region := ""
+	if awsProfile != nil && *awsProfile != "" {
+		profile = *awsProfile
 	}
-	// opts := session.Options{
-	// 	SharedConfigState: session.SharedConfigEnable,
-	// }
-
-	if awsProfile != nil {
-		// opts.Profile = *awsProfile
-		config.WithSharedConfigProfile(*awsProfile)
+	if awsRegion != nil && *awsRegion != "" {
+		region = *awsRegion
 	}
 
-	// cfg := aws.Config{}
-	// cfgV2 := awsV2.Config{}
+	log.Printf("awsProfile: %s, awsRegion: %s endpoint: %s\n", profile, region, *awsEndpointURL)
 
-	if awsEndpointURL != nil {
-		// cfg.Endpoint = awsEndpointURL
-		// cfgV2.Endpoint = awsEndpointURL
+	customResolver := aws.EndpointResolverFunc(func(service, region string) (aws.Endpoint, error) {
+		if awsEndpointURL != nil && *awsEndpointURL != "" {
+			log.Printf("awsEndpointURL:%s", *awsEndpointURL)
+			return aws.Endpoint{
+				PartitionID:   "aws",
+				URL:           *awsEndpointURL,
+				SigningRegion: region, //TODO how to get dynamic region from
+				SigningName:   "logs",
+			}, nil
+		}
+		// returning EndpointNotFoundError will allow the service to fallback to it's default resolution
+		return aws.Endpoint{}, &aws.EndpointNotFoundError{}
+	})
 
-	}
-	if awsRegion != nil {
-		// cfg.Region = awsRegion
-		// cfgV2.Region = *awsRegion
-		config.WithRegion(*awsRegion)
-	}
-
-	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithSharedConfigProfile(""))
+	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithSharedConfigProfile(profile),
+		config.WithEndpointResolver(customResolver), config.WithRegion(region))
 	if err != nil {
-		//TODO
 		os.Exit(1)
 	}
-	return cloudwatchlogsV2.NewFromConfig(cfg)
+	return cloudwatchlogs.NewFromConfig(cfg)
 }

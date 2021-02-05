@@ -2,6 +2,7 @@ package cloudwatch
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -30,7 +31,7 @@ func (s *logStreamsType) get() []string {
 	return s.groupStreams
 }
 
-func params(logGroupName string, streamNames []string,
+func makeParams(logGroupName string, streamNames []string,
 	startTimeInMillis int64, endTimeInMillis int64,
 	grep *string, follow *bool) *cloudwatchlogsV2.FilterLogEventsInput {
 
@@ -52,24 +53,49 @@ func params(logGroupName string, streamNames []string,
 	return params
 }
 
-type gs func() ([]string, error)
+type fs func() (<-chan *string, <-chan error)
 
-func initialiseStreams(getStreams gs, retry *bool, idle chan<- bool, logStreams *logStreamsType) error {
+func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType, fetchStreams fs) error {
 	input := make(chan time.Time, 1)
 	input <- time.Now()
 
+	getTargetStreams := func() ([]string, error) {
+		var streams []string
+		foundStreams, errCh := fetchStreams()
+	outerLoop:
+		for {
+			select {
+			case e := <-errCh:
+				return nil, e
+			case stream, ok := <-foundStreams:
+				if ok {
+					streams = append(streams, *stream)
+				} else {
+					break outerLoop
+				}
+			case <-time.After(5 * time.Second):
+				//TODO handle deadlock scenario
+			}
+		}
+		if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
+			start := len(streams) - 100
+			streams = streams[start:]
+		}
+		return streams, nil
+	}
+
 	for range input {
-		s, e := getStreams()
+		s, e := getTargetStreams()
 		if e != nil {
-			if e.Error() == "ResourceNotFoundException" && *retry {
-				log.Println("log group not available. retry in 150 milliseconds.")
+			rnf := &types.ResourceNotFoundException{}
+			if errors.As(e, &rnf) && *retry {
+				log.Println("log group not available but retry flag. Re-check in 150 milliseconds.")
 				timer := time.After(time.Millisecond * 150)
 				input <- <-timer
 			} else {
 				return e
 			}
 		} else {
-			//found streams, seed them and exit the check loop
 			logStreams.reset(s)
 
 			idle <- true
@@ -79,8 +105,7 @@ func initialiseStreams(getStreams gs, retry *bool, idle chan<- bool, logStreams 
 	t := time.NewTicker(time.Second * 5)
 	go func() {
 		for range t.C {
-			s, _ := getStreams()
-			// s, _ := getStreams(logGroupName, logStreamName)
+			s, _ := getTargetStreams()
 			if s != nil {
 				logStreams.reset(s)
 			}
@@ -93,7 +118,7 @@ func initialiseStreams(getStreams gs, retry *bool, idle chan<- bool, logStreams 
 //To tail all the available streams logStreamName has to be '*'
 //It returns a channel where logs line are published
 //Unless the follow flag is true the channel is closed once there are no more events available
-func Tail(cwlV2 *cloudwatchlogsV2.Client,
+func Tail(cwc *cloudwatchlogsV2.Client,
 	logGroupName *string, logStreamName *string, follow *bool, retry *bool,
 	startTime *time.Time, endTime *time.Time,
 	grep *string, grepv *string,
@@ -113,69 +138,14 @@ func Tail(cwlV2 *cloudwatchlogsV2.Client,
 
 	logStreams := &logStreamsType{}
 
-	if logStreamName != nil && *logStreamName != "" || *retry {
-		getStreams := func(logGroupName *string, logStreamName *string) ([]string, error) {
-			var streams []string
-			// foundStreams, errCh := LsStreams(cwl, logGroupName, logStreamName)
-			foundStreams, errCh := LsStreams(nil, cwlV2, logGroupName, logStreamName)
-		outerLoop:
-			for {
-				select {
-				case e := <-errCh:
-					return nil, e
-				case stream, ok := <-foundStreams:
-					if ok {
-						streams = append(streams, *stream)
-					} else {
-						break outerLoop
-					}
-				case <-time.After(5 * time.Second):
-					//TODO better handling of deadlock scenario
-				}
-			}
-			if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
-				start := len(streams) - 100
-				streams = streams[start:]
-			}
-			return streams, nil
+	if logStreamName != nil && *logStreamName != "" || *retry { //TODO Is this correct? Is retry needed?
+		fetchStreams := func() (<-chan *string, <-chan error) {
+			return LsStreams(cwc, logGroupName, logStreamName)
 		}
-
-		e := initialiseStreams(func() ([]string, error) {
-			return getStreams(logGroupName, logStreamName)
-		}, retry, idle, logStreams)
-		if e != nil {
-			return nil, e
+		err := initialiseStreams(retry, idle, logStreams, fetchStreams)
+		if err != nil {
+			return nil, err
 		}
-
-		// input := make(chan time.Time, 1)
-		// input <- time.Now()
-
-		// for range input {
-		// 	s, e := getStreams(logGroupName, logStreamName)
-		// 	if e != nil {
-		// 		if e.Error() == "ResourceNotFoundException" && *retry {
-		// 			log.Println("log group not available. retry in 150 milliseconds.")
-		// 			timer := time.After(time.Millisecond * 150)
-		// 			input <- <-timer
-		// 		} else {
-		// 			return nil, e
-		// 		}
-		// 	} else {
-		// 		//found streams, seed them and exit the check loop
-		// 		logStreams.reset(s)
-		// 		idle <- true
-		// 		close(input)
-		// 	}
-		// }
-		// t := time.NewTicker(time.Second * 5)
-		// go func() {
-		// 	for range t.C {
-		// 		s, _ := getStreams(logGroupName, logStreamName)
-		// 		if s != nil {
-		// 			logStreams.reset(s)
-		// 		}
-		// 	}
-		// }()
 	} else {
 		idle <- true
 	}
@@ -184,12 +154,12 @@ func Tail(cwlV2 *cloudwatchlogsV2.Client,
 		for range limiter {
 			select {
 			case <-idle:
-				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
-				paginator := cloudwatchlogsV2.NewFilterLogEventsPaginator(cwlV2, logParam)
+				logParam := makeParams(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
+				paginator := cloudwatchlogsV2.NewFilterLogEventsPaginator(cwc, logParam)
 				for paginator.HasMorePages() {
 					res, err := paginator.NextPage(context.TODO())
 					if err != nil {
-						if err.Error() == "ThrottlingException" {
+						if err.Error() == "ThrottlingException" { //TODO FIX, wrong error checking
 							log.Printf("Rate exceeded for %s. Wait for 250ms then retry.\n", *logGroupName)
 
 							//Wait and fire request again. 1 Retry allowed.
