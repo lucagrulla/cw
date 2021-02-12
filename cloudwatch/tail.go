@@ -176,7 +176,6 @@ func Tail(cwl cloudwatchlogsiface.CloudWatchLogsAPI,
 				logParam := params(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
 				error := cwl.FilterLogEventsPages(logParam, pageHandler)
 				if error != nil {
-					fmt.Println("BIG ERROR", error)
 					if awsErr, ok := error.(awserr.Error); ok {
 						if awsErr.Code() == "ThrottlingException" {
 							log.Printf("Rate exceeded for %s. Wait for 250ms then retry.\n", *logGroupName)
