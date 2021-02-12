@@ -23,7 +23,7 @@ import (
 
 const (
 	timeFormat = "2006-01-02T15:04:05"
-	version    = "4.0.3"
+	version    = "4.0.4"
 )
 
 func timestampToTime(timeStamp *string, local bool) (time.Time, error) {
