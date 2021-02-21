@@ -19,6 +19,7 @@ func getStreams(paginator logStreamsPager, errCh chan error, ch chan *string) {
 			errCh <- err
 			return
 		}
+
 		//TODO check reason for sorting
 		sort.SliceStable(res.LogStreams, func(i, j int) bool {
 			var streamALastIngestionTime int64 = 0
@@ -38,6 +39,7 @@ func getStreams(paginator logStreamsPager, errCh chan error, ch chan *string) {
 		for _, logStream := range res.LogStreams {
 			ch <- logStream.LogStreamName
 		}
+
 	}
 	close(ch)
 	close(errCh)

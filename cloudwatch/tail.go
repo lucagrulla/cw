@@ -31,7 +31,7 @@ func (s *logStreamsType) get() []string {
 	return s.groupStreams
 }
 
-func makeParams(logGroupName string, streamNames []string,
+func makeParams(logGroupName string, streamNames []string, _ *string,
 	startTimeInMillis int64, endTimeInMillis int64,
 	grep *string, follow *bool) *cloudwatchlogsV2.FilterLogEventsInput {
 
@@ -46,6 +46,9 @@ func makeParams(logGroupName string, streamNames []string,
 	if streamNames != nil {
 		params.LogStreamNames = streamNames
 	}
+	// if logStreamNamePrefix != nil {
+	// 	params.LogStreamNamePrefix = logStreamNamePrefix
+	// }
 
 	if !*follow && endTimeInMillis != 0 {
 		params.EndTime = &endTimeInMillis
@@ -56,8 +59,8 @@ func makeParams(logGroupName string, streamNames []string,
 type fs func() (<-chan *string, <-chan error)
 
 func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType, fetchStreams fs) error {
-	input := make(chan time.Time, 1)
-	input <- time.Now()
+	inputCh := make(chan time.Time, 1)
+	inputCh <- time.Now()
 
 	getTargetStreams := func() ([]string, error) {
 		var streams []string
@@ -66,7 +69,9 @@ func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType
 		for {
 			select {
 			case e := <-errCh:
-				return nil, e
+				if e != nil {
+					return nil, e
+				}
 			case stream, ok := <-foundStreams:
 				if ok {
 					streams = append(streams, *stream)
@@ -84,14 +89,15 @@ func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType
 		return streams, nil
 	}
 
-	for range input {
+	for range inputCh {
 		s, e := getTargetStreams()
+		// log.Println("tail - initialiseStreams - streams found:", len(s), e)
 		if e != nil {
 			rnf := &types.ResourceNotFoundException{}
 			if errors.As(e, &rnf) && *retry {
 				log.Println("log group not available but retry flag. Re-check in 150 milliseconds.")
 				timer := time.After(time.Millisecond * 150)
-				input <- <-timer
+				inputCh <- <-timer
 			} else {
 				return e
 			}
@@ -99,7 +105,7 @@ func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType
 			logStreams.reset(s)
 
 			idle <- true
-			close(input)
+			close(inputCh)
 		}
 	}
 	t := time.NewTicker(time.Second * 5)
@@ -138,12 +144,13 @@ func Tail(cwc *cloudwatchlogsV2.Client,
 
 	logStreams := &logStreamsType{}
 
-	if logStreamName != nil && *logStreamName != "" || *retry { //TODO Is this correct? Is retry needed?
+	if logStreamName != nil && *logStreamName != "" {
 		fetchStreams := func() (<-chan *string, <-chan error) {
 			return LsStreams(cwc, logGroupName, logStreamName)
 		}
 		err := initialiseStreams(retry, idle, logStreams, fetchStreams)
 		if err != nil {
+			// log.Println("got an error back:", err)
 			return nil, err
 		}
 	} else {
@@ -154,11 +161,14 @@ func Tail(cwc *cloudwatchlogsV2.Client,
 		for range limiter {
 			select {
 			case <-idle:
-				logParam := makeParams(*logGroupName, logStreams.get(), lastSeenTimestamp, endTimeInMillis, grep, follow)
+				logParam := makeParams(*logGroupName, logStreams.get(), logStreamName, lastSeenTimestamp, endTimeInMillis, grep, follow)
+				// log.Println("params:", *&logParam.LogStreamNames)
 				paginator := cloudwatchlogsV2.NewFilterLogEventsPaginator(cwc, logParam)
 				for paginator.HasMorePages() {
 					res, err := paginator.NextPage(context.TODO())
 					if err != nil {
+						log.Println(err.Error())
+						// os.Exit(1)                                //TODO remove os.Exit
 						if err.Error() == "ThrottlingException" { //TODO FIX, wrong error checking
 							log.Printf("Rate exceeded for %s. Wait for 250ms then retry.\n", *logGroupName)
 
@@ -174,6 +184,7 @@ func Tail(cwc *cloudwatchlogsV2.Client,
 							os.Exit(1)
 						}
 					}
+					// log.Println("tail -  got events:", len(res.Events), logParam.LogStreamNames)
 					for _, event := range res.Events {
 						if *grepv == "" || !re.MatchString(*event.Message) {
 							if !cache.Has(*event.EventId) {
@@ -195,9 +206,10 @@ func Tail(cwc *cloudwatchlogsV2.Client,
 
 				}
 				if !*follow {
+					// log.Println("closing tail channel")
 					close(ch)
 				} else {
-					log.Println("last page")
+					// log.Println("last page - idle-> true")
 					idle <- true
 				}
 			case <-time.After(5 * time.Millisecond):

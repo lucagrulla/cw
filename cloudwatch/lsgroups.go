@@ -12,7 +12,6 @@ import (
 //It returns a channel where stream groups are published
 func LsGroups(cwc *cloudwatchlogs.Client) <-chan *string {
 	ch := make(chan *string)
-	// params := &cloudwatchlogs.DescribeLogGroupsInput{}
 	params := &cloudwatchlogs.DescribeLogGroupsInput{}
 
 	go func() {
@@ -23,10 +22,6 @@ func LsGroups(cwc *cloudwatchlogs.Client) <-chan *string {
 				fmt.Fprintln(os.Stderr, err.Error())
 				os.Exit(1)
 				close(ch)
-				// handle error
-			}
-			for _, logGroup := range res.LogGroups {
-				ch <- logGroup.LogGroupName
 			}
 			for _, logGroup := range res.LogGroups {
 				ch <- logGroup.LogGroupName

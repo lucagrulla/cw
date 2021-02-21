@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -192,6 +193,9 @@ func (t *tailCmd) Run(ctx *context) error {
 				os.Exit(1)
 			}
 			for le := range ch {
+				// if le.LogStreamName != &prefix {
+				// 	fmt.Println("DIFFERENT:", *le.LogStreamName, prefix)
+				// }
 				out <- &logEvent{logEvent: le, logGroup: group}
 			}
 			coordinator.remove(trigger)
@@ -222,19 +226,24 @@ type lsCmd struct {
 }
 
 func (l *lsStreamsCmd) Run(ctx *context) error {
-	foundStreams, errors := cloudwatch.LsStreams(&ctx.Client, &l.GroupName, aws.String(""))
+	foundStreams, errorsCh := cloudwatch.LsStreams(&ctx.Client, &l.GroupName, aws.String(""))
 	for {
 		select {
-		case e := <-errors:
+		case e := <-errorsCh:
 			if e != nil {
-				fmt.Fprintln(os.Stderr, e.Error())
+				rnf := &types.ResourceNotFoundException{}
+				if errors.As(e, &rnf) {
+					fmt.Fprintln(os.Stderr, *rnf.Message)
+				} else {
+					fmt.Fprintln(os.Stderr, e.Error())
+				}
 				os.Exit(1)
 			}
 		case msg, ok := <-foundStreams:
 			if ok {
 				fmt.Println(*msg)
 			} else {
-				return nil //TODO: fix error
+				return nil
 			}
 		case <-time.After(5 * time.Second):
 			fmt.Fprintln(os.Stderr, "Unable to fetch log streams.")
@@ -251,7 +260,7 @@ func (r *lsGroupsCmd) Run(ctx *context) error {
 }
 
 var cli struct {
-	Debug bool `hidden help:"Enable debug mode."`
+	Debug bool `name:"debug" hidden help:"Enable debug mode."`
 
 	AwsEndpointURL string           `name:"endpoint" help:"The target AWS endpoint url. By default cw will use the default aws endpoints. NOTE: v4.0.0 dropped the flag short version." placeholder:"URL"`
 	AwsProfile     string           `help:"The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file. NOTE: v4.0.0 dropped the flag short version." name:"profile" placeholder:"PROFILE"`

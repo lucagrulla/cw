@@ -48,7 +48,7 @@ func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log
 			return aws.Endpoint{
 				PartitionID:   "aws",
 				URL:           *awsEndpointURL,
-				SigningRegion: region, //TODO how to get dynamic region from
+				SigningRegion: region,
 				SigningName:   "logs",
 			}, nil
 		}

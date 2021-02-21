@@ -21,7 +21,8 @@ func (f *tailCoordinator) start(targets []chan<- time.Time) {
 	}
 
 	//AWS API accepts 5 reqs/sec for account
-	ticker := time.NewTicker(205 * time.Millisecond)
+	// ticker := time.NewTicker(205 * time.Millisecond) //TODO put back this
+	ticker := time.NewTicker(1 * time.Millisecond)
 	go func() {
 		for range ticker.C {
 			if f.targets == nil {
