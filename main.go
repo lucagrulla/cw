@@ -193,9 +193,6 @@ func (t *tailCmd) Run(ctx *context) error {
 				os.Exit(1)
 			}
 			for le := range ch {
-				// if le.LogStreamName != &prefix {
-				// 	fmt.Println("DIFFERENT:", *le.LogStreamName, prefix)
-				// }
 				out <- &logEvent{logEvent: le, logGroup: group}
 			}
 			coordinator.remove(trigger)
@@ -277,7 +274,6 @@ func main() {
 	defer newVersionMsg(version, fetchLatestVersion())
 	go versionCheckOnSigterm()
 
-	//TODO add author, version and remove error msg on no command call
 	ctx := kong.Parse(&cli,
 		kong.Vars{"now": time.Now().UTC().Add(-45 * time.Second).Format(timeFormat), "version": version},
 		kong.UsageOnError(),

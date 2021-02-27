@@ -7,10 +7,11 @@ import (
 	"log"
 	"os"
 	"regexp"
+	"strings"
 	"sync"
 	"time"
 
-	cloudwatchlogsV2 "github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs/types"
 )
 
@@ -33,9 +34,9 @@ func (s *logStreamsType) get() []string {
 
 func makeParams(logGroupName string, streamNames []string, _ *string,
 	startTimeInMillis int64, endTimeInMillis int64,
-	grep *string, follow *bool) *cloudwatchlogsV2.FilterLogEventsInput {
+	grep *string, follow *bool) *cloudwatchlogs.FilterLogEventsInput {
 
-	params := &cloudwatchlogsV2.FilterLogEventsInput{
+	params := &cloudwatchlogs.FilterLogEventsInput{
 		LogGroupName: &logGroupName,
 		StartTime:    &startTimeInMillis}
 
@@ -91,7 +92,6 @@ func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType
 
 	for range inputCh {
 		s, e := getTargetStreams()
-		// log.Println("tail - initialiseStreams - streams found:", len(s), e)
 		if e != nil {
 			rnf := &types.ResourceNotFoundException{}
 			if errors.As(e, &rnf) && *retry {
@@ -108,6 +108,7 @@ func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType
 			close(inputCh)
 		}
 	}
+	//refresh streams list every 5 secs
 	t := time.NewTicker(time.Second * 5)
 	go func() {
 		for range t.C {
@@ -124,7 +125,7 @@ func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType
 //To tail all the available streams logStreamName has to be '*'
 //It returns a channel where logs line are published
 //Unless the follow flag is true the channel is closed once there are no more events available
-func Tail(cwc *cloudwatchlogsV2.Client,
+func Tail(cwc *cloudwatchlogs.Client,
 	logGroupName *string, logStreamName *string, follow *bool, retry *bool,
 	startTime *time.Time, endTime *time.Time,
 	grep *string, grepv *string,
@@ -162,14 +163,12 @@ func Tail(cwc *cloudwatchlogsV2.Client,
 			select {
 			case <-idle:
 				logParam := makeParams(*logGroupName, logStreams.get(), logStreamName, lastSeenTimestamp, endTimeInMillis, grep, follow)
-				// log.Println("params:", *&logParam.LogStreamNames)
-				paginator := cloudwatchlogsV2.NewFilterLogEventsPaginator(cwc, logParam)
+				paginator := cloudwatchlogs.NewFilterLogEventsPaginator(cwc, logParam)
 				for paginator.HasMorePages() {
 					res, err := paginator.NextPage(context.TODO())
 					if err != nil {
 						log.Println(err.Error())
-						// os.Exit(1)                                //TODO remove os.Exit
-						if err.Error() == "ThrottlingException" { //TODO FIX, wrong error checking
+						if strings.Contains(err.Error(), "ThrottlingException") { //could not find the native error...fmt.
 							log.Printf("Rate exceeded for %s. Wait for 250ms then retry.\n", *logGroupName)
 
 							//Wait and fire request again. 1 Retry allowed.
@@ -184,7 +183,6 @@ func Tail(cwc *cloudwatchlogsV2.Client,
 							os.Exit(1)
 						}
 					}
-					// log.Println("tail -  got events:", len(res.Events), logParam.LogStreamNames)
 					for _, event := range res.Events {
 						if *grepv == "" || !re.MatchString(*event.Message) {
 							if !cache.Has(*event.EventId) {
@@ -206,10 +204,8 @@ func Tail(cwc *cloudwatchlogsV2.Client,
 
 				}
 				if !*follow {
-					// log.Println("closing tail channel")
 					close(ch)
 				} else {
-					// log.Println("last page - idle-> true")
 					idle <- true
 				}
 			case <-time.After(5 * time.Millisecond):
