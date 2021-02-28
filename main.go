@@ -238,7 +238,7 @@ func (l *lsStreamsCmd) Run(ctx *context) error {
 			}
 		case msg, ok := <-foundStreams:
 			if ok {
-				fmt.Println(*msg)
+				fmt.Println(*msg.LogStreamName)
 			} else {
 				return nil
 			}

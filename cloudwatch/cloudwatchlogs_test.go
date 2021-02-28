@@ -15,7 +15,9 @@ import (
 )
 
 var (
-	streams = []*string{aws.String("stream1"), aws.String("stream2")}
+	streams = []types.LogStream{
+		{LogStreamName: aws.String("stream1"), LastIngestionTime: aws.Int64(time.Now().Unix())},
+		{LogStreamName: aws.String("stream2"), LastIngestionTime: aws.Int64(time.Now().AddDate(1, 0, 0).Unix())}}
 )
 
 type MockPager struct {
@@ -40,15 +42,10 @@ func (m *MockPager) NextPage(ctx context.Context, optFns ...func(*cloudwatchlogs
 }
 
 func TestLsStreams(t *testing.T) {
-	logStreams := []types.LogStream{}
-	for _, s := range streams {
-		st := &types.LogStream{LogStreamName: s, LastIngestionTime: aws.Int64(time.Now().Unix())}
-		logStreams = append(logStreams, *st)
-	}
 	pag := &MockPager{PageNum: 0,
-		Pages: []*cloudwatchlogs.DescribeLogStreamsOutput{{LogStreams: logStreams}},
+		Pages: []*cloudwatchlogs.DescribeLogStreamsOutput{{LogStreams: streams}},
 	}
-	ch := make(chan *string)
+	ch := make(chan types.LogStream)
 	errCh := make(chan error)
 	go getStreams(pag, errCh, ch)
 
@@ -60,8 +57,8 @@ func TestLsStreams(t *testing.T) {
 func TestTailShouldFailIfNoStreamsAdNoRetry(t *testing.T) {
 	idleCh := make(chan bool)
 
-	fetchStreams := func() (<-chan *string, <-chan error) {
-		ch := make(chan *string)
+	fetchStreams := func() (<-chan types.LogStream, <-chan error) {
+		ch := make(chan types.LogStream)
 		errCh := make(chan error, 1)
 		rnf := &types.ResourceNotFoundException{
 			Message: new(string),
@@ -80,9 +77,9 @@ func TestTailWaitForStreamsWithRetry(t *testing.T) {
 	idleCh := make(chan bool, 1)
 
 	callsToFetchStreams := 0
-	fetchStreams := func() (<-chan *string, <-chan error) {
+	fetchStreams := func() (<-chan types.LogStream, <-chan error) {
 		callsToFetchStreams++
-		ch := make(chan *string, 5)
+		ch := make(chan types.LogStream, 5)
 		errCh := make(chan error, 1)
 
 		if callsToFetchStreams == 2 {
@@ -105,7 +102,54 @@ func TestTailWaitForStreamsWithRetry(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Len(t, logStreams.get(), 2)
-	for _, s := range logStreams.get() {
-		assert.Contains(t, streams, &s)
+	var streamNames []string
+	for _, ls := range streams {
+		streamNames = append(streamNames, *ls.LogStreamName)
 	}
+	for _, s := range logStreams.get() {
+		assert.Contains(t, streamNames, s)
+	}
+}
+
+func TestShortenLogStreamsListIfTooLong(t *testing.T) {
+
+	var streams = []types.LogStream{}
+
+	size := 105
+	for i := 0; i < size; i++ {
+		name := fmt.Sprintf("streams%d", i)
+		x := &types.LogStream{LogStreamName: aws.String(name)}
+		streams = append(streams, *x)
+	}
+
+	assert.Len(t, streams, size)
+	streams = sortLogStreamsByMostRecentEvent(streams)
+	assert.Len(t, streams, 100)
+}
+
+func TestSortLogStreamsByMostRecentEvent(t *testing.T) {
+
+	var streams = []types.LogStream{}
+
+	size := 105
+	for i := 0; i < size; i++ {
+		t := aws.Int64(time.Now().AddDate(0, 0, -i).Unix())
+		name := fmt.Sprintf("stream%d", i)
+		x := &types.LogStream{LogStreamName: aws.String(name), LastIngestionTime: t}
+		streams = append(streams, *x)
+	}
+
+	first := streams[0]
+	last := streams[size-1]
+	assert.Greater(t, *first.LastIngestionTime, *last.LastIngestionTime)
+	streams = sortLogStreamsByMostRecentEvent(streams)
+
+	// eventTimestamp := *s.LastEventTimestamp / 1000
+	// ts := time.Unix(eventTimestamp, 0).Format(timeFormat)
+
+	assert.Len(t, streams, 100)
+	assert.Equal(t, *streams[len(streams)-1].LogStreamName, "stream0")
+	first = streams[0]
+	last = streams[len(streams)-1]
+	assert.Less(t, *first.LastIngestionTime, *last.LastIngestionTime)
 }

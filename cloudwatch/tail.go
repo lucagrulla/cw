@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"regexp"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -57,25 +58,47 @@ func makeParams(logGroupName string, streamNames []string, _ *string,
 	return params
 }
 
-type fs func() (<-chan *string, <-chan error)
+type fs func() (<-chan types.LogStream, <-chan error)
+
+func sortLogStreamsByMostRecentEvent(logStream []types.LogStream) []types.LogStream {
+	sort.SliceStable(logStream, func(i, j int) bool {
+		var streamALastIngestionTime int64 = 0
+		var streamBLastIngestionTime int64 = 0
+
+		if ingestionTime := logStream[i].LastIngestionTime; ingestionTime != nil {
+			streamALastIngestionTime = *ingestionTime
+		}
+
+		if ingestionTime := logStream[j].LastIngestionTime; ingestionTime != nil {
+			streamBLastIngestionTime = *ingestionTime
+		}
+
+		return streamALastIngestionTime < streamBLastIngestionTime
+	})
+	if len(logStream) > 100 {
+		logStream = logStream[len(logStream)-100:]
+	}
+	return logStream
+}
 
 func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType, fetchStreams fs) error {
-	inputCh := make(chan time.Time, 1)
-	inputCh <- time.Now()
+	executionCh := make(chan time.Time, 1)
+	executionCh <- time.Now()
 
 	getTargetStreams := func() ([]string, error) {
-		var streams []string
+		var streams []types.LogStream
 		foundStreams, errCh := fetchStreams()
 	outerLoop:
 		for {
 			select {
 			case e := <-errCh:
 				if e != nil {
+					log.Println("error while fetching log streams.", e)
 					return nil, e
 				}
-			case stream, ok := <-foundStreams:
+			case stream, ok := <-foundStreams: //TODO improve performance
 				if ok {
-					streams = append(streams, *stream)
+					streams = append(streams, stream)
 				} else {
 					break outerLoop
 				}
@@ -83,21 +106,28 @@ func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType
 				//TODO handle deadlock scenario
 			}
 		}
-		if len(streams) >= 100 { //FilterLogEventPages won't take more than 100 stream names
-			start := len(streams) - 100
-			streams = streams[start:]
+		//FilterLogEventPages won't take more than 100 stream names, the most one with most recent activities will be used.
+		log.Println("streams found:", len(streams))
+
+		if len(streams) >= 100 {
+			streams = sortLogStreamsByMostRecentEvent(streams)
 		}
-		return streams, nil
+
+		var streamNames []string
+		for _, s := range streams {
+			streamNames = append(streamNames, *s.LogStreamName)
+		}
+		return streamNames, nil
 	}
 
-	for range inputCh {
+	for range executionCh {
 		s, e := getTargetStreams()
 		if e != nil {
 			rnf := &types.ResourceNotFoundException{}
 			if errors.As(e, &rnf) && *retry {
 				log.Println("log group not available but retry flag. Re-check in 150 milliseconds.")
 				timer := time.After(time.Millisecond * 150)
-				inputCh <- <-timer
+				executionCh <- <-timer
 			} else {
 				return e
 			}
@@ -105,7 +135,7 @@ func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType
 			logStreams.reset(s)
 
 			idle <- true
-			close(inputCh)
+			close(executionCh)
 		}
 	}
 	//refresh streams list every 5 secs
@@ -146,7 +176,7 @@ func Tail(cwc *cloudwatchlogs.Client,
 	logStreams := &logStreamsType{}
 
 	if logStreamName != nil && *logStreamName != "" {
-		fetchStreams := func() (<-chan *string, <-chan error) {
+		fetchStreams := func() (<-chan types.LogStream, <-chan error) {
 			return LsStreams(cwc, logGroupName, logStreamName)
 		}
 		err := initialiseStreams(retry, idle, logStreams, fetchStreams)
