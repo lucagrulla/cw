@@ -184,11 +184,11 @@ go get github.com/lucagrulla/cw
 ## Time and Dates
 
 Time and dates are treated as UTC by default.
-If you prefer to use Local zone just set the ```--local``` flag.
+Use the ```--local``` flag if you prefer to use Local zone.
 
 ## AWS credentials and configuration
 
-`cw` uses the default credentials profile (stored in ./aws/credentials) for authentication and shared config (.aws/config) for identifying the target AWS region. Both profile and region are overridable with the  `profile` and `region` global flags.
+`cw` uses the default credentials profile (stored in ./aws/credentials) for authentication and shared config (.aws/config) for identifying the target AWS region. Both profile and region are overridable via the `profile` and `region` global flags.
 
 ### AWS SSO
 As today (May 2020) AWS Go SDK is not supporting AWS SSO correctly. 
@@ -197,7 +197,7 @@ https://github.com/benkehoe/aws-sso-credential-process
 https://github.com/victorskl/yawsso
 
 ## Miscellaneous
-### CW doesn't work behind a proxy
+### Use `cw` behind a proxy
 Please use ```HTTP_PROXY``` environment variable as required by AWS cli:
 https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-proxy.html
 
