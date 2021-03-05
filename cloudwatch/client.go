@@ -2,28 +2,18 @@
 package cloudwatch
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
-	"time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs/cloudwatchlogsiface"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
 )
 
-type cwl interface {
-	Tail(cwl cloudwatchlogsiface.CloudWatchLogsAPI,
-		logGroupName *string, logStreamName *string, follow *bool, retry *bool,
-		startTime *time.Time, endTime *time.Time,
-		grep *string, grepv *string,
-		limiter <-chan time.Time, log *log.Logger) <-chan *cloudwatchlogs.FilteredLogEvent
-	LsStreams(cwl cloudwatchlogsiface.CloudWatchLogsAPI, groupName *string, streamName *string) <-chan *string
-}
-
 // New creates a new instance of the cloudwatchlogs client
-func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log.Logger) *cloudwatchlogs.CloudWatchLogs {
+func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log.Logger) *cloudwatchlogs.Client {
 	//workaround to figure out the user actual home dir within a SNAP (rather than the sandboxed one)
 	//and access the  .aws folder in its default location
 	if os.Getenv("SNAP_INSTANCE_NAME") != "" {
@@ -40,29 +30,36 @@ func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log
 			os.Setenv("AWS_CONFIG_FILE", configPath)
 		}
 	}
-	log.Printf("awsProfile: %s, awsRegion: %s\n", *awsProfile, *awsRegion)
 
-	if awsEndpointURL != nil {
-		log.Printf("awsEndpointURL:%s", *awsEndpointURL)
+	profile := ""
+	region := ""
+	if awsProfile != nil && *awsProfile != "" {
+		profile = *awsProfile
 	}
-	opts := session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}
-
-	if awsProfile != nil {
-		opts.Profile = *awsProfile
+	if awsRegion != nil && *awsRegion != "" {
+		region = *awsRegion
 	}
 
-	cfg := aws.Config{}
+	log.Printf("awsProfile: %s, awsRegion: %s endpoint: %s\n", profile, region, *awsEndpointURL)
 
-	if awsEndpointURL != nil {
-		cfg.Endpoint = awsEndpointURL
-	}
-	if awsRegion != nil {
-		cfg.Region = awsRegion
-	}
+	customResolver := aws.EndpointResolverFunc(func(service, region string) (aws.Endpoint, error) {
+		if awsEndpointURL != nil && *awsEndpointURL != "" {
+			log.Printf("awsEndpointURL:%s", *awsEndpointURL)
+			return aws.Endpoint{
+				PartitionID:   "aws",
+				URL:           *awsEndpointURL,
+				SigningRegion: region,
+				SigningName:   "logs",
+			}, nil
+		}
+		// returning EndpointNotFoundError will allow the service to fallback to it's default resolution
+		return aws.Endpoint{}, &aws.EndpointNotFoundError{}
+	})
 
-	opts.Config = cfg
-	sess := session.Must(session.NewSessionWithOptions(opts))
-	return cloudwatchlogs.New(sess)
+	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithSharedConfigProfile(profile),
+		config.WithEndpointResolver(customResolver), config.WithRegion(region))
+	if err != nil {
+		os.Exit(1)
+	}
+	return cloudwatchlogs.NewFromConfig(cfg)
 }

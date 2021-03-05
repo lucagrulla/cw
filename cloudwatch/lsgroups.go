@@ -1,39 +1,33 @@
 package cloudwatch
 
 import (
+	"context"
 	"fmt"
 	"os"
 
-	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs/cloudwatchlogsiface"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
 )
 
 //LsGroups lists the stream groups
 //It returns a channel where stream groups are published
-func LsGroups(cwl cloudwatchlogsiface.CloudWatchLogsAPI) <-chan *string {
+func LsGroups(cwc *cloudwatchlogs.Client) <-chan *string {
 	ch := make(chan *string)
 	params := &cloudwatchlogs.DescribeLogGroupsInput{}
 
-	handler := func(res *cloudwatchlogs.DescribeLogGroupsOutput, lastPage bool) bool {
-		for _, logGroup := range res.LogGroups {
-			ch <- logGroup.LogGroupName
-		}
-		if lastPage {
-			close(ch)
-		}
-		return !lastPage
-	}
-
 	go func() {
-		err := cwl.DescribeLogGroupsPages(params, handler)
-		if err != nil {
-			if awsErr, ok := err.(awserr.Error); ok {
-				fmt.Fprintln(os.Stderr, awsErr.Message())
+		paginator := cloudwatchlogs.NewDescribeLogGroupsPaginator(cwc, params)
+		for paginator.HasMorePages() {
+			res, err := paginator.NextPage(context.TODO())
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err.Error())
 				os.Exit(1)
 				close(ch)
 			}
+			for _, logGroup := range res.LogGroups {
+				ch <- logGroup.LogGroupName
+			}
 		}
+		close(ch)
 	}()
 	return ch
 }

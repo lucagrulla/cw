@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -14,9 +15,10 @@ import (
 	"unicode"
 
 	"github.com/alecthomas/kong"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs/cloudwatchlogsiface"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs/types"
+
 	"github.com/fatih/color"
 	"github.com/lucagrulla/cw/cloudwatch"
 )
@@ -74,7 +76,8 @@ func timestampToTime(timeStamp *string, local bool) (time.Time, error) {
 }
 
 type logEvent struct {
-	logEvent cloudwatchlogs.FilteredLogEvent
+	// logEvent cloudwatchlogs.FilteredLogEvent
+	logEvent types.FilteredLogEvent
 	logGroup string
 }
 
@@ -118,9 +121,9 @@ func fromStdin() []string {
 }
 
 type context struct {
-	Debug bool
-	C     cloudwatchlogsiface.CloudWatchLogsAPI
-	Log   *log.Logger
+	Debug  bool
+	Client cloudwatchlogs.Client
+	Log    *log.Logger
 }
 
 type lsGroupsCmd struct {
@@ -184,13 +187,13 @@ func (t *tailCmd) Run(ctx *context) error {
 			if len(tokens) > 1 && tokens[1] != "*" {
 				prefix = tokens[1]
 			}
-			ch, e := cloudwatch.Tail(ctx.C, &group, &prefix, &t.Follow, &t.Retry, &st, &et, &t.Grep, &t.Grepv, trigger, ctx.Log)
+			ch, e := cloudwatch.Tail(&ctx.Client, &group, &prefix, &t.Follow, &t.Retry, &st, &et, &t.Grep, &t.Grepv, trigger, ctx.Log)
 			if e != nil {
 				fmt.Fprintln(os.Stderr, e.Error())
 				os.Exit(1)
 			}
-			for c := range ch {
-				out <- &logEvent{logEvent: *c, logGroup: group}
+			for le := range ch {
+				out <- &logEvent{logEvent: le, logGroup: group}
 			}
 			coordinator.remove(trigger)
 			wg.Done()
@@ -220,17 +223,24 @@ type lsCmd struct {
 }
 
 func (l *lsStreamsCmd) Run(ctx *context) error {
-	foundStreams, errors := cloudwatch.LsStreams(ctx.C, &l.GroupName, aws.String(""))
+	foundStreams, errorsCh := cloudwatch.LsStreams(&ctx.Client, &l.GroupName, aws.String(""))
 	for {
 		select {
-		case e := <-errors:
-			fmt.Fprintln(os.Stderr, e.Message())
-			os.Exit(1)
+		case e := <-errorsCh:
+			if e != nil {
+				rnf := &types.ResourceNotFoundException{}
+				if errors.As(e, &rnf) {
+					fmt.Fprintln(os.Stderr, *rnf.Message)
+				} else {
+					fmt.Fprintln(os.Stderr, e.Error())
+				}
+				os.Exit(1)
+			}
 		case msg, ok := <-foundStreams:
 			if ok {
-				fmt.Println(*msg)
+				fmt.Println(*msg.LogStreamName)
 			} else {
-				return nil //TODO: fix error
+				return nil
 			}
 		case <-time.After(5 * time.Second):
 			fmt.Fprintln(os.Stderr, "Unable to fetch log streams.")
@@ -240,14 +250,14 @@ func (l *lsStreamsCmd) Run(ctx *context) error {
 }
 
 func (r *lsGroupsCmd) Run(ctx *context) error {
-	for msg := range cloudwatch.LsGroups(ctx.C) {
+	for msg := range cloudwatch.LsGroups(&ctx.Client) {
 		fmt.Println(*msg)
 	}
 	return nil
 }
 
 var cli struct {
-	Debug bool `hidden help:"Enable debug mode."`
+	Debug bool `name:"debug" hidden help:"Enable debug mode."`
 
 	AwsEndpointURL string           `name:"endpoint" help:"The target AWS endpoint url. By default cw will use the default aws endpoints. NOTE: v4.0.0 dropped the flag short version." placeholder:"URL"`
 	AwsProfile     string           `help:"The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file. NOTE: v4.0.0 dropped the flag short version." name:"profile" placeholder:"PROFILE"`
@@ -264,7 +274,6 @@ func main() {
 	defer newVersionMsg(version, fetchLatestVersion())
 	go versionCheckOnSigterm()
 
-	//TODO add author, version and remove error msg on no command call
 	ctx := kong.Parse(&cli,
 		kong.Vars{"now": time.Now().UTC().Add(-45 * time.Second).Format(timeFormat), "version": version},
 		kong.UsageOnError(),
@@ -280,7 +289,7 @@ func main() {
 	if *&cli.NoColor {
 		color.NoColor = true
 	}
-	c := cloudwatch.New(&cli.AwsEndpointURL, &cli.AwsProfile, &cli.AwsRegion, log)
-	err := ctx.Run(&context{Debug: cli.Debug, C: c, Log: log})
+	client := cloudwatch.New(&cli.AwsEndpointURL, &cli.AwsProfile, &cli.AwsRegion, log)
+	err := ctx.Run(&context{Debug: cli.Debug, Client: *client, Log: log})
 	ctx.FatalIfErrorf(err)
 }
