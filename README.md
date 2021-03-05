@@ -36,7 +36,7 @@ Author - [Luca Grulla](https://www.lucagrulla.com)  - [https://www.lucagrulla.co
 * **Multi log groups tailing**
    * tail multiple log groups  in parallel: `cw tail my-auth-service my-web`.
 * Powerful built-in **grep** (`--grep`) and **grepv** (`--grepv`).
-* **Pipe operator |** supported  
+* **Pipe operator** supported  
    * `echo my-group | cw tail` and `cat groups.txt | cw tail`. 
 * **Redirection operator >>** supported 
    * `cw tail -f my-stream >> myfile.txt`.
