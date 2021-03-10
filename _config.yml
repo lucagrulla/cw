@@ -1,19 +1,19 @@
-#theme: jekyll-theme-slate
-#remote_theme: pmarsceill/just-the-docs
-#google_analytics: "UA-1839356-1"
-#url: https://www.lucagrulla.com
-
-title: cw
-description: The best way to tail AWS CloudWatch Logs from your terminal
-google_analytics: UA-1839356-1
-show_downloads: true
-#theme: jekyll-theme-minimal
+theme: jekyll-theme-slate
 remote_theme: pmarsceill/just-the-docs
+google_analytics: "UA-1839356-1"
 url: https://www.lucagrulla.com
-aux_links:
-  " Made with ❤️ by Luca Grulla":
-    - "https://www.lucagrulla.com"
-  " Github repo":
-    - "https://github.com/lucagrulla/cw"
+
+# title: cw
+# description: The best way to tail AWS CloudWatch Logs from your terminal
+# google_analytics: UA-1839356-1
+# show_downloads: true
+# #theme: jekyll-theme-minimal
+# remote_theme: pmarsceill/just-the-docs
+# url: https://www.lucagrulla.com
+# aux_links:
+#   " Made with ❤️ by Luca Grulla":
+#     - "https://www.lucagrulla.com"
+#   " Github repo":
+#     - "https://github.com/lucagrulla/cw"
 
 
