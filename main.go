@@ -219,7 +219,7 @@ func (t *tailCmd) Run(ctx *context) error {
 
 type lsCmd struct {
 	LsGroups     lsGroupsCmd  `cmd name:"groups" help:"Show all groups."`
-	LsStreamsCmd lsStreamsCmd `cmd name:"streams" help:"how all streams in a given log group."`
+	LsStreamsCmd lsStreamsCmd `cmd name:"streams" help:"Show all streams in a given log group."`
 }
 
 func (l *lsStreamsCmd) Run(ctx *context) error {
