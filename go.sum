@@ -1,5 +1,6 @@
 github.com/alecthomas/kong v0.2.15 h1:HP3K1XuFn0wGSWFGVW67V+65tXw/Ht8FDYiLNAuX2Ug=
 github.com/alecthomas/kong v0.2.15/go.mod h1:kQOmtJgV+Lb4aj+I2LEn40cbtawdWJ9Y8QLq+lElKxE=
+github.com/alecthomas/kong v0.2.16/go.mod h1:kQOmtJgV+Lb4aj+I2LEn40cbtawdWJ9Y8QLq+lElKxE=
 github.com/aws/aws-sdk-go-v2 v1.2.1 h1:055XAi+MtmhyYX161p+jWRibkCb9YpI2ymXZiW1dwVY=
 github.com/aws/aws-sdk-go-v2 v1.2.1/go.mod h1:hTQc/9pYq5bfFACIUY9tc/2SYWd9Vnmw+testmuQeRY=
 github.com/aws/aws-sdk-go-v2/config v1.1.2 h1:H2r6cwMvvINFpEC55Y7jcNaR/oc7zYIChrG2497wmBI=
