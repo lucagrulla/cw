@@ -2,6 +2,7 @@ github.com/alecthomas/kong v0.2.15 h1:HP3K1XuFn0wGSWFGVW67V+65tXw/Ht8FDYiLNAuX2U
 github.com/alecthomas/kong v0.2.15/go.mod h1:kQOmtJgV+Lb4aj+I2LEn40cbtawdWJ9Y8QLq+lElKxE=
 github.com/aws/aws-sdk-go-v2 v1.2.1 h1:055XAi+MtmhyYX161p+jWRibkCb9YpI2ymXZiW1dwVY=
 github.com/aws/aws-sdk-go-v2 v1.2.1/go.mod h1:hTQc/9pYq5bfFACIUY9tc/2SYWd9Vnmw+testmuQeRY=
+github.com/aws/aws-sdk-go-v2 v1.3.1/go.mod h1:5SmWRTjN6uTRFNCc7rR69xHsdcUJnthmaRHGDsYhpTE=
 github.com/aws/aws-sdk-go-v2/config v1.1.2 h1:H2r6cwMvvINFpEC55Y7jcNaR/oc7zYIChrG2497wmBI=
 github.com/aws/aws-sdk-go-v2/config v1.1.2/go.mod h1:77yIk+qmCS/94JlxbwV1d+YEyu6Z8FBlCGcSz3TdM6A=
 github.com/aws/aws-sdk-go-v2/credentials v1.1.2 h1:YoNqfhxAJGZI+lStIbqgx30UcCqQ86fr7FjTLUvrFOc=
@@ -10,6 +11,7 @@ github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.0.3 h1:d3bKAGy4XdJyK8hz3Nx3WJJ4
 github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.0.3/go.mod h1:Zr1Mj+KUMGVQ+WJvTT68EZJxqhjiie2PWSPGEUPaNY0=
 github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs v1.1.2 h1:m+Otg1daHTlYqmG1YVrTDIejzYypSngTuH31TVRP310=
 github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs v1.1.2/go.mod h1:Nlyl4XGXgdVbzvQ+pMjqB3DX7MBl0KwAk5k0KsM3W+c=
+github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs v1.2.1/go.mod h1:iSmaYEKTakAa/tT8Kal8gh14QUXNx+7/lHRjM7naTR0=
 github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.0.3 h1:dST4y8pZKZdTPs4uwXmGCJmpycz1SHKmCSIhf3GqHEo=
 github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.0.3/go.mod h1:C50Z41fJaJ7WgaeeCulOGAU3q4+4se4B3uOPFdhBi2I=
 github.com/aws/aws-sdk-go-v2/service/sso v1.1.2 h1:9BnjX/ALn5uLo2DbgkwMpUkPL1VLQVBXcjZxqJBhf44=
@@ -18,6 +20,7 @@ github.com/aws/aws-sdk-go-v2/service/sts v1.1.2 h1:7Kxqov7uQeP8WUEO0iHz3j9Bh0E1r
 github.com/aws/aws-sdk-go-v2/service/sts v1.1.2/go.mod h1:zu7rotIY9P4Aoc6ytqLP9jeYrECDHUODB5Gbp+BSHl8=
 github.com/aws/smithy-go v1.2.0 h1:0PoGBWXkXDIyVdPaZW9gMhaGzj3UOAgTdiVoHuuZAFA=
 github.com/aws/smithy-go v1.2.0/go.mod h1:SObp3lf9smib00L/v3U2eAKG8FyQ7iLrJnQiAmR5n+E=
+github.com/aws/smithy-go v1.3.0/go.mod h1:SObp3lf9smib00L/v3U2eAKG8FyQ7iLrJnQiAmR5n+E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
