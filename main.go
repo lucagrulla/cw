@@ -97,7 +97,7 @@ type logEventFormatter struct {
 }
 
 // jmespathQuery returns a the stringified results of a pre-compiled JMESPath query
-// if the query fails, it will returnt he original string.
+// if the query fails, it will return the original string.
 func (f logEventFormatter) jmespathQuery(s string, query jmespath.JMESPath) string {
 	var data interface{}
 	err := json.Unmarshal([]byte(s), &data)
