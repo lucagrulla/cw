@@ -106,6 +106,9 @@ func (f logEventFormatter) jmespathQuery(s string, query jmespath.JMESPath) stri
 		f.Log.Printf("Failed query using jmespathQuery: Error: %v\n", err)
 		return s
 	}
+	if result == nil {
+		return fmt.Sprintf("<cw: empty jmesPath query result> %s", s)
+	}
 	searchResult, err := json.Marshal(result)
 	if err != nil {
 		f.Log.Printf("Failed to marshall jmespathQuery result to json: Error: %v\n", err)
