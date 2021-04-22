@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -20,6 +21,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs/types"
 
 	"github.com/fatih/color"
+	"github.com/jmespath/go-jmespath"
 	"github.com/lucagrulla/cw/cloudwatch"
 )
 
@@ -81,20 +83,59 @@ type logEvent struct {
 	logGroup string
 }
 
-func formatLogMsg(ev logEvent, printTime *bool, printStreamName *bool, printGroupName *bool, printEventID *bool) string {
+type formatConfig struct {
+	PrintTime       bool
+	PrintStreamName bool
+	PrintGroupName  bool
+	PrintEventID    bool
+	Query           *jmespath.JMESPath
+}
+
+type logEventFormatter struct {
+	Log          *log.Logger
+	FormatConfig formatConfig
+}
+
+// jmespathQuery returns a the stringified results of a pre-compiled JMESPath query
+// if the query fails, it will return the original string.
+func (f logEventFormatter) jmespathQuery(s string, query jmespath.JMESPath) string {
+	var data interface{}
+	err := json.Unmarshal([]byte(s), &data)
+	result, err := query.Search(data)
+	if err != nil {
+		f.Log.Printf("Failed query using jmespathQuery: Error: %v\n", err)
+		return s
+	}
+	if result == nil {
+		return fmt.Sprintf("<cw: empty jmesPath query result> %s", s)
+	}
+	searchResult, err := json.Marshal(result)
+	if err != nil {
+		f.Log.Printf("Failed to marshall jmespathQuery result to json: Error: %v\n", err)
+		return s
+	}
+	return string(searchResult)
+}
+
+func (f logEventFormatter) formatLogMsg(ev logEvent) string {
 	msg := *ev.logEvent.Message
-	if *printEventID {
+
+	if f.FormatConfig.Query != nil {
+		msg = f.jmespathQuery(msg, *f.FormatConfig.Query)
+	}
+
+	if f.FormatConfig.PrintEventID {
 		msg = fmt.Sprintf("%s - %s", color.YellowString(*ev.logEvent.EventId), msg)
 	}
-	if *printStreamName {
+	if f.FormatConfig.PrintStreamName {
 		msg = fmt.Sprintf("%s - %s", color.BlueString(*ev.logEvent.LogStreamName), msg)
 	}
 
-	if *printGroupName {
+	if f.FormatConfig.PrintGroupName {
 		msg = fmt.Sprintf("%s - %s", color.CyanString(ev.logGroup), msg)
 	}
 
-	if *printTime {
+	if f.FormatConfig.PrintTime {
 		eventTimestamp := *ev.logEvent.Timestamp / 1000
 		ts := time.Unix(eventTimestamp, 0).Format(timeFormat)
 		msg = fmt.Sprintf("%s - %s", color.GreenString(ts), msg)
@@ -120,10 +161,10 @@ func fromStdin() []string {
 	return groups
 }
 
-type context struct {
-	Debug  bool
-	Client cloudwatchlogs.Client
-	Log    *log.Logger
+type appContext struct {
+	Debug    bool
+	Client   cloudwatchlogs.Client
+	DebugLog *log.Logger
 }
 
 type lsGroupsCmd struct {
@@ -145,9 +186,10 @@ type tailCmd struct {
 	Local              bool     `name:"local" help:"Treat date and time in Local timezone." short:"l" default:"false"`
 	Grep               string   `name:"grep" help:"Pattern to filter logs by. See http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html for syntax." short:"g" default:""`
 	Grepv              string   `name:"grepv" help:"Equivalent of grep --invert-match. Invert match pattern to filter logs by." short:"v" default:""`
+	Query              string   `name:"query" help:"Equivalent of the --query flag in AWS CLI. Takes a JMESPath expression to filter JSON logs by." short:"q" default:""`
 }
 
-func (t *tailCmd) Run(ctx *context) error {
+func (t *tailCmd) Run(ctx *appContext) error {
 	if additionalInput := fromStdin(); additionalInput != nil {
 		t.LogGroupStreamName = append(t.LogGroupStreamName, additionalInput...)
 	}
@@ -177,7 +219,7 @@ func (t *tailCmd) Run(ctx *context) error {
 
 	triggerChannels := make([]chan<- time.Time, len(t.LogGroupStreamName))
 
-	coordinator := &tailCoordinator{log: ctx.Log}
+	coordinator := &tailCoordinator{log: ctx.DebugLog}
 	for idx, gs := range t.LogGroupStreamName {
 		trigger := make(chan time.Time, 1)
 		go func(groupStream string) {
@@ -187,7 +229,16 @@ func (t *tailCmd) Run(ctx *context) error {
 			if len(tokens) > 1 && tokens[1] != "*" {
 				prefix = tokens[1]
 			}
-			ch, e := cloudwatch.Tail(&ctx.Client, &group, &prefix, &t.Follow, &t.Retry, &st, &et, &t.Grep, &t.Grepv, trigger, ctx.Log)
+			ch, e := cloudwatch.Tail(&ctx.Client, cloudwatch.TailConfig{
+				LogGroupName:  &group,
+				LogStreamName: &prefix,
+				Follow:        &t.Follow,
+				Retry:         &t.Retry,
+				StartTime:     &st,
+				EndTime:       &et,
+				Grep:          &t.Grep,
+				Grepv:         &t.Grepv,
+			}, trigger, ctx.DebugLog)
 			if e != nil {
 				fmt.Fprintln(os.Stderr, e.Error())
 				os.Exit(1)
@@ -206,13 +257,31 @@ func (t *tailCmd) Run(ctx *context) error {
 
 	go func() {
 		wg.Wait()
-		ctx.Log.Println("closing main channel...")
+		ctx.DebugLog.Println("closing main channel...")
 
 		close(out)
 	}()
 
+	config := formatConfig{
+		PrintTime:       t.PrintTimeStamp,
+		PrintStreamName: t.PrintStreamName,
+		PrintGroupName:  t.PrintGroupName,
+		PrintEventID:    t.PrintEventID,
+	}
+	if t.Query != "" {
+		query, err := jmespath.Compile(t.Query)
+		if err != nil {
+			return fmt.Errorf("Failed to parse query as JMESPath query. Query: \"%s\", error: \"%w\"", t.Query, err)
+		}
+		config.Query = query
+	}
+
+	formatter := logEventFormatter{
+		FormatConfig: config,
+		Log:          ctx.DebugLog}
+
 	for logEv := range out {
-		fmt.Println(formatLogMsg(*logEv, &t.PrintTimeStamp, &t.PrintStreamName, &t.PrintGroupName, &t.PrintEventID))
+		fmt.Println(formatter.formatLogMsg(*logEv))
 	}
 	return nil
 }
@@ -222,7 +291,7 @@ type lsCmd struct {
 	LsStreamsCmd lsStreamsCmd `cmd name:"streams" help:"Show all streams in a given log group."`
 }
 
-func (l *lsStreamsCmd) Run(ctx *context) error {
+func (l *lsStreamsCmd) Run(ctx *appContext) error {
 	foundStreams, errorsCh := cloudwatch.LsStreams(&ctx.Client, &l.GroupName, aws.String(""))
 	for {
 		select {
@@ -249,7 +318,7 @@ func (l *lsStreamsCmd) Run(ctx *context) error {
 	}
 }
 
-func (r *lsGroupsCmd) Run(ctx *context) error {
+func (r *lsGroupsCmd) Run(ctx *appContext) error {
 	for msg := range cloudwatch.LsGroups(&ctx.Client) {
 		fmt.Println(*msg)
 	}
@@ -280,16 +349,16 @@ func main() {
 		kong.Name("cw"),
 		kong.Description("The best way to tail AWS Cloudwatch Logs from your terminal."))
 
-	log := log.New(ioutil.Discard, "", log.LstdFlags)
+	debugLog := log.New(ioutil.Discard, "cw [debug] ", log.LstdFlags)
 	if cli.Debug {
-		log.SetOutput(os.Stderr)
-		log.Println("Debug mode is on.")
+		debugLog.SetOutput(os.Stderr)
+		debugLog.Println("Debug mode is on. Will print debug messages to stderr")
 	}
 
 	if *&cli.NoColor {
 		color.NoColor = true
 	}
-	client := cloudwatch.New(&cli.AwsEndpointURL, &cli.AwsProfile, &cli.AwsRegion, log)
-	err := ctx.Run(&context{Debug: cli.Debug, Client: *client, Log: log})
+	client := cloudwatch.New(&cli.AwsEndpointURL, &cli.AwsProfile, &cli.AwsRegion, debugLog)
+	err := ctx.Run(&appContext{Debug: cli.Debug, Client: *client, DebugLog: debugLog})
 	ctx.FatalIfErrorf(err)
 }
