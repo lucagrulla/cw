@@ -81,7 +81,7 @@ func sortLogStreamsByMostRecentEvent(logStream []types.LogStream) []types.LogStr
 	return logStream
 }
 
-func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType, fetchStreams fs) error {
+func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType, fetchStreams fs, logger *log.Logger) error {
 	executionCh := make(chan time.Time, 1)
 	executionCh <- time.Now()
 
@@ -93,7 +93,7 @@ func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType
 			select {
 			case e := <-errCh:
 				if e != nil {
-					log.Println("error while fetching log streams.", e)
+					logger.Println("error while fetching log streams.", e)
 					return nil, e
 				}
 			case stream, ok := <-foundStreams: //TODO improve performance
@@ -107,7 +107,7 @@ func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType
 			}
 		}
 		//FilterLogEventPages won't take more than 100 stream names, the most one with most recent activities will be used.
-		log.Println("streams found:", len(streams))
+		logger.Println("streams found:", len(streams))
 
 		if len(streams) >= 100 {
 			streams = sortLogStreamsByMostRecentEvent(streams)
@@ -125,7 +125,7 @@ func initialiseStreams(retry *bool, idle chan<- bool, logStreams *logStreamsType
 		if e != nil {
 			rnf := &types.ResourceNotFoundException{}
 			if errors.As(e, &rnf) && *retry {
-				log.Println("log group not available but retry flag. Re-check in 150 milliseconds.")
+				logger.Println("log group not available but retry flag. Re-check in 150 milliseconds.")
 				timer := time.After(time.Millisecond * 150)
 				executionCh <- <-timer
 			} else {
@@ -169,7 +169,7 @@ type TailConfig struct {
 func Tail(cwc *cloudwatchlogs.Client,
 	tailConfig TailConfig,
 	limiter <-chan time.Time,
-	log *log.Logger) (<-chan types.FilteredLogEvent, error) {
+	logger *log.Logger) (<-chan types.FilteredLogEvent, error) {
 
 	lastSeenTimestamp := tailConfig.StartTime.Unix() * 1000
 	var endTimeInMillis int64
@@ -181,7 +181,7 @@ func Tail(cwc *cloudwatchlogs.Client,
 	idle := make(chan bool, 1)
 
 	ttl := 60 * time.Second
-	cache := createCache(ttl, defaultPurgeFreq, log)
+	cache := createCache(ttl, defaultPurgeFreq, logger)
 
 	logStreams := &logStreamsType{}
 
@@ -189,9 +189,9 @@ func Tail(cwc *cloudwatchlogs.Client,
 		fetchStreams := func() (<-chan types.LogStream, <-chan error) {
 			return LsStreams(cwc, tailConfig.LogGroupName, tailConfig.LogStreamName)
 		}
-		err := initialiseStreams(tailConfig.Retry, idle, logStreams, fetchStreams)
+		err := initialiseStreams(tailConfig.Retry, idle, logStreams, fetchStreams, logger)
 		if err != nil {
-			// log.Println("got an error back:", err)
+			// logger.Println("got an error back:", err)
 			return nil, err
 		}
 	} else {
@@ -207,9 +207,9 @@ func Tail(cwc *cloudwatchlogs.Client,
 				for paginator.HasMorePages() {
 					res, err := paginator.NextPage(context.TODO())
 					if err != nil {
-						log.Println(err.Error())
+						logger.Println(err.Error())
 						if strings.Contains(err.Error(), "ThrottlingException") { //could not find the native error...fmt.
-							log.Printf("Rate exceeded for %s. Wait for 250ms then retry.\n", *tailConfig.LogGroupName)
+							logger.Printf("Rate exceeded for %s. Wait for 250ms then retry.\n", *tailConfig.LogGroupName)
 
 							//Wait and fire request again. 1 Retry allowed.
 							time.Sleep(250 * time.Millisecond)
@@ -230,14 +230,14 @@ func Tail(cwc *cloudwatchlogs.Client,
 
 								if eventTimestamp != lastSeenTimestamp {
 									if eventTimestamp < lastSeenTimestamp {
-										log.Printf("old event:%s, ev-ts:%d, last-ts:%d, cache-size:%d \n", *event.Message, eventTimestamp, lastSeenTimestamp, cache.Size())
+										logger.Printf("old event:%s, ev-ts:%d, last-ts:%d, cache-size:%d \n", *event.Message, eventTimestamp, lastSeenTimestamp, cache.Size())
 									}
 									lastSeenTimestamp = eventTimestamp
 								}
 								cache.Add(*event.EventId, *event.Timestamp)
 								ch <- event
 							} else {
-								log.Printf("%s already seen\n", *event.EventId)
+								logger.Printf("%s already seen\n", *event.EventId)
 							}
 						}
 					}
@@ -249,7 +249,7 @@ func Tail(cwc *cloudwatchlogs.Client,
 					idle <- true
 				}
 			case <-time.After(5 * time.Millisecond):
-				log.Printf("%s still tailing, Skip polling.\n", *tailConfig.LogGroupName)
+				logger.Printf("%s still tailing, Skip polling.\n", *tailConfig.LogGroupName)
 			}
 		}
 	}()
