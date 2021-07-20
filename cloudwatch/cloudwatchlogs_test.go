@@ -1,115 +1,158 @@
 package cloudwatch
 
 import (
+	"context"
+	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"testing"
 	"time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-	"github.com/aws/aws-sdk-go/service/cloudwatchlogs/cloudwatchlogsiface"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs/types"
 	"github.com/stretchr/testify/assert"
 )
 
-type mockCloudWatchLogsClient struct {
-	cloudwatchlogsiface.CloudWatchLogsAPI
-	streams []string
-}
-
-type mockCloudWatchLogsClientRetry struct {
-	cloudwatchlogsiface.CloudWatchLogsAPI
-	streams []string
-}
-
 var (
-	streams = []string{"a", "b"}
-	logger  = log.New(ioutil.Discard, "", log.LstdFlags)
+	streams = []types.LogStream{
+		{LogStreamName: aws.String("stream1"), LastIngestionTime: aws.Int64(time.Now().Unix())},
+		{LogStreamName: aws.String("stream2"), LastIngestionTime: aws.Int64(time.Now().AddDate(1, 0, 0).Unix())}}
 )
 
-func (m *mockCloudWatchLogsClient) DescribeLogStreamsPages(input *cloudwatchlogs.DescribeLogStreamsInput,
-	fn func(*cloudwatchlogs.DescribeLogStreamsOutput, bool) bool) error {
-	// s := []*cloudwatchlogs.LogStream{}
-	// for _, t := range m.streams {
-	// 	s = append(s, &cloudwatchlogs.LogStream{LogStreamName: aws.String(t)})
-	// }
-	// o := &cloudwatchlogs.DescribeLogStreamsOutput{LogStreams: s}
-	// fn(o, true)
-	return awserr.New("ResourceNotFoundException", "", nil)
+type MockPager struct {
+	PageNum int
+	Pages   []*cloudwatchlogs.DescribeLogStreamsOutput
+	err     error
 }
 
-type mockCloudWatchLogsClientLsStreams struct {
-	cloudwatchlogsiface.CloudWatchLogsAPI
-	streams []string
+func (m *MockPager) HasMorePages() bool {
+	return m.PageNum < len(m.Pages)
 }
-
-func (m *mockCloudWatchLogsClientLsStreams) DescribeLogStreamsPages(input *cloudwatchlogs.DescribeLogStreamsInput,
-	fn func(*cloudwatchlogs.DescribeLogStreamsOutput, bool) bool) error {
-	s := []*cloudwatchlogs.LogStream{}
-	for _, t := range m.streams {
-		s = append(s, &cloudwatchlogs.LogStream{LogStreamName: aws.String(t)})
+func (m *MockPager) NextPage(ctx context.Context, optFns ...func(*cloudwatchlogs.Options)) (*cloudwatchlogs.DescribeLogStreamsOutput, error) {
+	if m.err != nil {
+		return nil, m.err
 	}
-	o := &cloudwatchlogs.DescribeLogStreamsOutput{LogStreams: s}
-	fn(o, true)
-	return nil
+	if m.PageNum >= len(m.Pages) {
+		return nil, fmt.Errorf("no more pages")
+	}
+	output := m.Pages[m.PageNum]
+	m.PageNum++
+	return output, nil
 }
+
 func TestLsStreams(t *testing.T) {
-	mockSvc := &mockCloudWatchLogsClientLsStreams{
-		streams: streams,
+	pag := &MockPager{PageNum: 0,
+		Pages: []*cloudwatchlogs.DescribeLogStreamsOutput{{LogStreams: streams}},
 	}
-	ch, _ := LsStreams(mockSvc, aws.String("a"), aws.String("b"))
+	ch := make(chan types.LogStream)
+	errCh := make(chan error)
+	go getStreams(pag, errCh, ch)
+
 	for l := range ch {
-		assert.Contains(t, streams, *l)
+		assert.Contains(t, streams, l)
 	}
 }
 
 func TestTailShouldFailIfNoStreamsAdNoRetry(t *testing.T) {
-	mockSvc := &mockCloudWatchLogsClient{}
-	mockSvc.streams = []string{}
+	idleCh := make(chan bool)
 
-	n := time.Now()
-	trigger := time.NewTicker(100 * time.Millisecond).C
-
-	ch, e := Tail(mockSvc, aws.String("logGroup"), aws.String("logStreamName"), aws.Bool(false), aws.Bool(false),
-		&n, &n, aws.String(""), aws.String(""),
-		trigger, logger)
-	assert.Error(t, e)
-	assert.Nil(t, ch)
-}
-
-var cnt = 0
-
-func (m *mockCloudWatchLogsClientRetry) DescribeLogStreamsPages(input *cloudwatchlogs.DescribeLogStreamsInput,
-	fn func(*cloudwatchlogs.DescribeLogStreamsOutput, bool) bool) error {
-	s := []*cloudwatchlogs.LogStream{}
-	if cnt != 0 {
-		for _, t := range m.streams {
-			s = append(s, &cloudwatchlogs.LogStream{LogStreamName: aws.String(t)})
+	fetchStreams := func() (<-chan types.LogStream, <-chan error) {
+		ch := make(chan types.LogStream)
+		errCh := make(chan error, 1)
+		rnf := &types.ResourceNotFoundException{
+			Message: new(string),
 		}
+		errCh <- rnf
+		return ch, errCh
 	}
-	cnt++
+	retry := false
+	debugLog := log.New(ioutil.Discard, "cw [debug] ", log.LstdFlags)
+	err := initialiseStreams(&retry, idleCh, nil, fetchStreams, debugLog)
 
-	fn(&cloudwatchlogs.DescribeLogStreamsOutput{LogStreams: s}, true)
-	return nil
+	assert.Error(t, err)
 }
 
-func (m *mockCloudWatchLogsClientRetry) FilterLogEventsPages(*cloudwatchlogs.FilterLogEventsInput,
-	func(*cloudwatchlogs.FilterLogEventsOutput, bool) bool) error {
-	return nil
-}
 func TestTailWaitForStreamsWithRetry(t *testing.T) {
-	mockSvc := &mockCloudWatchLogsClientRetry{
-		streams: streams,
+	log.SetOutput(os.Stderr)
+	idleCh := make(chan bool, 1)
+
+	callsToFetchStreams := 0
+	fetchStreams := func() (<-chan types.LogStream, <-chan error) {
+		callsToFetchStreams++
+		ch := make(chan types.LogStream, 5)
+		errCh := make(chan error, 1)
+
+		if callsToFetchStreams == 2 {
+			for _, s := range streams {
+				ch <- s
+			}
+			close(ch)
+		} else {
+			rnf := &types.ResourceNotFoundException{
+				Message: new(string),
+			}
+			errCh <- rnf
+		}
+		return ch, errCh
 	}
 
-	n := time.Now()
-	trigger := time.NewTicker(100 * time.Millisecond).C
+	retry := true
+	logStreams := &logStreamsType{}
+	debugLog := log.New(ioutil.Discard, "cw [debug] ", log.LstdFlags)
+	err := initialiseStreams(&retry, idleCh, logStreams, fetchStreams, debugLog)
 
-	ch, e := Tail(mockSvc, aws.String("logGroup"), aws.String("logStreamName"), aws.Bool(false), aws.Bool(true),
-		&n, &n, aws.String(""), aws.String(""),
-		trigger, logger)
-	assert.NoError(t, e)
-	// fmt.Println(ch)
-	assert.NotNil(t, ch)
+	assert.Nil(t, err)
+	assert.Len(t, logStreams.get(), 2)
+	var streamNames []string
+	for _, ls := range streams {
+		streamNames = append(streamNames, *ls.LogStreamName)
+	}
+	for _, s := range logStreams.get() {
+		assert.Contains(t, streamNames, s)
+	}
+}
+
+func TestShortenLogStreamsListIfTooLong(t *testing.T) {
+
+	var streams = []types.LogStream{}
+
+	size := 105
+	for i := 0; i < size; i++ {
+		name := fmt.Sprintf("streams%d", i)
+		x := &types.LogStream{LogStreamName: aws.String(name)}
+		streams = append(streams, *x)
+	}
+
+	assert.Len(t, streams, size)
+	streams = sortLogStreamsByMostRecentEvent(streams)
+	assert.Len(t, streams, 100)
+}
+
+func TestSortLogStreamsByMostRecentEvent(t *testing.T) {
+
+	var streams = []types.LogStream{}
+
+	size := 105
+	for i := 0; i < size; i++ {
+		t := aws.Int64(time.Now().AddDate(0, 0, -i).Unix())
+		name := fmt.Sprintf("stream%d", i)
+		x := &types.LogStream{LogStreamName: aws.String(name), LastIngestionTime: t}
+		streams = append(streams, *x)
+	}
+
+	first := streams[0]
+	last := streams[size-1]
+	assert.Greater(t, *first.LastIngestionTime, *last.LastIngestionTime)
+	streams = sortLogStreamsByMostRecentEvent(streams)
+
+	// eventTimestamp := *s.LastEventTimestamp / 1000
+	// ts := time.Unix(eventTimestamp, 0).Format(timeFormat)
+
+	assert.Len(t, streams, 100)
+	assert.Equal(t, *streams[len(streams)-1].LogStreamName, "stream0")
+	first = streams[0]
+	last = streams[len(streams)-1]
+	assert.Less(t, *first.LastIngestionTime, *last.LastIngestionTime)
 }
