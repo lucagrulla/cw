@@ -63,7 +63,7 @@ scoop:
   homepage: "https://www.lucagrulla.com/cw"
   commit_author:
     name: lucagrulla
-    email:
+    email: luca@lucagrulla.com
   description: "The best way to tail AWS Cloudwatch Logs from your terminal"
   license: Apache-2.0
   persist:
@@ -121,3 +121,47 @@ snapcrafts:
         - $HOME/.aws/config
         - $HOME/.aws/credentials
     publish: true
+
+dockers:
+- image_templates: ["lucagrulla/{{ .ProjectName }}:{{ .Version }}-i386"]
+  goarch: 386
+  dockerfile: Dockerfile.release
+  build_flag_templates:
+  - --platform=linux/386
+  - --label=org.opencontainers.image.title={{ .ProjectName }}
+  - --label=org.opencontainers.image.description={{ .ProjectName }}
+  - --label=org.opencontainers.image.url=https://www.lucagrulla.com/cw
+  - --label=org.opencontainers.image.source=https://github.com/lucagrulla/cw
+  - --label=org.opencontainers.image.version={{ .Version }}
+  - --label=org.opencontainers.image.revision={{ .FullCommit }}
+  - --label=org.opencontainers.image.licenses=Apache-2.0
+- image_templates: ["lucagrulla/{{ .ProjectName }}:{{ .Version }}-amd64"]
+  goarch: amd64
+  dockerfile: Dockerfile.release
+  build_flag_templates:
+  - --platform=linux/amd64
+  - --label=org.opencontainers.image.title={{ .ProjectName }}
+  - --label=org.opencontainers.image.description={{ .ProjectName }}
+  - --label=org.opencontainers.image.url=https://www.lucagrulla.com/cw
+  - --label=org.opencontainers.image.source=https://github.com/lucagrulla/cw
+  - --label=org.opencontainers.image.version={{ .Version }}
+  - --label=org.opencontainers.image.revision={{ .FullCommit }}
+  - --label=org.opencontainers.image.licenses=Apache-2.0
+- image_templates: ["lucagrulla/{{ .ProjectName }}:{{ .Version }}-arm64v8"]
+  goarch: arm64
+  dockerfile: Dockerfile.release
+  build_flag_templates:
+  - --platform=linux/arm64/v8
+  - --label=org.opencontainers.image.title={{ .ProjectName }}
+  - --label=org.opencontainers.image.description={{ .ProjectName }}
+  - --label=org.opencontainers.image.url=https://www.lucagrulla.com/cw
+  - --label=org.opencontainers.image.source=https://github.com/lucagrulla/cw
+  - --label=org.opencontainers.image.version={{ .Version }}
+  - --label=org.opencontainers.image.revision={{ .FullCommit }}
+  - --label=org.opencontainers.image.licenses=Apache-2.0
+docker_manifests:
+- name_template: "lucagrulla/{{ .ProjectName }}:{{ .Version }}"
+  image_templates:
+  - lucagrulla/{{ .ProjectName }}:{{ .Version }}-i386
+  - lucagrulla/{{ .ProjectName }}:{{ .Version }}-amd64
+  - lucagrulla/{{ .ProjectName }}:{{ .Version }}-arm64v8
