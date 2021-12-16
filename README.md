@@ -132,7 +132,7 @@ go get github.com/lucagrulla/cw
         Show all groups.
 
       ls streams <group>
-        how all streams in a given log group.
+        Show all streams in a given log group.
 
     cw: error: expected one of "groups",  "streams"
     ```
