@@ -24,6 +24,7 @@ If applicable, add screenshots to help explain your problem.
 **Desktop (please complete the following information):**
  - OS: [e.g. MacOS 10.14.2]
  - Terminal (bash, zsh)
+ - cw version (`cw --version`)
 
 **Additional context**
 Add any other context about the problem here.
