@@ -206,10 +206,14 @@ Use the `--local` flag if you prefer to use Local zone.
 
 ### AWS SSO
 
-As today (May 2020) AWS Go SDK is not supporting AWS SSO correctly.
-The best approach is to use one of these tools while the SDK is updated:
-<https://github.com/benkehoe/aws-sso-credential-process>
-<https://github.com/victorskl/yawsso>
+AWS SSO is supported if you:
+
+* use a CLI profile (either `default` or an alternate named profile) that includes the various SSO properties
+  * `sso_start_url`, `sso_account_id`, `sso_role_name`, etc
+* have a valid, active SSO session
+  * via `aws sso login`
+
+If you get an error message that includes `...failed to sign request: failed to retrieve credentials: the SSO session has expired or is invalid...` then you should renew your SSO session via `aws sso login` (and specify the named profile, if appropriate).
 
 ## Miscellaneous
 
