@@ -20,8 +20,8 @@ func LsGroups(cwc *cloudwatchlogs.Client) <-chan *string {
 			res, err := paginator.NextPage(context.TODO())
 			if err != nil {
 				fmt.Fprintln(os.Stderr, err.Error())
-				os.Exit(1)
 				close(ch)
+				os.Exit(1)
 			}
 			for _, logGroup := range res.LogGroups {
 				ch <- logGroup.LogGroupName
