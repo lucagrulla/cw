@@ -2,9 +2,9 @@ module github.com/lucagrulla/cw
 
 require (
 	github.com/alecthomas/kong v0.7.1
-	github.com/aws/aws-sdk-go-v2 v1.11.1
-	github.com/aws/aws-sdk-go-v2/config v1.10.2
-	github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs v1.10.1
+	github.com/aws/aws-sdk-go-v2 v1.17.5
+	github.com/aws/aws-sdk-go-v2/config v1.18.14
+	github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs v1.20.4
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fatih/color v1.13.0
 	github.com/jmespath/go-jmespath v0.4.0
