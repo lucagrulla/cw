@@ -10,7 +10,7 @@ require (
 	github.com/jmespath/go-jmespath v0.4.0
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/stretchr/testify v1.7.1
-	golang.org/x/sys v0.0.0-20211124211545-fe61309f8881 // indirect
+	golang.org/x/sys v0.1.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
 
