@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.13.4
+      - image: cimg/go:1.20.3
     working_directory: ~/github.com/lucagrulla/cw
     steps:
       - checkout
