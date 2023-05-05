@@ -106,6 +106,7 @@ go get github.com/lucagrulla/cw
 -   `--region=aws-region` Override the target AWS region.
 -   `--no-color` Disable coloured output.
 -   `--endpoint` The target AWS endpoint url. By default cw will use the default aws endpoints.
+-   `--no-version-check` Ignore checks if a newer version of the module is available.
 
 ### Commands
 
@@ -126,6 +127,7 @@ go get github.com/lucagrulla/cw
                               .aws/credentials file. NOTE: v4.0.0 dropped the flag short version.
           --no-color           Disable coloured output.NOTE: v4.0.0 dropped the flag short version.
           --version            Print version information and quit
+          --no-version-check   Ignore checks if a newer version of the module is available.
 
     Commands:
       ls groups
@@ -155,6 +157,7 @@ go get github.com/lucagrulla/cw
           --region=REGION                  The target AWS region. By default cw will use the default region defined in the .aws/credentials file. NOTE: v4.0.0 dropped the flag short version.
           --no-color                       Disable coloured output.NOTE: v4.0.0 dropped the flag short version.
           --version                        Print version information and quit
+          --no-version-check               Ignore checks if a newer version of the module is available.
 
       -f, --follow                         Don't stop when the end of streams is reached, but rather wait for additional data to be appended.
       -t, --timestamp                      Print the event timestamp.
