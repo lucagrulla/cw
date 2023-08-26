@@ -29,7 +29,7 @@ const (
 	timeFormat = "2006-01-02T15:04:05"
 )
 
-var version = "4.1.1"
+var version = "" //injected at build time
 
 func timestampToTime(timeStamp *string, local bool) (time.Time, error) {
 	var zone *time.Location
