@@ -81,8 +81,8 @@ nfpms:
     vendor: cw
     formats:
     - rpm
-    dependencies:
-    - git
+    # dependencies:
+    # - git
     recommends:
     - rpm
   -
@@ -98,8 +98,8 @@ nfpms:
     vendor: cw
     formats:
     - deb
-    dependencies:
-    - git
+    # dependencies:
+    # - git
 
 snapcrafts:
   -
