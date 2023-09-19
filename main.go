@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"regexp"
@@ -102,6 +102,10 @@ type logEventFormatter struct {
 func (f logEventFormatter) jmespathQuery(s string, query jmespath.JMESPath) string {
 	var data interface{}
 	err := json.Unmarshal([]byte(s), &data)
+	if err != nil {
+		f.Log.Printf("Failed query using jmespathQuery: Error: %v\n", err)
+		return s
+	}
 	result, err := query.Search(data)
 	if err != nil {
 		f.Log.Printf("Failed query using jmespathQuery: Error: %v\n", err)
@@ -272,7 +276,7 @@ func (t *tailCmd) Run(ctx *appContext) error {
 	if t.Query != "" {
 		query, err := jmespath.Compile(t.Query)
 		if err != nil {
-			return fmt.Errorf("Failed to parse query as JMESPath query. Query: \"%s\", error: \"%w\"", t.Query, err)
+			return fmt.Errorf("failed to parse query as JMESPath query. Query: \"%s\", error: \"%w\"", t.Query, err)
 		}
 		config.Query = query
 	}
@@ -348,7 +352,7 @@ func main() {
 		kong.Name("cw"),
 		kong.Description("The best way to tail AWS Cloudwatch Logs from your terminal."))
 
-	debugLog := log.New(ioutil.Discard, "cw [debug] ", log.LstdFlags)
+	debugLog := log.New(io.Discard, "cw [debug] ", log.LstdFlags)
 	if cli.Debug {
 		debugLog.SetOutput(os.Stderr)
 		debugLog.Println("Debug mode is on. Will print debug messages to stderr")
@@ -356,10 +360,10 @@ func main() {
 
 	if !cli.NoVersionCheck {
 		defer newVersionMsg(version, fetchLatestVersion())
-		go versionCheckOnSigterm()	
+		go versionCheckOnSigterm()
 	}
 
-	if *&cli.NoColor {
+	if cli.NoColor {
 		color.NoColor = true
 	}
 	client := cloudwatch.New(&cli.AwsEndpointURL, &cli.AwsProfile, &cli.AwsRegion, debugLog)

@@ -3,11 +3,12 @@ package main
 import (
 	//"fmt"
 
-	"github.com/stretchr/testify/assert" //"reflect"
-	"io/ioutil"
+	"io"
 	"log"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert" //"reflect"
 )
 
 func TestTimestampToTime(t *testing.T) {
@@ -110,7 +111,7 @@ func TestWrongFormat(t *testing.T) {
 
 func TestCoordinatorRemoveItem(t *testing.T) {
 	a := assert.New(t)
-	log := log.New(ioutil.Discard, "", log.LstdFlags)
+	log := log.New(io.Discard, "", log.LstdFlags)
 
 	groupTrigger1 := make(chan time.Time, 1)
 	groupTrigger2 := make(chan time.Time, 1)

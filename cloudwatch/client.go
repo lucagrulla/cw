@@ -42,7 +42,8 @@ func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log
 
 	log.Printf("awsProfile: %s, awsRegion: %s endpoint: %s\n", profile, region, *awsEndpointURL)
 
-	customResolver := aws.EndpointResolverFunc(func(service, region string) (aws.Endpoint, error) {
+	customResolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
+		// customResolver := aws.EndpointResolverFunc(func(service, region string) (aws.Endpoint, error) {
 		if awsEndpointURL != nil && *awsEndpointURL != "" {
 			log.Printf("awsEndpointURL:%s", *awsEndpointURL)
 			return aws.Endpoint{
@@ -57,7 +58,7 @@ func New(awsEndpointURL *string, awsProfile *string, awsRegion *string, log *log
 	})
 
 	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithSharedConfigProfile(profile),
-		config.WithEndpointResolver(customResolver), config.WithRegion(region))
+		config.WithEndpointResolverWithOptions(customResolver), config.WithRegion(region))
 	if err != nil {
 		os.Exit(1)
 	}
