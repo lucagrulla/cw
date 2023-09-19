@@ -333,6 +333,7 @@ var cli struct {
 	AwsProfile     string           `help:"The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file. NOTE: v4.0.0 dropped the flag short version." name:"profile" placeholder:"PROFILE"`
 	AwsRegion      string           `name:"region" help:"The target AWS region. By default cw will use the default region defined in the .aws/credentials file. NOTE: v4.0.0 dropped the flag short version." placeholder:"REGION"`
 	NoColor        bool             `name:"no-color" help:"Disable coloured output.NOTE: v4.0.0 dropped the flag short version. " default:"false"`
+	NoVersionCheck bool             `name:"no-version-check" help:"Ignore checks if a newer version of the module is available. " default:"false"`
 	Version        kong.VersionFlag `name:"version" help:"Print version information and quit"`
 
 	Ls   lsCmd   `cmd help:"show an entity"`
@@ -340,9 +341,6 @@ var cli struct {
 }
 
 func main() {
-
-	defer newVersionMsg(version, fetchLatestVersion())
-	go versionCheckOnSigterm()
 
 	ctx := kong.Parse(&cli,
 		kong.Vars{"now": time.Now().UTC().Add(-45 * time.Second).Format(timeFormat), "version": version},
@@ -354,6 +352,11 @@ func main() {
 	if cli.Debug {
 		debugLog.SetOutput(os.Stderr)
 		debugLog.Println("Debug mode is on. Will print debug messages to stderr")
+	}
+
+	if !cli.NoVersionCheck {
+		defer newVersionMsg(version, fetchLatestVersion())
+		go versionCheckOnSigterm()	
 	}
 
 	if *&cli.NoColor {
