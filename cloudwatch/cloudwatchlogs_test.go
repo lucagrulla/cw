@@ -3,7 +3,7 @@ package cloudwatch
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"testing"
@@ -68,7 +68,7 @@ func TestTailShouldFailIfNoStreamsAdNoRetry(t *testing.T) {
 		return ch, errCh
 	}
 	retry := false
-	debugLog := log.New(ioutil.Discard, "cw [debug] ", log.LstdFlags)
+	debugLog := log.New(io.Discard, "cw [debug] ", log.LstdFlags)
 	err := initialiseStreams(&retry, idleCh, nil, fetchStreams, debugLog)
 
 	assert.Error(t, err)
@@ -100,7 +100,7 @@ func TestTailWaitForStreamsWithRetry(t *testing.T) {
 
 	retry := true
 	logStreams := &logStreamsType{}
-	debugLog := log.New(ioutil.Discard, "cw [debug] ", log.LstdFlags)
+	debugLog := log.New(io.Discard, "cw [debug] ", log.LstdFlags)
 	err := initialiseStreams(&retry, idleCh, logStreams, fetchStreams, debugLog)
 
 	assert.Nil(t, err)

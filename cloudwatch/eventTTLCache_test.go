@@ -1,7 +1,7 @@
 package cloudwatch
 
 import (
-	"io/ioutil"
+	"io"
 	"log"
 	"testing"
 	"time"
@@ -13,7 +13,7 @@ const ttl = 1 * time.Second
 const purgeFreq = 2 * time.Second
 
 func TestCache(t *testing.T) {
-	l := log.New(ioutil.Discard, "", log.LstdFlags)
+	l := log.New(io.Discard, "", log.LstdFlags)
 
 	a := assert.New(t)
 	cache := createCache(ttl, purgeFreq, l)
