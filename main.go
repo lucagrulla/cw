@@ -175,11 +175,11 @@ type appContext struct {
 type lsGroupsCmd struct {
 }
 type lsStreamsCmd struct {
-	GroupName string `arg required name:"group" help:"The group name."`
+	GroupName string `arg_required_name:"group" help:"The group name."`
 }
 
 type tailCmd struct {
-	LogGroupStreamName []string `arg required name:"groupName[:logStreamPrefix]" help:"The log group and stream name, with group:prefix syntax. Stream name can be just the prefix. If no stream name is specified all stream names in the given group will be tailed. Multiple group/stream tuple can be passed. e.g. cw tail group1:prefix1 group2:prefix2 group3:prefix3."`
+	LogGroupStreamName []string `arg_required_name:"groupName[:logStreamPrefix]" help:"The log group and stream name, with group:prefix syntax. Stream name can be just the prefix. If no stream name is specified all stream names in the given group will be tailed. Multiple group/stream tuple can be passed. e.g. cw tail group1:prefix1 group2:prefix2 group3:prefix3."`
 	Follow             bool     `help:"Don't stop when the end of streams is reached, but rather wait for additional data to be appended." default:"false" short:"f"`
 	PrintTimeStamp     bool     `name:"timestamp" help:"Print the event timestamp." short:"t" default:"false"`
 	PrintEventID       bool     `name:"event-id" help:"Print the event Id." short:"i" default:"false"`
@@ -292,8 +292,8 @@ func (t *tailCmd) Run(ctx *appContext) error {
 }
 
 type lsCmd struct {
-	LsGroups     lsGroupsCmd  `cmd name:"groups" help:"Show all groups."`
-	LsStreamsCmd lsStreamsCmd `cmd name:"streams" help:"Show all streams in a given log group."`
+	LsGroups     lsGroupsCmd  `cmd_name:"groups" help:"Show all groups."`
+	LsStreamsCmd lsStreamsCmd `cmd_name:"streams" help:"Show all streams in a given log group."`
 }
 
 func (l *lsStreamsCmd) Run(ctx *appContext) error {
@@ -331,7 +331,7 @@ func (r *lsGroupsCmd) Run(ctx *appContext) error {
 }
 
 var cli struct {
-	Debug bool `name:"debug" hidden help:"Enable debug mode."`
+	Debug bool `name:"debug" hidden_help:"Enable debug mode."`
 
 	AwsEndpointURL string           `name:"endpoint" help:"The target AWS endpoint url. By default cw will use the default aws endpoints. NOTE: v4.0.0 dropped the flag short version." placeholder:"URL"`
 	AwsProfile     string           `help:"The target AWS profile. By default cw will use the default profile defined in the .aws/credentials file. NOTE: v4.0.0 dropped the flag short version." name:"profile" placeholder:"PROFILE"`
@@ -340,8 +340,8 @@ var cli struct {
 	NoVersionCheck bool             `name:"no-version-check" help:"Ignore checks if a newer version of the module is available. " default:"false"`
 	Version        kong.VersionFlag `name:"version" help:"Print version information and quit"`
 
-	Ls   lsCmd   `cmd help:"show an entity"`
-	Tail tailCmd `cmd help:"Tail log groups/streams."`
+	Ls   lsCmd   `cmd_help:"show an entity"`
+	Tail tailCmd `cmd_help:"Tail log groups/streams."`
 }
 
 func main() {
