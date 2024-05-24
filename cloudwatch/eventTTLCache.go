@@ -23,7 +23,7 @@ func createCache(ttl time.Duration, purgeFreq time.Duration, log *log.Logger) *e
 	log.Printf("cache: ttl:%s check-time:%s\n", ttl.String(), purgeFreq.String())
 
 	janitor := func(c *eventCache, ttl time.Duration, freq time.Duration) {
-		cacheTicker := time.NewTicker(purgeFreq)
+		cacheTicker := time.NewTicker(freq)
 		for range cacheTicker.C {
 			c.Lock()
 
